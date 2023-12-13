@@ -1,0 +1,23 @@
+{
+    "@@locale": "en",
+    
+    "@_ERROR_MESSAGES": {},
+    "errorMessage": "Page Not Found",
+    "networkConnected": "Connected",
+    "networkDisconnected": "Disconnected",
+    "@_EXCEPTION_MESSAGES": {},
+    "firebaseWeakPassword": "Weak Password",
+    "firebaseUserInBase": "Email In Base",
+    "firebaseOperation": "Operation Not Allowed",
+    "firebaseIncorectEmail": "Wrong Email",
+    "firebaseWrongPassword": "Wrong Password",
+    "firebaseUserDisabled": "Wrong User",
+    "firebaseUserNotFound": "User Not Found",
+    "firebaseEmptyValues": "Empty Values",
+    "firebaseInvalidCredential": "Wrong User or Password",
+    "somethingWrong": "Something wrong",
+
+
+    "@_FLUTTERTOAST_MESSAGES": {},
+    "successMsg": "Success"
+}

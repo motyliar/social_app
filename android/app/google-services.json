@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "307807260069",
+    "project_id": "climbapp-ba9bc",
+    "storage_bucket": "climbapp-ba9bc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307807260069:android:39aa6fed03172eef616c4c",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.climbapp.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCedhsEYMr5CryR2gs_WpVUyhnUODuy-io"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

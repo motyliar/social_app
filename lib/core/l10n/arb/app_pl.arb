@@ -1,0 +1,24 @@
+{
+    "@@locale": "pl",
+    
+    "@_ERROR_MESSAGES": {},
+    "errorMessage": "Nie można znaleźć strony",
+    "networkConnected": "Połączono",
+    "networkDisconnected": "Rozłączono",
+    "@_EXCEPTION_MESSAGES": {},
+    "firebaseWeakPassword": "Hasło za słabe",
+    "firebaseIncorectEmail": "Nie poprawny e-mail",
+    "firebaseOperation": "Operacja nie dozwolona",
+    "firebaseUserInBase": "Email w bazie danych",
+    "firebaseWrongPassword": "Hasło niepoprawne",
+    "firebaseUserDisabled": "Nie poprawny użytkownik",
+    "firebaseUserNotFound": "Brak użytkownika w bazie",
+    "firebaseInvalidCredential": "Błędny użytkownik lub hasło",
+    "firebaseEmptyValues": "Uzupełnij wszystkie pola",
+    "somethingWrong": "Coś poszło nie tak",
+
+
+    "@_FLUTTERTOAST_MESSAGES": {},
+    "successMsg": "Sukces!"
+    
+}
