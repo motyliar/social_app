@@ -31,3 +31,11 @@ class UserPreferencesEntity extends Equatable {
   @override
   List<Object> get props => [mode, language];
 }
+
+class UserActiveEntity extends Equatable {
+  const UserActiveEntity({required this.isActive, required this.lastLoggedIn});
+  final bool isActive;
+  final String lastLoggedIn;
+  @override
+  List<Object> get props => [isActive, lastLoggedIn];
+}

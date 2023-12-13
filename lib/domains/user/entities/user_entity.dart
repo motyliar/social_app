@@ -5,6 +5,7 @@ class UserEntity {
     required this.userAuthID,
     required this.userName,
     required this.userEmail,
+    required this.active,
     this.preferences,
     this.profileAvatar,
     this.isAdmin = false,
@@ -27,4 +28,5 @@ class UserEntity {
   final List<String> messages;
   final List<String> userChallengesIDs;
   final List<String> firendsRequest;
+  final UserActiveEntity active;
 }

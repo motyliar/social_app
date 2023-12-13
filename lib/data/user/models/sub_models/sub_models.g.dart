@@ -83,6 +83,43 @@ class UserDetailsModelAdapter extends TypeAdapter<UserDetailsModel> {
           typeId == other.typeId;
 }
 
+class UserActiveModelAdapter extends TypeAdapter<UserActiveModel> {
+  @override
+  final int typeId = 4;
+
+  @override
+  UserActiveModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return UserActiveModel(
+      isActive: fields[0] as bool,
+      lastLoggedIn: fields[1] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, UserActiveModel obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.isActive)
+      ..writeByte(1)
+      ..write(obj.lastLoggedIn);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is UserActiveModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
@@ -131,4 +168,18 @@ Map<String, dynamic> _$$UserFriendsModelImplToJson(
       'userId': instance.userId,
       'userAvatar': instance.userAvatar,
       'userName': instance.userName,
+    };
+
+_$UserActiveModelImpl _$$UserActiveModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$UserActiveModelImpl(
+      isActive: json['isActive'] as bool? ?? false,
+      lastLoggedIn: json['lastLoggedIn'] as String? ?? '0000 00 00',
+    );
+
+Map<String, dynamic> _$$UserActiveModelImplToJson(
+        _$UserActiveModelImpl instance) =>
+    <String, dynamic>{
+      'isActive': instance.isActive,
+      'lastLoggedIn': instance.lastLoggedIn,
     };

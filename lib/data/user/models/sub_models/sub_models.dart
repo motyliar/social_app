@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'sub_models.freezed.dart';
@@ -35,4 +36,15 @@ class UserFriendsModel with _$UserFriendsModel {
   }) = _UserFriendsModel;
   factory UserFriendsModel.fromJson(Map<String, dynamic> json) =>
       _$UserFriendsModelFromJson(json);
+}
+
+@freezed
+@HiveType(typeId: 4)
+class UserActiveModel with _$UserActiveModel {
+  const factory UserActiveModel({
+    @HiveField(0) @Default(false) bool isActive,
+    @HiveField(1) @Default('0000 00 00') String lastLoggedIn,
+  }) = _UserActiveModel;
+  factory UserActiveModel.fromJson(Map<String, dynamic> json) =>
+      _$UserActiveModelFromJson(json);
 }

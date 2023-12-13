@@ -543,3 +543,170 @@ abstract class _UserFriendsModel implements UserFriendsModel {
   _$$UserFriendsModelImplCopyWith<_$UserFriendsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
+
+UserActiveModel _$UserActiveModelFromJson(Map<String, dynamic> json) {
+  return _UserActiveModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UserActiveModel {
+  @HiveField(0)
+  bool get isActive => throw _privateConstructorUsedError;
+  @HiveField(1)
+  String get lastLoggedIn => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UserActiveModelCopyWith<UserActiveModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UserActiveModelCopyWith<$Res> {
+  factory $UserActiveModelCopyWith(
+          UserActiveModel value, $Res Function(UserActiveModel) then) =
+      _$UserActiveModelCopyWithImpl<$Res, UserActiveModel>;
+  @useResult
+  $Res call({@HiveField(0) bool isActive, @HiveField(1) String lastLoggedIn});
+}
+
+/// @nodoc
+class _$UserActiveModelCopyWithImpl<$Res, $Val extends UserActiveModel>
+    implements $UserActiveModelCopyWith<$Res> {
+  _$UserActiveModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isActive = null,
+    Object? lastLoggedIn = null,
+  }) {
+    return _then(_value.copyWith(
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lastLoggedIn: null == lastLoggedIn
+          ? _value.lastLoggedIn
+          : lastLoggedIn // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$UserActiveModelImplCopyWith<$Res>
+    implements $UserActiveModelCopyWith<$Res> {
+  factory _$$UserActiveModelImplCopyWith(_$UserActiveModelImpl value,
+          $Res Function(_$UserActiveModelImpl) then) =
+      __$$UserActiveModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({@HiveField(0) bool isActive, @HiveField(1) String lastLoggedIn});
+}
+
+/// @nodoc
+class __$$UserActiveModelImplCopyWithImpl<$Res>
+    extends _$UserActiveModelCopyWithImpl<$Res, _$UserActiveModelImpl>
+    implements _$$UserActiveModelImplCopyWith<$Res> {
+  __$$UserActiveModelImplCopyWithImpl(
+      _$UserActiveModelImpl _value, $Res Function(_$UserActiveModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? isActive = null,
+    Object? lastLoggedIn = null,
+  }) {
+    return _then(_$UserActiveModelImpl(
+      isActive: null == isActive
+          ? _value.isActive
+          : isActive // ignore: cast_nullable_to_non_nullable
+              as bool,
+      lastLoggedIn: null == lastLoggedIn
+          ? _value.lastLoggedIn
+          : lastLoggedIn // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$UserActiveModelImpl implements _UserActiveModel {
+  const _$UserActiveModelImpl(
+      {@HiveField(0) this.isActive = false,
+      @HiveField(1) this.lastLoggedIn = '0000 00 00'});
+
+  factory _$UserActiveModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserActiveModelImplFromJson(json);
+
+  @override
+  @JsonKey()
+  @HiveField(0)
+  final bool isActive;
+  @override
+  @JsonKey()
+  @HiveField(1)
+  final String lastLoggedIn;
+
+  @override
+  String toString() {
+    return 'UserActiveModel(isActive: $isActive, lastLoggedIn: $lastLoggedIn)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UserActiveModelImpl &&
+            (identical(other.isActive, isActive) ||
+                other.isActive == isActive) &&
+            (identical(other.lastLoggedIn, lastLoggedIn) ||
+                other.lastLoggedIn == lastLoggedIn));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, isActive, lastLoggedIn);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UserActiveModelImplCopyWith<_$UserActiveModelImpl> get copyWith =>
+      __$$UserActiveModelImplCopyWithImpl<_$UserActiveModelImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$UserActiveModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UserActiveModel implements UserActiveModel {
+  const factory _UserActiveModel(
+      {@HiveField(0) final bool isActive,
+      @HiveField(1) final String lastLoggedIn}) = _$UserActiveModelImpl;
+
+  factory _UserActiveModel.fromJson(Map<String, dynamic> json) =
+      _$UserActiveModelImpl.fromJson;
+
+  @override
+  @HiveField(0)
+  bool get isActive;
+  @override
+  @HiveField(1)
+  String get lastLoggedIn;
+  @override
+  @JsonKey(ignore: true)
+  _$$UserActiveModelImplCopyWith<_$UserActiveModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
