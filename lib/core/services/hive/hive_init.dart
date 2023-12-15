@@ -14,7 +14,6 @@ class HiveInit {
       ..registerAdapter(UserDetailsModelAdapter())
       ..registerAdapter(UserActiveModelAdapter());
 
-    await Hive.openBox<UserModel>('user');
-    await Hive.openBox<UserModel>('user-box');
+    await Hive.openBox<UserModel>('user-data');
   }
 }

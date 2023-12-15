@@ -30,13 +30,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       preferences: fields[10] as UserPreferencesModel?,
       friends: (fields[11] as List?)?.cast<String>(),
       active: fields[12] as UserActiveModel,
+      id: fields[13] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserModel obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(14)
       ..writeByte(0)
       ..write(obj.userAuthID)
       ..writeByte(1)
@@ -62,7 +63,9 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(11)
       ..write(obj.friends)
       ..writeByte(12)
-      ..write(obj.active);
+      ..write(obj.active)
+      ..writeByte(13)
+      ..write(obj.id);
   }
 
   @override
@@ -107,6 +110,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       friends:
           (json['friends'] as List<dynamic>?)?.map((e) => e as String).toList(),
       active: UserActiveModel.fromJson(json['active'] as Map<String, dynamic>),
+      id: json['_id'] as String,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -124,4 +128,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'preferences': instance.preferences,
       'friends': instance.friends,
       'active': instance.active,
+      '_id': instance.id,
     };

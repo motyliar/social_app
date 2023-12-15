@@ -46,6 +46,9 @@ mixin _$UserModel {
   List<String>? get friends => throw _privateConstructorUsedError;
   @HiveField(12)
   UserActiveModel get active => throw _privateConstructorUsedError;
+  @HiveField(13)
+  @JsonKey(name: '_id')
+  String get id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -71,7 +74,8 @@ abstract class $UserModelCopyWith<$Res> {
       @HiveField(9) List<String>? messages,
       @HiveField(10) UserPreferencesModel? preferences,
       @HiveField(11) List<String>? friends,
-      @HiveField(12) UserActiveModel active});
+      @HiveField(12) UserActiveModel active,
+      @HiveField(13) @JsonKey(name: '_id') String id});
 
   $UserDetailsModelCopyWith<$Res>? get details;
   $UserPreferencesModelCopyWith<$Res>? get preferences;
@@ -104,6 +108,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? preferences = freezed,
     Object? friends = freezed,
     Object? active = null,
+    Object? id = null,
   }) {
     return _then(_value.copyWith(
       userAuthID: null == userAuthID
@@ -158,6 +163,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.active
           : active // ignore: cast_nullable_to_non_nullable
               as UserActiveModel,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 
@@ -215,7 +224,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @HiveField(9) List<String>? messages,
       @HiveField(10) UserPreferencesModel? preferences,
       @HiveField(11) List<String>? friends,
-      @HiveField(12) UserActiveModel active});
+      @HiveField(12) UserActiveModel active,
+      @HiveField(13) @JsonKey(name: '_id') String id});
 
   @override
   $UserDetailsModelCopyWith<$Res>? get details;
@@ -249,6 +259,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? preferences = freezed,
     Object? friends = freezed,
     Object? active = null,
+    Object? id = null,
   }) {
     return _then(_$UserModelImpl(
       userAuthID: null == userAuthID
@@ -303,6 +314,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.active
           : active // ignore: cast_nullable_to_non_nullable
               as UserActiveModel,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -323,7 +338,8 @@ class _$UserModelImpl extends _UserModel {
       @HiveField(9) final List<String>? messages,
       @HiveField(10) this.preferences,
       @HiveField(11) final List<String>? friends,
-      @HiveField(12) required this.active})
+      @HiveField(12) required this.active,
+      @HiveField(13) @JsonKey(name: '_id') required this.id})
       : _friendsRequest = friendsRequest,
         _userChallengesIDs = userChallengesIDs,
         _messages = messages,
@@ -405,10 +421,14 @@ class _$UserModelImpl extends _UserModel {
   @override
   @HiveField(12)
   final UserActiveModel active;
+  @override
+  @HiveField(13)
+  @JsonKey(name: '_id')
+  final String id;
 
   @override
   String toString() {
-    return 'UserModel(userAuthID: $userAuthID, userName: $userName, userEmail: $userEmail, isAdmin: $isAdmin, isUser: $isUser, friendsRequest: $friendsRequest, profileAvatar: $profileAvatar, details: $details, userChallengesIDs: $userChallengesIDs, messages: $messages, preferences: $preferences, friends: $friends, active: $active)';
+    return 'UserModel(userAuthID: $userAuthID, userName: $userName, userEmail: $userEmail, isAdmin: $isAdmin, isUser: $isUser, friendsRequest: $friendsRequest, profileAvatar: $profileAvatar, details: $details, userChallengesIDs: $userChallengesIDs, messages: $messages, preferences: $preferences, friends: $friends, active: $active, id: $id)';
   }
 
   @override
@@ -435,7 +455,8 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.preferences, preferences) ||
                 other.preferences == preferences) &&
             const DeepCollectionEquality().equals(other._friends, _friends) &&
-            (identical(other.active, active) || other.active == active));
+            (identical(other.active, active) || other.active == active) &&
+            (identical(other.id, id) || other.id == id));
   }
 
   @JsonKey(ignore: true)
@@ -454,7 +475,8 @@ class _$UserModelImpl extends _UserModel {
       const DeepCollectionEquality().hash(_messages),
       preferences,
       const DeepCollectionEquality().hash(_friends),
-      active);
+      active,
+      id);
 
   @JsonKey(ignore: true)
   @override
@@ -472,19 +494,21 @@ class _$UserModelImpl extends _UserModel {
 
 abstract class _UserModel extends UserModel {
   const factory _UserModel(
-      {@HiveField(0) required final String userAuthID,
-      @HiveField(1) required final String userName,
-      @HiveField(2) required final String userEmail,
-      @HiveField(3) required final bool isAdmin,
-      @HiveField(4) required final bool isUser,
-      @HiveField(5) final List<String>? friendsRequest,
-      @HiveField(6) final String? profileAvatar,
-      @HiveField(7) final UserDetailsModel? details,
-      @HiveField(8) final List<String>? userChallengesIDs,
-      @HiveField(9) final List<String>? messages,
-      @HiveField(10) final UserPreferencesModel? preferences,
-      @HiveField(11) final List<String>? friends,
-      @HiveField(12) required final UserActiveModel active}) = _$UserModelImpl;
+          {@HiveField(0) required final String userAuthID,
+          @HiveField(1) required final String userName,
+          @HiveField(2) required final String userEmail,
+          @HiveField(3) required final bool isAdmin,
+          @HiveField(4) required final bool isUser,
+          @HiveField(5) final List<String>? friendsRequest,
+          @HiveField(6) final String? profileAvatar,
+          @HiveField(7) final UserDetailsModel? details,
+          @HiveField(8) final List<String>? userChallengesIDs,
+          @HiveField(9) final List<String>? messages,
+          @HiveField(10) final UserPreferencesModel? preferences,
+          @HiveField(11) final List<String>? friends,
+          @HiveField(12) required final UserActiveModel active,
+          @HiveField(13) @JsonKey(name: '_id') required final String id}) =
+      _$UserModelImpl;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -529,6 +553,10 @@ abstract class _UserModel extends UserModel {
   @override
   @HiveField(12)
   UserActiveModel get active;
+  @override
+  @HiveField(13)
+  @JsonKey(name: '_id')
+  String get id;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

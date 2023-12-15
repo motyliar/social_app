@@ -1,4 +1,4 @@
-import 'package:climbapp/presentation/dashboard/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

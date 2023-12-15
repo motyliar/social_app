@@ -12,8 +12,8 @@ class GetUserParams {
 
 class UpdateUserParams<T> {
   const UpdateUserParams(
-      {required this.userId, required this.token, required this.update});
+      {required this.userId, required this.token, required this.toUpdate});
   final String userId;
   final String token;
-  final T update;
+  final Map<String, T> toUpdate;
 }

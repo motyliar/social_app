@@ -2,6 +2,7 @@ import 'package:climbapp/domains/user/entities/sub_user_entity.dart';
 
 class UserEntity {
   const UserEntity({
+    required this.id,
     required this.userAuthID,
     required this.userName,
     required this.userEmail,
@@ -16,6 +17,7 @@ class UserEntity {
     this.userChallengesIDs = const <String>[],
     this.firendsRequest = const <String>[],
   });
+  final String id;
   final String userAuthID;
   final String userName;
   final String userEmail;

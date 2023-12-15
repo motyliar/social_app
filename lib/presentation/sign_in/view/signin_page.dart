@@ -2,7 +2,7 @@ import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
-import 'package:climbapp/presentation/dashboard/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

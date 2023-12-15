@@ -10,7 +10,7 @@ abstract class UserLocalDataSources {
 }
 
 class UserLocalDataSourcesImpl extends UserLocalDataSources {
-  final Box<UserModel> localUserDB = Hive.box<UserModel>('user-box');
+  final Box<UserModel> localUserDB = Hive.box<UserModel>('user-data');
   @override
   EitherFunc<UserModel> getUserFromHive() async {
     final currentUser = localUserDB.get(0);

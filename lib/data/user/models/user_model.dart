@@ -26,6 +26,7 @@ class UserModel with _$UserModel {
     @HiveField(10) UserPreferencesModel? preferences,
     @HiveField(11) List<String>? friends,
     @HiveField(12) required UserActiveModel active,
+    @HiveField(13) @JsonKey(name: '_id') required String id,
   }) = _UserModel;
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
@@ -60,6 +61,7 @@ class UserModel with _$UserModel {
         isActive: active.isActive,
         lastLoggedIn: active.lastLoggedIn,
       ),
+      id: id,
     );
   }
 }

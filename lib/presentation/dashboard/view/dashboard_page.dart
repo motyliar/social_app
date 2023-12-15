@@ -4,7 +4,7 @@ import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/user/models/user_model.dart';
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
-import 'package:climbapp/presentation/dashboard/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

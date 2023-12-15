@@ -38,10 +38,11 @@ class UserRemoteDataSourcesImpl extends UserRemoteDataSources {
   @override
   EitherFunc<UserModel> updateUser<T>(UpdateUserParams<T> update) async {
     final response = await client.put(
-      Uri.parse(AppUrl.userApi() + update.userId),
+      Uri.parse(AppUrl.updateUser() + update.userId),
+      body: jsonEncode(update.toUpdate),
       headers: AppUrl.tokenHeaders(update.token),
     );
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       return Right(
         UserModel.fromJson(
           jsonDecode(response.body) as Map<String, dynamic>,

@@ -1,6 +1,6 @@
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/utils/helpers/extension.dart';
-import 'package:climbapp/presentation/dashboard/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/widgets/user_appbar.dart';
 import 'package:flutter/material.dart';
