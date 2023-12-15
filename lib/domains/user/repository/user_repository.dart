@@ -23,4 +23,7 @@ class updateMap {
   static Map<String, Map<String, bool>> active(bool update) => {
         "active": {"isActive": update}
       };
+  static Map<String, Map<String, String>> language(String update) => {
+        "preferences": {"language": update}
+      };
 }

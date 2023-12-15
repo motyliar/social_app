@@ -1,5 +1,6 @@
+import 'package:climbapp/core/utils/utils.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class UseCase<Type, Params> {
-  Future<Either<Exception, Type>> execute(Params params);
+  EitherFunc<Type> execute(Params params);
 }

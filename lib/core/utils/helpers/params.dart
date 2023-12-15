@@ -17,3 +17,9 @@ class UpdateUserParams<T> {
   final String token;
   final Map<String, T> toUpdate;
 }
+
+class GetFriendsParams {
+  const GetFriendsParams({required this.userId, this.friendIds});
+  final String userId;
+  final List<String>? friendIds;
+}
