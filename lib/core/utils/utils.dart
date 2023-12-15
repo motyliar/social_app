@@ -88,10 +88,11 @@ class Utils {
   Future<void> navigatorClear({
     required BuildContext context,
     required String routeName,
+    VoidCallback? function,
   }) async {
-    await Future.delayed(
-      const Duration(seconds: 1),
-      () => Navigator.pushReplacementNamed(context, routeName),
-    );
+    await Future.delayed(const Duration(seconds: 1), () {
+      Navigator.pushReplacementNamed(context, routeName);
+      function?.call();
+    });
   }
 }

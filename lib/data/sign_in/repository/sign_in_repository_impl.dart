@@ -9,16 +9,12 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
-bool isLoginInProgress = false;
-bool isCatchToken = false;
-
 class SignInRepositoryImpl extends SignInRepository {
   SignInRepositoryImpl(this._signInRemoteDataSources);
   final SignInRemoteDataSources _signInRemoteDataSources;
 
   @override
   Future<Either<Exception, String>> loginAction(SignInEntity user) async {
-    isLoginInProgress = true;
     if (await NetworkConnectedImpl().noConnection) {
       return Left(NetworkException.disconnection());
     } else {
@@ -47,30 +43,22 @@ class SignInRepositoryImpl extends SignInRepository {
   Future<Either<Exception, SignInEntity>> catchUserToken(
     SignInEntity user,
   ) async {
-    if (isCatchToken) {
-      return Left(Exception());
-    }
-    try {
-      isCatchToken = true;
-      if (await NetworkConnectedImpl().noConnection) {
-        return Left(NetworkException.disconnection());
-      } else {
-        try {
-          final serverResponse = await _signInRemoteDataSources
-              .catchUserToken(SignInModel.toModel(user));
+    if (await NetworkConnectedImpl().noConnection) {
+      return Left(NetworkException.disconnection());
+    } else {
+      try {
+        final serverResponse = await _signInRemoteDataSources
+            .catchUserToken(SignInModel.toModel(user));
 
-          return serverResponse.fold(
-            (exception) => Left(exception),
-            (signModel) => Right(
-              signModel.toEntity(),
-            ),
-          );
-        } on Exception catch (e) {
-          return Left(Exception(e));
-        }
+        return serverResponse.fold(
+          (exception) => Left(exception),
+          (signModel) => Right(
+            signModel.toEntity(),
+          ),
+        );
+      } on Exception catch (e) {
+        return Left(Exception(e));
       }
-    } finally {
-      isCatchToken = false;
     }
   }
 }

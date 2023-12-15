@@ -8,24 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-TextEditingController _userNameController = TextEditingController();
-TextEditingController _passwordController = TextEditingController();
-GlobalKey _formKey = GlobalKey<FormState>();
-
-class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
+class SignInPage extends StatelessWidget {
+  SignInPage({super.key});
   static Route<dynamic> route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeSignInPage),
-      builder: (_) => const SignInPage(),
+      builder: (_) => SignInPage(),
     );
   }
 
-  @override
-  State<SignInPage> createState() => _SignInPageState();
-}
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final GlobalKey _signInKey = GlobalKey<FormState>();
 
-class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,17 +50,17 @@ class _SignInPageState extends State<SignInPage> {
                   );
                 }
                 if (state is SignInToMongoDB) {
+                  print('this is: ${state.userParams}');
                   BlocProvider.of<UserBloc>(context)
                       .add(LoadUserEvent(user: state.userParams));
                   Utils.showToastMessage(message: 'Login');
 
-                  await Future.delayed(const Duration(seconds: 1), () {
-                    Utils().navigatorClear(
+                  await Utils().navigatorClear(
                       context: context,
                       routeName: routeDashboardPage,
-                    );
-                    context.read<SignInBloc>().add(SignInInitLoadingEvent());
-                  });
+                      function: () => context
+                          .read<SignInBloc>()
+                          .add(SignInInitLoadingEvent()));
                 }
               },
               builder: (context, state) {
@@ -75,7 +70,7 @@ class _SignInPageState extends State<SignInPage> {
                   );
                 }
                 return Form(
-                  key: _formKey,
+                  key: _signInKey,
                   child: Column(
                     children: [
                       TextFormField(
@@ -94,6 +89,9 @@ class _SignInPageState extends State<SignInPage> {
                       ),
                       TextButton(
                         onPressed: () {
+                          print(
+                            "user: ${_userNameController.text} password: ${_passwordController.text} ",
+                          );
                           context.read<SignInBloc>().add(
                                 SignInProcess(
                                   user: SignInEntity(

@@ -18,14 +18,14 @@ class UserModel with _$UserModel {
     @HiveField(2) required String userEmail,
     @HiveField(3) required bool isAdmin,
     @HiveField(4) required bool isUser,
-    @HiveField(5) required UserActiveModel active,
+    @HiveField(5) List<String>? friendsRequest,
     @HiveField(6) String? profileAvatar,
     @HiveField(7) UserDetailsModel? details,
     @HiveField(8) List<String>? userChallengesIDs,
     @HiveField(9) List<String>? messages,
     @HiveField(10) UserPreferencesModel? preferences,
     @HiveField(11) List<String>? friends,
-    @HiveField(12) List<String>? friendsRequest,
+    @HiveField(12) required UserActiveModel active,
   }) = _UserModel;
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

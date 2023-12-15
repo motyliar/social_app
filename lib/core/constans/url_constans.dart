@@ -3,7 +3,7 @@ class AppUrl {
   /// [userEndPoint] store endpoint of user DB
   static const String backendUrl = 'http://192.168.1.41:3000/';
   static const String middleWare = '1983_12@45bv/';
-  static const String userEndPoint = 'climbuser/';
+  static const String userEndPoint = 'climbuser/single/';
   static const String connectionTest = 'connection/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 

@@ -42,7 +42,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
 
     result.fold(
 
-      (failkure) => emit(LoadingFailed()),
+      (failure) {
+
+        print(failure);
+
+
+        emit(LoadingFailed());
+
+      },
 
       (user) => emit(
 

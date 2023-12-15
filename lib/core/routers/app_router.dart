@@ -10,8 +10,6 @@ class AppRouter {
     debugPrint('${settings.name}');
 
     switch (settings.name) {
-      case route.routeHomeScreen:
-        return HomeScreen.route();
       case route.routeRegisterPage:
         return RegisterPage.route();
       case route.routeSignInPage:

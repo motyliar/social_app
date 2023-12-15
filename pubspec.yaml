@@ -21,7 +21,6 @@ dependencies:
     sdk: flutter
   fluttertoast: ^8.2.4
   get_it: ^7.6.4
-  google_sign_in: ^6.1.6
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^1.1.0

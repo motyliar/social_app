@@ -22,14 +22,14 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       userEmail: fields[2] as String,
       isAdmin: fields[3] as bool,
       isUser: fields[4] as bool,
-      active: fields[5] as UserActiveModel,
+      friendsRequest: (fields[5] as List?)?.cast<String>(),
       profileAvatar: fields[6] as String?,
       details: fields[7] as UserDetailsModel?,
       userChallengesIDs: (fields[8] as List?)?.cast<String>(),
       messages: (fields[9] as List?)?.cast<String>(),
       preferences: fields[10] as UserPreferencesModel?,
       friends: (fields[11] as List?)?.cast<String>(),
-      friendsRequest: (fields[12] as List?)?.cast<String>(),
+      active: fields[12] as UserActiveModel,
     );
   }
 
@@ -48,7 +48,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(4)
       ..write(obj.isUser)
       ..writeByte(5)
-      ..write(obj.active)
+      ..write(obj.friendsRequest)
       ..writeByte(6)
       ..write(obj.profileAvatar)
       ..writeByte(7)
@@ -62,7 +62,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
       ..writeByte(11)
       ..write(obj.friends)
       ..writeByte(12)
-      ..write(obj.friendsRequest);
+      ..write(obj.active);
   }
 
   @override
@@ -87,7 +87,9 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       userEmail: json['userEmail'] as String,
       isAdmin: json['isAdmin'] as bool,
       isUser: json['isUser'] as bool,
-      active: UserActiveModel.fromJson(json['active'] as Map<String, dynamic>),
+      friendsRequest: (json['friendsRequest'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
       profileAvatar: json['profileAvatar'] as String?,
       details: json['details'] == null
           ? null
@@ -104,9 +106,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
               json['preferences'] as Map<String, dynamic>),
       friends:
           (json['friends'] as List<dynamic>?)?.map((e) => e as String).toList(),
-      friendsRequest: (json['friendsRequest'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      active: UserActiveModel.fromJson(json['active'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -116,12 +116,12 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'userEmail': instance.userEmail,
       'isAdmin': instance.isAdmin,
       'isUser': instance.isUser,
-      'active': instance.active,
+      'friendsRequest': instance.friendsRequest,
       'profileAvatar': instance.profileAvatar,
       'details': instance.details,
       'userChallengesIDs': instance.userChallengesIDs,
       'messages': instance.messages,
       'preferences': instance.preferences,
       'friends': instance.friends,
-      'friendsRequest': instance.friendsRequest,
+      'active': instance.active,
     };

@@ -15,18 +15,19 @@ TextEditingController _passwordController = TextEditingController();
 TextEditingController _rePasswordController = TextEditingController();
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+  RegisterPage({super.key});
   static Route<dynamic> route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeRegisterPage),
-      builder: (_) => const RegisterPage(),
+      builder: (_) => RegisterPage(),
     );
   }
+
+  final _registerKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final formKey = GlobalKey<FormState>();
 
     return BlocProvider(
       create: (context) => registerLocator<UserRegisterBloc>(),
@@ -34,96 +35,102 @@ class RegisterPage extends StatelessWidget {
         body: SafeArea(
           child: Column(
             children: [
-              Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _nameController,
-                      decoration: const InputDecoration(
-                        hintText: 'name',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        hintText: 'email',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        hintText: 'password',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    TextFormField(
-                      controller: _rePasswordController,
-                      decoration: const InputDecoration(
-                        hintText: 'repassword',
-                        border: InputBorder.none,
-                      ),
-                    ),
-                    BlocConsumer<UserRegisterBloc, UserRegisterState>(
-                      listener: (context, state) {
-                        if (state is ServerFailure) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute<ErrorScreen>(
-                              builder: (context) => const ErrorScreen(
-                                error: 'server failure',
-                              ),
+              Column(
+                children: [
+                  BlocConsumer<UserRegisterBloc, UserRegisterState>(
+                    listener: (context, state) {
+                      if (state is ServerFailure) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<ErrorScreen>(
+                            builder: (context) => const ErrorScreen(
+                              error: 'server failure',
                             ),
-                          );
-                        }
-                        if (state is UserRegisterLoaded) {
-                          Utils.showToastMessage(
-                            message: l10n.successMsg,
-                          );
-                          context
-                              .read<UserRegisterBloc>()
-                              .add(AddUserToMongoDB(newUser: state.user));
-                          Navigator.pushNamed(context, routeSignInPage);
-                        }
-                        if (state is UserRegisterFailure) {
-                          Utils.showToastMessage(
-                            message: Utils().toastExceptionFirebaseMessage(
-                              exceptionMessage: state.exceptionMessage,
-                              context: context,
-                            ),
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        return BlocBuilder<UserRegisterBloc, UserRegisterState>(
-                          builder: (context, state) {
-                            return TextButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  context.read<UserRegisterBloc>().add(
-                                        AddUserToFireBaseEvent(
-                                          newUser: RegisterEntites(
-                                            id: kEmptyValue,
-                                            userEmail: _emailController.text,
-                                            userName: _nameController.text,
-                                            password: _passwordController.text,
-                                          ),
-                                        ),
-                                      );
-                                }
-                              },
-                              child: const Text(
-                                'SIGN UP',
-                              ),
-                            );
-                          },
+                          ),
                         );
-                      },
-                    ),
-                  ],
-                ),
+                      }
+                      if (state is UserRegisterLoaded) {
+                        Utils.showToastMessage(
+                          message: l10n.successMsg,
+                        );
+                        context
+                            .read<UserRegisterBloc>()
+                            .add(AddUserToMongoDB(newUser: state.user));
+                        Navigator.popUntil(context, (route) => route.isFirst);
+                      }
+                      if (state is UserRegisterFailure) {
+                        Utils.showToastMessage(
+                          message: Utils().toastExceptionFirebaseMessage(
+                            exceptionMessage: state.exceptionMessage,
+                            context: context,
+                          ),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      return BlocBuilder<UserRegisterBloc, UserRegisterState>(
+                        builder: (context, state) {
+                          return Form(
+                            key: _registerKey,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: _nameController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'name',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: _emailController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'email',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: _passwordController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'password',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                                TextFormField(
+                                  controller: _rePasswordController,
+                                  decoration: const InputDecoration(
+                                    hintText: 'repassword',
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    if (_registerKey.currentState!.validate()) {
+                                      context.read<UserRegisterBloc>().add(
+                                            AddUserToFireBaseEvent(
+                                              newUser: RegisterEntites(
+                                                id: kEmptyValue,
+                                                userEmail:
+                                                    _emailController.text,
+                                                userName: _nameController.text,
+                                                password:
+                                                    _passwordController.text,
+                                              ),
+                                            ),
+                                          );
+                                    }
+                                  },
+                                  child: const Text(
+                                    'SIGN UP',
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ],
               ),
             ],
           ),

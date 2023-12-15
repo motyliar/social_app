@@ -1,9 +1,6 @@
 export 'app/view/app.dart';
 
 
-export 'home/view/home_screen.dart';
-
-
 export 'password/view/password_page.dart';
 
 
