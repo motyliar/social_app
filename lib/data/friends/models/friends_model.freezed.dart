@@ -155,13 +155,14 @@ class __$$FriendsModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$FriendsModelImpl implements _FriendsModel {
+class _$FriendsModelImpl extends _FriendsModel {
   const _$FriendsModelImpl(
       {@HiveField(0) required this.id,
       @HiveField(1) required this.userName,
       @HiveField(2) required this.profileAvatar,
       @HiveField(3) required this.isActive,
-      @HiveField(4) required this.lastLoggedIn});
+      @HiveField(4) required this.lastLoggedIn})
+      : super._();
 
   factory _$FriendsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$FriendsModelImplFromJson(json);
@@ -222,13 +223,14 @@ class _$FriendsModelImpl implements _FriendsModel {
   }
 }
 
-abstract class _FriendsModel implements FriendsModel {
+abstract class _FriendsModel extends FriendsModel {
   const factory _FriendsModel(
       {@HiveField(0) required final String id,
       @HiveField(1) required final String userName,
       @HiveField(2) required final String profileAvatar,
       @HiveField(3) required final bool isActive,
       @HiveField(4) required final String lastLoggedIn}) = _$FriendsModelImpl;
+  const _FriendsModel._() : super._();
 
   factory _FriendsModel.fromJson(Map<String, dynamic> json) =
       _$FriendsModelImpl.fromJson;
