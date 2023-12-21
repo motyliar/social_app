@@ -20,3 +20,10 @@ class DeleteFriendFromListEvent extends FriendsActionEvent {
   @override
   List<Object> get props => [params];
 }
+
+class AddFriendEvent extends FriendsActionEvent {
+  const AddFriendEvent({required this.params});
+  final GetFriendsParams params;
+  @override
+  List<Object> get props => [params];
+}

@@ -74,4 +74,24 @@ class FriendsRepositoryImpl extends FriendsRepository {
       }
     }
   }
+
+  @override
+  EitherFunc<String> addFriend(GetFriendsParams friend) async {
+    if (await NetworkConnectedImpl().noConnection) {
+      return Left(NetworkException.disconnection());
+    } else {
+      final serverConnection = await Utils().getServerConnection();
+      if (serverConnection.isRight()) {
+        try {
+          return await _friendsRemoteDataSources.addFriend(friend).then(
+              (response) => response.fold(
+                  (failure) => Left(failure), (data) => Right(data)));
+        } catch (error) {
+          return Left(ServerException.error());
+        }
+      } else {
+        return Left(ServerException.error());
+      }
+    }
+  }
 }

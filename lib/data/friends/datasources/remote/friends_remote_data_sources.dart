@@ -58,6 +58,7 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
   EitherFunc<String> addFriend(GetFriendsParams friend) async {
     final response = await client.post(
         Uri.parse(AppUrl.addFriend(friend.userId)),
+        body: jsonEncode({"friends": friend.friendId}),
         headers: AppUrl.contentHeaders);
 
     if (response.statusCode == 200) {

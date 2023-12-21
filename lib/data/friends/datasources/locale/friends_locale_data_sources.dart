@@ -8,6 +8,7 @@ abstract class FriendsLocaleDataSource {
   EitherFunc<List<FriendsModel>> getFriendsFromHive();
   Future<void> addFriendsToHive(List<FriendsModel> friends);
   Future<void> deleteFriendFromHive(String userId);
+  Future<void> addSingleFriend(FriendsModel friend);
 }
 
 class FriendsLocalDataSourceImpl extends FriendsLocaleDataSource {
@@ -32,5 +33,14 @@ class FriendsLocalDataSourceImpl extends FriendsLocaleDataSource {
   @override
   Future<void> deleteFriendFromHive(String userId) async {
     await friendsBox.delete(userId);
+  }
+
+  @override
+  Future<void> addSingleFriend(FriendsModel friend) async {
+    try {
+      friendsBox.add(friend);
+    } catch (error) {
+      throw (Exception(error));
+    }
   }
 }
