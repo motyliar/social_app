@@ -32,4 +32,5 @@ class FriendsModel with _$FriendsModel {
       {required List<FriendsModel> friendsModel}) {
     return friendsModel.map((friends) => friends.toEntity()).toList();
   }
+  
 }
