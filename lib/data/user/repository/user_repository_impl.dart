@@ -34,7 +34,6 @@ class UserRepositoryImpl extends UserRepository {
         try {
           return await _userRemoteDataSources.getUser(user).then(
                 (response) => response.fold(Left.new, (userModel) async {
-                  print(response);
                   await _userLocalDataSources.updateHiveUser(userModel);
                   return Right(
                     userModel.toEntity(),

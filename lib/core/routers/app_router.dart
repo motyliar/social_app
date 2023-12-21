@@ -22,6 +22,8 @@ class AppRouter {
         return DashboardPage.route();
       case route.routeUserPage:
         return UserPage.route();
+      case route.routeFriendsPage:
+        return FriendsPage.route();
       default:
         return _errorScreen();
     }

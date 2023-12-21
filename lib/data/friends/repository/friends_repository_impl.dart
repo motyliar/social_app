@@ -27,12 +27,17 @@ class FriendsRepositoryImpl extends FriendsRepository {
                   Right(data.map((friends) => friends.toEntity()).toList())));
     } else {
       final serverConnection = await Utils().getServerConnection();
+      print(serverConnection);
       if (serverConnection.isRight()) {
         try {
           return await _friendsRemoteDataSources.getFriends(friends).then(
                 (response) => response.fold(
-                  Left.new,
+                  (failure) {
+                    print(failure);
+                    return Left(failure);
+                  },
                   (friends) async {
+                    print('to jest friends $friends');
                     _friendsLocalDataSource.addFriendsToHive(friends);
                     return Right(
                       friends.map((element) => element.toEntity()).toList(),

@@ -9,7 +9,7 @@ part 'friends_model.g.dart';
 class FriendsModel with _$FriendsModel {
   const FriendsModel._();
   const factory FriendsModel({
-    @HiveField(0) required String id,
+    @HiveField(0) @JsonKey(name: '_id') required String id,
     @HiveField(1) required String userName,
     @HiveField(2) required String profileAvatar,
     @HiveField(3) required bool isActive,
@@ -32,5 +32,4 @@ class FriendsModel with _$FriendsModel {
       {required List<FriendsModel> friendsModel}) {
     return friendsModel.map((friends) => friends.toEntity()).toList();
   }
-  
 }

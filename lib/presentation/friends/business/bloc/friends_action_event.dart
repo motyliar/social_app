@@ -6,3 +6,10 @@ sealed class FriendsActionEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchFriendsListEvent extends FriendsActionEvent {
+  const FetchFriendsListEvent({required this.params});
+  final GetFriendsParams params;
+  @override
+  List<Object> get props => [params];
+}

@@ -58,7 +58,7 @@ class FriendsModelAdapter extends TypeAdapter<FriendsModel> {
 
 _$FriendsModelImpl _$$FriendsModelImplFromJson(Map<String, dynamic> json) =>
     _$FriendsModelImpl(
-      id: json['id'] as String,
+      id: json['_id'] as String,
       userName: json['userName'] as String,
       profileAvatar: json['profileAvatar'] as String,
       isActive: json['isActive'] as bool,
@@ -67,7 +67,7 @@ _$FriendsModelImpl _$$FriendsModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$FriendsModelImplToJson(_$FriendsModelImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      '_id': instance.id,
       'userName': instance.userName,
       'profileAvatar': instance.profileAvatar,
       'isActive': instance.isActive,

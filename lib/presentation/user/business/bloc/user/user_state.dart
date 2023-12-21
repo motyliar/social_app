@@ -1,20 +1,31 @@
 part of 'user_bloc.dart';
 
-sealed class UserState extends Equatable {
-  const UserState();
+const defaultUser = UserEntity(
+    id: '',
+    userAuthID: '',
+    userName: '',
+    userEmail: '',
+    active: UserActiveEntity(isActive: false, lastLoggedIn: ''));
+
+class UserState extends Equatable {
+  final UserEntity user;
+  const UserState({this.user = defaultUser});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [user];
 }
 
-final class UserInitial extends UserState {}
+final class UserInitial extends UserState {
+  const UserInitial();
+}
 
-class UserLoading extends UserState {}
+class UserLoading extends UserState {
+  const UserLoading();
+}
 
 class UserLoaded extends UserState {
-  const UserLoaded({required this.user, this.params});
+  const UserLoaded({required UserEntity user, this.params}) : super(user: user);
 
-  final UserEntity user;
   final GetUserParams? params;
 
   UserLoaded copyWith(UserEntity? user, GetUserParams? params) {

@@ -8,3 +8,4 @@ const String routePasswordPage = 'passwordPage';
 const String routeChangePassword = 'changePasswordPage';
 const String routeDashboardPage = 'dashboardPage';
 const String routeUserPage = 'userPage';
+const String routeFriendsPage = 'friendsPage';

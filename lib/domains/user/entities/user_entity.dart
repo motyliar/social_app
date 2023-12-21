@@ -31,4 +31,7 @@ class UserEntity {
   final List<String> userChallengesIDs;
   final List<String> firendsRequest;
   final UserActiveEntity active;
+
+  @override
+  String toString() => "id: $id, userName: $userName, ";
 }

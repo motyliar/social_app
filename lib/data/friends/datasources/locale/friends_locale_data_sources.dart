@@ -21,7 +21,9 @@ class FriendsLocalDataSourceImpl extends FriendsLocaleDataSource {
   }
 
   @override
-  void addFriendsToHive(List<FriendsModel> friends) async {
-    friends.forEach((friend) => friendsBox.add(friend));
+  Future<void> addFriendsToHive(List<FriendsModel> friends) async {
+    friends.forEach((friend) async {
+      await friendsBox.add(friend);
+    });
   }
 }

@@ -21,6 +21,7 @@ FriendsModel _$FriendsModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$FriendsModel {
   @HiveField(0)
+  @JsonKey(name: '_id')
   String get id => throw _privateConstructorUsedError;
   @HiveField(1)
   String get userName => throw _privateConstructorUsedError;
@@ -44,7 +45,7 @@ abstract class $FriendsModelCopyWith<$Res> {
       _$FriendsModelCopyWithImpl<$Res, FriendsModel>;
   @useResult
   $Res call(
-      {@HiveField(0) String id,
+      {@HiveField(0) @JsonKey(name: '_id') String id,
       @HiveField(1) String userName,
       @HiveField(2) String profileAvatar,
       @HiveField(3) bool isActive,
@@ -104,7 +105,7 @@ abstract class _$$FriendsModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@HiveField(0) String id,
+      {@HiveField(0) @JsonKey(name: '_id') String id,
       @HiveField(1) String userName,
       @HiveField(2) String profileAvatar,
       @HiveField(3) bool isActive,
@@ -157,7 +158,7 @@ class __$$FriendsModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$FriendsModelImpl extends _FriendsModel {
   const _$FriendsModelImpl(
-      {@HiveField(0) required this.id,
+      {@HiveField(0) @JsonKey(name: '_id') required this.id,
       @HiveField(1) required this.userName,
       @HiveField(2) required this.profileAvatar,
       @HiveField(3) required this.isActive,
@@ -169,6 +170,7 @@ class _$FriendsModelImpl extends _FriendsModel {
 
   @override
   @HiveField(0)
+  @JsonKey(name: '_id')
   final String id;
   @override
   @HiveField(1)
@@ -225,7 +227,7 @@ class _$FriendsModelImpl extends _FriendsModel {
 
 abstract class _FriendsModel extends FriendsModel {
   const factory _FriendsModel(
-      {@HiveField(0) required final String id,
+      {@HiveField(0) @JsonKey(name: '_id') required final String id,
       @HiveField(1) required final String userName,
       @HiveField(2) required final String profileAvatar,
       @HiveField(3) required final bool isActive,
@@ -237,6 +239,7 @@ abstract class _FriendsModel extends FriendsModel {
 
   @override
   @HiveField(0)
+  @JsonKey(name: '_id')
   String get id;
   @override
   @HiveField(1)

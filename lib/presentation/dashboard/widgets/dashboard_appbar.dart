@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/utils.dart';
 
-class DashboardAppBar extends StatelessWidget {
+const double _kAppBarHeight = 130;
+
+class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String imageSrc;
   final String userName;
 
@@ -44,9 +46,10 @@ class DashboardAppBar extends StatelessWidget {
                 Row(
                   children: [
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.pushNamed(context, routeFriendsPage),
                       icon: const Icon(
-                        Icons.search,
+                        Icons.groups,
                         size: 20,
                       ),
                     ),
@@ -98,4 +101,7 @@ class DashboardAppBar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => Size.fromHeight(_kAppBarHeight);
 }

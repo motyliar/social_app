@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
+import 'package:climbapp/domains/user/entities/sub_user_entity.dart';
 import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';

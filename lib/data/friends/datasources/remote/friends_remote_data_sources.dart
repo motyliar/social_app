@@ -18,14 +18,16 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
   @override
   EitherFunc<List<FriendsModel>> getFriends(GetFriendsParams friends) async {
     final response = await client.get(
-        Uri.parse(AppUrl.getFriends() + friends.userId),
+        Uri.parse(AppUrl.getFriends(friends.userId)),
         headers: AppUrl.contentHeaders);
 
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as List<dynamic>;
 
-      return Right(
-          result.map((element) => FriendsModel.fromJson(element)).toList());
+      final friends =
+          result.map((element) => FriendsModel.fromJson(element)).toList();
+
+      return Right(friends);
     } else if (response.statusCode == 404) {
       return Left(ServerException.errorMessage(responseBody: response.body));
     } else {
