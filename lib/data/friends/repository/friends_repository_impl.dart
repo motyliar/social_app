@@ -33,12 +33,10 @@ class FriendsRepositoryImpl extends FriendsRepository {
           return await _friendsRemoteDataSources.getFriends(friends).then(
                 (response) => response.fold(
                   (failure) {
-                    print(failure);
                     return Left(failure);
                   },
                   (friends) async {
-                    print('to jest friends $friends');
-                    _friendsLocalDataSource.addFriendsToHive(friends);
+                    await _friendsLocalDataSource.addFriendsToHive(friends);
                     return Right(
                       friends.map((element) => element.toEntity()).toList(),
                     );
@@ -50,6 +48,30 @@ class FriendsRepositoryImpl extends FriendsRepository {
         }
       }
       return Left(ServerException.error());
+    }
+  }
+
+  @override
+  EitherFunc<String> deleteFriend(GetFriendsParams friend) async {
+    if (await NetworkConnectedImpl().noConnection) {
+      return Left(NetworkException.disconnection());
+    } else {
+      final serverConnection = await Utils().getServerConnection();
+      if (serverConnection.isRight()) {
+        try {
+          return await _friendsRemoteDataSources.deleteFriend(friend).then(
+              (response) =>
+                  response.fold((failure) => Left(failure), (data) async {
+                    await _friendsLocalDataSource
+                        .deleteFriendFromHive(friend.userId);
+                    return Right(data);
+                  }));
+        } catch (error) {
+          return Left(ServerException.error());
+        }
+      } else {
+        return Left(ServerException.error());
+      }
     }
   }
 }

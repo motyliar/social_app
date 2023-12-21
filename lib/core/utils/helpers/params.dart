@@ -19,7 +19,8 @@ class UpdateUserParams<T> {
 }
 
 class GetFriendsParams {
-  const GetFriendsParams({required this.userId, this.friendIds});
+  const GetFriendsParams({required this.userId, this.friendId, this.friendIds});
   final String userId;
+  final String? friendId;
   final List<String>? friendIds;
 }

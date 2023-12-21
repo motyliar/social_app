@@ -5,6 +5,7 @@ import 'package:climbapp/data/user/datasources/local/user_local_data_sources.dar
 import 'package:climbapp/data/user/datasources/remote/user_remote_data_sources.dart';
 import 'package:climbapp/data/user/repository/user_repository_impl.dart';
 import 'package:climbapp/domains/friends/repository/friends_repository.dart';
+import 'package:climbapp/domains/friends/usecases/delete_friend_usecase.dart';
 import 'package:climbapp/domains/friends/usecases/get_friend_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
@@ -22,11 +23,14 @@ void userInit() {
   userLocator
     // User register factory with every user element
     ..registerFactory(() => UserBloc(userLocator(), userLocator()))
-    ..registerFactory(() => FriendsActionBloc(getFriendUseCase: userLocator()))
+    ..registerFactory(() => FriendsActionBloc(
+        getFriendUseCase: userLocator(), deleteFriendUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
         () => GetFriendUseCase(friendsRepository: userLocator()))
+    ..registerLazySingleton(
+        () => DeleteFriendUseCase(friendsRepository: userLocator()))
     //USER
     ..registerLazySingleton(() => GetUserUseCase(userLocator()))
     ..registerLazySingleton(

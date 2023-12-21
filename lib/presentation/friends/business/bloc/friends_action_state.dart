@@ -26,3 +26,17 @@ class FriendsFailure extends FriendsActionState {
   @override
   List<Object> get props => [message];
 }
+
+class FriendChangeSuccess extends FriendsActionState {
+  const FriendChangeSuccess({required this.message});
+  final String message;
+  @override
+  List<Object> get props => [message];
+}
+
+class FriendOperationFailure extends FriendsActionState {
+  const FriendOperationFailure({required this.message});
+  final String message;
+  @override
+  List<Object> get props => [message];
+}

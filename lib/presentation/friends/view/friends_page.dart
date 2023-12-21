@@ -51,8 +51,42 @@ class FriendsPage extends StatelessWidget {
                                 child: ListTile(
                               leading: Image.network(
                                 state.friends[index].profileAvatar,
+                                width: 60,
+                                height: 60,
                               ),
                               title: Text(state.friends[index].userName),
+                              subtitle: IconButton(
+                                  onPressed: () {
+                                    print(state.friends[index].id);
+                                    context.read<FriendsActionBloc>().add(
+                                          DeleteFriendFromListEvent(
+                                            params: GetFriendsParams(
+                                                userId: user.id,
+                                                friendId:
+                                                    state.friends[index].id),
+                                          ),
+                                        );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (context) =>
+                                    //       SureAlert(onTap: () async {
+                                    //     print(state.friends[index].id);
+                                    //     await Future.delayed(
+                                    //         Duration(seconds: 1),
+                                    //         () => context
+                                    //             .read<FriendsActionBloc>()
+                                    //             .add(
+                                    //               DeleteFriendFromListEvent(
+                                    //                 params: GetFriendsParams(
+                                    //                   userId: state
+                                    //                       .friends[index].id,
+                                    //                 ),
+                                    //               ),
+                                    //             ));
+                                    //   }),
+                                    // );
+                                  },
+                                  icon: const Icon(Icons.delete)),
                             )))),
                   );
                 })
@@ -66,5 +100,33 @@ class FriendsPage extends StatelessWidget {
 }
 
 double _heightCalculate({required int itemsCount}) {
-  return (itemsCount * 70).toDouble();
+  return (itemsCount * 100).toDouble();
 }
+
+class SureAlert extends StatelessWidget {
+  final VoidCallback onTap;
+  const SureAlert({required this.onTap, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Are you sure'),
+      content: Row(
+        children: [
+          IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.close)),
+          IconButton(
+              onPressed: () {
+                onTap;
+                Navigator.pop(context);
+              },
+              icon: const Icon(Icons.done))
+        ],
+      ),
+    );
+  }
+}
+// ..add(FetchFriendsListEvent(params: GetFriendsParams(userId: user.id)))

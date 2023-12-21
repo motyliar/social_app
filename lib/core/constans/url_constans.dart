@@ -7,6 +7,9 @@ class AppUrl {
   static const String userEndPoint = 'climbuser/single/';
   static const String connectionTest = 'connection/';
   static const String friends = 'userFriends/';
+  static const String friend = 'friend/';
+  static const String deleteAction = 'delete/';
+  static const String addAction = 'add/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   /// [userApi] endpoint for fetch user data after login
@@ -16,6 +19,14 @@ class AppUrl {
   /// [getFriends] getter to set getting friends Api.
   static String getFriends(String userId) =>
       '$backendUrl$middleWare$user$friends$userId';
+
+  /// [deleteFriend] url for delete single friend
+  static String deleteFriend(String userId) =>
+      '$backendUrl$middleWare$user$friend$deleteAction$userId';
+
+  /// [addFriend] url for add friend to user friends list
+  static String addFriend(String userId) =>
+      '$backendUrl$middleWare$user$friend$addAction$userId';
 
   /// [contentHeaders] general headers to get resposne from server of DB
   static const Map<String, String> contentHeaders = {

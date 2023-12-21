@@ -6,7 +6,8 @@ import 'package:hive/hive.dart';
 
 abstract class FriendsLocaleDataSource {
   EitherFunc<List<FriendsModel>> getFriendsFromHive();
-  void addFriendsToHive(List<FriendsModel> friends);
+  Future<void> addFriendsToHive(List<FriendsModel> friends);
+  Future<void> deleteFriendFromHive(String userId);
 }
 
 class FriendsLocalDataSourceImpl extends FriendsLocaleDataSource {
@@ -22,8 +23,14 @@ class FriendsLocalDataSourceImpl extends FriendsLocaleDataSource {
 
   @override
   Future<void> addFriendsToHive(List<FriendsModel> friends) async {
+    await friendsBox.clear();
     friends.forEach((friend) async {
       await friendsBox.add(friend);
     });
+  }
+
+  @override
+  Future<void> deleteFriendFromHive(String userId) async {
+    await friendsBox.delete(userId);
   }
 }

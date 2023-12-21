@@ -9,6 +9,8 @@ import 'package:http/http.dart' as http;
 
 abstract class FriendsRemoteDataSources {
   EitherFunc<List<FriendsModel>> getFriends(GetFriendsParams friends);
+  EitherFunc<String> deleteFriend(GetFriendsParams friend);
+  EitherFunc<String> addFriend(GetFriendsParams friend);
 }
 
 class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
@@ -20,7 +22,7 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
     final response = await client.get(
         Uri.parse(AppUrl.getFriends(friends.userId)),
         headers: AppUrl.contentHeaders);
-
+    print(response.body);
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body) as List<dynamic>;
 
@@ -28,6 +30,39 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
           result.map((element) => FriendsModel.fromJson(element)).toList();
 
       return Right(friends);
+    } else if (response.statusCode == 404) {
+      return Left(ServerException.errorMessage(responseBody: response.body));
+    } else {
+      return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  EitherFunc<String> deleteFriend(GetFriendsParams friend) async {
+    final response = await client.post(
+        Uri.parse(AppUrl.deleteFriend(friend.userId)),
+        body: jsonEncode({'friends': friend.friendId}),
+        headers: AppUrl.contentHeaders);
+
+    if (response.statusCode == 200) {
+      final message = jsonDecode(response.body)['message'] as String;
+      return Right(message);
+    } else if (response.statusCode == 404) {
+      return Left(ServerException.errorMessage(responseBody: response.body));
+    } else {
+      return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  EitherFunc<String> addFriend(GetFriendsParams friend) async {
+    final response = await client.post(
+        Uri.parse(AppUrl.addFriend(friend.userId)),
+        headers: AppUrl.contentHeaders);
+
+    if (response.statusCode == 200) {
+      final message = jsonDecode(response.body)['message'] as String;
+      return Right(message);
     } else if (response.statusCode == 404) {
       return Left(ServerException.errorMessage(responseBody: response.body));
     } else {
