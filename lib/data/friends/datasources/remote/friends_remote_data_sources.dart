@@ -11,6 +11,7 @@ abstract class FriendsRemoteDataSources {
   EitherFunc<List<FriendsModel>> getFriends(GetFriendsParams friends);
   EitherFunc<String> deleteFriend(GetFriendsParams friend);
   EitherFunc<String> addFriend(GetFriendsParams friend);
+  EitherFunc<List<FriendsModel>> searchUsers(String userByName);
 }
 
 class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
@@ -69,5 +70,11 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
     } else {
       return Left(ServerException.failed());
     }
+  }
+
+  @override
+  EitherFunc<List<FriendsModel>> searchUsers(String userByName) async {
+    final response = await client.get(Uri.parse(AppUrl.searchUsers(userByName)),
+        headers: AppUrl.contentHeaders);
   }
 }
