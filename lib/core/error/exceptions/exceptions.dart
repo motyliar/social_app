@@ -41,6 +41,7 @@ class ServerException extends AppExceptions {
 
   factory ServerException.error() => ServerException(kSomethingGoesWrong);
   factory ServerException.failed() => ServerException(kFailure);
+  factory ServerException.notFound() => ServerException(kNotFound);
 }
 
 /// [HiveExceptions] is use for handling exception when local DB have not any

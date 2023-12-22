@@ -8,6 +8,7 @@ import 'package:climbapp/domains/friends/repository/friends_repository.dart';
 import 'package:climbapp/domains/friends/usecases/add_friend.dart';
 import 'package:climbapp/domains/friends/usecases/delete_friend_usecase.dart';
 import 'package:climbapp/domains/friends/usecases/get_friend_usecase.dart';
+import 'package:climbapp/domains/friends/usecases/search_users_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
@@ -25,9 +26,11 @@ void userInit() {
     // User register factory with every user element
     ..registerFactory(() => UserBloc(userLocator(), userLocator()))
     ..registerFactory(() => FriendsActionBloc(
-        getFriendUseCase: userLocator(),
-        deleteFriendUseCase: userLocator(),
-        addFriendUseCase: userLocator()))
+          getFriendUseCase: userLocator(),
+          deleteFriendUseCase: userLocator(),
+          addFriendUseCase: userLocator(),
+          searchUsersUseCase: userLocator(),
+        ))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -36,6 +39,8 @@ void userInit() {
         () => DeleteFriendUseCase(friendsRepository: userLocator()))
     ..registerLazySingleton(
         () => AddFriendUseCase(friendsRepository: userLocator()))
+    ..registerLazySingleton(
+        () => SearchUsersUseCase(friendsRepository: userLocator()))
     //USER
     ..registerLazySingleton(() => GetUserUseCase(userLocator()))
     ..registerLazySingleton(

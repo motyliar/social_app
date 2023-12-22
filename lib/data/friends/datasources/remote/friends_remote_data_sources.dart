@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:climbapp/core/constans/constans.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:dartz/dartz.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
@@ -76,5 +77,16 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
   EitherFunc<List<FriendsModel>> searchUsers(String userByName) async {
     final response = await client.get(Uri.parse(AppUrl.searchUsers(userByName)),
         headers: AppUrl.contentHeaders);
+    print(response.body);
+    if (response.statusCode == 200) {
+      final result = jsonDecode(response.body) as List<dynamic>;
+      final friends =
+          result.map((friend) => FriendsModel.fromJson(friend)).toList();
+      return Right(friends);
+    } else if (response.statusCode == 404) {
+      return Left(ServerException.errorMessage(responseBody: kNotFound));
+    } else {
+      return Left(ServerException.error());
+    }
   }
 }

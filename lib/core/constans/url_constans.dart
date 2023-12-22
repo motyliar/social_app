@@ -1,7 +1,7 @@
 class AppUrl {
   /// [backendUrl] general address for MongoDB server
   /// [userEndPoint] store endpoint of user DB
-  static const String backendUrl = 'http://192.168.43.65:3000/';
+  static const String backendUrl = 'http://192.168.1.41:3000/';
   static const String middleWare = '1983_12@45bv/';
   static const String user = 'climbuser/';
   static const String userEndPoint = 'climbuser/single/';
@@ -10,6 +10,7 @@ class AppUrl {
   static const String friend = 'friend/';
   static const String deleteAction = 'delete/';
   static const String addAction = 'add/';
+  static const String searchAction = 'search/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   /// [userApi] endpoint for fetch user data after login
@@ -27,6 +28,9 @@ class AppUrl {
   /// [addFriend] url for add friend to user friends list
   static String addFriend(String userId) =>
       '$backendUrl$middleWare$user$friend$addAction$userId';
+
+  static String searchUsers(String name) =>
+      '$backendUrl$middleWare$user$searchAction$name';
 
   /// [contentHeaders] general headers to get resposne from server of DB
   static const Map<String, String> contentHeaders = {

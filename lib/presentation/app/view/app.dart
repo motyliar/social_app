@@ -13,6 +13,7 @@ import 'package:climbapp/presentation/app/business/bloc/network/network_bloc.dar
 import 'package:climbapp/presentation/app/business/cubit/localization/locale_cubit.dart';
 
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
+import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 
@@ -40,6 +41,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (context) => loginLocator<SignInBloc>()),
         BlocProvider(create: (context) => userLocator<UserBloc>()),
+        BlocProvider(
+          create: (context) => userLocator<FriendsActionBloc>(),
+        )
       ],
       child: BlocBuilder<LocaleCubit, String>(
         builder: (context, localeState) {

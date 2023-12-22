@@ -94,4 +94,31 @@ class FriendsRepositoryImpl extends FriendsRepository {
       }
     }
   }
+
+  @override
+  EitherFunc<List<FriendsEntity>> searchUsers(String userByName) async {
+    if (await NetworkConnectedImpl().noConnection) {
+      return Left(NetworkException.disconnection());
+    } else {
+      final serverConnection = await Utils().getServerConnection();
+      if (serverConnection.isRight()) {
+        try {
+          return await _friendsRemoteDataSources
+              .searchUsers(userByName)
+              .then((response) => response.fold((failure) {
+                    print(failure);
+                    return Left(failure);
+                  }, (data) {
+                    print(data);
+                    return Right(
+                        data.map((friend) => friend.toEntity()).toList());
+                  }));
+        } catch (error) {
+          return Left(ServerException(error.toString()));
+        }
+      } else {
+        return Left(ServerException.errorMessage(responseBody: 'else-error'));
+      }
+    }
+  }
 }
