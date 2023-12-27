@@ -24,3 +24,15 @@ class GetFriendsParams {
   final String? friendId;
   final List<String>? friendIds;
 }
+
+class MessageParams {
+  const MessageParams(
+      {required this.to,
+      required this.from,
+      required this.subject,
+      required this.content});
+  final String to;
+  final String from;
+  final String subject;
+  final String content;
+}

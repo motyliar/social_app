@@ -24,6 +24,8 @@ class AppRouter {
         return UserPage.route();
       case route.routeFriendsPage:
         return FriendsPage.route();
+      case route.routeMessagePage:
+        return MessagePage.route();
       default:
         return _errorScreen();
     }

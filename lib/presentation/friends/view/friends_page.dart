@@ -119,24 +119,28 @@ class FriendsPage extends StatelessWidget {
                                         icon: const Icon(Icons.refresh)),
                                     IconButton(
                                         onPressed: () async {
+                                          print('to się wykonuje');
                                           context.read<FriendsActionBloc>().add(
-                                              DeleteFriendFromListEvent(
+                                              AddFriendEvent(
                                                   params: GetFriendsParams(
                                                       userId: user.id,
                                                       friendId: blocstate
-                                                          .friends[index].id)));
-                                          await Future.delayed(
-                                              Duration(seconds: 1), () {
-                                            print('teraz się to wykonuje');
-                                            context
-                                                .read<FriendsActionBloc>()
-                                                .add(FetchFriendsListEvent(
-                                                    params: GetFriendsParams(
-                                                  userId: user.id,
-                                                )));
-                                          });
+                                                          .friend[index].id)));
+                                          print('druga funkcja');
+                                          print("to jest: $blocstate");
+                                          // await Future.delayed(
+                                          //     Duration(seconds: 1), () {
+                                          //   print('teraz się to wykonuje');
+
+                                          //   BlocProvider.of<FriendsActionBloc>(
+                                          //           context)
+                                          //       .add(FetchFriendsListEvent(
+                                          //           params: GetFriendsParams(
+                                          //     userId: user.id,
+                                          //   )));
+                                          // });
                                         },
-                                        icon: const Icon(Icons.delete)),
+                                        icon: const Icon(Icons.add)),
                                   ],
                                 ),
                               )))),
@@ -185,6 +189,9 @@ class FriendsPage extends StatelessWidget {
                                           });
                                         },
                                         icon: const Icon(Icons.delete)),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(Icons.mail))
                                   ],
                                 ),
                               )))),

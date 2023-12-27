@@ -62,8 +62,8 @@ class FriendsRemoteDataSourcesImpl extends FriendsRemoteDataSources {
         Uri.parse(AppUrl.addFriend(friend.userId)),
         body: jsonEncode({"friends": friend.friendId}),
         headers: AppUrl.contentHeaders);
-
-    if (response.statusCode == 200) {
+    print('to funkcja' + response.body);
+    if (response.statusCode == 201) {
       final message = jsonDecode(response.body)['message'] as String;
       return Right(message);
     } else if (response.statusCode == 404) {

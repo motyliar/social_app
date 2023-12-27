@@ -36,7 +36,7 @@ class FriendsActionBloc extends Bloc<FriendsActionEvent, FriendsActionState> {
     final result = await _getFriendUseCase.execute(event.params);
 
     result.fold((failure) => emit(FriendsFailure(message: failure.toString())),
-        (friends) => emit(FriendsLoaded(friends, state.isMyFriend)));
+        (friends) => emit(FriendsLoaded(friends, true)));
   }
 
   Future<void> _deleteFriend(
@@ -51,15 +51,17 @@ class FriendsActionBloc extends Bloc<FriendsActionEvent, FriendsActionState> {
   Future<void> _addFriend(
       AddFriendEvent event, Emitter<FriendsActionState> emit) async {
     final result = await _addFriendUseCase.execute(event.params);
-
-    result.fold((failure) => emit(FriendsFailure(message: failure.toString())),
-        (data) => emit(FriendsLoaded(state.friends, state.isMyFriend)));
+    if (result.isRight()) {
+      await _fetchFriends(FetchFriendsListEvent(params: event.params), emit);
+    } else {
+      emit(FriendsFailure(message: result.toString()));
+    }
   }
 
   Future<void> _searchUser(
       SearchForUsersEvent event, Emitter<FriendsActionState> emit) async {
-    final result = await _searchUsersUseCase.execute(event.userByName).then(
-        (data) => data.fold(
+    await _searchUsersUseCase.execute(event.userByName).then((data) =>
+        data.fold(
             (failure) => emit(FriendsFailure(message: failure.toString())),
             (data) => emit(
                 FriendsSearchingSuccess(friend: data, false, state.friends))));

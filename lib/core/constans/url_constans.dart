@@ -1,3 +1,5 @@
+import 'package:climbapp/core/utils/helpers/params.dart';
+
 class AppUrl {
   /// [backendUrl] general address for MongoDB server
   /// [userEndPoint] store endpoint of user DB
@@ -11,6 +13,8 @@ class AppUrl {
   static const String deleteAction = 'delete/';
   static const String addAction = 'add/';
   static const String searchAction = 'search/';
+  static const String messageendPoint = '/message';
+  static const String sendMessage = 'sendMessage/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   /// [userApi] endpoint for fetch user data after login
@@ -29,8 +33,18 @@ class AppUrl {
   static String addFriend(String userId) =>
       '$backendUrl$middleWare$user$friend$addAction$userId';
 
+  static String sendMessageUrl() => '$backendUrl$messageendPoint$sendMessage';
+
   static String searchUsers(String name) =>
       '$backendUrl$middleWare$user$searchAction$name';
+
+  ///
+  static Map<String, String> messageMap(MessageParams message) => {
+        "to": message.to,
+        "from": message.from,
+        "subject": message.subject,
+        "content": message.content
+      };
 
   /// [contentHeaders] general headers to get resposne from server of DB
   static const Map<String, String> contentHeaders = {
