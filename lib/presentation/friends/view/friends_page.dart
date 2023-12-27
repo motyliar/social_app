@@ -190,7 +190,18 @@ class FriendsPage extends StatelessWidget {
                                         },
                                         icon: const Icon(Icons.delete)),
                                     IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, routeMessagePage,
+                                              arguments: MessageUserDetails(
+                                                  senderName: user.userName,
+                                                  senderId: user.id,
+                                                  recipientName: blocstate
+                                                      .friends[index].userName,
+                                                  recipientId: blocstate
+                                                      .friends[index]
+                                                      .userName));
+                                        },
                                         icon: Icon(Icons.mail))
                                   ],
                                 ),

@@ -36,3 +36,20 @@ class MessageParams {
   final String subject;
   final String content;
 }
+
+/// [MessageUserDetails] are use to store details about sender and recipient
+/// [senderName] keep user name
+/// [senderId] keep user id in MongoDB to find user in DB
+/// [recipientName] keep name of Friends which will get message
+/// [recipientId] keep Friend Id to store message in right place
+class MessageUserDetails {
+  const MessageUserDetails(
+      {required this.senderName,
+      required this.senderId,
+      required this.recipientName,
+      required this.recipientId});
+  final String senderName;
+  final String senderId;
+  final String recipientName;
+  final String recipientId;
+}

@@ -1,6 +1,7 @@
 import 'package:climbapp/core/constans/router_constans.dart' as route;
 import 'package:climbapp/core/error/error_screen.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/view/dashboard_page.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class AppRouter {
       case route.routeFriendsPage:
         return FriendsPage.route();
       case route.routeMessagePage:
-        return MessagePage.route();
+        return MessagePage.route(settings.arguments as MessageUserDetails);
       default:
         return _errorScreen();
     }
