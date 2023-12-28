@@ -20,3 +20,10 @@ class LoadUserMessagesEvent extends MessageActionEvent {
   @override
   List<Object> get props => [params];
 }
+
+class DeleteMessagesEvent extends MessageActionEvent {
+  const DeleteMessagesEvent({required this.params});
+  final GetMessageParams params;
+  @override
+  List<Object> get props => [params];
+}

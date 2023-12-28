@@ -7,4 +7,5 @@ import 'package:dartz/dartz.dart';
 abstract class MessagesRepository {
   EitherFunc<String> sendMessage(MessageParams message);
   EitherFunc<List<MessageEntity>> getUserMessage(GetMessageParams params);
+  EitherFunc<String> deleteMessage(GetMessageParams delete);
 }

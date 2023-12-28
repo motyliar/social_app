@@ -13,6 +13,7 @@ class ListOfMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(direction);
     final user = context.select((UserBloc bloc) => bloc.state.user);
     return BlocProvider(
       create: (_) => userLocator<MessageActionBloc>()
@@ -37,7 +38,18 @@ class ListOfMessage extends StatelessWidget {
                           children: [
                             Text('From: ${state.messages[index].sender}'),
                             IconButton(
-                                onPressed: () {}, icon: Icon(Icons.delete)),
+                                onPressed: () {
+                                  context.read<MessageActionBloc>().add(
+                                        DeleteMessagesEvent(
+                                          params: GetMessageParams(
+                                            userId: user.id,
+                                            direction: direction,
+                                            messageId: state.messages[index].id,
+                                          ),
+                                        ),
+                                      );
+                                },
+                                icon: Icon(Icons.delete)),
                           ],
                         ),
                         Text(

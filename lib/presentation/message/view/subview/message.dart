@@ -5,8 +5,15 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.red,
+    return Scaffold(
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ElevatedButton(onPressed: () {}, child: Text('Send New Message')),
+          ],
+        ),
+      )),
     );
   }
 }
