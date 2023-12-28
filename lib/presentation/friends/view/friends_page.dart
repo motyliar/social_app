@@ -199,8 +199,7 @@ class FriendsPage extends StatelessWidget {
                                                   recipientName: blocstate
                                                       .friends[index].userName,
                                                   recipientId: blocstate
-                                                      .friends[index]
-                                                      .userName));
+                                                      .friends[index].id));
                                         },
                                         icon: Icon(Icons.mail))
                                   ],

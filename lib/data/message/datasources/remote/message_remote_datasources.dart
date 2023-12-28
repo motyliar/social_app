@@ -20,7 +20,7 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
     final response = await client.post(Uri.parse(AppUrl.sendMessageUrl()),
         body: jsonEncode(AppUrl.messageMap(message)),
         headers: AppUrl.contentHeaders);
-
+    print(response.body);
     if (response.statusCode == 200) {
       return Right(jsonDecode(response.body)['message'] as String);
     } else if (response.statusCode == 404) {

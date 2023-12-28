@@ -22,11 +22,15 @@ class MessagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _messageKey = GlobalKey<FormState>();
+    print(details.toString());
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
           children: [
+            IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(Icons.back_hand)),
             Text('To: ${details.recipientName}'),
             Text('Send Message'),
             Form(
@@ -77,6 +81,7 @@ class MessagePage extends StatelessWidget {
                                         from: details.senderId,
                                         subject: _subjectController.text,
                                         content: _contentController.text)));
+                              print(state);
                             },
                             child: Text('SEND'));
                       },

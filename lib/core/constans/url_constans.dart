@@ -13,7 +13,7 @@ class AppUrl {
   static const String deleteAction = 'delete/';
   static const String addAction = 'add/';
   static const String searchAction = 'search/';
-  static const String messageendPoint = '/message';
+  static const String messageendPoint = 'message/';
   static const String sendMessage = 'sendMessage/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 

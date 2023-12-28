@@ -52,4 +52,8 @@ class MessageUserDetails {
   final String senderId;
   final String recipientName;
   final String recipientId;
+
+  @override
+  toString() =>
+      "senderName: $senderName\n senderId: $senderId\n recipientName: $recipientName\n reciientId $recipientId";
 }
