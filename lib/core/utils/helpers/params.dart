@@ -64,12 +64,18 @@ class MessageUserDetails {
       "senderName: $senderName\n senderId: $senderId\n recipientName: $recipientName\n reciientId $recipientId";
 }
 
-class GetMessageParams {
+class GetMessageParams<T> {
   const GetMessageParams(
-      {required this.userId, required this.direction, this.messageId});
+      {required this.userId,
+      required this.direction,
+      this.messageId,
+      this.field,
+      this.update});
   final String userId;
   final String direction;
   final String? messageId;
+  final String? field;
+  final T? update;
 
   /// [requestBody] map creator for body in get user message
   Map<String, String> requestBody() => {"direction": direction};
@@ -77,6 +83,13 @@ class GetMessageParams {
   /// [deleteRequestBody] map creator for delete single message from DB
   Map<String, String> deleteRequestBody() =>
       {"messageId": messageId!, "direction": direction};
+
+  Map<String, dynamic> updateRequestBody() => {
+        "messageId": messageId,
+        "direction": direction,
+        "update": update,
+        "field": field,
+      };
 
   @override
   String toString() =>

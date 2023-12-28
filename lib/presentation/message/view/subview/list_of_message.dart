@@ -26,7 +26,7 @@ class ListOfMessage extends StatelessWidget {
                 .changeView(MessageView.message),
             child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
-              height: 70,
+              height: MediaQuery.of(context).size.height * 0.7,
               child: ListView.builder(
                   itemCount: state.messages.length,
                   itemBuilder: (context, index) {
@@ -58,7 +58,8 @@ class ListOfMessage extends StatelessWidget {
                               fontWeight: state.messages[index].isRead
                                   ? FontWeight.normal
                                   : FontWeight.bold),
-                        )
+                        ),
+                        Divider(),
                       ],
                     );
                   }),

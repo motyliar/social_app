@@ -12,6 +12,7 @@ class AppUrl {
   static const String friend = 'friend/';
   static const String deleteAction = 'delete/';
   static const String addAction = 'add/';
+  static const String updateAction = 'update/';
   static const String searchAction = 'search/';
   static const String messageendPoint = 'message/';
   static const String sendMessage = 'sendMessage/';
@@ -44,6 +45,8 @@ class AppUrl {
   static String deleteMessage(String userId) =>
       '$backendUrl$messageendPoint$deleteAction$userId';
 
+  static String updateMessage(String userId) =>
+      '$backendUrl$messageendPoint$updateAction$userId';
   static String searchUsers(String name) =>
       '$backendUrl$middleWare$user$searchAction$name';
 

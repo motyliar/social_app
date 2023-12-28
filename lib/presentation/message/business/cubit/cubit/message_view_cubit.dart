@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'message_view_state.dart';
 

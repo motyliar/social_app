@@ -58,4 +58,13 @@ class MessageRepositoryImpl extends MessagesRepository {
           ),
     );
   }
+
+  @override
+  EitherFunc<String> updateMessage(GetMessageParams update) async {
+    return await Utils()
+        .performNetworkOperation(
+            () async => await _messageRemoteDataSources.updateMessage(update))
+        .then((response) =>
+            response.fold((failure) => Left(failure), (data) => Right(data)));
+  }
 }

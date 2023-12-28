@@ -83,10 +83,14 @@ class MessageMainView extends StatelessWidget {
                   if (state is MessageViewInitial) {
                     return ListOfMessage(
                       direction: _directionReceived,
+                      key: UniqueKey(),
                     );
                   }
                   if (state is MessageViewSend) {
-                    return ListOfMessage(direction: _directionSend);
+                    return ListOfMessage(
+                      direction: _directionSend,
+                      key: UniqueKey(),
+                    );
                   }
                   if (state is MessageViewNewMessage) {
                     return CreateNewMessage();
@@ -96,6 +100,7 @@ class MessageMainView extends StatelessWidget {
                   } else {
                     return ListOfMessage(
                       direction: _directionReceived,
+                      key: UniqueKey(),
                     );
                   }
                 }),

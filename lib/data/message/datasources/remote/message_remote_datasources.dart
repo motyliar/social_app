@@ -12,6 +12,7 @@ abstract class MessageRemoteDataSources {
   EitherFunc<String> sendMessage(MessageParams message);
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params);
   EitherFunc<String> deleteMessage(GetMessageParams delete);
+  EitherFunc<String> updateMessage(GetMessageParams update);
 }
 
 class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
@@ -66,6 +67,23 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body)['message'] as String;
       return Right(result);
+    } else {
+      return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  EitherFunc<String> updateMessage(GetMessageParams update) async {
+    final response = await client.put(
+        Uri.parse(AppUrl.updateMessage(update.userId)),
+        body: jsonEncode(update.updateRequestBody()),
+        headers: AppUrl.contentHeaders);
+
+    if (response.statusCode == 200) {
+      final result = jsonDecode(response.body)['message'] as String;
+      return Right(result);
+    } else if (response.statusCode == 404) {
+      return Left(ServerException.notFound());
     } else {
       return Left(ServerException.failed());
     }
