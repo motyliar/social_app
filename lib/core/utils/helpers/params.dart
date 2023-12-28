@@ -1,3 +1,5 @@
+import 'package:climbapp/data/message/models/message_model.dart';
+
 /// File params contains classes of Params used in Repository UseCase
 
 /// [GetUserParams] store 2 variables for UserGetUseCase
@@ -29,10 +31,14 @@ class MessageParams {
   const MessageParams(
       {required this.to,
       required this.from,
+      required this.sender,
+      required this.recipient,
       required this.subject,
       required this.content});
   final String to;
   final String from;
+  final String sender;
+  final String recipient;
   final String subject;
   final String content;
 }
@@ -56,4 +62,17 @@ class MessageUserDetails {
   @override
   toString() =>
       "senderName: $senderName\n senderId: $senderId\n recipientName: $recipientName\n reciientId $recipientId";
+}
+
+class GetMessageParams {
+  const GetMessageParams({required this.userId, required this.direction});
+  final String userId;
+  final String direction;
+
+  /// [requestBody] map creator for body in get user message
+  Map<String, String> requestBody() => {"direction": direction};
+
+  @override
+  String toString() =>
+      'GetMessageParams(userId: $userId, direction: $direction)';
 }

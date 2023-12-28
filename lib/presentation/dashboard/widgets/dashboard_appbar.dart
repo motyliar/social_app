@@ -54,7 +54,8 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          Navigator.pushNamed(context, routeMessagePage),
                       icon: const Icon(
                         Icons.message,
                         size: 20,

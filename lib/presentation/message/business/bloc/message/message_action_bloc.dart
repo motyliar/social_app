@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
+import 'package:climbapp/domains/messages/usecases/get_user_messages_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/send_message_usecase.dart';
 import 'package:equatable/equatable.dart';
 
@@ -9,10 +10,14 @@ part 'message_action_state.dart';
 
 class MessageActionBloc extends Bloc<MessageActionEvent, MessageActionState> {
   final SendMessageUseCase _sendMessageUseCase;
-  MessageActionBloc(SendMessageUseCase sendMessageUseCase)
+  final GetUserMessagesUseCase _getUserMessagesUseCase;
+  MessageActionBloc(SendMessageUseCase sendMessageUseCase,
+      GetUserMessagesUseCase getUserMessagesUseCase)
       : _sendMessageUseCase = sendMessageUseCase,
+        _getUserMessagesUseCase = getUserMessagesUseCase,
         super(MessageActionInitial()) {
     on<SendMessageEvent>(_sendMessage);
+    on<LoadUserMessagesEvent>(_loadMessages);
   }
   Future<void> _sendMessage(
       SendMessageEvent event, Emitter<MessageActionState> emit) async {
@@ -20,5 +25,12 @@ class MessageActionBloc extends Bloc<MessageActionEvent, MessageActionState> {
 
     result.fold((fail) => emit(MessageActionFailed()),
         (data) => emit(MessageActionSuccess()));
+  }
+
+  Future<void> _loadMessages(
+      LoadUserMessagesEvent event, Emitter<MessageActionState> emit) async {
+    final result = await _getUserMessagesUseCase.execute(event.params).then(
+        (response) => response.fold((failure) => emit(MessageActionFailed()),
+            (data) => emit(MessageLoaded(data))));
   }
 }

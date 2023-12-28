@@ -2,6 +2,7 @@ import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/firebase/firebase_error/firebase_error.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/network/network_connected.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -94,5 +95,26 @@ class Utils {
       Navigator.pushReplacementNamed(context, routeName);
       function?.call();
     });
+  }
+
+  /// [performNetworkOperation] is short function to check NetworkConnection and
+  /// after function check is server available to send request.
+  EitherFunc<T> performNetworkOperation<T>(
+    EitherFunc<T> Function() operation,
+  ) async {
+    if (await NetworkConnectedImpl().noConnection) {
+      return Left(NetworkException.disconnection());
+    } else {
+      final serverConnectionTest = await getServerConnection();
+      if (serverConnectionTest.isRight()) {
+        try {
+          return await operation();
+        } catch (error) {
+          return Left(ServerException(error.toString()));
+        }
+      } else {
+        return Left(ServerException.error());
+      }
+    }
   }
 }

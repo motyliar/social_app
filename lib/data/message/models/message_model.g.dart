@@ -20,19 +20,21 @@ class MessageModelAdapter extends TypeAdapter<MessageModel> {
       id: fields[0] as String,
       to: fields[1] as String,
       from: fields[2] as String,
-      subject: fields[3] as String,
-      content: fields[4] as String,
-      isRead: fields[5] as bool,
-      isReply: fields[6] as bool,
-      createdAt: fields[7] as String,
-      updatedAt: fields[8] as String,
+      sender: fields[3] as String,
+      recipient: fields[4] as String,
+      subject: fields[5] as String,
+      content: fields[6] as String,
+      isRead: fields[7] as bool,
+      isReply: fields[8] as bool,
+      createdAt: fields[9] as String,
+      updatedAt: fields[10] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, MessageModel obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(11)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -40,16 +42,20 @@ class MessageModelAdapter extends TypeAdapter<MessageModel> {
       ..writeByte(2)
       ..write(obj.from)
       ..writeByte(3)
-      ..write(obj.subject)
+      ..write(obj.sender)
       ..writeByte(4)
-      ..write(obj.content)
+      ..write(obj.recipient)
       ..writeByte(5)
-      ..write(obj.isRead)
+      ..write(obj.subject)
       ..writeByte(6)
-      ..write(obj.isReply)
+      ..write(obj.content)
       ..writeByte(7)
-      ..write(obj.createdAt)
+      ..write(obj.isRead)
       ..writeByte(8)
+      ..write(obj.isReply)
+      ..writeByte(9)
+      ..write(obj.createdAt)
+      ..writeByte(10)
       ..write(obj.updatedAt);
   }
 
@@ -73,6 +79,8 @@ _$MessageModelImpl _$$MessageModelImplFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String,
       to: json['to'] as String,
       from: json['from'] as String,
+      sender: json['sender'] as String,
+      recipient: json['recipient'] as String,
       subject: json['subject'] as String,
       content: json['content'] as String,
       isRead: json['isRead'] as bool,
@@ -86,6 +94,8 @@ Map<String, dynamic> _$$MessageModelImplToJson(_$MessageModelImpl instance) =>
       '_id': instance.id,
       'to': instance.to,
       'from': instance.from,
+      'sender': instance.sender,
+      'recipient': instance.recipient,
       'subject': instance.subject,
       'content': instance.content,
       'isRead': instance.isRead,

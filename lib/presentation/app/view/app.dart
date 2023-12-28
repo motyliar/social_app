@@ -15,6 +15,7 @@ import 'package:climbapp/presentation/app/business/cubit/localization/locale_cub
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
+import 'package:climbapp/presentation/message/business/cubit/cubit/message_view_cubit.dart';
 
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 
@@ -46,12 +47,16 @@ class App extends StatelessWidget {
           create: (context) => userLocator<FriendsActionBloc>(),
         ),
         BlocProvider(create: (context) => userLocator<MessageActionBloc>()),
+        BlocProvider(
+          create: (context) => MessageViewCubit(),
+        )
       ],
       child: BlocBuilder<LocaleCubit, String>(
         builder: (context, localeState) {
           return BlocBuilder<ThemeCubit, ThemeState>(
             builder: (context, themeState) {
               return MaterialApp(
+                debugShowCheckedModeBanner: false,
                 onGenerateRoute: AppRouter.onGenerateRoute,
                 initialRoute: routeSignInPage,
                 theme: themeState.theme,

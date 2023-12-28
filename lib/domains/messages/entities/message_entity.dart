@@ -8,6 +8,8 @@ class MessageEntity with _$MessageEntity {
       {required String id,
       required String to,
       required String from,
+      required String sender,
+      required String recipient,
       required String subject,
       required String content,
       required bool isRead,

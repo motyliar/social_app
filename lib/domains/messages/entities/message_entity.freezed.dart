@@ -23,6 +23,8 @@ mixin _$MessageEntity {
   String get id => throw _privateConstructorUsedError;
   String get to => throw _privateConstructorUsedError;
   String get from => throw _privateConstructorUsedError;
+  String get sender => throw _privateConstructorUsedError;
+  String get recipient => throw _privateConstructorUsedError;
   String get subject => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   bool get isRead => throw _privateConstructorUsedError;
@@ -46,6 +48,8 @@ abstract class $MessageEntityCopyWith<$Res> {
       {String id,
       String to,
       String from,
+      String sender,
+      String recipient,
       String subject,
       String content,
       bool isRead,
@@ -70,6 +74,8 @@ class _$MessageEntityCopyWithImpl<$Res, $Val extends MessageEntity>
     Object? id = null,
     Object? to = null,
     Object? from = null,
+    Object? sender = null,
+    Object? recipient = null,
     Object? subject = null,
     Object? content = null,
     Object? isRead = null,
@@ -89,6 +95,14 @@ class _$MessageEntityCopyWithImpl<$Res, $Val extends MessageEntity>
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      sender: null == sender
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as String,
+      recipient: null == recipient
+          ? _value.recipient
+          : recipient // ignore: cast_nullable_to_non_nullable
               as String,
       subject: null == subject
           ? _value.subject
@@ -130,6 +144,8 @@ abstract class _$$MessageEntityImplCopyWith<$Res>
       {String id,
       String to,
       String from,
+      String sender,
+      String recipient,
       String subject,
       String content,
       bool isRead,
@@ -152,6 +168,8 @@ class __$$MessageEntityImplCopyWithImpl<$Res>
     Object? id = null,
     Object? to = null,
     Object? from = null,
+    Object? sender = null,
+    Object? recipient = null,
     Object? subject = null,
     Object? content = null,
     Object? isRead = null,
@@ -171,6 +189,14 @@ class __$$MessageEntityImplCopyWithImpl<$Res>
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      sender: null == sender
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as String,
+      recipient: null == recipient
+          ? _value.recipient
+          : recipient // ignore: cast_nullable_to_non_nullable
               as String,
       subject: null == subject
           ? _value.subject
@@ -207,6 +233,8 @@ class _$MessageEntityImpl implements _MessageEntity {
       {required this.id,
       required this.to,
       required this.from,
+      required this.sender,
+      required this.recipient,
       required this.subject,
       required this.content,
       required this.isRead,
@@ -224,6 +252,10 @@ class _$MessageEntityImpl implements _MessageEntity {
   @override
   final String from;
   @override
+  final String sender;
+  @override
+  final String recipient;
+  @override
   final String subject;
   @override
   final String content;
@@ -238,7 +270,7 @@ class _$MessageEntityImpl implements _MessageEntity {
 
   @override
   String toString() {
-    return 'MessageEntity(id: $id, to: $to, from: $from, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MessageEntity(id: $id, to: $to, from: $from, sender: $sender, recipient: $recipient, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -249,6 +281,9 @@ class _$MessageEntityImpl implements _MessageEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.from, from) || other.from == from) &&
+            (identical(other.sender, sender) || other.sender == sender) &&
+            (identical(other.recipient, recipient) ||
+                other.recipient == recipient) &&
             (identical(other.subject, subject) || other.subject == subject) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.isRead, isRead) || other.isRead == isRead) &&
@@ -261,8 +296,8 @@ class _$MessageEntityImpl implements _MessageEntity {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, to, from, subject, content,
-      isRead, isReply, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, to, from, sender, recipient,
+      subject, content, isRead, isReply, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -283,6 +318,8 @@ abstract class _MessageEntity implements MessageEntity {
       {required final String id,
       required final String to,
       required final String from,
+      required final String sender,
+      required final String recipient,
       required final String subject,
       required final String content,
       required final bool isRead,
@@ -299,6 +336,10 @@ abstract class _MessageEntity implements MessageEntity {
   String get to;
   @override
   String get from;
+  @override
+  String get sender;
+  @override
+  String get recipient;
   @override
   String get subject;
   @override

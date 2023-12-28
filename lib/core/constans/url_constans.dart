@@ -15,6 +15,7 @@ class AppUrl {
   static const String searchAction = 'search/';
   static const String messageendPoint = 'message/';
   static const String sendMessage = 'sendMessage/';
+  static const String getUserMessage = 'user/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   /// [userApi] endpoint for fetch user data after login
@@ -33,7 +34,12 @@ class AppUrl {
   static String addFriend(String userId) =>
       '$backendUrl$middleWare$user$friend$addAction$userId';
 
+  /// [sendMessageUrl] api Url for sending message to another user
   static String sendMessageUrl() => '$backendUrl$messageendPoint$sendMessage';
+
+  /// [getUserMessages] general Api url to get all messages from user DB
+  static String getUserMessages(String userId) =>
+      '$backendUrl$messageendPoint$getUserMessage$userId';
 
   static String searchUsers(String name) =>
       '$backendUrl$middleWare$user$searchAction$name';
@@ -42,6 +48,8 @@ class AppUrl {
   static Map<String, String> messageMap(MessageParams message) => {
         "to": message.to,
         "from": message.from,
+        "sender": message.sender,
+        "recipient": message.recipient,
         "subject": message.subject,
         "content": message.content
       };

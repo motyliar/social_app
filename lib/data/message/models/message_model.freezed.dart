@@ -28,16 +28,20 @@ mixin _$MessageModel {
   @HiveField(2)
   String get from => throw _privateConstructorUsedError;
   @HiveField(3)
-  String get subject => throw _privateConstructorUsedError;
+  String get sender => throw _privateConstructorUsedError;
   @HiveField(4)
-  String get content => throw _privateConstructorUsedError;
+  String get recipient => throw _privateConstructorUsedError;
   @HiveField(5)
-  bool get isRead => throw _privateConstructorUsedError;
+  String get subject => throw _privateConstructorUsedError;
   @HiveField(6)
-  bool get isReply => throw _privateConstructorUsedError;
+  String get content => throw _privateConstructorUsedError;
   @HiveField(7)
-  String get createdAt => throw _privateConstructorUsedError;
+  bool get isRead => throw _privateConstructorUsedError;
   @HiveField(8)
+  bool get isReply => throw _privateConstructorUsedError;
+  @HiveField(9)
+  String get createdAt => throw _privateConstructorUsedError;
+  @HiveField(10)
   String get updatedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -56,12 +60,14 @@ abstract class $MessageModelCopyWith<$Res> {
       {@HiveField(0) @JsonKey(name: "_id") String id,
       @HiveField(1) String to,
       @HiveField(2) String from,
-      @HiveField(3) String subject,
-      @HiveField(4) String content,
-      @HiveField(5) bool isRead,
-      @HiveField(6) bool isReply,
-      @HiveField(7) String createdAt,
-      @HiveField(8) String updatedAt});
+      @HiveField(3) String sender,
+      @HiveField(4) String recipient,
+      @HiveField(5) String subject,
+      @HiveField(6) String content,
+      @HiveField(7) bool isRead,
+      @HiveField(8) bool isReply,
+      @HiveField(9) String createdAt,
+      @HiveField(10) String updatedAt});
 }
 
 /// @nodoc
@@ -80,6 +86,8 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
     Object? id = null,
     Object? to = null,
     Object? from = null,
+    Object? sender = null,
+    Object? recipient = null,
     Object? subject = null,
     Object? content = null,
     Object? isRead = null,
@@ -99,6 +107,14 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      sender: null == sender
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as String,
+      recipient: null == recipient
+          ? _value.recipient
+          : recipient // ignore: cast_nullable_to_non_nullable
               as String,
       subject: null == subject
           ? _value.subject
@@ -140,12 +156,14 @@ abstract class _$$MessageModelImplCopyWith<$Res>
       {@HiveField(0) @JsonKey(name: "_id") String id,
       @HiveField(1) String to,
       @HiveField(2) String from,
-      @HiveField(3) String subject,
-      @HiveField(4) String content,
-      @HiveField(5) bool isRead,
-      @HiveField(6) bool isReply,
-      @HiveField(7) String createdAt,
-      @HiveField(8) String updatedAt});
+      @HiveField(3) String sender,
+      @HiveField(4) String recipient,
+      @HiveField(5) String subject,
+      @HiveField(6) String content,
+      @HiveField(7) bool isRead,
+      @HiveField(8) bool isReply,
+      @HiveField(9) String createdAt,
+      @HiveField(10) String updatedAt});
 }
 
 /// @nodoc
@@ -162,6 +180,8 @@ class __$$MessageModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? to = null,
     Object? from = null,
+    Object? sender = null,
+    Object? recipient = null,
     Object? subject = null,
     Object? content = null,
     Object? isRead = null,
@@ -181,6 +201,14 @@ class __$$MessageModelImplCopyWithImpl<$Res>
       from: null == from
           ? _value.from
           : from // ignore: cast_nullable_to_non_nullable
+              as String,
+      sender: null == sender
+          ? _value.sender
+          : sender // ignore: cast_nullable_to_non_nullable
+              as String,
+      recipient: null == recipient
+          ? _value.recipient
+          : recipient // ignore: cast_nullable_to_non_nullable
               as String,
       subject: null == subject
           ? _value.subject
@@ -217,12 +245,14 @@ class _$MessageModelImpl extends _MessageModel {
       {@HiveField(0) @JsonKey(name: "_id") required this.id,
       @HiveField(1) required this.to,
       @HiveField(2) required this.from,
-      @HiveField(3) required this.subject,
-      @HiveField(4) required this.content,
-      @HiveField(5) required this.isRead,
-      @HiveField(6) required this.isReply,
-      @HiveField(7) required this.createdAt,
-      @HiveField(8) required this.updatedAt})
+      @HiveField(3) required this.sender,
+      @HiveField(4) required this.recipient,
+      @HiveField(5) required this.subject,
+      @HiveField(6) required this.content,
+      @HiveField(7) required this.isRead,
+      @HiveField(8) required this.isReply,
+      @HiveField(9) required this.createdAt,
+      @HiveField(10) required this.updatedAt})
       : super._();
 
   factory _$MessageModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -240,26 +270,32 @@ class _$MessageModelImpl extends _MessageModel {
   final String from;
   @override
   @HiveField(3)
-  final String subject;
+  final String sender;
   @override
   @HiveField(4)
-  final String content;
+  final String recipient;
   @override
   @HiveField(5)
-  final bool isRead;
+  final String subject;
   @override
   @HiveField(6)
-  final bool isReply;
+  final String content;
   @override
   @HiveField(7)
-  final String createdAt;
+  final bool isRead;
   @override
   @HiveField(8)
+  final bool isReply;
+  @override
+  @HiveField(9)
+  final String createdAt;
+  @override
+  @HiveField(10)
   final String updatedAt;
 
   @override
   String toString() {
-    return 'MessageModel(id: $id, to: $to, from: $from, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MessageModel(id: $id, to: $to, from: $from, sender: $sender, recipient: $recipient, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -270,6 +306,9 @@ class _$MessageModelImpl extends _MessageModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.to, to) || other.to == to) &&
             (identical(other.from, from) || other.from == from) &&
+            (identical(other.sender, sender) || other.sender == sender) &&
+            (identical(other.recipient, recipient) ||
+                other.recipient == recipient) &&
             (identical(other.subject, subject) || other.subject == subject) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.isRead, isRead) || other.isRead == isRead) &&
@@ -282,8 +321,8 @@ class _$MessageModelImpl extends _MessageModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, to, from, subject, content,
-      isRead, isReply, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, to, from, sender, recipient,
+      subject, content, isRead, isReply, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -304,12 +343,14 @@ abstract class _MessageModel extends MessageModel {
       {@HiveField(0) @JsonKey(name: "_id") required final String id,
       @HiveField(1) required final String to,
       @HiveField(2) required final String from,
-      @HiveField(3) required final String subject,
-      @HiveField(4) required final String content,
-      @HiveField(5) required final bool isRead,
-      @HiveField(6) required final bool isReply,
-      @HiveField(7) required final String createdAt,
-      @HiveField(8) required final String updatedAt}) = _$MessageModelImpl;
+      @HiveField(3) required final String sender,
+      @HiveField(4) required final String recipient,
+      @HiveField(5) required final String subject,
+      @HiveField(6) required final String content,
+      @HiveField(7) required final bool isRead,
+      @HiveField(8) required final bool isReply,
+      @HiveField(9) required final String createdAt,
+      @HiveField(10) required final String updatedAt}) = _$MessageModelImpl;
   const _MessageModel._() : super._();
 
   factory _MessageModel.fromJson(Map<String, dynamic> json) =
@@ -327,21 +368,27 @@ abstract class _MessageModel extends MessageModel {
   String get from;
   @override
   @HiveField(3)
-  String get subject;
+  String get sender;
   @override
   @HiveField(4)
-  String get content;
+  String get recipient;
   @override
   @HiveField(5)
-  bool get isRead;
+  String get subject;
   @override
   @HiveField(6)
-  bool get isReply;
+  String get content;
   @override
   @HiveField(7)
-  String get createdAt;
+  bool get isRead;
   @override
   @HiveField(8)
+  bool get isReply;
+  @override
+  @HiveField(9)
+  String get createdAt;
+  @override
+  @HiveField(10)
   String get updatedAt;
   @override
   @JsonKey(ignore: true)

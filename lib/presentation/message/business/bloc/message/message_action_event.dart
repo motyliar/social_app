@@ -13,3 +13,10 @@ class SendMessageEvent extends MessageActionEvent {
   @override
   List<Object> get props => [params];
 }
+
+class LoadUserMessagesEvent extends MessageActionEvent {
+  const LoadUserMessagesEvent({required this.params});
+  final GetMessageParams params;
+  @override
+  List<Object> get props => [params];
+}
