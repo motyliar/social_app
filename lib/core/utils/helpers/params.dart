@@ -65,12 +65,18 @@ class MessageUserDetails {
 }
 
 class GetMessageParams {
-  const GetMessageParams({required this.userId, required this.direction});
+  const GetMessageParams(
+      {required this.userId, required this.direction, this.messageId});
   final String userId;
   final String direction;
+  final String? messageId;
 
   /// [requestBody] map creator for body in get user message
   Map<String, String> requestBody() => {"direction": direction};
+
+  /// [deleteRequestBody] map creator for delete single message from DB
+  Map<String, String> deleteRequestBody() =>
+      {"messageId": messageId!, "direction": direction};
 
   @override
   String toString() =>

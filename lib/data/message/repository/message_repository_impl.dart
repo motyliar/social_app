@@ -46,4 +46,16 @@ class MessageRepositoryImpl extends MessagesRepository {
             (data) =>
                 Right(data.map((message) => message.toEntity()).toList())));
   }
+
+  @override
+  EitherFunc<String> deleteMessage(GetMessageParams delete) async {
+    return await Utils().performNetworkOperation<String>(
+      () async => await _messageRemoteDataSources.deleteMessage(delete).then(
+            (response) => response.fold(
+              (failure) => Left(failure),
+              (data) => Right(data),
+            ),
+          ),
+    );
+  }
 }

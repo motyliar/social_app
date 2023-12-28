@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 abstract class MessageRemoteDataSources {
   EitherFunc<String> sendMessage(MessageParams message);
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params);
+  EitherFunc<String> deleteMessage(GetMessageParams delete);
 }
 
 class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
@@ -48,6 +49,23 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
       return Right(const <MessageModel>[]);
     } else if (response.statusCode == 404) {
       return Left(ServerException.notFound());
+    } else {
+      return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  EitherFunc<String> deleteMessage(GetMessageParams delete) async {
+    final response = await client.delete(
+      Uri.parse(AppUrl.deleteMessage(delete.userId)),
+      body: jsonEncode(
+        delete.deleteRequestBody(),
+      ),
+      headers: AppUrl.contentHeaders,
+    );
+    if (response.statusCode == 200) {
+      final result = jsonDecode(response.body)['message'] as String;
+      return Right(result);
     } else {
       return Left(ServerException.failed());
     }

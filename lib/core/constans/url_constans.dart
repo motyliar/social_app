@@ -41,6 +41,9 @@ class AppUrl {
   static String getUserMessages(String userId) =>
       '$backendUrl$messageendPoint$getUserMessage$userId';
 
+  static String deleteMessage(String userId) =>
+      '$backendUrl$messageendPoint$deleteAction$userId';
+
   static String searchUsers(String name) =>
       '$backendUrl$middleWare$user$searchAction$name';
 
