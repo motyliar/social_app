@@ -9,8 +9,16 @@ List<Map> checkName = [
 ];
 
 class MessageCheckboxCubit extends Cubit<MessageCheckboxState> {
-  MessageCheckboxCubit() : super(MessageCheckboxState(checkBoxes: checkName));
+  MessageCheckboxCubit()
+      : super(const MessageCheckboxState(checkBoxes: <Map>[], isCheck: false));
 
-  void toggleNotfication(int index, bool newValue) => emit(state.copyWith(
-      checkBoxes: List.from(state.checkBoxes)..[index]['isCheck'] = newValue));
+  void addItemsToMap(List<Map> newItems) {
+    emit(state.copyWith(checkBoxes: newItems, isCheck: state.isCheck));
+  }
+
+  void toggleNotfication(int index, bool value) => emit(state.copyWith(
+      checkBoxes: List.from(state.checkBoxes)
+        ..[index]['isCheck'] =
+            state.checkBoxes[index]['isCheck'] ? false : true,
+      isCheck: value));
 }

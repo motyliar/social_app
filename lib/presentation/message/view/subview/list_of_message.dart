@@ -3,7 +3,9 @@ import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/checkbox/message_checkbox_cubit.dart';
+import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
+import 'package:climbapp/presentation/message/widgets/checkbox.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,81 +28,123 @@ class ListOfMessage extends StatelessWidget {
                 params:
                     GetMessageParams(direction: direction, userId: user.id))),
         ),
-        BlocProvider(
-          create: (context) => MessageCheckboxCubit(),
-        ),
+        BlocProvider(create: (context) => userLocator<MessageDeleteCubit>())
       ],
       child: Scaffold(body: BlocBuilder<MessageActionBloc, MessageActionState>(
         builder: (context, state) {
-          return Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.7,
-            child: ListView.builder(
-                itemCount: state.messages.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<MessageViewCubit>(context).changeView(
-                          MessageView.message,
-                          message: state.messages[index]);
-                      context.read<MessageActionBloc>().add(UpdateMessageEvent(
-                              params: GetMessageParams<bool>(
-                            userId: user.id,
-                            direction: direction,
-                            update: true,
-                            field: "isRead",
-                            messageId: state.messages[index].id,
-                          )));
-
-                      print('//${user.id}  ${state.messages[index].id}');
-                    },
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            BlocBuilder<MessageCheckboxCubit,
-                                MessageCheckboxState>(
-                              builder: (context, state) {
-                                return Checkbox(
-                                  value: isChecked,
-                                  onChanged: (newValue) =>
-                                      isChecked = newValue!,
+          return Column(
+            children: [
+              Row(
+                children: [
+                  Text('ACTION'),
+                  BlocBuilder<MessageDeleteCubit, MessageDeleteState>(
+                    builder: (context, state) {
+                      return IconButton(
+                          onPressed: () {
+                            context
+                                .read<MessageDeleteCubit>()
+                                .deleteMessagesFromDB(
+                                  deleteParams: GetMessageParams(
+                                      userId: user.id,
+                                      direction: direction,
+                                      delete: state.messageIds),
                                 );
-                              },
+                          },
+                          icon: Icon(
+                            Icons.delete,
+                            color: state.messageIds.length == 0
+                                ? Colors.grey
+                                : Colors.red,
+                          ));
+                    },
+                  ),
+                ],
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.8,
+                height: MediaQuery.of(context).size.height * 0.5,
+                child: ListView.builder(
+                    itemCount: state.messages.length,
+                    itemBuilder: (context, index) {
+                      BlocProvider.of<MessageCheckboxCubit>(context)
+                          .addItemsToMap(boolCreator(state.messages.length));
+                      final _messagesList = state.messages;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              BlocProvider.of<MessageViewCubit>(context)
+                                  .changeView(MessageView.message,
+                                      message: state.messages[index]);
+                              context
+                                  .read<MessageActionBloc>()
+                                  .add(UpdateMessageEvent(
+                                      params: GetMessageParams<bool>(
+                                    userId: user.id,
+                                    direction: direction,
+                                    update: true,
+                                    field: "isRead",
+                                    messageId: state.messages[index].id,
+                                  )));
+
+                              print(
+                                  '//${user.id}  ${state.messages[index].id}');
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('From: ${state.messages[index].sender}'),
+                                Text(
+                                  'Subject: ' + state.messages[index].subject,
+                                  style: TextStyle(
+                                      fontWeight: state.messages[index].isRead
+                                          ? FontWeight.normal
+                                          : FontWeight.bold),
+                                ),
+                                Divider(),
+                              ],
                             ),
-                            Text('From: ${state.messages[index].sender}'),
-                            IconButton(
-                                onPressed: () {
-                                  context.read<MessageActionBloc>().add(
-                                        DeleteMessagesEvent(
-                                          params: GetMessageParams(
-                                            userId: user.id,
-                                            direction: direction,
-                                            messageId: state.messages[index].id,
-                                          ),
-                                        ),
-                                      );
-                                },
-                                icon: Icon(Icons.delete)),
-                          ],
-                        ),
-                        Text(
-                          state.messages[index].subject,
-                          style: TextStyle(
-                              fontWeight: state.messages[index].isRead
-                                  ? FontWeight.normal
-                                  : FontWeight.bold),
-                        ),
-                        Divider(),
-                      ],
-                    ),
-                  );
-                }),
+                          ),
+                          BlocBuilder<MessageCheckboxCubit,
+                              MessageCheckboxState>(
+                            builder: (context, state) {
+                              return CheckBoxWidgets(
+                                  onTap: () {
+                                    context
+                                        .read<MessageCheckboxCubit>()
+                                        .toggleNotfication(index,
+                                            state.isCheck ? false : true);
+                                    print(state.isCheck);
+                                    state.checkBoxes[index]['isCheck']
+                                        ? context
+                                            .read<MessageDeleteCubit>()
+                                            .addIdToDelete(
+                                                _messagesList[index].id)
+                                        : context
+                                            .read<MessageDeleteCubit>()
+                                            .deleteIdFromList(
+                                                _messagesList[index].id);
+                                  },
+                                  isCheck: state.checkBoxes[index]['isCheck']);
+                            },
+                          ),
+                        ],
+                      );
+                    }),
+              ),
+            ],
           );
         },
       )),
     );
   }
+}
+
+List<Map> boolCreator(int index) {
+  List<Map> newList = [];
+  for (var i = 0; i < index; i++) {
+    newList.add({"name": i, "isCheck": false});
+  }
+  return newList;
 }

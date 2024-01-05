@@ -1,5 +1,5 @@
 import 'package:climbapp/core/constans/router_constans.dart';
-import 'package:climbapp/presentation/message/business/cubit/cubit/message_view_cubit.dart';
+import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../view/subview/message_subview.dart';

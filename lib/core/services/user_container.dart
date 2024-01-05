@@ -21,6 +21,7 @@ import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
+import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -44,6 +45,8 @@ void userInit() {
         getUserMessagesUseCase: userLocator(),
         deleteMessageUseCase: userLocator(),
         updateMessageUseCase: userLocator()))
+    ..registerFactory(
+        () => MessageDeleteCubit(deleteMessageUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -54,6 +57,7 @@ void userInit() {
         () => AddFriendUseCase(friendsRepository: userLocator()))
     ..registerLazySingleton(
         () => SearchUsersUseCase(friendsRepository: userLocator()))
+
     //USER
     ..registerLazySingleton(() => GetUserUseCase(userLocator()))
     ..registerLazySingleton(

@@ -84,7 +84,7 @@ class GetMessageParams<T> {
 
   /// [deleteRequestBody] map creator for delete single message from DB
   Map<String, dynamic> deleteRequestBody() =>
-      {"messageId": delete!, "direction": direction};
+      {"delete": delete!, "direction": direction};
 
   Map<String, dynamic> updateRequestBody() => {
         "messageID": messageId,

@@ -1,0 +1,32 @@
+import 'package:bloc/bloc.dart';
+import 'package:climbapp/core/utils/helpers/params.dart';
+import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
+import 'package:equatable/equatable.dart';
+
+part 'message_delete_state.dart';
+
+class MessageDeleteCubit extends Cubit<MessageDeleteState> {
+  final DeleteMessageUseCase _deleteMessageUseCase;
+  MessageDeleteCubit({required DeleteMessageUseCase deleteMessageUseCase})
+      : _deleteMessageUseCase = deleteMessageUseCase,
+        super(MessageDeleteState(messageIds: const <String>[]));
+
+  void addIdToDelete(String messageId) {
+    emit(state.copyWith(
+        messageIds: List.from(state.messageIds)..add(messageId)));
+    print('add ${state.messageIds}');
+  }
+
+  void deleteIdFromList(String messageId) {
+    final newStateList = List.from(state.messageIds);
+    newStateList.removeWhere((message) => message == messageId);
+    emit(state.copyWith(messageIds: List.from(newStateList)));
+    print('delete ${state.messageIds}');
+  }
+
+  Future<void> deleteMessagesFromDB(
+      {required GetMessageParams deleteParams}) async {
+    await _deleteMessageUseCase.execute(deleteParams).then((response) =>
+        response.fold((failure) => print(failure), (data) => print(data)));
+  }
+}

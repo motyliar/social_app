@@ -66,6 +66,7 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
       ),
       headers: AppUrl.contentHeaders,
     );
+    print(response.body);
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body)['message'] as String;
       return Right(result);
