@@ -53,13 +53,15 @@ class AppUrl {
       '$backendUrl$middleWare$user$searchAction$name';
 
   ///
-  static Map<String, String> messageMap(MessageParams message) => {
-        "to": message.to,
-        "from": message.from,
-        "sender": message.sender,
-        "recipient": message.recipient,
-        "subject": message.subject,
-        "content": message.content
+  static Map<String, dynamic> messageMap(MessageParams message) => {
+        "message": {
+          "to": message.to,
+          "from": message.from,
+          "sender": message.sender,
+          "recipient": message.recipient,
+          "subject": message.subject,
+          "content": message.content
+        }
       };
 
   /// [contentHeaders] general headers to get resposne from server of DB
