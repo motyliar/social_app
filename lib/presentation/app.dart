@@ -5,5 +5,5 @@ export 'register/view/register_page.dart';
 export 'sign_in/view/signin_page.dart';
 export 'friends/view/friends_page.dart';
 export 'user/view/user_page.dart';
-export 'message/view/message_page.dart';
+export 'message/view/message_preview.dart';
 export 'message/view/message_main_view.dart';

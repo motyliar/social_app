@@ -49,6 +49,14 @@ class ListOfMessage extends StatelessWidget {
                                       direction: direction,
                                       delete: state.messageIds),
                                 );
+                            Future.delayed(
+                                Duration(seconds: 1),
+                                () =>
+                                    BlocProvider.of<MessageActionBloc>(context)
+                                        .add(LoadUserMessagesEvent(
+                                            params: GetMessageParams(
+                                                userId: user.id,
+                                                direction: direction))));
                           },
                           icon: Icon(
                             Icons.delete,
@@ -57,6 +65,47 @@ class ListOfMessage extends StatelessWidget {
                                 : Colors.red,
                           ));
                     },
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      showDialog(
+                          barrierColor: Colors.transparent,
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Stack(children: [
+                              Positioned(
+                                  child: Container(
+                                color: Colors.transparent,
+                                height: MediaQuery.of(context).size.height,
+                              )),
+                              Positioned(
+                                top: 100,
+                                child: AlertDialog(
+                                  backgroundColor: Colors.transparent,
+                                  elevation: 0,
+                                  content: SizedBox(
+                                    width: 30,
+                                    height: 40,
+                                    child: Center(
+                                      child: LinearProgressIndicator(
+                                          color: Colors.grey.withOpacity(0.5)),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            ]);
+                          });
+                      Future.delayed(
+                              Duration(seconds: 1),
+                              () => context.read<MessageActionBloc>().add(
+                                    LoadUserMessagesEvent(
+                                        params: GetMessageParams(
+                                            userId: user.id,
+                                            direction: direction)),
+                                  ))
+                          .whenComplete(() => Navigator.of(context).pop());
+                    },
+                    icon: Icon(Icons.refresh),
                   ),
                 ],
               ),
@@ -77,6 +126,7 @@ class ListOfMessage extends StatelessWidget {
                               BlocProvider.of<MessageViewCubit>(context)
                                   .changeView(MessageView.message,
                                       message: state.messages[index]);
+
                               context
                                   .read<MessageActionBloc>()
                                   .add(UpdateMessageEvent(

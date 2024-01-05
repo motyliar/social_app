@@ -1,5 +1,7 @@
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
+import 'package:climbapp/presentation/message/view/message_preview.dart';
+import 'package:climbapp/presentation/message/view/subview/message_reply.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../view/subview/message_subview.dart';
@@ -96,9 +98,12 @@ class MessageMainView extends StatelessWidget {
                     return const CreateNewMessage();
                   }
                   if (state is MessageViewMessage) {
-                    return Message(
+                    return MessagePreview(
                       message: state.message,
                     );
+                  }
+                  if (state is MessageViewReply) {
+                    return MessageReply(message: state.message);
                   } else {
                     return ListOfMessage(
                       direction: _directionReceived,

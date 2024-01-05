@@ -19,6 +19,8 @@ class MessageViewCubit extends Cubit<MessageViewState> {
         emit(MessageViewNewMessage());
       case MessageView.message:
         emit(MessageViewMessage(message: message!));
+      case MessageView.reply:
+        emit(MessageViewReply(message: message!));
       default:
         emit(MessageViewInitial());
     }
