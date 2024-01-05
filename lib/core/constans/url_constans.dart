@@ -15,8 +15,9 @@ class AppUrl {
   static const String updateAction = 'update/';
   static const String searchAction = 'search/';
   static const String messageendPoint = 'message/';
-  static const String sendMessage = 'sendMessage/';
-  static const String getUserMessage = 'user/';
+  static const String singleAction = 'single/';
+  static const String manyAction = 'many/';
+  static const String getUserMessage = 'userMessages/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   /// [userApi] endpoint for fetch user data after login
@@ -36,7 +37,8 @@ class AppUrl {
       '$backendUrl$middleWare$user$friend$addAction$userId';
 
   /// [sendMessageUrl] api Url for sending message to another user
-  static String sendMessageUrl() => '$backendUrl$messageendPoint$sendMessage';
+  static String sendMessageUrl() =>
+      '$backendUrl$messageendPoint$addAction$singleAction';
 
   /// [getUserMessages] general Api url to get all messages from user DB
   static String getUserMessages(String userId) =>

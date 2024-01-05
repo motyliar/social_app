@@ -15,6 +15,7 @@ import 'package:climbapp/domains/messages/repository/message_repository.dart';
 import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/get_user_messages_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/send_message_usecase.dart';
+import 'package:climbapp/domains/messages/usecases/update_message_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
@@ -41,7 +42,8 @@ void userInit() {
     ..registerFactory(() => MessageActionBloc(
         sendMessageUseCase: userLocator(),
         getUserMessagesUseCase: userLocator(),
-        deleteMessageUseCase: userLocator()))
+        deleteMessageUseCase: userLocator(),
+        updateMessageUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -64,6 +66,8 @@ void userInit() {
         () => GetUserMessagesUseCase(messagesRepository: userLocator()))
     ..registerLazySingleton(
         () => DeleteMessageUseCase(messagesRepository: userLocator()))
+    ..registerLazySingleton(
+        () => UpdateMessageUseCase(messagesRepository: userLocator()))
     // Register repositories
     ..registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(

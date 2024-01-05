@@ -6,6 +6,7 @@ import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/message/models/message_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 abstract class MessageRemoteDataSources {
@@ -24,7 +25,7 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
     final response = await client.post(Uri.parse(AppUrl.sendMessageUrl()),
         body: jsonEncode(AppUrl.messageMap(message)),
         headers: AppUrl.contentHeaders);
-    print(response.body);
+
     if (response.statusCode == 200) {
       return Right(jsonDecode(response.body)['message'] as String);
     } else if (response.statusCode == 404) {
@@ -42,12 +43,13 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
         headers: AppUrl.contentHeaders);
 
     if (response.statusCode == 200) {
-      final result = jsonDecode(response.body) as List<dynamic>;
+      final result =
+          jsonDecode(response.body)[params.direction] as List<dynamic>;
       final data =
           result.map((message) => MessageModel.fromJson(message)).toList();
       return Right(data);
     } else if (response.statusCode == 204) {
-      return Right(const <MessageModel>[]);
+      return const Right(<MessageModel>[]);
     } else if (response.statusCode == 404) {
       return Left(ServerException.notFound());
     } else {
@@ -78,7 +80,7 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
         Uri.parse(AppUrl.updateMessage(update.userId)),
         body: jsonEncode(update.updateRequestBody()),
         headers: AppUrl.contentHeaders);
-
+    print(response.body);
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body)['message'] as String;
       return Right(result);

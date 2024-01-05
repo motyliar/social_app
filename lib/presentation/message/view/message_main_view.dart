@@ -13,8 +13,8 @@ class MessageMainView extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-        settings: RouteSettings(name: routeMessagePage),
-        builder: (_) => MessageMainView());
+        settings: const RouteSettings(name: routeMessagePage),
+        builder: (_) => const MessageMainView());
   }
 
   @override
@@ -31,8 +31,8 @@ class MessageMainView extends StatelessWidget {
                 children: [
                   IconButton(
                       onPressed: () => Navigator.pop(context),
-                      icon: Icon(Icons.arrow_back)),
-                  Text('Your Messanger'),
+                      icon: const Icon(Icons.arrow_back)),
+                  const Text('Your Messanger'),
                 ],
               ),
               BlocBuilder<MessageViewCubit, MessageViewState>(
@@ -48,28 +48,28 @@ class MessageMainView extends StatelessWidget {
                                   .read<MessageViewCubit>()
                                   .changeView(MessageView.received);
                             },
-                            child: Text('Received')),
+                            child: const Text('Received')),
                         ElevatedButton(
                             onPressed: () {
                               context
                                   .read<MessageViewCubit>()
                                   .changeView(MessageView.send);
                             },
-                            child: Text('Send')),
+                            child: const Text('Send')),
                         ElevatedButton(
                             onPressed: () {
                               context
                                   .read<MessageViewCubit>()
                                   .changeView(MessageView.received);
                             },
-                            child: Text('Trash')),
+                            child: const Text('Trash')),
                         ElevatedButton(
                             onPressed: () {
                               context
                                   .read<MessageViewCubit>()
                                   .changeView(MessageView.create);
                             },
-                            child: Text('New')),
+                            child: const Text('New')),
                       ],
                     ),
                   );
@@ -93,10 +93,12 @@ class MessageMainView extends StatelessWidget {
                     );
                   }
                   if (state is MessageViewNewMessage) {
-                    return CreateNewMessage();
+                    return const CreateNewMessage();
                   }
                   if (state is MessageViewMessage) {
-                    return Message();
+                    return Message(
+                      message: state.message,
+                    );
                   } else {
                     return ListOfMessage(
                       direction: _directionReceived,

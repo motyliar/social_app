@@ -1,13 +1,16 @@
+import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:flutter/material.dart';
 
 TextEditingController _subject = TextEditingController();
 TextEditingController _content = TextEditingController();
 
 class Message extends StatelessWidget {
-  const Message({super.key});
+  final MessageEntity? message;
+  const Message({this.message, super.key});
 
   @override
   Widget build(BuildContext context) {
+    print(message);
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
