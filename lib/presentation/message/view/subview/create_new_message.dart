@@ -1,3 +1,5 @@
+import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/datahelpers/params/message_params.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
@@ -60,13 +62,18 @@ class CreateNewMessage extends StatelessWidget {
                     ElevatedButton(
                       onPressed: () {
                         context.read<MessageActionBloc>().add(SendMessageEvent(
-                            params: MessageParams(
-                                to: "658c32bbcc61d05e51becd38",
-                                from: user.id,
-                                sender: user.userName,
-                                recipient: "Bartek",
-                                subject: _subject.text,
-                                content: _content.text)));
+                            params: MessageRequestParams(
+                                url: Uri.parse(
+                                  AppUrl.sendMessageUrl(),
+                                ),
+                                direction: 'send',
+                                singleMessage: SingleMessage(
+                                    to: "658c32bbcc61d05e51becd38",
+                                    from: user.id,
+                                    sender: user.userName,
+                                    recipient: "Bartek",
+                                    subject: _subject.text,
+                                    content: _content.text))));
                         ;
                       },
                       child: Text('Send'),

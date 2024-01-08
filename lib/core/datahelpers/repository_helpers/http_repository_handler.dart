@@ -15,6 +15,7 @@ abstract class HttpRepositoryHandler {
 
   EitherFunc<T> returnData<T>() async {
     final response = await sendRequest();
+    print(response.body);
     return _handleResponse<T>(response);
   }
 

@@ -1,3 +1,4 @@
+import 'package:climbapp/core/datahelpers/params/message_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/network/network_connected.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
@@ -16,7 +17,7 @@ class MessageRepositoryImpl extends MessagesRepository {
   final MessageRemoteDataSources _messageRemoteDataSources;
 
   @override
-  EitherFunc<String> sendMessage(MessageParams message) async {
+  EitherFunc<String> sendMessage(MessageRequestParams message) async {
     if (await NetworkConnectedImpl().noConnection) {
       return Left(NetworkException.disconnection());
     } else {

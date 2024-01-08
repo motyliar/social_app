@@ -1,4 +1,7 @@
+import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_repository_handler.dart';
+import 'package:climbapp/core/utils/utils.dart';
+
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
@@ -8,7 +11,11 @@ class HttpGetDataHandler extends HttpRepositoryHandler {
   final http.Client _client = http.Client();
 
   @override
-  Future<Response> _getResponseFromServer() async {
-    return await _client.get((params.url!), headers: params.headers);
+  Future<Response> getResponseFromServer() async {
+    return await _client.get((params.url!), headers: params.headers());
   }
+}
+
+EitherFunc<String> getMessage(RepositoryParams params) async {
+  return HttpGetDataHandler(params: params).returnData();
 }

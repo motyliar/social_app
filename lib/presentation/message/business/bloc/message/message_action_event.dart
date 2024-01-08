@@ -9,7 +9,7 @@ sealed class MessageActionEvent extends Equatable {
 
 class SendMessageEvent extends MessageActionEvent {
   const SendMessageEvent({required this.params});
-  final MessageParams params;
+  final MessageRequestParams params;
   @override
   List<Object> get props => [params];
 }

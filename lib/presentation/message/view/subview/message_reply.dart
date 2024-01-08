@@ -1,3 +1,5 @@
+import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/datahelpers/params/message_params.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
@@ -47,15 +49,19 @@ class MessageReply extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<MessageActionBloc>(context).add(
                     SendMessageEvent(
-                      params: MessageParams(
-                        to: message.from,
-                        from: message.to,
-                        sender: message.recipient,
-                        recipient: message.sender,
-                        content: _content.text,
-                        subject: _subject.text,
-                      ),
-                    ),
+                        params: MessageRequestParams(
+                            url: Uri.parse(
+                              AppUrl.sendMessageUrl(),
+                            ),
+                            direction: 'send',
+                            singleMessage: SingleMessage(
+                              to: message.from,
+                              from: message.to,
+                              sender: message.recipient,
+                              recipient: message.sender,
+                              content: _content.text,
+                              subject: _subject.text,
+                            ))),
                   );
                 },
                 child: Text('SEND')),
