@@ -222,7 +222,7 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NoticeModelImpl implements _NoticeModel {
+class _$NoticeModelImpl extends _NoticeModel {
   const _$NoticeModelImpl(
       {@HiveField(0) @JsonKey(name: '_id') required this.id,
       @HiveField(1) required this.author,
@@ -231,7 +231,8 @@ class _$NoticeModelImpl implements _NoticeModel {
       @HiveField(4) required this.content,
       @HiveField(5) required this.comments,
       @HiveField(6) required this.createdAt,
-      @HiveField(7) required this.updatedAt});
+      @HiveField(7) required this.updatedAt})
+      : super._();
 
   factory _$NoticeModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NoticeModelImplFromJson(json);
@@ -306,7 +307,7 @@ class _$NoticeModelImpl implements _NoticeModel {
   }
 }
 
-abstract class _NoticeModel implements NoticeModel {
+abstract class _NoticeModel extends NoticeModel {
   const factory _NoticeModel(
       {@HiveField(0) @JsonKey(name: '_id') required final String id,
       @HiveField(1) required final String author,
@@ -316,6 +317,7 @@ abstract class _NoticeModel implements NoticeModel {
       @HiveField(5) required final CommentsModel comments,
       @HiveField(6) required final String createdAt,
       @HiveField(7) required final String updatedAt}) = _$NoticeModelImpl;
+  const _NoticeModel._() : super._();
 
   factory _NoticeModel.fromJson(Map<String, dynamic> json) =
       _$NoticeModelImpl.fromJson;

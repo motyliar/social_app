@@ -141,12 +141,13 @@ class __$$ContentModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ContentModelImpl implements _ContentModel {
+class _$ContentModelImpl extends _ContentModel {
   const _$ContentModelImpl(
       {@HiveField(0) @JsonKey(name: '_id') required this.id,
       @HiveField(1) required this.title,
       @HiveField(2) required this.content,
-      this.price});
+      this.price})
+      : super._();
 
   factory _$ContentModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$ContentModelImplFromJson(json);
@@ -198,12 +199,13 @@ class _$ContentModelImpl implements _ContentModel {
   }
 }
 
-abstract class _ContentModel implements ContentModel {
+abstract class _ContentModel extends ContentModel {
   const factory _ContentModel(
       {@HiveField(0) @JsonKey(name: '_id') required final String id,
       @HiveField(1) required final String title,
       @HiveField(2) required final String content,
       final int? price}) = _$ContentModelImpl;
+  const _ContentModel._() : super._();
 
   factory _ContentModel.fromJson(Map<String, dynamic> json) =
       _$ContentModelImpl.fromJson;
@@ -396,7 +398,7 @@ class __$$CommentsModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$CommentsModelImpl implements _CommentsModel {
+class _$CommentsModelImpl extends _CommentsModel {
   const _$CommentsModelImpl(
       {@HiveField(0) @JsonKey(name: '_id') required this.id,
       @HiveField(1) required this.user,
@@ -404,7 +406,8 @@ class _$CommentsModelImpl implements _CommentsModel {
       @HiveField(3) required this.content,
       @HiveField(4) required this.likes,
       @HiveField(5) required this.createdAt,
-      @HiveField(6) required this.updatedAt});
+      @HiveField(6) required this.updatedAt})
+      : super._();
 
   factory _$CommentsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentsModelImplFromJson(json);
@@ -472,7 +475,7 @@ class _$CommentsModelImpl implements _CommentsModel {
   }
 }
 
-abstract class _CommentsModel implements CommentsModel {
+abstract class _CommentsModel extends CommentsModel {
   const factory _CommentsModel(
       {@HiveField(0) @JsonKey(name: '_id') required final String id,
       @HiveField(1) required final String user,
@@ -481,6 +484,7 @@ abstract class _CommentsModel implements CommentsModel {
       @HiveField(4) required final int likes,
       @HiveField(5) required final String createdAt,
       @HiveField(6) required final String updatedAt}) = _$CommentsModelImpl;
+  const _CommentsModel._() : super._();
 
   factory _CommentsModel.fromJson(Map<String, dynamic> json) =
       _$CommentsModelImpl.fromJson;

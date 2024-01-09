@@ -19,7 +19,7 @@ class NoticeRepositoryImpl extends NoticeRepository {
     return await Utils()
         .performNetworkOperation<List<NoticeModel>>(() async =>
             await _noticeRemoteDataSources.getNoticePagination(params))
-        .then((response) =>
-            response.fold((failure) => Left(failure), (data) => Right(data)));
+        .then((response) => response.fold((failure) => Left(failure),
+            (data) => Right(data.map((e) => e.toEntity()).toList())));
   }
 }

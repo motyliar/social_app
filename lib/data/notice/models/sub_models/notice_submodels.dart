@@ -1,3 +1,4 @@
+import 'package:climbapp/domains/notice/entities/sub_entity/sub_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'notice_submodels.freezed.dart';
@@ -6,6 +7,7 @@ part 'notice_submodels.g.dart';
 @freezed
 @HiveType(typeId: 8)
 class ContentModel with _$ContentModel {
+  const ContentModel._();
   const factory ContentModel({
     @HiveField(0) @JsonKey(name: '_id') required String id,
     @HiveField(1) required String title,
@@ -14,11 +16,18 @@ class ContentModel with _$ContentModel {
   }) = _ContentModel;
   factory ContentModel.fromJson(Map<String, dynamic> json) =>
       _$ContentModelFromJson(json);
+
+  ContentEntity toEntity() => ContentEntity(
+        id: id,
+        title: title,
+        content: content,
+      );
 }
 
 @freezed
 @HiveType(typeId: 9)
 class CommentsModel with _$CommentsModel {
+  const CommentsModel._();
   const factory CommentsModel({
     @HiveField(0) @JsonKey(name: '_id') required String id,
     @HiveField(1) required String user,
@@ -30,4 +39,14 @@ class CommentsModel with _$CommentsModel {
   }) = _CommentsModel;
   factory CommentsModel.fromJson(Map<String, dynamic> json) =>
       _$CommentsModelFromJson(json);
+
+  CommentsEntity toEntity() => CommentsEntity(
+        id: id,
+        user: user,
+        userID: userID,
+        content: content,
+        likes: likes,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+      );
 }
