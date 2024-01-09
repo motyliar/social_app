@@ -9,5 +9,5 @@ abstract class MessagesRepository {
   EitherFunc<String> sendMessage(MessageRequestParams message);
   EitherFunc<List<MessageEntity>> getUserMessage(GetMessageParams params);
   EitherFunc<String> deleteMessage(GetMessageParams delete);
-  EitherFunc<String> updateMessage(GetMessageParams update);
+  EitherFunc<String> updateMessage(MessageUpdateParams update);
 }

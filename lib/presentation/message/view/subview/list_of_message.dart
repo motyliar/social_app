@@ -1,3 +1,5 @@
+import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/datahelpers/params/message_params.dart';
 import 'package:climbapp/core/services/user_container.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
@@ -130,8 +132,8 @@ class ListOfMessage extends StatelessWidget {
                               context
                                   .read<MessageActionBloc>()
                                   .add(UpdateMessageEvent(
-                                      params: GetMessageParams<bool>(
-                                    userId: user.id,
+                                      params: MessageUpdateParams<bool>(
+                                    url: AppUrl.updateMessage(user.id),
                                     direction: direction,
                                     update: true,
                                     field: "isRead",

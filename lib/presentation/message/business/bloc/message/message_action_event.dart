@@ -30,7 +30,7 @@ class DeleteMessagesEvent extends MessageActionEvent {
 
 class UpdateMessageEvent extends MessageActionEvent {
   const UpdateMessageEvent({required this.params});
-  final GetMessageParams params;
+  final MessageUpdateParams params;
   @override
   List<Object> get props => [params];
 }

@@ -61,7 +61,7 @@ class MessageRepositoryImpl extends MessagesRepository {
   }
 
   @override
-  EitherFunc<String> updateMessage(GetMessageParams update) async {
+  EitherFunc<String> updateMessage(MessageUpdateParams update) async {
     return await Utils()
         .performNetworkOperation(
             () async => await _messageRemoteDataSources.updateMessage(update))

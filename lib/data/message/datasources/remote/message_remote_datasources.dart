@@ -4,6 +4,7 @@ import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message_params.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_get_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
+import 'package:climbapp/core/datahelpers/repository_helpers/http_put_data_hanlder.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/core/utils/utils.dart';
@@ -19,7 +20,7 @@ abstract class MessageRemoteDataSources {
   EitherFunc<String> sendMessage(MessageRequestParams params);
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params);
   EitherFunc<String> deleteMessage(GetMessageParams delete);
-  EitherFunc<String> updateMessage(GetMessageParams update);
+  EitherFunc<String> updateMessage(MessageUpdateParams update);
 }
 
 class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
@@ -73,19 +74,25 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
   }
 
   @override
-  EitherFunc<String> updateMessage(GetMessageParams update) async {
-    final response = await client.put(
-        Uri.parse(AppUrl.updateMessage(update.userId)),
-        body: jsonEncode(update.updateRequestBody()),
-        headers: AppUrl.contentHeaders);
-    print(response.body);
-    if (response.statusCode == 200) {
-      final result = jsonDecode(response.body)['message'] as String;
-      return Right(result);
-    } else if (response.statusCode == 404) {
-      return Left(ServerException.notFound());
-    } else {
-      return Left(ServerException.failed());
-    }
+  EitherFunc<String> updateMessage(MessageUpdateParams update) async {
+    return await HttpPutDataHandler(params: update)
+        .returnData(dataGetter: _dataGetter);
   }
 }
+
+
+//  EitherFunc<String> updateMessage(GetMessageParams update) async {
+//     final response = await client.put(
+//         Uri.parse(AppUrl.updateMessage(update.userId)),
+//         body: jsonEncode(update.updateRequestBody()),
+//         headers: AppUrl.contentHeaders);
+//     print(response.body);
+//     if (response.statusCode == 200) {
+//       final result = jsonDecode(response.body)['message'] as String;
+//       return Right(result);
+//     } else if (response.statusCode == 404) {
+//       return Left(ServerException.notFound());
+//     } else {
+//       return Left(ServerException.failed());
+//     }
+//   }
