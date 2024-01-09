@@ -13,6 +13,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 
+const String _dataGetter = 'status';
+
 abstract class MessageRemoteDataSources {
   EitherFunc<String> sendMessage(MessageRequestParams params);
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params);
@@ -26,7 +28,8 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
 
   @override
   EitherFunc<String> sendMessage(MessageRequestParams params) async {
-    return HttpPostDataHandler(params: params).returnData();
+    return HttpPostDataHandler(params: params)
+        .returnData(dataGetter: _dataGetter);
   }
 
   @override

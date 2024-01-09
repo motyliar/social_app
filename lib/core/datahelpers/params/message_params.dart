@@ -21,6 +21,27 @@ class MessageRequestParams extends RepositoryParams {
       };
 }
 
+class MessageUpdateParams<T> extends RepositoryParams {
+  const MessageUpdateParams({
+    required super.url,
+    required this.update,
+    required this.messageId,
+    required this.direction,
+    required this.field,
+  });
+  final T update;
+  final String messageId;
+  final String direction;
+  final String field;
+  @override
+  Map<String, dynamic> requestMapBody() => {
+        "messageID": messageId,
+        "direction": direction,
+        "update": update,
+        "field": field,
+      };
+}
+
 class SingleMessage {
   final String to;
   final String from;

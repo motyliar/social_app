@@ -13,14 +13,16 @@ abstract class HttpRepositoryHandler {
     return await getResponseFromServer();
   }
 
-  EitherFunc<T> returnData<T>() async {
+  EitherFunc<T> returnData<T>({String? dataGetter}) async {
     final response = await sendRequest();
-    print(response.body);
-    return _handleResponse<T>(response);
+
+    return _handleResponse<T>(response, dataGetter: dataGetter);
   }
 
-  EitherFunc<T> _handleResponse<T>(Response response) async {
+  EitherFunc<T> _handleResponse<T>(Response response,
+      {String? dataGetter}) async {
     final handler = ResponseHandler();
-    return handler.checkStatusCodeAndReturnData(response);
+    return handler.checkStatusCodeAndReturnData(response,
+        dataGetter: dataGetter);
   }
 }

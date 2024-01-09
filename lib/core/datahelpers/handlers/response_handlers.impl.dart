@@ -8,9 +8,10 @@ import 'package:http/http.dart';
 
 class ResponseHandler extends IResponseHandler {
   @override
-  EitherFunc<T> checkStatusCodeAndReturnData<T>(Response response) async {
+  EitherFunc<T> checkStatusCodeAndReturnData<T>(Response response,
+      {String? dataGetter}) async {
     if (response.statusCode == 200) {
-      return Right(_convertResponseToData<T>(response));
+      return Right(_convertResponseToData<T>(response, dataGetter: dataGetter));
     } else if (response.statusCode == 404) {
       return Left(ServerException.notFound());
     } else {
@@ -20,6 +21,7 @@ class ResponseHandler extends IResponseHandler {
 
 // TODO dodać ['message'] do zwrotu
   T _convertResponseToData<T>(Response response, {String? dataGetter}) {
+    print(response.body);
     if (dataGetter == null) {
       return jsonDecode(response.body) as T;
     }
