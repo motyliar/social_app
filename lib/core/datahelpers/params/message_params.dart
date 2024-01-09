@@ -42,6 +42,19 @@ class MessageUpdateParams<T> extends RepositoryParams {
       };
 }
 
+class MessageDeleteParams extends RepositoryParams {
+  const MessageDeleteParams({
+    required super.url,
+    required this.delete,
+    required this.direction,
+  });
+  final List<String> delete;
+  final String direction;
+  @override
+  Map<String, dynamic> requestMapBody() =>
+      {"delete": delete, "direction": direction};
+}
+
 class SingleMessage {
   final String to;
   final String from;

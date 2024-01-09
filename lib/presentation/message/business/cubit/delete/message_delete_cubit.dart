@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:climbapp/core/datahelpers/params/message_params.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -25,8 +26,9 @@ class MessageDeleteCubit extends Cubit<MessageDeleteState> {
   }
 
   Future<void> deleteMessagesFromDB(
-      {required GetMessageParams deleteParams}) async {
+      {required MessageDeleteParams deleteParams}) async {
     await _deleteMessageUseCase.execute(deleteParams).then((response) =>
-        response.fold((failure) => print(failure), (data) => print(data)));
+        response.fold((failure) => print(failure),
+            (data) => emit(state.copyWith(messageIds: <String>[]))));
   }
 }

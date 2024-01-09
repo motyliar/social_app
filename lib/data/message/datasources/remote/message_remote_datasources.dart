@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message_params.dart';
+import 'package:climbapp/core/datahelpers/repository_helpers/http.delete_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_get_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_put_data_hanlder.dart';
@@ -19,7 +20,7 @@ const String _dataGetter = 'status';
 abstract class MessageRemoteDataSources {
   EitherFunc<String> sendMessage(MessageRequestParams params);
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params);
-  EitherFunc<String> deleteMessage(GetMessageParams delete);
+  EitherFunc<String> deleteMessage(MessageDeleteParams delete);
   EitherFunc<String> updateMessage(MessageUpdateParams update);
 }
 
@@ -56,21 +57,9 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
   }
 
   @override
-  EitherFunc<String> deleteMessage(GetMessageParams delete) async {
-    final response = await client.delete(
-      Uri.parse(AppUrl.deleteMessage(delete.userId)),
-      body: jsonEncode(
-        delete.deleteRequestBody(),
-      ),
-      headers: AppUrl.contentHeaders,
-    );
-    print(response.body);
-    if (response.statusCode == 200) {
-      final result = jsonDecode(response.body)['message'] as String;
-      return Right(result);
-    } else {
-      return Left(ServerException.failed());
-    }
+  EitherFunc<String> deleteMessage(MessageDeleteParams delete) async {
+    return await HttpDeleteDataHandler(params: delete)
+        .returnData(dataGetter: _dataGetter);
   }
 
   @override
@@ -79,20 +68,3 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
         .returnData(dataGetter: _dataGetter);
   }
 }
-
-
-//  EitherFunc<String> updateMessage(GetMessageParams update) async {
-//     final response = await client.put(
-//         Uri.parse(AppUrl.updateMessage(update.userId)),
-//         body: jsonEncode(update.updateRequestBody()),
-//         headers: AppUrl.contentHeaders);
-//     print(response.body);
-//     if (response.statusCode == 200) {
-//       final result = jsonDecode(response.body)['message'] as String;
-//       return Right(result);
-//     } else if (response.statusCode == 404) {
-//       return Left(ServerException.notFound());
-//     } else {
-//       return Left(ServerException.failed());
-//     }
-//   }

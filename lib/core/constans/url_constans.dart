@@ -44,8 +44,8 @@ class AppUrl {
   static String getUserMessages(String userId) =>
       '$backendUrl$messageendPoint$getUserMessage$userId';
 
-  static String deleteMessage(String userId) =>
-      '$backendUrl$messageendPoint$deleteAction$userId';
+  static Uri deleteMessage(String userId) =>
+      Uri.parse('$backendUrl$messageendPoint$deleteAction$userId');
 
   static Uri updateMessage(String userId) =>
       Uri.parse('$backendUrl$messageendPoint$updateAction$userId');

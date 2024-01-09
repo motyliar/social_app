@@ -8,6 +8,6 @@ import 'package:dartz/dartz.dart';
 abstract class MessagesRepository {
   EitherFunc<String> sendMessage(MessageRequestParams message);
   EitherFunc<List<MessageEntity>> getUserMessage(GetMessageParams params);
-  EitherFunc<String> deleteMessage(GetMessageParams delete);
+  EitherFunc<String> deleteMessage(MessageDeleteParams delete);
   EitherFunc<String> updateMessage(MessageUpdateParams update);
 }

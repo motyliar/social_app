@@ -49,7 +49,7 @@ class MessageRepositoryImpl extends MessagesRepository {
   }
 
   @override
-  EitherFunc<String> deleteMessage(GetMessageParams delete) async {
+  EitherFunc<String> deleteMessage(MessageDeleteParams delete) async {
     return await Utils().performNetworkOperation<String>(
       () async => await _messageRemoteDataSources.deleteMessage(delete).then(
             (response) => response.fold(

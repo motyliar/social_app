@@ -46,8 +46,8 @@ class ListOfMessage extends StatelessWidget {
                             context
                                 .read<MessageDeleteCubit>()
                                 .deleteMessagesFromDB(
-                                  deleteParams: GetMessageParams(
-                                      userId: user.id,
+                                  deleteParams: MessageDeleteParams(
+                                      url: AppUrl.deleteMessage(user.id),
                                       direction: direction,
                                       delete: state.messageIds),
                                 );
