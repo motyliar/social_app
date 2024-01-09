@@ -41,8 +41,8 @@ class AppUrl {
       '$backendUrl$messageendPoint$addAction$singleAction';
 
   /// [getUserMessages] general Api url to get all messages from user DB
-  static String getUserMessages(String userId) =>
-      '$backendUrl$messageendPoint$getUserMessage$userId';
+  static Uri getUserMessages(String userId) =>
+      Uri.parse('$backendUrl$messageendPoint$getUserMessage$userId');
 
   static Uri deleteMessage(String userId) =>
       Uri.parse('$backendUrl$messageendPoint$deleteAction$userId');
@@ -51,18 +51,6 @@ class AppUrl {
       Uri.parse('$backendUrl$messageendPoint$updateAction$userId');
   static String searchUsers(String name) =>
       '$backendUrl$middleWare$user$searchAction$name';
-
-  ///
-  static Map<String, dynamic> messageMap(MessageParams message) => {
-        "message": {
-          "to": message.to,
-          "from": message.from,
-          "sender": message.sender,
-          "recipient": message.recipient,
-          "subject": message.subject,
-          "content": message.content
-        }
-      };
 
   /// [contentHeaders] general headers to get resposne from server of DB
   static const Map<String, String> contentHeaders = {

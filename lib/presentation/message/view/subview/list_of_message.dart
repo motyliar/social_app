@@ -27,8 +27,9 @@ class ListOfMessage extends StatelessWidget {
         BlocProvider(
           create: (_) => userLocator<MessageActionBloc>()
             ..add(LoadUserMessagesEvent(
-                params:
-                    GetMessageParams(direction: direction, userId: user.id))),
+                params: GetMessageParams(
+                    direction: direction,
+                    url: AppUrl.getUserMessages(user.id)))),
         ),
         BlocProvider(create: (context) => userLocator<MessageDeleteCubit>())
       ],
@@ -53,12 +54,13 @@ class ListOfMessage extends StatelessWidget {
                                 );
                             Future.delayed(
                                 Duration(seconds: 1),
-                                () =>
-                                    BlocProvider.of<MessageActionBloc>(context)
-                                        .add(LoadUserMessagesEvent(
-                                            params: GetMessageParams(
-                                                userId: user.id,
-                                                direction: direction))));
+                                () => BlocProvider.of<MessageActionBloc>(
+                                        context)
+                                    .add(LoadUserMessagesEvent(
+                                        params: GetMessageParams(
+                                            url:
+                                                AppUrl.getUserMessages(user.id),
+                                            direction: direction))));
                           },
                           icon: Icon(
                             Icons.delete,
@@ -98,14 +100,14 @@ class ListOfMessage extends StatelessWidget {
                             ]);
                           });
                       Future.delayed(
-                              Duration(seconds: 1),
-                              () => context.read<MessageActionBloc>().add(
-                                    LoadUserMessagesEvent(
-                                        params: GetMessageParams(
-                                            userId: user.id,
-                                            direction: direction)),
-                                  ))
-                          .whenComplete(() => Navigator.of(context).pop());
+                          Duration(seconds: 1),
+                          () => context.read<MessageActionBloc>().add(
+                                LoadUserMessagesEvent(
+                                    params: GetMessageParams(
+                                        url: AppUrl.getUserMessages(user.id),
+                                        direction: direction)),
+                              )).whenComplete(
+                          () => Navigator.of(context).pop());
                     },
                     icon: Icon(Icons.refresh),
                   ),

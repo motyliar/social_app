@@ -19,7 +19,6 @@ class ResponseHandler extends IResponseHandler {
     }
   }
 
-// TODO dodać ['message'] do zwrotu
   T _convertResponseToData<T>(Response response, {String? dataGetter}) {
     print(response.body);
     if (dataGetter == null) {

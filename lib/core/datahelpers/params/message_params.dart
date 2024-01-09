@@ -1,6 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 
+class GetMessageParams extends RepositoryParams {
+  const GetMessageParams({required super.url, required this.direction});
+  final String direction;
+  @override
+  Map<String, dynamic> requestMapBody() => {
+        "direction": direction,
+      };
+}
+
 class MessageRequestParams extends RepositoryParams {
   const MessageRequestParams(
       {required super.url,
