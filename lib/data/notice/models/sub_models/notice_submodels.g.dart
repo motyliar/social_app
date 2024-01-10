@@ -59,7 +59,7 @@ class CommentsModelAdapter extends TypeAdapter<CommentsModel> {
     return CommentsModel(
       id: fields[0] as String,
       user: fields[1] as String,
-      userID: fields[2] as String,
+      userId: fields[2] as String,
       content: fields[3] as String,
       likes: fields[4] as int,
       createdAt: fields[5] as String,
@@ -76,7 +76,7 @@ class CommentsModelAdapter extends TypeAdapter<CommentsModel> {
       ..writeByte(1)
       ..write(obj.user)
       ..writeByte(2)
-      ..write(obj.userID)
+      ..write(obj.userId)
       ..writeByte(3)
       ..write(obj.content)
       ..writeByte(4)
@@ -122,7 +122,7 @@ _$CommentsModelImpl _$$CommentsModelImplFromJson(Map<String, dynamic> json) =>
     _$CommentsModelImpl(
       id: json['_id'] as String,
       user: json['user'] as String,
-      userID: json['userID'] as String,
+      userId: json['userId'] as String,
       content: json['content'] as String,
       likes: json['likes'] as int,
       createdAt: json['createdAt'] as String,
@@ -133,7 +133,7 @@ Map<String, dynamic> _$$CommentsModelImplToJson(_$CommentsModelImpl instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'user': instance.user,
-      'userID': instance.userID,
+      'userId': instance.userId,
       'content': instance.content,
       'likes': instance.likes,
       'createdAt': instance.createdAt,

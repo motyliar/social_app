@@ -214,7 +214,7 @@ CommentsEntity _$CommentsEntityFromJson(Map<String, dynamic> json) {
 mixin _$CommentsEntity {
   String get id => throw _privateConstructorUsedError;
   String get user => throw _privateConstructorUsedError;
-  String get userID => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
@@ -235,7 +235,7 @@ abstract class $CommentsEntityCopyWith<$Res> {
   $Res call(
       {String id,
       String user,
-      String userID,
+      String userId,
       String content,
       int likes,
       String createdAt,
@@ -257,7 +257,7 @@ class _$CommentsEntityCopyWithImpl<$Res, $Val extends CommentsEntity>
   $Res call({
     Object? id = null,
     Object? user = null,
-    Object? userID = null,
+    Object? userId = null,
     Object? content = null,
     Object? likes = null,
     Object? createdAt = null,
@@ -272,9 +272,9 @@ class _$CommentsEntityCopyWithImpl<$Res, $Val extends CommentsEntity>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      userID: null == userID
-          ? _value.userID
-          : userID // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -307,7 +307,7 @@ abstract class _$$CommentsEntityImplCopyWith<$Res>
   $Res call(
       {String id,
       String user,
-      String userID,
+      String userId,
       String content,
       int likes,
       String createdAt,
@@ -327,7 +327,7 @@ class __$$CommentsEntityImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? user = null,
-    Object? userID = null,
+    Object? userId = null,
     Object? content = null,
     Object? likes = null,
     Object? createdAt = null,
@@ -342,9 +342,9 @@ class __$$CommentsEntityImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      userID: null == userID
-          ? _value.userID
-          : userID // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -372,7 +372,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
   const _$CommentsEntityImpl(
       {required this.id,
       required this.user,
-      required this.userID,
+      required this.userId,
       required this.content,
       required this.likes,
       required this.createdAt,
@@ -386,7 +386,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
   @override
   final String user;
   @override
-  final String userID;
+  final String userId;
   @override
   final String content;
   @override
@@ -398,7 +398,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
 
   @override
   String toString() {
-    return 'CommentsEntity(id: $id, user: $user, userID: $userID, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'CommentsEntity(id: $id, user: $user, userId: $userId, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -408,7 +408,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
             other is _$CommentsEntityImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.userID, userID) || other.userID == userID) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.createdAt, createdAt) ||
@@ -420,7 +420,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, user, userID, content, likes, createdAt, updatedAt);
+      runtimeType, id, user, userId, content, likes, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -441,7 +441,7 @@ abstract class _CommentsEntity implements CommentsEntity {
   const factory _CommentsEntity(
       {required final String id,
       required final String user,
-      required final String userID,
+      required final String userId,
       required final String content,
       required final int likes,
       required final String createdAt,
@@ -455,7 +455,7 @@ abstract class _CommentsEntity implements CommentsEntity {
   @override
   String get user;
   @override
-  String get userID;
+  String get userId;
   @override
   String get content;
   @override

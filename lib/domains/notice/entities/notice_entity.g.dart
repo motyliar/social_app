@@ -13,8 +13,9 @@ _$NoticeEntityImpl _$$NoticeEntityImplFromJson(Map<String, dynamic> json) =>
       authorId: json['authorId'] as String,
       category: json['category'] as String,
       content: ContentEntity.fromJson(json['content'] as Map<String, dynamic>),
-      comments:
-          CommentsEntity.fromJson(json['comments'] as Map<String, dynamic>),
+      comments: (json['comments'] as List<dynamic>?)
+          ?.map((e) => CommentsEntity.fromJson(e as Map<String, dynamic>))
+          .toList(),
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
     );

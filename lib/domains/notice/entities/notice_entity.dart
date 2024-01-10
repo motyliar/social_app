@@ -11,7 +11,7 @@ class NoticeEntity with _$NoticeEntity {
     required String authorId,
     required String category,
     required ContentEntity content,
-    required CommentsEntity comments,
+    List<CommentsEntity>? comments,
     required String createdAt,
     required String updatedAt,
   }) = _NoticeEntity;

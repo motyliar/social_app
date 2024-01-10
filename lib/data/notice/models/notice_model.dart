@@ -16,7 +16,7 @@ class NoticeModel with _$NoticeModel {
     @HiveField(2) required String authorId,
     @HiveField(3) required String category,
     @HiveField(4) required ContentModel content,
-    @HiveField(5) required CommentsModel comments,
+    @HiveField(5) List<CommentsModel>? comments,
     @HiveField(6) required String createdAt,
     @HiveField(7) required String updatedAt,
   }) = _NoticeModel;
@@ -29,7 +29,16 @@ class NoticeModel with _$NoticeModel {
       authorId: authorId,
       category: category,
       content: content.toEntity(),
-      comments: comments.toEntity(),
+      comments: comments!
+          .map((e) => CommentsEntity(
+              id: e.id,
+              user: e.user,
+              userId: e.userId,
+              content: e.content,
+              likes: e.likes,
+              createdAt: e.createdAt,
+              updatedAt: e.updatedAt))
+          .toList(),
       createdAt: createdAt,
       updatedAt: updatedAt);
 }

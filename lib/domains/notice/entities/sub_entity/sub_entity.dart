@@ -19,7 +19,7 @@ class CommentsEntity with _$CommentsEntity {
   const factory CommentsEntity({
     required String id,
     required String user,
-    required String userID,
+    required String userId,
     required String content,
     required int likes,
     required String createdAt,

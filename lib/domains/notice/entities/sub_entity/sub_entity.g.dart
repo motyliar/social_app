@@ -26,7 +26,7 @@ _$CommentsEntityImpl _$$CommentsEntityImplFromJson(Map<String, dynamic> json) =>
     _$CommentsEntityImpl(
       id: json['id'] as String,
       user: json['user'] as String,
-      userID: json['userID'] as String,
+      userId: json['userId'] as String,
       content: json['content'] as String,
       likes: json['likes'] as int,
       createdAt: json['createdAt'] as String,
@@ -38,7 +38,7 @@ Map<String, dynamic> _$$CommentsEntityImplToJson(
     <String, dynamic>{
       'id': instance.id,
       'user': instance.user,
-      'userID': instance.userID,
+      'userId': instance.userId,
       'content': instance.content,
       'likes': instance.likes,
       'createdAt': instance.createdAt,

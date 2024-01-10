@@ -32,7 +32,7 @@ mixin _$NoticeModel {
   @HiveField(4)
   ContentModel get content => throw _privateConstructorUsedError;
   @HiveField(5)
-  CommentsModel get comments => throw _privateConstructorUsedError;
+  List<CommentsModel>? get comments => throw _privateConstructorUsedError;
   @HiveField(6)
   String get createdAt => throw _privateConstructorUsedError;
   @HiveField(7)
@@ -56,12 +56,11 @@ abstract class $NoticeModelCopyWith<$Res> {
       @HiveField(2) String authorId,
       @HiveField(3) String category,
       @HiveField(4) ContentModel content,
-      @HiveField(5) CommentsModel comments,
+      @HiveField(5) List<CommentsModel>? comments,
       @HiveField(6) String createdAt,
       @HiveField(7) String updatedAt});
 
   $ContentModelCopyWith<$Res> get content;
-  $CommentsModelCopyWith<$Res> get comments;
 }
 
 /// @nodoc
@@ -82,7 +81,7 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
     Object? authorId = null,
     Object? category = null,
     Object? content = null,
-    Object? comments = null,
+    Object? comments = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -107,10 +106,10 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as ContentModel,
-      comments: null == comments
+      comments: freezed == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as CommentsModel,
+              as List<CommentsModel>?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -129,14 +128,6 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
       return _then(_value.copyWith(content: value) as $Val);
     });
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CommentsModelCopyWith<$Res> get comments {
-    return $CommentsModelCopyWith<$Res>(_value.comments, (value) {
-      return _then(_value.copyWith(comments: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -153,14 +144,12 @@ abstract class _$$NoticeModelImplCopyWith<$Res>
       @HiveField(2) String authorId,
       @HiveField(3) String category,
       @HiveField(4) ContentModel content,
-      @HiveField(5) CommentsModel comments,
+      @HiveField(5) List<CommentsModel>? comments,
       @HiveField(6) String createdAt,
       @HiveField(7) String updatedAt});
 
   @override
   $ContentModelCopyWith<$Res> get content;
-  @override
-  $CommentsModelCopyWith<$Res> get comments;
 }
 
 /// @nodoc
@@ -179,7 +168,7 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
     Object? authorId = null,
     Object? category = null,
     Object? content = null,
-    Object? comments = null,
+    Object? comments = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -204,10 +193,10 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as ContentModel,
-      comments: null == comments
-          ? _value.comments
+      comments: freezed == comments
+          ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as CommentsModel,
+              as List<CommentsModel>?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -229,10 +218,11 @@ class _$NoticeModelImpl extends _NoticeModel {
       @HiveField(2) required this.authorId,
       @HiveField(3) required this.category,
       @HiveField(4) required this.content,
-      @HiveField(5) required this.comments,
+      @HiveField(5) final List<CommentsModel>? comments,
       @HiveField(6) required this.createdAt,
       @HiveField(7) required this.updatedAt})
-      : super._();
+      : _comments = comments,
+        super._();
 
   factory _$NoticeModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NoticeModelImplFromJson(json);
@@ -253,9 +243,17 @@ class _$NoticeModelImpl extends _NoticeModel {
   @override
   @HiveField(4)
   final ContentModel content;
+  final List<CommentsModel>? _comments;
   @override
   @HiveField(5)
-  final CommentsModel comments;
+  List<CommentsModel>? get comments {
+    final value = _comments;
+    if (value == null) return null;
+    if (_comments is EqualUnmodifiableListView) return _comments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @HiveField(6)
   final String createdAt;
@@ -280,8 +278,7 @@ class _$NoticeModelImpl extends _NoticeModel {
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.comments, comments) ||
-                other.comments == comments) &&
+            const DeepCollectionEquality().equals(other._comments, _comments) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -290,8 +287,16 @@ class _$NoticeModelImpl extends _NoticeModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, author, authorId, category,
-      content, comments, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      author,
+      authorId,
+      category,
+      content,
+      const DeepCollectionEquality().hash(_comments),
+      createdAt,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -314,7 +319,7 @@ abstract class _NoticeModel extends NoticeModel {
       @HiveField(2) required final String authorId,
       @HiveField(3) required final String category,
       @HiveField(4) required final ContentModel content,
-      @HiveField(5) required final CommentsModel comments,
+      @HiveField(5) final List<CommentsModel>? comments,
       @HiveField(6) required final String createdAt,
       @HiveField(7) required final String updatedAt}) = _$NoticeModelImpl;
   const _NoticeModel._() : super._();
@@ -340,7 +345,7 @@ abstract class _NoticeModel extends NoticeModel {
   ContentModel get content;
   @override
   @HiveField(5)
-  CommentsModel get comments;
+  List<CommentsModel>? get comments;
   @override
   @HiveField(6)
   String get createdAt;

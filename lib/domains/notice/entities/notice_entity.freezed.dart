@@ -25,7 +25,7 @@ mixin _$NoticeEntity {
   String get authorId => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   ContentEntity get content => throw _privateConstructorUsedError;
-  CommentsEntity get comments => throw _privateConstructorUsedError;
+  List<CommentsEntity>? get comments => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
 
@@ -47,12 +47,11 @@ abstract class $NoticeEntityCopyWith<$Res> {
       String authorId,
       String category,
       ContentEntity content,
-      CommentsEntity comments,
+      List<CommentsEntity>? comments,
       String createdAt,
       String updatedAt});
 
   $ContentEntityCopyWith<$Res> get content;
-  $CommentsEntityCopyWith<$Res> get comments;
 }
 
 /// @nodoc
@@ -73,7 +72,7 @@ class _$NoticeEntityCopyWithImpl<$Res, $Val extends NoticeEntity>
     Object? authorId = null,
     Object? category = null,
     Object? content = null,
-    Object? comments = null,
+    Object? comments = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -98,10 +97,10 @@ class _$NoticeEntityCopyWithImpl<$Res, $Val extends NoticeEntity>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as ContentEntity,
-      comments: null == comments
+      comments: freezed == comments
           ? _value.comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as CommentsEntity,
+              as List<CommentsEntity>?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -120,14 +119,6 @@ class _$NoticeEntityCopyWithImpl<$Res, $Val extends NoticeEntity>
       return _then(_value.copyWith(content: value) as $Val);
     });
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $CommentsEntityCopyWith<$Res> get comments {
-    return $CommentsEntityCopyWith<$Res>(_value.comments, (value) {
-      return _then(_value.copyWith(comments: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -144,14 +135,12 @@ abstract class _$$NoticeEntityImplCopyWith<$Res>
       String authorId,
       String category,
       ContentEntity content,
-      CommentsEntity comments,
+      List<CommentsEntity>? comments,
       String createdAt,
       String updatedAt});
 
   @override
   $ContentEntityCopyWith<$Res> get content;
-  @override
-  $CommentsEntityCopyWith<$Res> get comments;
 }
 
 /// @nodoc
@@ -170,7 +159,7 @@ class __$$NoticeEntityImplCopyWithImpl<$Res>
     Object? authorId = null,
     Object? category = null,
     Object? content = null,
-    Object? comments = null,
+    Object? comments = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -195,10 +184,10 @@ class __$$NoticeEntityImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as ContentEntity,
-      comments: null == comments
-          ? _value.comments
+      comments: freezed == comments
+          ? _value._comments
           : comments // ignore: cast_nullable_to_non_nullable
-              as CommentsEntity,
+              as List<CommentsEntity>?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -220,9 +209,10 @@ class _$NoticeEntityImpl implements _NoticeEntity {
       required this.authorId,
       required this.category,
       required this.content,
-      required this.comments,
+      final List<CommentsEntity>? comments,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt})
+      : _comments = comments;
 
   factory _$NoticeEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$NoticeEntityImplFromJson(json);
@@ -237,8 +227,16 @@ class _$NoticeEntityImpl implements _NoticeEntity {
   final String category;
   @override
   final ContentEntity content;
+  final List<CommentsEntity>? _comments;
   @override
-  final CommentsEntity comments;
+  List<CommentsEntity>? get comments {
+    final value = _comments;
+    if (value == null) return null;
+    if (_comments is EqualUnmodifiableListView) return _comments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final String createdAt;
   @override
@@ -261,8 +259,7 @@ class _$NoticeEntityImpl implements _NoticeEntity {
             (identical(other.category, category) ||
                 other.category == category) &&
             (identical(other.content, content) || other.content == content) &&
-            (identical(other.comments, comments) ||
-                other.comments == comments) &&
+            const DeepCollectionEquality().equals(other._comments, _comments) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -271,8 +268,16 @@ class _$NoticeEntityImpl implements _NoticeEntity {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, author, authorId, category,
-      content, comments, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      author,
+      authorId,
+      category,
+      content,
+      const DeepCollectionEquality().hash(_comments),
+      createdAt,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -295,7 +300,7 @@ abstract class _NoticeEntity implements NoticeEntity {
       required final String authorId,
       required final String category,
       required final ContentEntity content,
-      required final CommentsEntity comments,
+      final List<CommentsEntity>? comments,
       required final String createdAt,
       required final String updatedAt}) = _$NoticeEntityImpl;
 
@@ -313,7 +318,7 @@ abstract class _NoticeEntity implements NoticeEntity {
   @override
   ContentEntity get content;
   @override
-  CommentsEntity get comments;
+  List<CommentsEntity>? get comments;
   @override
   String get createdAt;
   @override

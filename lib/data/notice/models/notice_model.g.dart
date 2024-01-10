@@ -22,7 +22,7 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       authorId: fields[2] as String,
       category: fields[3] as String,
       content: fields[4] as ContentModel,
-      comments: fields[5] as CommentsModel,
+      comments: (fields[5] as List?)?.cast<CommentsModel>(),
       createdAt: fields[6] as String,
       updatedAt: fields[7] as String,
     );
@@ -72,8 +72,9 @@ _$NoticeModelImpl _$$NoticeModelImplFromJson(Map<String, dynamic> json) =>
       authorId: json['authorId'] as String,
       category: json['category'] as String,
       content: ContentModel.fromJson(json['content'] as Map<String, dynamic>),
-      comments:
-          CommentsModel.fromJson(json['comments'] as Map<String, dynamic>),
+      comments: (json['comments'] as List<dynamic>?)
+          ?.map((e) => CommentsModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
     );

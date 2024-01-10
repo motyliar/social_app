@@ -31,7 +31,7 @@ class CommentsModel with _$CommentsModel {
   const factory CommentsModel({
     @HiveField(0) @JsonKey(name: '_id') required String id,
     @HiveField(1) required String user,
-    @HiveField(2) required String userID,
+    @HiveField(2) required String userId,
     @HiveField(3) required String content,
     @HiveField(4) required int likes,
     @HiveField(5) required String createdAt,
@@ -43,7 +43,7 @@ class CommentsModel with _$CommentsModel {
   CommentsEntity toEntity() => CommentsEntity(
         id: id,
         user: user,
-        userID: userID,
+        userId: userId,
         content: content,
         likes: likes,
         createdAt: createdAt,

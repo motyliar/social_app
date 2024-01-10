@@ -23,14 +23,17 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
       await _getNoticeData(event.params)
           .then((data) => emit(state.copyWith(notices: List.from(data))));
     } catch (e) {
+      print('to jest $e');
       emit(FetchNoticeFailed());
     }
   }
 
   Future<List<NoticeEntity>> _getNoticeData(GetNoticeParams params) async {
-    return await _getNoticePaginationUseCase.execute(params).then((response) =>
-        response.fold(
-            (failure) => throw ServerException.message(failure.toString()),
-            (data) => data));
+    return await _getNoticePaginationUseCase
+        .execute(params)
+        .then((response) => response.fold((failure) {
+              print(failure);
+              throw ServerException.message(failure.toString());
+            }, (data) => data));
   }
 }

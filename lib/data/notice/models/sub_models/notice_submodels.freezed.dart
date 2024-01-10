@@ -240,7 +240,7 @@ mixin _$CommentsModel {
   @HiveField(1)
   String get user => throw _privateConstructorUsedError;
   @HiveField(2)
-  String get userID => throw _privateConstructorUsedError;
+  String get userId => throw _privateConstructorUsedError;
   @HiveField(3)
   String get content => throw _privateConstructorUsedError;
   @HiveField(4)
@@ -265,7 +265,7 @@ abstract class $CommentsModelCopyWith<$Res> {
   $Res call(
       {@HiveField(0) @JsonKey(name: '_id') String id,
       @HiveField(1) String user,
-      @HiveField(2) String userID,
+      @HiveField(2) String userId,
       @HiveField(3) String content,
       @HiveField(4) int likes,
       @HiveField(5) String createdAt,
@@ -287,7 +287,7 @@ class _$CommentsModelCopyWithImpl<$Res, $Val extends CommentsModel>
   $Res call({
     Object? id = null,
     Object? user = null,
-    Object? userID = null,
+    Object? userId = null,
     Object? content = null,
     Object? likes = null,
     Object? createdAt = null,
@@ -302,9 +302,9 @@ class _$CommentsModelCopyWithImpl<$Res, $Val extends CommentsModel>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      userID: null == userID
-          ? _value.userID
-          : userID // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -337,7 +337,7 @@ abstract class _$$CommentsModelImplCopyWith<$Res>
   $Res call(
       {@HiveField(0) @JsonKey(name: '_id') String id,
       @HiveField(1) String user,
-      @HiveField(2) String userID,
+      @HiveField(2) String userId,
       @HiveField(3) String content,
       @HiveField(4) int likes,
       @HiveField(5) String createdAt,
@@ -357,7 +357,7 @@ class __$$CommentsModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? user = null,
-    Object? userID = null,
+    Object? userId = null,
     Object? content = null,
     Object? likes = null,
     Object? createdAt = null,
@@ -372,9 +372,9 @@ class __$$CommentsModelImplCopyWithImpl<$Res>
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as String,
-      userID: null == userID
-          ? _value.userID
-          : userID // ignore: cast_nullable_to_non_nullable
+      userId: null == userId
+          ? _value.userId
+          : userId // ignore: cast_nullable_to_non_nullable
               as String,
       content: null == content
           ? _value.content
@@ -402,7 +402,7 @@ class _$CommentsModelImpl extends _CommentsModel {
   const _$CommentsModelImpl(
       {@HiveField(0) @JsonKey(name: '_id') required this.id,
       @HiveField(1) required this.user,
-      @HiveField(2) required this.userID,
+      @HiveField(2) required this.userId,
       @HiveField(3) required this.content,
       @HiveField(4) required this.likes,
       @HiveField(5) required this.createdAt,
@@ -421,7 +421,7 @@ class _$CommentsModelImpl extends _CommentsModel {
   final String user;
   @override
   @HiveField(2)
-  final String userID;
+  final String userId;
   @override
   @HiveField(3)
   final String content;
@@ -437,7 +437,7 @@ class _$CommentsModelImpl extends _CommentsModel {
 
   @override
   String toString() {
-    return 'CommentsModel(id: $id, user: $user, userID: $userID, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'CommentsModel(id: $id, user: $user, userId: $userId, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -447,7 +447,7 @@ class _$CommentsModelImpl extends _CommentsModel {
             other is _$CommentsModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.user, user) || other.user == user) &&
-            (identical(other.userID, userID) || other.userID == userID) &&
+            (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.likes, likes) || other.likes == likes) &&
             (identical(other.createdAt, createdAt) ||
@@ -459,7 +459,7 @@ class _$CommentsModelImpl extends _CommentsModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, user, userID, content, likes, createdAt, updatedAt);
+      runtimeType, id, user, userId, content, likes, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -479,7 +479,7 @@ abstract class _CommentsModel extends CommentsModel {
   const factory _CommentsModel(
       {@HiveField(0) @JsonKey(name: '_id') required final String id,
       @HiveField(1) required final String user,
-      @HiveField(2) required final String userID,
+      @HiveField(2) required final String userId,
       @HiveField(3) required final String content,
       @HiveField(4) required final int likes,
       @HiveField(5) required final String createdAt,
@@ -498,7 +498,7 @@ abstract class _CommentsModel extends CommentsModel {
   String get user;
   @override
   @HiveField(2)
-  String get userID;
+  String get userId;
   @override
   @HiveField(3)
   String get content;

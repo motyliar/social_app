@@ -14,6 +14,8 @@ class AppUrl {
   static const String addAction = 'add/';
   static const String updateAction = 'update/';
   static const String searchAction = 'search/';
+  static const String pagination = 'pagination/';
+  static const String notice = 'notice/';
   static const String messageendPoint = 'message/';
   static const String singleAction = 'single/';
   static const String manyAction = 'many/';
@@ -56,6 +58,9 @@ class AppUrl {
   static const Map<String, String> contentHeaders = {
     'Content-Type': 'application/json',
   };
+
+  static Uri noticePaginationURL(int page, int pageSize) => Uri.parse(
+      '$backendUrl$notice$pagination$notice?page=$page&pageSize=$pageSize');
 
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {
