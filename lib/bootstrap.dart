@@ -1,19 +1,10 @@
 import 'dart:async';
-
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
-
-import 'package:climbapp/core/firebase/firebase_options/firebase_options.dart';
-
+import 'package:climbapp/core/services/firebase/firebase_init.dart';
+import 'package:climbapp/core/services/get_it/get_init.dart';
 import 'package:climbapp/core/services/hive/hive_init.dart';
 
-import 'package:climbapp/core/services/password_container.dart';
-
-import 'package:climbapp/core/services/register_container.dart';
-import 'package:climbapp/core/services/sign_in_container.dart';
-import 'package:climbapp/core/services/user_container.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -40,22 +31,12 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {
-    debugPrint('Firebase initialization failed: $e');
-  }
+  FireBaseInit().init();
 
   Bloc.observer = const AppBlocObserver();
 
   await HiveInit().init();
-  registerInit();
-  signInInit();
-  passwordInit();
-  userInit();
+  GetItInit.initContainers();
 
   runApp(await builder());
 }
