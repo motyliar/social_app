@@ -5,4 +5,5 @@ import 'package:dartz/dartz.dart';
 
 abstract class NoticeRepository {
   EitherFunc<List<NoticeEntity>> getNoticePagination(GetNoticeParams params);
+  EitherFunc<NoticeEntity> getSingleNotice(GetNoticeParams params);
 }
