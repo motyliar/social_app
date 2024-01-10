@@ -10,6 +10,7 @@ import 'package:dartz/dartz.dart';
 
 abstract class NoticeRemoteDataSources {
   EitherFunc<List<NoticeModel>> getNoticePagination(GetNoticeParams params);
+  EitherFunc<NoticeModel> getSingleNotice(GetNoticeParams params);
 }
 
 class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
@@ -23,6 +24,16 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
       final convertResponse =
           ToNoticeConverter(responseMap).mapResponseToNoticeList();
       return Right(convertResponse);
+    } catch (e) {
+      return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  EitherFunc<NoticeModel> getSingleNotice(GetNoticeParams params) async {
+    try {
+      final singleNotice = await NoticeDownloader(params).fetchSingleObject();
+      return Right(singleNotice);
     } catch (e) {
       return Left(ServerException.failed());
     }

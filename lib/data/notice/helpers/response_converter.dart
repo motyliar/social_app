@@ -2,8 +2,9 @@ import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/data/notice/models/notice_model.dart';
 
 class ToNoticeConverter {
-  const ToNoticeConverter(List<dynamic> responseList)
-      : _responseList = responseList;
+  const ToNoticeConverter(
+    List<dynamic> responseList,
+  ) : _responseList = responseList;
   final List<dynamic> _responseList;
 
   List<NoticeModel> mapResponseToNoticeList() {

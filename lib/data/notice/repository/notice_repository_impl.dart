@@ -1,4 +1,5 @@
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
+import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/notice/datasources/remote/notice_remote_data_sources.dart';
 import 'package:climbapp/data/notice/helpers/to_notice_convert.dart';
@@ -20,12 +21,20 @@ class NoticeRepositoryImpl extends NoticeRepository {
     return await Utils()
         .performNetworkOperation<List<NoticeModel>>(() async =>
             await _noticeRemoteDataSources.getNoticePagination(params))
-        .then((response) {
-      print('jaki to $response');
-      return response.fold((failure) => Left(failure), (model) {
-        print('to jest model $model');
-        return Right(ModelConvert(model).toEntityList());
-      });
-    });
+        .then((response) => response.fold((failure) => Left(failure),
+            (model) => Right(ModelConvert(model).toEntityList())));
+  }
+
+  @override
+  EitherFunc<NoticeEntity> getSingleNotice(GetNoticeParams params) async {
+    try {
+      return await Utils()
+          .performNetworkOperation<NoticeModel>(() async =>
+              await _noticeRemoteDataSources.getSingleNotice(params))
+          .then((response) => response.fold(
+              (failure) => Left(failure), (data) => Right(data.toEntity())));
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
   }
 }
