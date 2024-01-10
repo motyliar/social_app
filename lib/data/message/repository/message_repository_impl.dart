@@ -1,4 +1,4 @@
-import 'package:climbapp/core/datahelpers/params/message_params.dart';
+import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/network/network_connected.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
