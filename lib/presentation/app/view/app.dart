@@ -1,8 +1,8 @@
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/routers/app_router.dart';
-import 'package:climbapp/core/services/sign_in_container.dart';
-import 'package:climbapp/core/services/user_container.dart';
+import 'package:climbapp/core/services/get_it/sign_in_container.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/presentation/app/business/bloc/network/network_bloc.dart';
 import 'package:climbapp/presentation/app/business/cubit/localization/locale_cubit.dart';
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';

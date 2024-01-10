@@ -1,5 +1,5 @@
 import 'package:climbapp/core/constans/router_constans.dart';
-import 'package:climbapp/core/services/password_container.dart';
+import 'package:climbapp/core/services/get_it/password_container.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/password/business/cubit/password_cubit.dart';
 import 'package:flutter/material.dart';

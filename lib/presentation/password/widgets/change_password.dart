@@ -1,6 +1,6 @@
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
-import 'package:climbapp/core/services/password_container.dart';
+import 'package:climbapp/core/services/get_it/password_container.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/password/entities/password_entity.dart';
 import 'package:climbapp/presentation/password/business/cubit/password_cubit.dart';

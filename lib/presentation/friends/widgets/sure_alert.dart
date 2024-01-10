@@ -1,4 +1,4 @@
-import 'package:climbapp/core/services/user_container.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../business/bloc/friends_action_bloc.dart';

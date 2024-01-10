@@ -1,6 +1,6 @@
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
-import 'package:climbapp/core/services/user_container.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';

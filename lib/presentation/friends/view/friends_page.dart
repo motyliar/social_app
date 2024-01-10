@@ -1,5 +1,5 @@
 import 'package:climbapp/core/constans/router_constans.dart';
-import 'package:climbapp/core/services/user_container.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';

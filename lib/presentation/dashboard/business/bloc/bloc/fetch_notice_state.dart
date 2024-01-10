@@ -7,6 +7,8 @@ class FetchNoticeState extends Equatable {
   @override
   List<Object> get props => [notices];
 
-  FetchNoticeState copyWith(List<NoticeEntity>? notices) =>
+  FetchNoticeState copyWith({List<NoticeEntity>? notices}) =>
       FetchNoticeState(notices: notices ?? this.notices);
 }
+
+class FetchNoticeFailed extends FetchNoticeState {}

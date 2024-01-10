@@ -7,7 +7,16 @@ import 'package:climbapp/data/user/models/user_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveInit {
-  Future<void> register() async {
+  Future<void> init() async {
+    try {
+      await _register();
+      await _openHiveBoxes();
+    } catch (e) {
+      Exception(e);
+    }
+  }
+
+  Future<void> _register() async {
     await Hive.initFlutter();
     Hive
       ..registerAdapter(UserModelAdapter())

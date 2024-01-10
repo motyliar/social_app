@@ -1,7 +1,7 @@
 import 'package:climbapp/core/constans/constans.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/error/error_screen.dart';
-import 'package:climbapp/core/services/register_container.dart';
+import 'package:climbapp/core/services/get_it/register_container.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/register/entites/register_entites.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
