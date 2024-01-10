@@ -1,7 +1,7 @@
 import 'package:climbapp/data/message/models/message_model.dart';
 
-class ResponseConventer {
-  const ResponseConventer(List<dynamic> responseData)
+class ResponseConverter {
+  const ResponseConverter(List<dynamic> responseData)
       : _responseData = responseData;
   final List<dynamic> _responseData;
 

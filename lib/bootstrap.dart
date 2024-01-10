@@ -51,7 +51,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
 
   Bloc.observer = const AppBlocObserver();
 
-  await HiveInit().register();
+  await HiveInit().init();
   registerInit();
   signInInit();
   passwordInit();

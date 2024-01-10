@@ -3,6 +3,8 @@ import 'package:climbapp/data/friends/datasources/remote/friends_remote_data_sou
 import 'package:climbapp/data/friends/repository/friends_repository_impl.dart';
 import 'package:climbapp/data/message/datasources/remote/message_remote_datasources.dart';
 import 'package:climbapp/data/message/repository/message_repository_impl.dart';
+import 'package:climbapp/data/notice/datasources/remote/notice_remote_data_sources.dart';
+import 'package:climbapp/data/notice/repository/notice_repository_impl.dart';
 import 'package:climbapp/data/user/datasources/local/user_local_data_sources.dart';
 import 'package:climbapp/data/user/datasources/remote/user_remote_data_sources.dart';
 import 'package:climbapp/data/user/repository/user_repository_impl.dart';
@@ -16,9 +18,12 @@ import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/get_user_messages_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/send_message_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/update_message_usecase.dart';
+import 'package:climbapp/domains/notice/repository/notice_repository.dart';
+import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
+import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
@@ -47,6 +52,8 @@ void userInit() {
         updateMessageUseCase: userLocator()))
     ..registerFactory(
         () => MessageDeleteCubit(deleteMessageUseCase: userLocator()))
+    ..registerFactory(
+        () => FetchNoticeBloc(getNoticePaginationUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -72,18 +79,27 @@ void userInit() {
         () => DeleteMessageUseCase(messagesRepository: userLocator()))
     ..registerLazySingleton(
         () => UpdateMessageUseCase(messagesRepository: userLocator()))
+    ..registerLazySingleton(
+        () => GetNoticePaginationUseCase(noticeRepository: userLocator()))
     // Register repositories
+    // USER
     ..registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(
         userLocalDataSources: userLocator(),
         userRemoteDataSources: userLocator(),
       ),
     )
+    // FRIENDS
     ..registerLazySingleton<FriendsRepository>(() => FriendsRepositoryImpl(
         friendsRemoteDataSources: userLocator(),
         friendsLocaleDataSource: userLocator()))
+    // MESSAGES
     ..registerLazySingleton<MessagesRepository>(
         () => MessageRepositoryImpl(messageRemoteDataSources: userLocator()))
+    //NOTICES
+    ..registerLazySingleton<NoticeRepository>(
+        () => NoticeRepositoryImpl(noticeRemoteDataSources: userLocator()))
+
     // Register Remote and Local Data
     //USER
     ..registerLazySingleton<UserRemoteDataSources>(
@@ -99,5 +115,8 @@ void userInit() {
         () => FriendsLocalDataSourceImpl())
     // MESSAGES
     ..registerLazySingleton<MessageRemoteDataSources>(
-        () => MessageRemoteDataSourcesImpl(client: userLocator()));
+        () => MessageRemoteDataSourcesImpl(client: userLocator()))
+    // NOTICES
+    ..registerLazySingleton<NoticeRemoteDataSources>(
+        () => NoticeRemoteDataSourcesImpl());
 }

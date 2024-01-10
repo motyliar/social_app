@@ -32,9 +32,9 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
   @override
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params) async {
     try {
-      final responseData = MessageDownloader(params).fetchMessageData();
+      final responseData = await MessageDownloader(params).fetchMessageData();
       final mappedData =
-          ResponseConventer(await responseData).mapResponseToMessageModel();
+          ResponseConverter(responseData).mapResponseToMessageModel();
       return Right(mappedData);
     } catch (e) {
       return Left(ServerException.failed());

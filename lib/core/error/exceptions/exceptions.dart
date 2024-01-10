@@ -38,7 +38,7 @@ class ServerException extends AppExceptions {
     final serverMessage = jsonDecode(responseBody)[messageKey] as String;
     return ServerException(serverMessage);
   }
-
+  factory ServerException.message(String message) => ServerException(message);
   factory ServerException.error() => ServerException(kSomethingGoesWrong);
   factory ServerException.failed() => ServerException(kFailure);
   factory ServerException.notFound() => ServerException(kNotFound);
