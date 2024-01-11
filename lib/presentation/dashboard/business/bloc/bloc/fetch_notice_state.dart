@@ -11,4 +11,10 @@ class FetchNoticeState extends Equatable {
       FetchNoticeState(notices: notices ?? this.notices);
 }
 
+class FetchNoticeLoading extends FetchNoticeState {
+  const FetchNoticeLoading({super.notices});
+  @override
+  List<Object> get props => [notices];
+}
+
 class FetchNoticeFailed extends FetchNoticeState {}

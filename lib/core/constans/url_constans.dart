@@ -62,6 +62,9 @@ class AppUrl {
   static Uri noticePaginationURL(int page, int pageSize) => Uri.parse(
       '$backendUrl$notice$pagination$notice?page=$page&pageSize=$pageSize');
 
+  static Uri singleNoticeURL(String userId) =>
+      Uri.parse('$backendUrl$notice$singleAction$userId');
+
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {
         'Content-Type': 'application/json',

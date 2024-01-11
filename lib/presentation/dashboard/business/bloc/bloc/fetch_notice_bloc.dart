@@ -13,7 +13,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
   FetchNoticeBloc(
       {required GetNoticePaginationUseCase getNoticePaginationUseCase})
       : _getNoticePaginationUseCase = getNoticePaginationUseCase,
-        super(const FetchNoticeState()) {
+        super(const FetchNoticeLoading()) {
     on<FetchNoticesFromDB>(_fetchNotice);
   }
 
