@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 
@@ -13,12 +14,12 @@ class GetNoticeParams extends RepositoryParams {
 }
 
 class CreateNoticeParams extends RepositoryParams {
-  CreateNoticeParams._({required Uri url, required NoticeEntity notice})
+  CreateNoticeParams._({required Uri url, required NoticeTemplate notice})
       : _notice = notice,
         super(url: url);
-  final NoticeEntity _notice;
+  final NoticeTemplate _notice;
 
-  factory CreateNoticeParams.send(Uri url, NoticeEntity notice) =>
+  factory CreateNoticeParams.send(Uri url, NoticeTemplate notice) =>
       CreateNoticeParams._(url: url, notice: notice);
   @override
   Map<String, dynamic> requestMapBody() => {
@@ -27,10 +28,27 @@ class CreateNoticeParams extends RepositoryParams {
           "authorId": _notice.authorId,
           "category": _notice.category,
           "content": {
-            "title": _notice.content.title,
-            "content": _notice.content.content,
-            "price": _notice.content.price ?? 0
+            "title": _notice.title,
+            "content": _notice.content,
+            "price": _notice.price ?? 0
           }
         }
       };
+}
+
+class NoticeTemplate {
+  final String author;
+  final String authorId;
+  final String category;
+  final String title;
+  final String content;
+  final int? price;
+  NoticeTemplate({
+    required this.author,
+    required this.authorId,
+    required this.category,
+    required this.title,
+    required this.content,
+    this.price,
+  });
 }

@@ -65,6 +65,8 @@ class AppUrl {
   static Uri singleNoticeURL(String userId) =>
       Uri.parse('$backendUrl$notice$singleAction$userId');
 
+  static Uri createNoticeURL() => Uri.parse('$backendUrl$notice$addAction');
+
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {
         'Content-Type': 'application/json',

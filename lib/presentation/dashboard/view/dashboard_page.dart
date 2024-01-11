@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
 
-// TODO zrobić wyświetlenie pojedynczego ogłoszenia, wszystko zaimplementowane
-
 class DashboardPage extends StatelessWidget {
   DashboardPage({super.key});
   static Route<dynamic> route() {
@@ -47,6 +45,9 @@ class DashboardPage extends StatelessWidget {
         body: SafeArea(
             child: Column(
           children: [
+            ElevatedButton(
+                onPressed: () => Navigator.pushNamed(context, routeNoticePage),
+                child: Text('send notice')),
             BlocConsumer<UserBloc, UserState>(
               listener: (context, state) {
                 if (state is UserLoaded) {
@@ -95,7 +96,7 @@ class DashboardPage extends StatelessWidget {
                       height: 50,
                     ),
                     Text(
-                        'Single notice author ${state.notice?.author ?? 'no auther yet'}')
+                        'Single notice author ${state.notice?.author ?? 'no auther yet'}'),
                   ],
                 );
               },

@@ -3,8 +3,9 @@ import 'package:climbapp/core/datahelpers/status_service/response_status.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/domains/notice/repository/notice_repository.dart';
 
-class CreateNewNotice extends UseCase<ResponseStatus, CreateNoticeParams> {
-  CreateNewNotice({required NoticeRepository noticeRepository})
+class CreateNewNoticeUseCase
+    extends UseCase<ResponseStatus, CreateNoticeParams> {
+  CreateNewNoticeUseCase({required NoticeRepository noticeRepository})
       : _noticeRepository = noticeRepository;
   final NoticeRepository _noticeRepository;
 

@@ -19,6 +19,7 @@ import 'package:climbapp/domains/messages/usecases/get_user_messages_usecase.dar
 import 'package:climbapp/domains/messages/usecases/send_message_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/update_message_usecase.dart';
 import 'package:climbapp/domains/notice/repository/notice_repository.dart';
+import 'package:climbapp/domains/notice/usecases/create_new_notice.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/get_single_notice_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
@@ -29,6 +30,7 @@ import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fet
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/create_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -58,6 +60,8 @@ void userInit() {
         () => FetchNoticeBloc(getNoticePaginationUseCase: userLocator()))
     ..registerFactory(
         () => FetchSingleNoticeCubit(getSingleNoticeUseCase: userLocator()))
+    ..registerFactory(
+        () => CreateNoticeCubit(createNewNoticeUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -88,6 +92,8 @@ void userInit() {
         () => GetNoticePaginationUseCase(noticeRepository: userLocator()))
     ..registerLazySingleton(
         () => GetSingleNoticeUseCase(noticeRepository: userLocator()))
+    ..registerLazySingleton(
+        () => CreateNewNoticeUseCase(noticeRepository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(
