@@ -1,4 +1,5 @@
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
+import 'package:climbapp/core/datahelpers/status_service/response_status.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/notice/datasources/remote/notice_remote_data_sources.dart';
@@ -33,6 +34,18 @@ class NoticeRepositoryImpl extends NoticeRepository {
               await _noticeRemoteDataSources.getSingleNotice(params))
           .then((response) => response.fold(
               (failure) => Left(failure), (data) => Right(data.toEntity())));
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params) async {
+    try {
+      return await Utils().performNetworkOperation<ResponseStatus>(() async =>
+          await _noticeRemoteDataSources.createNewNotice(params).then(
+              (response) => response.fold(
+                  (failure) => Left(failure), (data) => Right(data))));
     } catch (e) {
       throw ServerException(e.toString());
     }
