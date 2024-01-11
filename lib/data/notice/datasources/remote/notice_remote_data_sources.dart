@@ -7,8 +7,11 @@ import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/notice/helpers/notice_downloader.dart';
 import 'package:climbapp/data/notice/helpers/response_converter.dart';
+import 'package:climbapp/data/notice/helpers/status_verifier.dart';
 import 'package:climbapp/data/notice/models/notice_model.dart';
 import 'package:dartz/dartz.dart';
+
+const String _dataGetter = 'message';
 
 abstract class NoticeRemoteDataSources {
   EitherFunc<List<NoticeModel>> getNoticePagination(GetNoticeParams params);
@@ -45,9 +48,10 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
   @override
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params) async {
     try {
-      final resultStatus = await HttpPostDataHandler(params: params)
-          .returnData<ResponseStatus>();
-      return resultStatus;
+      final response = await NoticeStatusVerifer.startVerify(
+              params: params, dataGetter: _dataGetter)
+          .verifyResponse();
+      return Right(response);
     } catch (e) {
       return Left(ServerException.failed());
     }
