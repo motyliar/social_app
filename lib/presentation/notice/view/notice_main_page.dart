@@ -2,6 +2,7 @@ import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
+import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
@@ -80,6 +81,31 @@ class NoticeMainPage extends StatelessWidget {
                       return Text(state.userNotices[index].createdAt);
                     },
                   ),
+                );
+              },
+            ),
+            BlocConsumer<UpdateNoticeCubit, UpdateNoticeState>(
+              listener: (context, state) {
+                if (state is UpdateNoticeSuccess) {
+                  Utils.showToastMessage(message: 'Success');
+                }
+                if (state is UpdateNoticeFailed) {
+                  Utils.showToastMessage(message: "failed");
+                }
+              },
+              builder: (context, state) {
+                return BlocBuilder<UpdateNoticeCubit, UpdateNoticeState>(
+                  builder: (context, state) {
+                    return ElevatedButton(
+                        onPressed: () => context
+                            .read<UpdateNoticeCubit>()
+                            .updateNotice(UpdateNoticeParams<String>(
+                                field: 'content.title',
+                                update: 'Kardashian',
+                                url: AppUrl.updateSingleNoticeURL(
+                                    "65789782866f56088bd20eac"))),
+                        child: Text('UPDATE'));
+                  },
                 );
               },
             )
