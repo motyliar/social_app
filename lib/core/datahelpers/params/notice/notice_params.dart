@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 
-
 class GetNoticeParams extends RepositoryParams {
   const GetNoticeParams({
     this.noticeId,
@@ -34,6 +33,18 @@ class CreateNoticeParams extends RepositoryParams {
           }
         }
       };
+}
+
+class UpdateNoticeParams<T> extends RepositoryParams {
+  UpdateNoticeParams({
+    required this.field,
+    required this.update,
+    required super.url,
+  });
+  final String field;
+  final T update;
+  @override
+  Map<String, dynamic> requestMapBody() => {"field": field, "content": update};
 }
 
 class NoticeTemplate {

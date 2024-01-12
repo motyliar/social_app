@@ -8,7 +8,6 @@ class NoticeDownloader extends RepositoryDownloader<GetNoticeParams> {
   NoticeDownloader(super.params);
 
   Future<NoticeModel> fetchSingleObject() async {
-    print('ropoczyna sie notice downloader');
     return await HttpGetDataHandler(params: _params).returnData().then(
         (response) => response.fold(
             (f) => throw f, (data) => NoticeModel.fromJson(data)));
