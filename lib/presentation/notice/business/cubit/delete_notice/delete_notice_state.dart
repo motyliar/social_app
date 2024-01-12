@@ -1,6 +1,6 @@
 part of 'delete_notice_cubit.dart';
 
-sealed class DeleteNoticeState extends Equatable {
+class DeleteNoticeState extends Equatable {
   const DeleteNoticeState();
 
   @override

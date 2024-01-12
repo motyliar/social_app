@@ -11,7 +11,7 @@ class DeleteNoticeCubit extends Cubit<DeleteNoticeState> {
   final DeleteUserSingleNoticeUseCase _delete;
   DeleteNoticeCubit({required DeleteUserSingleNoticeUseCase delete})
       : _delete = delete,
-        super(DeleteNoticeState());
+        super(const DeleteNoticeState());
 
   Future<void> deleteNotice(GetNoticeParams params) async {
     await _deleteNotice(params);

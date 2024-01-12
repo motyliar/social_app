@@ -72,6 +72,9 @@ class AppUrl {
   static Uri updateSingleNoticeURL(String noticeId) =>
       Uri.parse('$backendUrl$notice$singleAction$updateAction$noticeId');
 
+  static Uri deleteSingleNoticeURL(String noticeId) =>
+      Uri.parse('$backendUrl$notice$deleteAction$noticeId');
+
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {
         'Content-Type': 'application/json',

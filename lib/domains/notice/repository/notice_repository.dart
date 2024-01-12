@@ -12,4 +12,5 @@ abstract class NoticeRepository {
   EitherFunc<List<NoticeEntity>> findNoticesCreatedByUser(
       GetNoticeParams params);
   EitherFunc<ResponseStatus> updateSingleNotice(UpdateNoticeParams params);
+  EitherFunc<ResponseStatus> deleteUserSingleNotice(GetNoticeParams params);
 }

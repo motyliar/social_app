@@ -4,6 +4,7 @@ import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,8 @@ class NoticeMainPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => userLocator<UpdateNoticeCubit>(),
-        )
+        ),
+        BlocProvider(create: (_) => userLocator<DeleteNoticeCubit>())
       ],
       child: Scaffold(
         body: SafeArea(
@@ -108,7 +110,26 @@ class NoticeMainPage extends StatelessWidget {
                   },
                 );
               },
-            )
+            ),
+            BlocConsumer<DeleteNoticeCubit, DeleteNoticeState>(
+              listener: (context, state) {
+                if (state is DeleteNoticeFailed) {
+                  Utils.showToastMessage(message: 'failed');
+                }
+                if (state is DeleteNoticeSuccess) {
+                  Utils.showToastMessage(message: 'success');
+                }
+              },
+              builder: (context, state) {
+                return BlocBuilder<DeleteNoticeCubit, DeleteNoticeState>(
+                    builder: (context, state) => ElevatedButton(
+                        onPressed: () => context.read<DeleteNoticeCubit>()
+                          ..deleteNotice(GetNoticeParams(
+                              url: AppUrl.deleteSingleNoticeURL(
+                                  "6578a4bd4f0b4bb506fb1b3b"))),
+                        child: const Text('delete')));
+              },
+            ),
           ],
         ))),
       ),
