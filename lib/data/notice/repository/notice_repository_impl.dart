@@ -50,4 +50,18 @@ class NoticeRepositoryImpl extends NoticeRepository {
       throw ServerException(e.toString());
     }
   }
+
+  @override
+  EitherFunc<List<NoticeEntity>> findNoticesCreatedByUser(
+      GetNoticeParams params) async {
+    try {
+      return await Utils().performNetworkOperation<List<NoticeEntity>>(
+          () async => await _noticeRemoteDataSources
+              .findNoticesCreatedByUser(params)
+              .then((response) => response.fold((failure) => Left(failure),
+                  (model) => Right(ModelConvert(model).toEntityList()))));
+    } on ServerException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
 }

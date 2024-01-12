@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
-import 'package:climbapp/domains/notice/entities/notice_entity.dart';
+
 
 class GetNoticeParams extends RepositoryParams {
   const GetNoticeParams({

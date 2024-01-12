@@ -7,3 +7,4 @@ const String kEmptyValue = '';
 const String kSomethingGoesWrong = 'something-wrong';
 const String kNoData = 'no-data';
 const String kNotFound = 'not-found';
+const String kParseData = 'data-not-parsed';

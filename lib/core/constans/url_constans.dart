@@ -1,7 +1,7 @@
 class AppUrl {
   /// [backendUrl] general address for MongoDB server
   /// [userEndPoint] store endpoint of user DB
-  static const String backendUrl = 'http://192.168.43.65:3000/';
+  static const String backendUrl = 'http://192.168.1.41:3000/';
   static const String middleWare = '1983_12@45bv/';
   static const String user = 'climbuser/';
   static const String userEndPoint = 'climbuser/single/';
@@ -16,6 +16,7 @@ class AppUrl {
   static const String notice = 'notice/';
   static const String messageendPoint = 'message/';
   static const String singleAction = 'single/';
+  static const String author = 'author/';
   static const String manyAction = 'many/';
   static const String getUserMessage = 'userMessages/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
@@ -64,6 +65,9 @@ class AppUrl {
       Uri.parse('$backendUrl$notice$singleAction$userId');
 
   static Uri createNoticeURL() => Uri.parse('$backendUrl$notice$addAction');
+
+  static Uri fetchUserNoticeURL(String userId) =>
+      Uri.parse('$backendUrl$notice$author$userId');
 
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {

@@ -17,6 +17,8 @@ abstract class NoticeRemoteDataSources {
   EitherFunc<List<NoticeModel>> getNoticePagination(GetNoticeParams params);
   EitherFunc<NoticeModel> getSingleNotice(GetNoticeParams params);
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params);
+  EitherFunc<List<NoticeModel>> findNoticesCreatedByUser(
+      GetNoticeParams params);
 }
 
 class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
@@ -54,6 +56,21 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
       return Right(response);
     } catch (e) {
       return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  EitherFunc<List<NoticeModel>> findNoticesCreatedByUser(
+      GetNoticeParams params) async {
+    try {
+      final responseMap = await NoticeDownloader(params).fetchRawData();
+      final convertResponse =
+          ToNoticeConverter(responseMap).mapResponseToNoticeList();
+      return Right(convertResponse);
+    } on ServerException catch (e) {
+      print(e.runtimeType);
+      print('to jest wylapane ${e.message}');
+      throw ServerException(e.message);
     }
   }
 }
