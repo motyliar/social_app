@@ -5,9 +5,7 @@ import 'package:climbapp/core/datahelpers/status_service/verify_status.dart';
 
 class NoticeStatusVerifer extends IStatusVerifier<CreateNoticeParams> {
   NoticeStatusVerifer._(
-      {required RepositoryParams params,
-      required HttpRepositoryHandler handler,
-      String? dataGetter})
+      {required HttpRepositoryHandler handler, String? dataGetter})
       : _dataGetter = dataGetter,
         _handler = handler;
 
@@ -15,11 +13,8 @@ class NoticeStatusVerifer extends IStatusVerifier<CreateNoticeParams> {
   final HttpRepositoryHandler _handler;
 
   factory NoticeStatusVerifer.startVerify(
-          {required RepositoryParams params,
-          required HttpRepositoryHandler handler,
-          String? dataGetter}) =>
-      NoticeStatusVerifer._(
-          params: params, handler: handler, dataGetter: dataGetter);
+          {required HttpRepositoryHandler handler, String? dataGetter}) =>
+      NoticeStatusVerifer._(handler: handler, dataGetter: dataGetter);
 
   @override
   Future<String> fetchResponseDescription_() async {

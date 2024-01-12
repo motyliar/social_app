@@ -1,4 +1,5 @@
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
+import 'package:climbapp/core/datahelpers/repository_helpers/http.delete_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_get_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_put_data_hanlder.dart';
@@ -22,6 +23,7 @@ abstract class NoticeRemoteDataSources {
   EitherFunc<List<NoticeModel>> findNoticesCreatedByUser(
       GetNoticeParams params);
   Future<ResponseStatus> updateSingleNotice(UpdateNoticeParams params);
+  Future<ResponseStatus> deleteUserSingleNotice(GetNoticeParams params);
 }
 
 class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
@@ -54,7 +56,6 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params) async {
     try {
       final response = await NoticeStatusVerifer.startVerify(
-              params: params,
               handler: HttpPostDataHandler(params: params),
               dataGetter: _dataGetter)
           .verifyResponse();
@@ -82,8 +83,20 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
   Future<ResponseStatus> updateSingleNotice(UpdateNoticeParams params) async {
     try {
       final response = await NoticeStatusVerifer.startVerify(
-              params: params,
               handler: HttpPutDataHandler(params: params),
+              dataGetter: _statusGetter)
+          .verifyResponse();
+      return response;
+    } on ServerException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
+
+  @override
+  Future<ResponseStatus> deleteUserSingleNotice(GetNoticeParams params) async {
+    try {
+      final response = await NoticeStatusVerifer.startVerify(
+              handler: HttpDeleteDataHandler(params: params),
               dataGetter: _statusGetter)
           .verifyResponse();
       return response;
