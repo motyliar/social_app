@@ -12,6 +12,7 @@ import 'package:climbapp/data/notice/models/notice_model.dart';
 import 'package:dartz/dartz.dart';
 
 const String _dataGetter = 'message';
+const String _statusGetter = 'status';
 
 abstract class NoticeRemoteDataSources {
   EitherFunc<List<NoticeModel>> getNoticePagination(GetNoticeParams params);
@@ -19,6 +20,7 @@ abstract class NoticeRemoteDataSources {
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params);
   EitherFunc<List<NoticeModel>> findNoticesCreatedByUser(
       GetNoticeParams params);
+  Future<ResponseStatus> updateSingleNotice(UpdateNoticeParams params);
 }
 
 class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
@@ -68,8 +70,19 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
           ToNoticeConverter(responseMap).mapResponseToNoticeList();
       return Right(convertResponse);
     } on ServerException catch (e) {
-      print(e.runtimeType);
-      print('to jest wylapane ${e.message}');
+      Utils.debugError(error: e);
+      throw ServerException(e.message);
+    }
+  }
+
+  @override
+  Future<ResponseStatus> updateSingleNotice(UpdateNoticeParams params) async {
+    try {
+      final response = await NoticeStatusVerifer.startVerify(
+              params: params, dataGetter: _statusGetter)
+          .verifyResponse();
+      return response;
+    } on ServerException catch (e) {
       throw ServerException(e.message);
     }
   }

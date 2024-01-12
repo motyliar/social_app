@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/firebase/firebase_error/firebase_error.dart';
@@ -78,6 +80,11 @@ class Utils {
     } catch (e) {
       return Left(ServerException.failed());
     }
+  }
+
+  static void debugError({required Exception error}) {
+    print(
+        '\x1B[31m[log] { RUNTIME TYPE: ${error.runtimeType} MESSAGE: $error }\x1B[0m');
   }
 
   /// [getServerConnection] geter to short response from function above

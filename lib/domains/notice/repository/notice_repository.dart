@@ -9,5 +9,7 @@ abstract class NoticeRepository {
   EitherFunc<List<NoticeEntity>> getNoticePagination(GetNoticeParams params);
   EitherFunc<NoticeEntity> getSingleNotice(GetNoticeParams params);
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params);
-  EitherFunc<List<NoticeEntity>> findNoticesCreatedByUser(GetNoticeParams params);
+  EitherFunc<List<NoticeEntity>> findNoticesCreatedByUser(
+      GetNoticeParams params);
+  EitherFunc<ResponseStatus> updateSingleNotice(UpdateNoticeParams params);
 }

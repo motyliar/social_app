@@ -23,6 +23,7 @@ import 'package:climbapp/domains/notice/usecases/create_new_notice.dart';
 import 'package:climbapp/domains/notice/usecases/find_notices_created_by_user.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/get_single_notice_usecase.dart';
+import 'package:climbapp/domains/notice/usecases/updated_notice_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
@@ -31,8 +32,9 @@ import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fet
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
-import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/create_notice/create_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -64,6 +66,7 @@ void userInit() {
         () => FetchSingleNoticeCubit(getSingleNoticeUseCase: userLocator()))
     ..registerFactory(
         () => CreateNoticeCubit(createNewNoticeUseCase: userLocator()))
+    ..registerFactory(() => UpdateNoticeCubit(updated: userLocator()))
     ..registerFactory(() => FetchUserNoticeCubit(fetch: userLocator()))
     // Register every UseCase
     // FRIENDS
@@ -99,6 +102,8 @@ void userInit() {
         () => CreateNewNoticeUseCase(noticeRepository: userLocator()))
     ..registerLazySingleton(
         () => FindNoticesCreatedByUserUseCase(repository: userLocator()))
+    ..registerLazySingleton(
+        () => UpdatedNoticeUseCase(repository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(

@@ -2,8 +2,9 @@ import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
-import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/create_notice/create_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -26,8 +27,11 @@ class NoticeMainPage extends StatelessWidget {
         BlocProvider(
           create: (context) => userLocator<FetchUserNoticeCubit>()
             ..fetchReturnByState(
-                GetNoticeParams(url: AppUrl.fetchUserNoticeURL('11111111'))),
+                GetNoticeParams(url: AppUrl.fetchUserNoticeURL('1111111'))),
         ),
+        BlocProvider(
+          create: (_) => userLocator<UpdateNoticeCubit>(),
+        )
       ],
       child: Scaffold(
         body: SafeArea(
