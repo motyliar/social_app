@@ -26,6 +26,7 @@ abstract class NoticeRemoteDataSources {
   Future<ResponseStatus> deleteUserSingleNotice(GetNoticeParams params);
   Future<ResponseStatus> addCommentToNotice(CreateNoticeCommentsParams params);
   Future<ResponseStatus> deleteSingleComment(GetNoticeParams params);
+  Future<ResponseStatus> updateSingleComment(UpdateCommentParams params);
 }
 
 class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
@@ -126,6 +127,19 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
     try {
       final response = await NoticeStatusVerifer.startVerify(
               handler: HttpDeleteDataHandler(params: params),
+              dataGetter: _statusGetter)
+          .verifyResponse();
+      return response;
+    } on ServerException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
+
+  @override
+  Future<ResponseStatus> updateSingleComment(UpdateCommentParams params) async {
+    try {
+      final response = await NoticeStatusVerifer.startVerify(
+              handler: HttpPutDataHandler(params: params),
               dataGetter: _statusGetter)
           .verifyResponse();
       return response;
