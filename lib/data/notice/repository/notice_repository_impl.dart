@@ -103,4 +103,16 @@ class NoticeRepositoryImpl extends NoticeRepository {
       return Left(ServerException(e.message));
     }
   }
+
+  @override
+  EitherFunc<ResponseStatus> deleteSingleComment(GetNoticeParams params) async {
+    try {
+      return await Utils().performNetworkOperation<ResponseStatus>(() async =>
+          await _noticeRemoteDataSources
+              .deleteSingleComment(params)
+              .then((value) => Right(value)));
+    } on ServerException catch (e) {
+      return Left(ServerException(e.message));
+    }
+  }
 }
