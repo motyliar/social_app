@@ -29,7 +29,7 @@ class NoticeMainPage extends StatelessWidget {
         BlocProvider(
           create: (context) => userLocator<FetchUserNoticeCubit>()
             ..fetchReturnByState(
-                GetNoticeParams(url: AppUrl.fetchUserNoticeURL('1111111'))),
+                GetNoticeParams(url: AppUrl.fetchUserNoticeURL('12345'))),
         ),
         BlocProvider(
           create: (_) => userLocator<UpdateNoticeCubit>(),
@@ -80,7 +80,13 @@ class NoticeMainPage extends StatelessWidget {
                   child: ListView.builder(
                     itemCount: state.userNotices.length,
                     itemBuilder: (context, index) {
-                      return Text(state.userNotices[index].createdAt);
+                      return Column(children: [
+                        Text(state.userNotices[index].author),
+                        Text(state.userNotices[index].comments != null
+                            ? state.userNotices[index].comments!.length
+                                .toString()
+                            : 'no comment'),
+                      ]);
                     },
                   ),
                 );
@@ -130,6 +136,12 @@ class NoticeMainPage extends StatelessWidget {
                         child: const Text('delete')));
               },
             ),
+            SizedBox(
+              height: 50,
+            ),
+            ElevatedButton(
+                onPressed: () => Navigator.pushNamed(context, routeCommentPage),
+                child: Text('go to comment')),
           ],
         ))),
       ),

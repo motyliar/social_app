@@ -18,6 +18,7 @@ class AppUrl {
   static const String singleAction = 'single/';
   static const String author = 'author/';
   static const String manyAction = 'many/';
+  static const String comment = 'comment/';
   static const String getUserMessage = 'userMessages/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
@@ -74,6 +75,9 @@ class AppUrl {
 
   static Uri deleteSingleNoticeURL(String noticeId) =>
       Uri.parse('$backendUrl$notice$deleteAction$noticeId');
+
+  static Uri addCommentToNotice(String noticeId) =>
+      Uri.parse('$backendUrl$notice$comment$noticeId');
 
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {
