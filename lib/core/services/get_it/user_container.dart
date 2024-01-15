@@ -21,6 +21,7 @@ import 'package:climbapp/domains/messages/usecases/update_message_usecase.dart';
 import 'package:climbapp/domains/notice/repository/notice_repository.dart';
 import 'package:climbapp/domains/notice/usecases/create_new_notice.dart';
 import 'package:climbapp/domains/notice/usecases/create_notice_comment_usecase.dart';
+import 'package:climbapp/domains/notice/usecases/delete_single_comment_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/delete_user_single_notice_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/find_notices_created_by_user.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
@@ -36,6 +37,7 @@ import 'package:climbapp/presentation/message/business/bloc/message/message_acti
 import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/add_comment/add_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/deleteComment/delete_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
@@ -74,6 +76,7 @@ void userInit() {
     ..registerFactory(() => FetchUserNoticeCubit(fetch: userLocator()))
     ..registerFactory(() => DeleteNoticeCubit(delete: userLocator()))
     ..registerFactory(() => AddCommentCubit(comment: userLocator()))
+    ..registerFactory(() => DeleteCommentCubit(deleteComment: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -114,6 +117,8 @@ void userInit() {
         () => DeleteUserSingleNoticeUseCase(repository: userLocator()))
     ..registerLazySingleton(
         () => CreateNoticeCommentUseCase(repository: userLocator()))
+    ..registerLazySingleton(
+        () => DeleteSingleCommentUseCase(repository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(

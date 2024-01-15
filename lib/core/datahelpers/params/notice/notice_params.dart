@@ -9,7 +9,7 @@ class GetNoticeParams extends RepositoryParams {
   final String? noticeId;
 
   @override
-  Map<String, dynamic> requestMapBody() => {};
+  Map<String, dynamic> requestMapBody() => {"noticeId": noticeId};
 }
 
 class CreateNoticeParams extends RepositoryParams {

@@ -3,6 +3,7 @@ import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/presentation/notice/business/cubit/add_comment/add_comment_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/deleteComment/delete_comment_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,8 +18,15 @@ class CommentMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => userLocator<AddCommentCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => userLocator<AddCommentCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => userLocator<DeleteCommentCubit>(),
+        ),
+      ],
       child: Scaffold(
         body: SafeArea(
             child: Column(
@@ -46,6 +54,17 @@ class CommentMainPage extends StatelessWidget {
                     child: Text('ADD NEW COMMENT'));
               },
             ),
+            BlocBuilder<DeleteCommentCubit, DeleteCommentState>(
+                builder: (context, state) {
+              return ElevatedButton(
+                  onPressed: () => context
+                      .read<DeleteCommentCubit>()
+                      .deleteComment(GetNoticeParams(
+                          url: AppUrl.deleteCommentFromNotice(
+                              "6578a138b987d2e1cf37b635"),
+                          noticeId: "65789782866f56088bd20eac")),
+                  child: Text('Delete Comment'));
+            })
           ],
         )),
       ),

@@ -15,4 +15,5 @@ abstract class NoticeRepository {
   EitherFunc<ResponseStatus> deleteUserSingleNotice(GetNoticeParams params);
   EitherFunc<ResponseStatus> addCommentToNotice(
       CreateNoticeCommentsParams params);
+  EitherFunc<ResponseStatus> deleteSingleComment(GetNoticeParams params);
 }
