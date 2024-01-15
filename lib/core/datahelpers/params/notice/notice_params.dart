@@ -62,6 +62,17 @@ class UpdateNoticeParams<T> extends RepositoryParams {
   Map<String, dynamic> requestMapBody() => {"field": field, "content": update};
 }
 
+class UpdateCommentParams extends RepositoryParams {
+  UpdateCommentParams(
+      {required this.commentId, required this.newContent, required super.url});
+  final String commentId;
+  final String newContent;
+
+  @override
+  Map<String, dynamic> requestMapBody() =>
+      {"commentId": commentId, "newContent": newContent};
+}
+
 class NoticeTemplate {
   final String author;
   final String authorId;
