@@ -90,4 +90,17 @@ class NoticeRepositoryImpl extends NoticeRepository {
       return Left(ServerException(e.message));
     }
   }
+
+  @override
+  EitherFunc<ResponseStatus> addCommentToNotice(
+      CreateNoticeCommentsParams params) async {
+    try {
+      return await Utils().performNetworkOperation<ResponseStatus>(() async =>
+          await _noticeRemoteDataSources
+              .addCommentToNotice(params)
+              .then((response) => Right(response)));
+    } on ServerException catch (e) {
+      return Left(ServerException(e.message));
+    }
+  }
 }
