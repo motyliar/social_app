@@ -35,6 +35,21 @@ class CreateNoticeParams extends RepositoryParams {
       };
 }
 
+class CreateNoticeCommentsParams extends RepositoryParams {
+  CreateNoticeCommentsParams({required CommentTemplate comment, super.url})
+      : _comment = comment;
+  final CommentTemplate _comment;
+
+  @override
+  Map<String, dynamic> requestMapBody() => {
+        "comment": {
+          "user": _comment.user,
+          "userId": _comment.userId,
+          "content": _comment.content
+        }
+      };
+}
+
 class UpdateNoticeParams<T> extends RepositoryParams {
   UpdateNoticeParams({
     required this.field,
@@ -62,4 +77,12 @@ class NoticeTemplate {
     required this.content,
     this.price,
   });
+}
+
+class CommentTemplate {
+  const CommentTemplate(
+      {required this.user, required this.userId, required this.content});
+  final String user;
+  final String userId;
+  final String content;
 }
