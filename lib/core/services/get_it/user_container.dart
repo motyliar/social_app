@@ -26,6 +26,7 @@ import 'package:climbapp/domains/notice/usecases/delete_user_single_notice_useca
 import 'package:climbapp/domains/notice/usecases/find_notices_created_by_user.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/get_single_notice_usecase.dart';
+import 'package:climbapp/domains/notice/usecases/update_comment_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/updated_notice_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
@@ -40,6 +41,7 @@ import 'package:climbapp/presentation/notice/business/cubit/create_notice/create
 import 'package:climbapp/presentation/notice/business/cubit/deleteComment/delete_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/update_comment/update_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -77,6 +79,7 @@ void userInit() {
     ..registerFactory(() => DeleteNoticeCubit(delete: userLocator()))
     ..registerFactory(() => AddCommentCubit(comment: userLocator()))
     ..registerFactory(() => DeleteCommentCubit(deleteComment: userLocator()))
+    ..registerFactory(() => UpdateCommentCubit(updateComment: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -119,6 +122,8 @@ void userInit() {
         () => CreateNoticeCommentUseCase(repository: userLocator()))
     ..registerLazySingleton(
         () => DeleteSingleCommentUseCase(repository: userLocator()))
+    ..registerLazySingleton(
+        () => UpdateCommentUseCase(repository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(
