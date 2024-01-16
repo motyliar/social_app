@@ -8,7 +8,6 @@ import 'package:climbapp/data/notice/models/notice_model.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/repository/notice_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:http/http.dart';
 
 class NoticeRepositoryImpl extends NoticeRepository {
   NoticeRepositoryImpl(

@@ -1,5 +1,4 @@
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
-import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_repository_handler.dart';
 import 'package:climbapp/core/datahelpers/status_service/verify_status.dart';
 

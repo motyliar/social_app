@@ -1,6 +1,6 @@
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/friends/models/friends_model.dart';
-import 'package:climbapp/domains/friends/entities/friends_entity.dart';
+
 import 'package:dartz/dartz.dart';
 import 'package:hive/hive.dart';
 

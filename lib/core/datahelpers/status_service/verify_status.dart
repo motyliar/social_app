@@ -1,4 +1,3 @@
-import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 import 'package:climbapp/core/datahelpers/status_service/response_status.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 

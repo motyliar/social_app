@@ -1,7 +1,6 @@
 import 'package:climbapp/core/constans/router_constans.dart' as route;
 import 'package:climbapp/core/error/error_screen.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/view/dashboard_page.dart';
 import 'package:climbapp/presentation/notice/view/comment_main_page.dart';
@@ -15,6 +14,8 @@ class AppRouter {
     switch (settings.name) {
       case route.routeRegisterPage:
         return RegisterPage.route();
+      case route.routePrePage:
+        return PrePage.route();
       case route.routeSignInPage:
         return SignInPage.route();
       case route.routePasswordPage:

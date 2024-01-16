@@ -1,6 +1,5 @@
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_get_data_handler.dart';
-import 'package:climbapp/core/datahelpers/status_service/response_status.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/data/notice/models/notice_model.dart';
 

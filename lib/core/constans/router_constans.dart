@@ -1,6 +1,7 @@
 /* Routing constans used for routing schema in app */
 
 const String routeHomeScreen = 'homeScreen';
+const String routePrePage = 'prePage';
 const String routeErrorScreen = 'errorScreen';
 const String routeRegisterPage = 'registerPage';
 const String routeSignInPage = 'signInPage';
