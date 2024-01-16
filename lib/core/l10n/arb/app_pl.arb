@@ -1,5 +1,16 @@
 {
     "@@locale": "pl",
+
+    "@_PRE_PAGE": {},
+    "labelFirst": "Kochasz sport?",
+    "contentFirst": "Poznaj ludzi, którzy kochają sport jak Ty!",
+    "labelSecond": "Potrzebujesz kompana do sportu",
+    "contentSecond": "Dodawaj i przeglądaj ogłoszenia z Twojej okolicy",
+    "labelThird": "Po prostu dołącz i korzystaj!",
+    "contentThird": "To takie proste, wiele osób czeka właśnie na Ciebie!",
+
+     "@_BUTTONS": {},
+    "skip": "pomiń",
     
     "@_ERROR_MESSAGES": {},
     "errorMessage": "Nie można znaleźć strony",

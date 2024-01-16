@@ -8,5 +8,6 @@ class LocaleCubit extends Cubit<String> {
 
   void changeLanguage() =>
       emit(state == _englishLanguage ? _polishLanguage : _englishLanguage);
-  void englishLanguage() => emit('en');
+  void englishLanguage() => emit(_englishLanguage);
+  void polishLanguage() => emit(_polishLanguage);
 }

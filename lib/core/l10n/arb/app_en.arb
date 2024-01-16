@@ -1,5 +1,17 @@
 {
     "@@locale": "en",
+
+    "@_PRE_PAGE": {},
+    "labelFirst": "Do you love sports?",
+    "contentFirst": "Meet people who love sports just like you!",
+    "labelSecond": "Do you need a sports buddy?",
+    "contentSecond": "Post and browse ads from your city",
+    "labelThird": "Just join and enjoy!",
+    "contentThird": "It's so simple. There are lots of people waitng just for you",
+
+    "@_BUTTONS": {},
+    "skip": "skip",
+
     
     "@_ERROR_MESSAGES": {},
     "errorMessage": "Page Not Found",
