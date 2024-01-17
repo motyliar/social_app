@@ -12,7 +12,7 @@ abstract class AppLocalizationListHandler {
   }
 }
 
-class PrePageLabelList extends AppLocalizationListHandler {
+class OnBoardLabelList extends AppLocalizationListHandler {
   @override
   List<String> listBuilder_(BuildContext context) {
     final l10n = _l10nBuilder(context);
@@ -25,7 +25,7 @@ class PrePageLabelList extends AppLocalizationListHandler {
   }
 }
 
-class PrePageContentList extends AppLocalizationListHandler {
+class OnBoardContentList extends AppLocalizationListHandler {
   @override
   List<String> listBuilder_(BuildContext context) {
     final l10n = _l10nBuilder(context);

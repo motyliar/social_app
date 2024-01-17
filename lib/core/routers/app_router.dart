@@ -14,8 +14,8 @@ class AppRouter {
     switch (settings.name) {
       case route.routeRegisterPage:
         return RegisterPage.route();
-      case route.routePrePage:
-        return PrePage.route();
+      case route.routeOnBoard:
+        return OnBoard.route();
       case route.routeSignInPage:
         return SignInPage.route();
       case route.routePasswordPage:

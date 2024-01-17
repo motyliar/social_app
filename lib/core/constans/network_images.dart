@@ -1,5 +1,5 @@
 class NetworkURLStorage {
-  List<String> get getImages => _prePageImages;
+  List<String> get getImages => _OnBoardImages;
 
   static const String _welcomeFirstImage =
       "http://motyliar.webd.pro/social/welcome_01.jpg";
@@ -7,7 +7,7 @@ class NetworkURLStorage {
       "http://motyliar.webd.pro/social/welcome_02.jpg";
   static const String _welcomeThirdImage =
       "http://motyliar.webd.pro/social/welcome_03.jpg";
-  final List<String> _prePageImages = [
+  final List<String> _OnBoardImages = [
     _welcomeFirstImage,
     _welcomeSecondImage,
     _welcomeThirdImage

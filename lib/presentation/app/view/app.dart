@@ -55,7 +55,7 @@ class App extends StatelessWidget {
               return MaterialApp(
                 debugShowCheckedModeBanner: false,
                 onGenerateRoute: AppRouter.onGenerateRoute,
-                initialRoute: routePrePage,
+                initialRoute: routeOnBoard,
                 theme: themeState.theme,
                 locale: Locale(localeState),
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
