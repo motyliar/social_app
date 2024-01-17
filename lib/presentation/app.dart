@@ -7,4 +7,4 @@ export 'friends/view/friends_page.dart';
 export 'user/view/user_page.dart';
 export 'message/view/message_preview.dart';
 export 'message/view/message_main_view.dart';
-export 'pre/view/pre_page.dart';
+export 'on_board/view/on_board.dart';

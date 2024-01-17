@@ -1,9 +1,11 @@
 import 'package:climbapp/core/constans/app_localization_list.dart';
 import 'package:climbapp/core/constans/network_images.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/datahelpers/params/onboard/on_board_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/presentation/app/business/cubit/localization/locale_cubit.dart';
-import 'package:climbapp/presentation/pre/business/cubit/dot_state_cubit.dart';
+import 'package:climbapp/presentation/on_board/business/dot_state/dot_state_cubit.dart';
+import 'package:climbapp/presentation/on_board/business/firstOpen/first_open_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +23,6 @@ class OnBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currentPage = 0;
     return BlocProvider(
       create: (context) => DotStateCubit.instance(),
       child: Scaffold(
@@ -62,11 +63,19 @@ class OnBoard extends StatelessWidget {
                         top: 20),
                     child: Align(
                       alignment: Alignment.topRight,
-                      child: ElevatedButton(
-                          onPressed: () =>
-                              Navigator.pushNamed(context, routeSignInPage),
-                          child: Text(
-                              AppLocalizations.of(context).skip.toUpperCase())),
+                      child: BlocBuilder<FirstOpenCubit, FirstOpenState>(
+                        builder: (context, state) {
+                          return ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, routeSignInPage);
+                                context.read<FirstOpenCubit>().changeOpenStatus(
+                                    const OnBoardParam(wasOpened: true));
+                              },
+                              child: Text(AppLocalizations.of(context)
+                                  .skip
+                                  .toUpperCase()));
+                        },
+                      ),
                     ),
                   ),
                 ],
@@ -158,19 +167,6 @@ class OnBoard extends StatelessWidget {
           ),
         )),
       ),
-    );
-  }
-}
-
-class FirstPage extends StatelessWidget {
-  const FirstPage({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [],
     );
   }
 }

@@ -14,7 +14,7 @@ part 'first_open_state.dart';
 class FirstOpenCubit extends Cubit<FirstOpenState> {
   final GetOpenStatusUseCase _getStatus;
   final ChangeOpenStatusUseCase _changeStatus;
-  FirstOpenCubit._(
+  FirstOpenCubit(
       {required GetOpenStatusUseCase getStatus,
       required ChangeOpenStatusUseCase changeStatus})
       : _getStatus = getStatus,

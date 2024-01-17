@@ -13,7 +13,11 @@ class OnBoardLocalImpl extends OnBoardLocalSources {
   final Box<OnBoardModel> box = Hive.box<OnBoardModel>('on-board');
   @override
   Future<OnBoardModel> getOpenStatus() async {
-    return box.get(0) ?? OnBoardModel(wasOpened: false);
+    if (box.isEmpty) {
+      await _putNewDataToEmptyBox();
+      return OnBoardModel(wasOpened: false);
+    }
+    return box.get(0)!;
   }
 
   @override
@@ -24,5 +28,9 @@ class OnBoardLocalImpl extends OnBoardLocalSources {
       await box.put(0, OnBoardModel(wasOpened: param.wasOpened));
       return ResponseStatus.success;
     }
+  }
+
+  Future<void> _putNewDataToEmptyBox() async {
+    await box.put(0, OnBoardModel(wasOpened: false));
   }
 }
