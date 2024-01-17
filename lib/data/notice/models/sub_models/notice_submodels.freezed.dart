@@ -171,7 +171,7 @@ class _$ContentModelImpl extends _ContentModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ContentModelImpl &&
@@ -441,7 +441,7 @@ class _$CommentsModelImpl extends _CommentsModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CommentsModelImpl &&

@@ -130,7 +130,7 @@ class _$UserPreferencesModelImpl implements _UserPreferencesModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserPreferencesModelImpl &&
@@ -317,7 +317,7 @@ class _$UserDetailsModelImpl implements _UserDetailsModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserDetailsModelImpl &&
@@ -493,7 +493,7 @@ class _$UserFriendsModelImpl implements _UserFriendsModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserFriendsModelImpl &&
@@ -662,7 +662,7 @@ class _$UserActiveModelImpl implements _UserActiveModel {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UserActiveModelImpl &&

@@ -154,7 +154,7 @@ class _$ContentEntityImpl implements _ContentEntity {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ContentEntityImpl &&
@@ -402,7 +402,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CommentsEntityImpl &&
