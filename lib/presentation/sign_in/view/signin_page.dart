@@ -1,12 +1,13 @@
 import 'package:climbapp/core/constans/router_constans.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
+import 'package:climbapp/presentation/sign_in/widgets/background_painter.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
@@ -24,108 +25,282 @@ class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            BlocConsumer<SignInBloc, SignInState>(
-              listener: (context, state) async {
-                if (state is SignInSuccess) {
-                  if (!_isPageAlreadyOpened) {
-                    context.read<SignInBloc>().add(
-                          CatchUserTokenFromMongoDB(
-                            user: SignInEntity(
-                              email: _userNameController.text,
-                              password: state.user,
-                            ),
-                          ),
-                        );
-                  }
-                }
-                if (state is SignInFailed) {
-                  Utils.showToastMessage(
-                    message: Utils().toastExceptionFirebaseMessage(
-                      exceptionMessage: state.exceptionMessage,
-                      context: context,
+      body: Stack(
+        children: [
+          Align(
+            alignment: Alignment.topCenter,
+            child: Image.network(
+              'http://motyliar.webd.pro/social/login_background.jpg',
+              height: 300,
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.width * 0.15,
+            child: Container(
+                margin: const EdgeInsets.only(left: 100),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'JoinMee',
+                      style: GoogleFonts.raleway(
+                          textStyle: TextStyle(
+                              fontSize: 30,
+                              letterSpacing: 1.5,
+                              fontWeight: FontWeight.bold)),
                     ),
-                  );
-                }
-                if (state is SignInToMongoDB) {
-                  print('this is: ${state.userParams}');
-                  BlocProvider.of<UserBloc>(context)
-                      .add(LoadUserEvent(user: state.userParams));
-                  Utils.showToastMessage(message: 'Login');
-
-                  await Utils().navigatorClear(
-                      context: context,
-                      routeName: routeDashboardPage,
-                      function: () => context
-                          .read<SignInBloc>()
-                          .add(SignInInitLoadingEvent()));
-                }
-              },
-              builder: (context, state) {
-                if (state is SignInToMongoDB) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                return Form(
-                  key: _signInKey,
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: _userNameController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter User Name',
-                          hintStyle: TextStyle(color: Colors.grey),
+                    Text(
+                      'App for SportLovers',
+                      style: GoogleFonts.raleway(
+                          textStyle: TextStyle(
+                        letterSpacing: 1,
+                      )),
+                    ),
+                  ],
+                )),
+          ),
+          Positioned(
+            top: 250,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height * 0.42,
+              child: Stack(children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Container(
+                    margin: const EdgeInsets.only(right: 30, left: 30),
+                    width: MediaQuery.of(context).size.width - 50,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(5, -4),
+                              blurRadius: 16,
+                              spreadRadius: 1,
+                              color: Colors.grey[500]!.withOpacity(0.5)),
+                          BoxShadow(
+                              offset: Offset(-5, 5),
+                              blurRadius: 12,
+                              spreadRadius: 1,
+                              color: Colors.grey[500]!.withOpacity(0.5))
+                        ]),
+                    child: Container(
+                      margin: const EdgeInsets.all(10),
+                      width: MediaQuery.of(context).size.width - 60,
+                      height: MediaQuery.of(context).size.height * 0.4,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.white,
+                            Colors.grey.withOpacity(0.2),
+                            Colors.white
+                          ],
                         ),
-                        style: TextStyle(color: Colors.black),
                       ),
-                      TextFormField(
-                        controller: _passwordController,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter a password',
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          print(
-                            "user: ${_userNameController.text} password: ${_passwordController.text} ",
-                          );
-                          context.read<SignInBloc>().add(
-                                SignInProcess(
-                                  user: SignInEntity(
-                                    email: _userNameController.text,
-                                    password: _passwordController.text,
-                                  ),
-                                ),
-                              );
-                        },
-                        child: const Text('login'),
-                      ),
-                    ],
+                    ),
                   ),
-                );
-              },
+                ),
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          color: Colors.white.withOpacity(0.1),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(4, 4),
+                                blurRadius: 14,
+                                spreadRadius: 1,
+                                color: Colors.grey[500]!.withOpacity(0.8))
+                          ]),
+                      width: 90,
+                      height: 90,
+                      child: Container(
+                        margin: const EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                              offset: Offset(0, 7),
+                              color: Colors.grey,
+                              spreadRadius: 0.2,
+                              blurRadius: 20,
+                            )
+                          ],
+                          gradient:
+                              SweepGradient(center: Alignment.topLeft, colors: [
+                            Color(0xFFF539A8),
+                            Color(0xFFA3F264),
+                            Color(0xFF59D7C8),
+                          ]),
+                        ),
+                        child: Icon(
+                          Icons.arrow_right,
+                          size: 60,
+                        ),
+                      ),
+                    )),
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    width: 100,
+                    height: 40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.white.withOpacity(0.1),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(4, 4),
+                              blurRadius: 14,
+                              spreadRadius: 1,
+                              color: Colors.grey[500]!.withOpacity(0.8))
+                        ]),
+                    child: Container(
+                      width: 100,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 7),
+                            color: Colors.grey,
+                            spreadRadius: 0.2,
+                            blurRadius: 20,
+                          )
+                        ],
+                        gradient:
+                            SweepGradient(center: Alignment.topLeft, colors: [
+                          Color(0xFF59D7C8),
+                          Color(0xFFA3F264),
+                          Color(0xFFF539A8),
+                        ]),
+                      ),
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: Text('LOGIN',
+                              style: GoogleFonts.raleway(
+                                  textStyle: TextStyle(
+                                      fontSize: 20, letterSpacing: 0.8)))),
+                    ),
+                  ),
+                ),
+              ]),
             ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, routePasswordPage);
-              },
-              child: const Text('Forgot your password?'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, routeRegisterPage);
-              },
-              child: const Text('not account yet? Sign Up'),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
+
+// Scaffold(
+//       backgroundColor: Color(0xFF252E42)),
+//       body: SafeArea(
+//         child: Column(
+//           children: [
+//             BlocConsumer<SignInBloc, SignInState>(
+//               listener: (context, state) async {
+//                 if (state is SignInSuccess) {
+//                   if (!_isPageAlreadyOpened) {
+//                     context.read<SignInBloc>().add(
+//                           CatchUserTokenFromMongoDB(
+//                             user: SignInEntity(
+//                               email: _userNameController.text,
+//                               password: state.user,
+//                             ),
+//                           ),
+//                         );
+//                   }
+//                 }
+//                 if (state is SignInFailed) {
+//                   Utils.showToastMessage(
+//                     message: Utils().toastExceptionFirebaseMessage(
+//                       exceptionMessage: state.exceptionMessage,
+//                       context: context,
+//                     ),
+//                   );
+//                 }
+//                 if (state is SignInToMongoDB) {
+//                   print('this is: ${state.userParams}');
+//                   BlocProvider.of<UserBloc>(context)
+//                       .add(LoadUserEvent(user: state.userParams));
+//                   Utils.showToastMessage(message: 'Login');
+
+//                   await Utils().navigatorClear(
+//                       context: context,
+//                       routeName: routeDashboardPage,
+//                       function: () => context
+//                           .read<SignInBloc>()
+//                           .add(SignInInitLoadingEvent()));
+//                 }
+//               },
+//               builder: (context, state) {
+//                 if (state is SignInToMongoDB) {
+//                   return const Center(
+//                     child: CircularProgressIndicator(),
+//                   );
+//                 }
+//                 return Form(
+//                   key: _signInKey,
+//                   child: Column(
+//                     children: [
+//                       TextFormField(
+//                         controller: _userNameController,
+//                         decoration: const InputDecoration(
+//                           hintText: 'Enter User Name',
+//                           hintStyle: TextStyle(color: Colors.grey),
+//                         ),
+//                         style: TextStyle(color: Colors.black),
+//                       ),
+//                       TextFormField(
+//                         controller: _passwordController,
+//                         decoration: const InputDecoration(
+//                           hintText: 'Enter a password',
+//                         ),
+//                       ),
+//                       TextButton(
+//                         onPressed: () {
+//                           print(
+//                             "user: ${_userNameController.text} password: ${_passwordController.text} ",
+//                           );
+//                           context.read<SignInBloc>().add(
+//                                 SignInProcess(
+//                                   user: SignInEntity(
+//                                     email: _userNameController.text,
+//                                     password: _passwordController.text,
+//                                   ),
+//                                 ),
+//                               );
+//                         },
+//                         child: const Text('login'),
+//                       ),
+//                     ],
+//                   ),
+//                 );
+//               },
+//             ),
+//             TextButton(
+//               onPressed: () {
+//                 Navigator.pushNamed(context, routePasswordPage);
+//               },
+//               child: const Text('Forgot your password?'),
+//             ),
+//             TextButton(
+//               onPressed: () {
+//                 Navigator.pushNamed(context, routeRegisterPage);
+//               },
+//               child: const Text('not account yet? Sign Up'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 //Przykładowy kod do zabezpieczenia nawigacji
 bool _isPageAlreadyOpened = false;
