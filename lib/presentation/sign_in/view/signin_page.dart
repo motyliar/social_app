@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   SignInPage({super.key});
   static Route<dynamic> route() {
     return MaterialPageRoute(
@@ -18,8 +18,15 @@ class SignInPage extends StatelessWidget {
     );
   }
 
+  @override
+  State<SignInPage> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _userNameController = TextEditingController();
+  bool isClick = true;
   final TextEditingController _passwordController = TextEditingController();
+
   final GlobalKey _signInKey = GlobalKey<FormState>();
 
   @override
@@ -44,7 +51,7 @@ class SignInPage extends StatelessWidget {
                     Text(
                       'JoinMee',
                       style: GoogleFonts.raleway(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                               fontSize: 30,
                               letterSpacing: 1.5,
                               fontWeight: FontWeight.bold)),
@@ -52,7 +59,7 @@ class SignInPage extends StatelessWidget {
                     Text(
                       'App for SportLovers',
                       style: GoogleFonts.raleway(
-                          textStyle: TextStyle(
+                          textStyle: const TextStyle(
                         letterSpacing: 1,
                       )),
                     ),
@@ -63,67 +70,111 @@ class SignInPage extends StatelessWidget {
             top: 250,
             child: SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.42,
-              child: Stack(children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 30, left: 30),
-                    width: MediaQuery.of(context).size.width - 50,
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.3),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(5, -4),
-                              blurRadius: 16,
-                              spreadRadius: 1,
-                              color: Colors.grey[500]!.withOpacity(0.5)),
-                          BoxShadow(
-                              offset: Offset(-5, 5),
-                              blurRadius: 12,
-                              spreadRadius: 1,
-                              color: Colors.grey[500]!.withOpacity(0.5))
-                        ]),
+              height: MediaQuery.of(context).size.height * 0.40,
+              child: Stack(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
                     child: Container(
-                      margin: const EdgeInsets.all(10),
-                      width: MediaQuery.of(context).size.width - 60,
-                      height: MediaQuery.of(context).size.height * 0.4,
+                      margin: const EdgeInsets.only(right: 30, left: 30),
+                      width: MediaQuery.of(context).size.width - 50,
+                      height: MediaQuery.of(context).size.height * 0.36,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.white,
-                            Colors.grey.withOpacity(0.2),
-                            Colors.white
-                          ],
+                          color: Colors.white.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(5, -4),
+                                blurRadius: 16,
+                                spreadRadius: 1,
+                                color: Colors.grey[500]!.withOpacity(0.5)),
+                            BoxShadow(
+                                offset: const Offset(-5, 5),
+                                blurRadius: 12,
+                                spreadRadius: 1,
+                                color: Colors.grey[500]!.withOpacity(0.5))
+                          ]),
+                      child: Container(
+                        margin: const EdgeInsets.all(10),
+                        width: MediaQuery.of(context).size.width - 60,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.6),
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.white,
+                              Colors.grey.withOpacity(0.2),
+                              Colors.white
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Align(
-                    alignment: Alignment.bottomCenter,
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Colors.white.withOpacity(0.1),
+                            boxShadow: [
+                              BoxShadow(
+                                  offset: const Offset(4, 4),
+                                  blurRadius: 14,
+                                  spreadRadius: 1,
+                                  color: Colors.grey[500]!.withOpacity(0.8))
+                            ]),
+                        width: 90,
+                        height: 90,
+                        child: Container(
+                          margin: const EdgeInsets.all(4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(0, 7),
+                                color: Colors.grey,
+                                spreadRadius: 0.2,
+                                blurRadius: 20,
+                              )
+                            ],
+                            gradient: const SweepGradient(
+                                center: Alignment.topLeft,
+                                colors: [
+                                  Color(0xFFF539A8),
+                                  Color(0xFFA3F264),
+                                  Color(0xFF59D7C8),
+                                ]),
+                          ),
+                          child: const Icon(
+                            Icons.arrow_right,
+                            size: 60,
+                          ),
+                        ),
+                      )),
+                  Align(
+                    alignment: Alignment.topCenter,
                     child: Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      width: 100,
+                      height: 40,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(30),
                           color: Colors.white.withOpacity(0.1),
                           boxShadow: [
                             BoxShadow(
-                                offset: Offset(4, 4),
+                                offset: const Offset(4, 4),
                                 blurRadius: 14,
                                 spreadRadius: 1,
                                 color: Colors.grey[500]!.withOpacity(0.8))
                           ]),
-                      width: 90,
-                      height: 90,
                       child: Container(
-                        margin: const EdgeInsets.all(4),
+                        width: 100,
+                        height: 40,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          boxShadow: [
+                          borderRadius: BorderRadius.circular(30),
+                          boxShadow: const [
                             BoxShadow(
                               offset: Offset(0, 7),
                               color: Colors.grey,
@@ -131,64 +182,147 @@ class SignInPage extends StatelessWidget {
                               blurRadius: 20,
                             )
                           ],
-                          gradient:
-                              SweepGradient(center: Alignment.topLeft, colors: [
-                            Color(0xFFF539A8),
-                            Color(0xFFA3F264),
-                            Color(0xFF59D7C8),
-                          ]),
+                          gradient: const SweepGradient(
+                              center: Alignment.topLeft,
+                              colors: [
+                                Color(0xFF59D7C8),
+                                Color(0xFFA3F264),
+                                Color(0xFFF539A8),
+                              ]),
                         ),
-                        child: Icon(
-                          Icons.arrow_right,
-                          size: 60,
-                        ),
+                        child: Align(
+                            alignment: Alignment.center,
+                            child: Text('LOGIN',
+                                style: GoogleFonts.raleway(
+                                    textStyle: const TextStyle(
+                                        fontSize: 20, letterSpacing: 0.8)))),
                       ),
-                    )),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Container(
-                    width: 100,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        color: Colors.white.withOpacity(0.1),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(4, 4),
-                              blurRadius: 14,
-                              spreadRadius: 1,
-                              color: Colors.grey[500]!.withOpacity(0.8))
-                        ]),
-                    child: Container(
-                      width: 100,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 7),
-                            color: Colors.grey,
-                            spreadRadius: 0.2,
-                            blurRadius: 20,
-                          )
-                        ],
-                        gradient:
-                            SweepGradient(center: Alignment.topLeft, colors: [
-                          Color(0xFF59D7C8),
-                          Color(0xFFA3F264),
-                          Color(0xFFF539A8),
-                        ]),
-                      ),
-                      child: Align(
-                          alignment: Alignment.center,
-                          child: Text('LOGIN',
-                              style: GoogleFonts.raleway(
-                                  textStyle: TextStyle(
-                                      fontSize: 20, letterSpacing: 0.8)))),
                     ),
                   ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          color: Colors.transparent,
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: 50,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                hintText: 'Enter your login',
+                                hintStyle: GoogleFonts.raleway(
+                                    textStyle: TextStyle(
+                                        fontSize: 12, color: Colors.white)),
+                                prefixIcon: Icon(
+                                  Icons.email,
+                                  color: Color(0xFF59D7C8),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey[500]!
+                                            .withOpacity(0.5))),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey[500]!
+                                            .withOpacity(0.5)))),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          color: Colors.transparent,
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          height: 50,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                hintText: 'Enter your password',
+                                hintStyle: GoogleFonts.raleway(
+                                    textStyle: TextStyle(
+                                        fontSize: 12, color: Colors.white)),
+                                prefixIcon: Icon(
+                                  Icons.password,
+                                  color: Color(0xFF59D7C8),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    borderSide: BorderSide(
+                                        color: Colors.grey[500]!
+                                            .withOpacity(0.5)))),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Forgot password?',
+                          style: GoogleFonts.raleway(
+                              textStyle:
+                                  TextStyle(fontSize: 12, color: Colors.grey)),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 30,
+            child: GestureDetector(
+              onTap: () => setState(() {
+                isClick = !isClick;
+                print(isClick);
+              }),
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 200),
+                margin: const EdgeInsets.only(right: 20, bottom: 50),
+                width: 200,
+                height: 60,
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: isClick
+                        ? [
+                            BoxShadow(
+                                offset: const Offset(5, -4),
+                                blurRadius: 16,
+                                spreadRadius: 1,
+                                color: Colors.grey[500]!.withOpacity(0.5)),
+                            BoxShadow(
+                                offset: const Offset(-5, 5),
+                                blurRadius: 12,
+                                spreadRadius: 1,
+                                color: Colors.grey[500]!.withOpacity(0.5))
+                          ]
+                        : []),
+                child: Container(
+                  padding: const EdgeInsets.all(4),
+                  margin: const EdgeInsets.all(3),
+                  width: MediaQuery.of(context).size.width - 60,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(20),
+                    gradient:
+                        const SweepGradient(center: Alignment.topLeft, colors: [
+                      Color(0xFF59D7C8),
+                      Color(0xFFA3F264),
+                      Color(0xFFF539A8),
+                    ]),
+                  ),
+                  child: Column(children: [
+                    Text(
+                      'Dont have account yet?',
+                      style: GoogleFonts.raleway(
+                          textStyle: TextStyle(fontSize: 14)),
+                    ),
+                    Text('Sign up!')
+                  ]),
                 ),
-              ]),
+              ),
             ),
           ),
         ],
