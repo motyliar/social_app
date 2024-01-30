@@ -9,6 +9,13 @@
     "labelThird": "Po prostu dołącz i korzystaj!",
     "contentThird": "To takie proste, wiele osób czeka właśnie na Ciebie!",
 
+    
+    "@_SIGN_PAGE": {},
+    "topBigLabel" : "JoinMee",
+    "descriptionLabel": "Miejsce miłoścników sportu",
+    "forgotPassword" : "Nie pamiętasz hasła?",
+
+
      "@_BUTTONS": {},
     "skip": "pomiń",
     
@@ -30,6 +37,10 @@
 
 
     "@_FLUTTERTOAST_MESSAGES": {},
-    "successMsg": "Sukces!"
+    "successMsg": "Sukces!",
+
+    "@_TEXTFIELDS_HINT_TEXTS": {},
+    "enterLogin" : "Wpisz swój login",
+    "enterPassword": "Wpisz swoje hasło"
     
 }

@@ -9,6 +9,11 @@
     "labelThird": "Just join and enjoy!",
     "contentThird": "It's so simple. There are lots of people waitng just for you",
 
+    "@_SIGN_PAGE": {},
+    "topBigLabel" : "JoinMee",
+    "descriptionLabel": "App for SportLovers",
+    "forgotPassword" : "Forgot password?",
+
     "@_BUTTONS": {},
     "skip": "skip",
 
@@ -29,7 +34,14 @@
     "firebaseInvalidCredential": "Wrong User or Password",
     "somethingWrong": "Something wrong",
 
+    
+
 
     "@_FLUTTERTOAST_MESSAGES": {},
-    "successMsg": "Success"
+    "successMsg": "Success",
+
+
+    "@_TEXTFIELDS_HINT_TEXTS": {},
+    "enterLogin" : "Enter your login",
+    "enterPassword": "Enter your password"
 }

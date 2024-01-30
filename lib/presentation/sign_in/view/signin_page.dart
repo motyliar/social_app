@@ -1,9 +1,9 @@
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
-import 'package:climbapp/presentation/sign_in/widgets/background_painter.dart';
-import 'package:climbapp/presentation/sign_in/widgets/background_widget.dart';
-import 'package:climbapp/presentation/sign_in/widgets/top_background_bar.dart';
+import 'package:climbapp/presentation/sign_in/view/widgets.dart';
+
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +28,7 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final double mobileHeight = MediaQuery.of(context).size.height;
     final double mobileWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -41,28 +42,10 @@ class SignInPage extends StatelessWidget {
               const TopBackgroundImage(),
               Positioned(
                 top: mobileWidth * 0.15,
-                child: Container(
-                    margin: const EdgeInsets.only(left: 100),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'JoinMee',
-                          style: GoogleFonts.raleway(
-                              textStyle: const TextStyle(
-                                  fontSize: 30,
-                                  letterSpacing: 1.5,
-                                  fontWeight: FontWeight.bold)),
-                        ),
-                        Text(
-                          'App for SportLovers',
-                          style: GoogleFonts.raleway(
-                              textStyle: const TextStyle(
-                            letterSpacing: 1,
-                          )),
-                        ),
-                      ],
-                    )),
+                child: MiddleCard(
+                  bigLabel: l10n.topBigLabel,
+                  descriptionLabel: l10n.descriptionLabel,
+                ),
               ),
               Positioned(
                 top: 250,
