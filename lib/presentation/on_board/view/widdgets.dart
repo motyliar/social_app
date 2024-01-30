@@ -22,7 +22,7 @@ class CustomPositioned extends StatelessWidget {
             durationInSeconds: 5,
             child: ExpandClass(
               painter: CustomPainto(),
-              child: ChildClass(width: 30, height: 30),
+              child: ChildClass(width: 20, height: 20),
             )));
   }
 }
@@ -31,7 +31,7 @@ class CustomPainto extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawCircle(Offset(size.width / 2, size.height / 2), 10,
-        Paint()..color = Colors.grey);
+        Paint()..color = Colors.yellow);
   }
 
   @override
@@ -58,11 +58,14 @@ class AnimationClass extends StatelessWidget {
         tween: Tween<double>(begin: begin, end: end),
         duration: Duration(seconds: durationInSeconds),
         builder: (context, value, _) {
-          return SizedBox(
-            width: value,
-            height: value,
-            child: child,
-          );
+          return Positioned(
+              top: value,
+              left: value,
+              child: Container(
+                width: 10,
+                height: 10,
+                color: Colors.amber,
+              ));
         });
   }
 }
@@ -73,8 +76,9 @@ class ExpandClass extends StatelessWidget {
   final Widget child;
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: painter,
+    return Container(
+      width: 40,
+      height: 40,
       child: child,
     );
   }

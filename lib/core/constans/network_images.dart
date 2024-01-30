@@ -1,3 +1,8 @@
+class ImagesURL {
+  static const signInTopBackground =
+      'http://motyliar.webd.pro/social/login_background.jpg';
+}
+
 class NetworkURLStorage {
   List<String> get getImages => _OnBoardImages;
 

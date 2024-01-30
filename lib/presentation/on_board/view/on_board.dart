@@ -71,7 +71,7 @@ class OnBoard extends StatelessWidget {
                               curve: Curves.easeOut,
                               builder: (context, value, child) {
                                 return Transform.translate(
-                                  offset: Offset(0, value),
+                                  offset: Offset(20, value),
                                   child: child,
                                 );
                               },
