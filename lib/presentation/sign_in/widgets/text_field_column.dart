@@ -1,4 +1,5 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/icons.dart';
@@ -40,7 +41,10 @@ class TextFieldColumn extends StatelessWidget {
         const SizedBox(
           height: fivePixelsSpaceBetweenWidgets,
         ),
-        Text(l10n.forgotPassword, style: AppTextStyle.descriptionTextGreySmall)
+        GestureDetector(
+            onTap: () => Navigator.pushNamed(context, routePasswordPage),
+            child: Text(l10n.forgotPassword,
+                style: AppTextStyle.descriptionTextGreySmall))
       ],
     );
   }

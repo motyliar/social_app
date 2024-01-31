@@ -7,10 +7,11 @@ import 'package:flutter/material.dart';
 class MidTextButton extends StatelessWidget {
   const MidTextButton({
     required this.buttonWidth,
-    required this.buttonHeight,
+    this.buttonHeight = 40,
     required this.textLabel,
     this.borderRadius = midBorderRadius,
     this.backgroundGradient = blueGreenGradient,
+    this.textStyle,
     super.key,
   });
   final double buttonWidth;
@@ -18,11 +19,12 @@ class MidTextButton extends StatelessWidget {
   final double borderRadius;
   final String textLabel;
   final Gradient backgroundGradient;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: appStandardMargin),
+      margin: const EdgeInsets.only(top: kAppStandardMarginard),
       width: buttonWidth,
       height: buttonHeight,
       decoration: BoxDecoration(
@@ -40,7 +42,8 @@ class MidTextButton extends StatelessWidget {
             gradient: backgroundGradient),
         child: Align(
             alignment: Alignment.center,
-            child: Text(textLabel, style: AppTextStyle.buttonLabelStyle)),
+            child: Text(textLabel,
+                style: textStyle ?? AppTextStyle.buttonLabelStyle)),
       ),
     );
   }

@@ -8,4 +8,4 @@ const double heightOfTextField = 50;
 const double tenPixelsSpaceBetweenWidgets = 10;
 const double fivePixelsSpaceBetweenWidgets = 5;
 
-const double appStandardMargin = 20;
+const double kAppStandardMarginard = 20;
