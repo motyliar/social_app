@@ -13,6 +13,8 @@
     "topBigLabel" : "JoinMee",
     "descriptionLabel": "App for SportLovers",
     "forgotPassword" : "Forgot password?",
+    "dontHaveAccount": "Dont have account yet?",
+    "signUp": "Sign up",
 
     "@_BUTTONS": {},
     "skip": "skip",

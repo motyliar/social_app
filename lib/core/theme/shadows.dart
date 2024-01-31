@@ -9,7 +9,7 @@ final BoxShadow downShadow = BoxShadow(
     offset: const Offset(4, 4),
     blurRadius: _midAppBlur,
     spreadRadius: _spreadValue,
-    color: ColorPallete().greyShadowColor);
+    color: ColorPallete().greyShadowColorOpacityMax);
 
 const greyLeftShadow = BoxShadow(
   offset: Offset(0, 7),
@@ -17,3 +17,8 @@ const greyLeftShadow = BoxShadow(
   spreadRadius: _spreadValue,
   blurRadius: _maxAppBlur,
 );
+BoxShadow greyBoxShadow({required Offset offset, Color? color}) => BoxShadow(
+    offset: Offset(offset.dx, offset.dy),
+    blurRadius: _maxAppBlur,
+    spreadRadius: _spreadValue,
+    color: color ?? ColorPallete().greyShadowColorOpacityMid);

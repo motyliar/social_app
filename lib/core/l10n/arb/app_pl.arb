@@ -14,6 +14,8 @@
     "topBigLabel" : "JoinMee",
     "descriptionLabel": "Miejsce miłoścników sportu",
     "forgotPassword" : "Nie pamiętasz hasła?",
+    "dontHaveAccount": "Nie masz konta?",
+    "signUp": "Zarejestruj się",
 
 
      "@_BUTTONS": {},

@@ -24,8 +24,6 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  final GlobalKey _signInKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -55,58 +53,14 @@ class SignInPage extends StatelessWidget {
                   textInputWidth: mobileWidth * _bothSideMargin,
                 ),
               ),
-              Align(
+              const Align(
                 alignment: Alignment.bottomCenter,
                 child: BottomBackgroundBar(),
               ),
               Align(
                 alignment: Alignment.bottomRight,
-                child: GestureDetector(
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    margin: const EdgeInsets.only(right: 20, bottom: 50),
-                    width: 200,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                              offset: const Offset(5, -4),
-                              blurRadius: 16,
-                              spreadRadius: 1,
-                              color: Colors.grey[500]!.withOpacity(0.5)),
-                          BoxShadow(
-                              offset: const Offset(-5, 5),
-                              blurRadius: 12,
-                              spreadRadius: 1,
-                              color: Colors.grey[500]!.withOpacity(0.5))
-                        ]),
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      margin: const EdgeInsets.all(3),
-                      width: MediaQuery.of(context).size.width - 60,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.6),
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: const SweepGradient(
-                            center: Alignment.topLeft,
-                            colors: [
-                              Color(0xFF59D7C8),
-                              Color(0xFFA3F264),
-                              Color(0xFFF539A8),
-                            ]),
-                      ),
-                      child: Column(children: [
-                        Text(
-                          'Dont have account yet?',
-                          style: GoogleFonts.raleway(
-                              textStyle: const TextStyle(fontSize: 14)),
-                        ),
-                        Text('Sign up')
-                      ]),
-                    ),
-                  ),
+                child: BottomLabel(
+                  appWidth: mobileWidth,
                 ),
               ),
             ],

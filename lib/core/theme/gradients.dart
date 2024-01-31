@@ -12,3 +12,7 @@ const pinkToBlueRoundGradient =
   Color(0xFFA3F264),
   Color(0xFF59D7C8),
 ]);
+
+final whiteGreyLinearGradient = LinearGradient(
+  colors: [Colors.white, Colors.grey.withOpacity(0.2), Colors.white],
+);

@@ -1,4 +1,5 @@
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/theme/icons.dart';
 
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
@@ -8,75 +9,43 @@ import 'package:flutter/material.dart';
 
 const double _buttonWidth = 100;
 const double _buttonHeight = 40;
-const double _40procentOfSize = 40;
+const double _procent40OfSize = 40;
+const double _textFieldsTopMargin = 80;
+const double _roundButtonTopMargin = 240;
 
 class MiddleLoginCard extends StatelessWidget {
   const MiddleLoginCard({
     required this.textInputWidth,
     required this.appWidth,
     required this.appHeight,
+    this.roundButtonWidth = 90,
+    this.iconSize = 60,
     super.key,
   });
   final double textInputWidth;
   final double appWidth;
   final double appHeight;
+  final double roundButtonWidth;
+  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return SizedBox(
       width: appWidth,
-      height: appHeight * _40procentOfSize,
+      height: appHeight * _procent40OfSize,
       child: Stack(
         children: [
-          SizedBox(
-            width: appWidth,
-            child: Container(
-              margin: const EdgeInsets.only(right: 30, left: 30),
-              width: appWidth - 50,
-              height: appHeight * 0.36,
-              decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                        offset: const Offset(5, -4),
-                        blurRadius: 16,
-                        spreadRadius: 1,
-                        color: Colors.grey[500]!.withOpacity(0.5)),
-                    BoxShadow(
-                        offset: const Offset(-5, 5),
-                        blurRadius: 12,
-                        spreadRadius: 1,
-                        color: Colors.grey[500]!.withOpacity(0.5))
-                  ]),
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                width: MediaQuery.of(context).size.width - 60,
-                height: MediaQuery.of(context).size.height * 0.4,
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(20),
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white,
-                      Colors.grey.withOpacity(0.2),
-                      Colors.white
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
+          MainStackCard(appWidth: appWidth, appHeight: appHeight),
           Positioned(
-              top: 240,
+              top: _roundButtonTopMargin,
               child: StackCenter(
                 appWidth: appWidth,
-                widgetWidth: 90,
-                child: const RoundButton(
-                  width: 90,
+                widgetWidth: roundButtonWidth,
+                child: RoundButton(
+                  width: roundButtonWidth,
                   icon: Icons.navigate_next,
-                  iconSize: 60,
+                  iconSize: iconSize,
                 ),
               )),
           Align(
@@ -88,7 +57,7 @@ class MiddleLoginCard extends StatelessWidget {
             ),
           ),
           Positioned(
-              top: 80,
+              top: _textFieldsTopMargin,
               child: StackCenter(
                 appWidth: appWidth,
                 widgetWidth: textInputWidth,
