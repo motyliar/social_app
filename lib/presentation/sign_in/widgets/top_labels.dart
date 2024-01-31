@@ -1,4 +1,3 @@
-import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:flutter/material.dart';
 

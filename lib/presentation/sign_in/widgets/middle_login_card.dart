@@ -1,6 +1,4 @@
 import 'package:climbapp/core/l10n/l10n.dart';
-import 'package:climbapp/core/theme/icons.dart';
-
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';

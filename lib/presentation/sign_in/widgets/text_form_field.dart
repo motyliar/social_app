@@ -1,6 +1,4 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
-import 'package:climbapp/core/l10n/l10n.dart';
-import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:flutter/material.dart';
 
