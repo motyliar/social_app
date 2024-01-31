@@ -16,6 +16,7 @@
 
     "@_BUTTONS": {},
     "skip": "skip",
+    "login" : "login",
 
     
     "@_ERROR_MESSAGES": {},

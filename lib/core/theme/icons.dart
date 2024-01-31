@@ -12,7 +12,22 @@ class AppIcons {
   );
 }
 
-// todo implements main class of icon where we made copyWith method to change dynamiclly
+// todo implements main class of icon where we made copyWith method to change dynamicllyCustom
 class CustomIcon extends Icon {
-  CustomIcon(super.icon);
+  const CustomIcon(
+    super.icon, {
+    this.color,
+    this.size,
+    super.key,
+  });
+
+  final Color? color;
+  final double? size;
+
+  CustomIcon copyWith(Color? color, double? size) =>
+      CustomIcon(icon, color: color ?? this.color, size: size ?? this.size);
 }
+
+CustomIcon emailIcon = CustomIcon(
+  Icons.password,
+);

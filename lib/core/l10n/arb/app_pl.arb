@@ -18,6 +18,7 @@
 
      "@_BUTTONS": {},
     "skip": "pomiń",
+    "login": "zaloguj",
     
     "@_ERROR_MESSAGES": {},
     "errorMessage": "Nie można znaleźć strony",

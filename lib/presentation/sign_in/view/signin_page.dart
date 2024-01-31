@@ -11,6 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const double _marginFromTop = 0.15;
+const double _marginToStartMiddleForm = 250;
+const double _bothSideMargin = 0.6;
+
 class SignInPage extends StatelessWidget {
   SignInPage({super.key});
   static Route<dynamic> route() {
@@ -19,10 +23,6 @@ class SignInPage extends StatelessWidget {
       builder: (_) => SignInPage(),
     );
   }
-
-  final TextEditingController _userNameController = TextEditingController();
-
-  final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey _signInKey = GlobalKey<FormState>();
 
@@ -41,228 +41,23 @@ class SignInPage extends StatelessWidget {
               BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
               const TopBackgroundImage(),
               Positioned(
-                top: mobileWidth * 0.15,
-                child: MiddleCard(
+                top: mobileWidth * _marginFromTop,
+                child: TopLabels(
                   bigLabel: l10n.topBigLabel,
                   descriptionLabel: l10n.descriptionLabel,
                 ),
               ),
               Positioned(
-                top: 250,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.40,
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 30, left: 30),
-                          width: MediaQuery.of(context).size.width - 50,
-                          height: MediaQuery.of(context).size.height * 0.36,
-                          decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: const Offset(5, -4),
-                                    blurRadius: 16,
-                                    spreadRadius: 1,
-                                    color: Colors.grey[500]!.withOpacity(0.5)),
-                                BoxShadow(
-                                    offset: const Offset(-5, 5),
-                                    blurRadius: 12,
-                                    spreadRadius: 1,
-                                    color: Colors.grey[500]!.withOpacity(0.5))
-                              ]),
-                          child: Container(
-                            margin: const EdgeInsets.all(10),
-                            width: MediaQuery.of(context).size.width - 60,
-                            height: MediaQuery.of(context).size.height * 0.4,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.8),
-                              borderRadius: BorderRadius.circular(20),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.white,
-                                  Colors.grey.withOpacity(0.2),
-                                  Colors.white
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Colors.white.withOpacity(0.1),
-                                boxShadow: [
-                                  BoxShadow(
-                                      offset: const Offset(4, 4),
-                                      blurRadius: 14,
-                                      spreadRadius: 1,
-                                      color: Colors.grey[500]!.withOpacity(0.8))
-                                ]),
-                            width: 90,
-                            height: 90,
-                            child: Container(
-                              margin: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    offset: Offset(0, 7),
-                                    color: Colors.grey,
-                                    spreadRadius: 0.2,
-                                    blurRadius: 20,
-                                  )
-                                ],
-                                gradient: const SweepGradient(
-                                    center: Alignment.topLeft,
-                                    colors: [
-                                      Color(0xFFF539A8),
-                                      Color(0xFFA3F264),
-                                      Color(0xFF59D7C8),
-                                    ]),
-                              ),
-                              child: const Icon(
-                                Icons.arrow_right,
-                                size: 60,
-                              ),
-                            ),
-                          )),
-                      Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                          margin: const EdgeInsets.only(top: 20),
-                          width: 100,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: Colors.white.withOpacity(0.1),
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: const Offset(4, 4),
-                                    blurRadius: 14,
-                                    spreadRadius: 1,
-                                    color: Colors.grey[500]!.withOpacity(0.8))
-                              ]),
-                          child: Container(
-                            width: 100,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              boxShadow: const [
-                                BoxShadow(
-                                  offset: Offset(0, 7),
-                                  color: Colors.grey,
-                                  spreadRadius: 0.2,
-                                  blurRadius: 20,
-                                )
-                              ],
-                              gradient: const SweepGradient(
-                                  center: Alignment.topLeft,
-                                  colors: [
-                                    Color(0xFF59D7C8),
-                                    Color(0xFFA3F264),
-                                    Color(0xFFF539A8),
-                                  ]),
-                            ),
-                            child: Align(
-                                alignment: Alignment.center,
-                                child: Text('LOGIN',
-                                    style: GoogleFonts.raleway(
-                                        textStyle: const TextStyle(
-                                            fontSize: 20,
-                                            letterSpacing: 0.8)))),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              color: Colors.transparent,
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: 50,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    hintText: 'Enter your login',
-                                    hintStyle: GoogleFonts.raleway(
-                                        textStyle: const TextStyle(
-                                            fontSize: 12, color: Colors.white)),
-                                    prefixIcon: const Icon(
-                                      Icons.email,
-                                      color: Color(0xFF59D7C8),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide(
-                                            color: Colors.grey[500]!
-                                                .withOpacity(0.5))),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide(
-                                            color: Colors.grey[500]!
-                                                .withOpacity(0.5)))),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              color: Colors.transparent,
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              height: 50,
-                              child: TextFormField(
-                                decoration: InputDecoration(
-                                    hintText: 'Enter your password',
-                                    hintStyle: GoogleFonts.raleway(
-                                        textStyle: const TextStyle(
-                                            fontSize: 12, color: Colors.white)),
-                                    prefixIcon: const Icon(
-                                      Icons.password,
-                                      color: Color(0xFF59D7C8),
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(50),
-                                        borderSide: BorderSide(
-                                            color: Colors.grey[500]!
-                                                .withOpacity(0.5)))),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              'Forgot password?',
-                              style: GoogleFonts.raleway(
-                                  textStyle: const TextStyle(
-                                      fontSize: 12, color: Colors.grey)),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                top: _marginToStartMiddleForm,
+                child: MiddleLoginCard(
+                  appWidth: mobileWidth,
+                  appHeight: mobileHeight,
+                  textInputWidth: mobileWidth * _bothSideMargin,
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(50),
-                          topRight: Radius.circular(50))),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  child: Image.network(
-                      'http://motyliar.webd.pro/social/bottom_background.jpg'),
-                ),
+                child: BottomBackgroundBar(),
               ),
               Align(
                 alignment: Alignment.bottomRight,
@@ -314,7 +109,6 @@ class SignInPage extends StatelessWidget {
                   ),
                 ),
               ),
-              // todo poprawić skalowalność przycisku dont have account yet
             ],
           ),
         ),

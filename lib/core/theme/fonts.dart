@@ -11,4 +11,10 @@ class AppTextStyle {
   ));
   static final hintTextStyle = GoogleFonts.raleway(
       textStyle: const TextStyle(fontSize: 12, color: Colors.white));
+
+  static final descriptionTextGreySmall = GoogleFonts.raleway(
+      textStyle: const TextStyle(fontSize: 12, color: Colors.grey));
+
+  static final buttonLabelStyle = GoogleFonts.raleway(
+      textStyle: const TextStyle(fontSize: 20, letterSpacing: 0.8));
 }

@@ -1,6 +1,9 @@
 class ImagesURL {
   static const signInTopBackground =
       'http://motyliar.webd.pro/social/login_background.jpg';
+
+  static const signInBottomBackground =
+      'http://motyliar.webd.pro/social/bottom_background.jpg';
 }
 
 class NetworkURLStorage {
