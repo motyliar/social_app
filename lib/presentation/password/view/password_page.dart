@@ -4,15 +4,19 @@ import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/password_container.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/utils.dart';
+import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
 import 'package:climbapp/presentation/password/business/cubit/password_cubit.dart';
+import 'package:climbapp/presentation/password/widgets/widgets.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/routes/transitions_type.dart'
+    as GetTransitions;
 
-TextEditingController _emailController = TextEditingController();
 const double _marginFromTop = 0.15;
 const double _textFieldTopMargin = 250;
 
@@ -50,66 +54,32 @@ class PasswordPage extends StatelessWidget {
             top: _textFieldTopMargin,
             child: SizedBox(
               height: mobileHeight * 0.40,
-              child: Stack(
-                children: [
-                  MainStackCard(appWidth: mobileWidth, appHeight: mobileHeight),
-                  Positioned(
-                    top: 0,
-                    child: StackCenter(
-                      appWidth: mobileWidth,
-                      widgetWidth: 160,
-                      child: MidTextButton(
-                        buttonWidth: 160,
-                        textLabel: 'FORGOT PASSWORD?',
-                        textStyle: AppTextStyle.buttonMediumSizeStyle,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 100,
-                    child: StackCenter(
-                      appWidth: mobileWidth,
-                      widgetWidth: mobileWidth * 0.6,
-                      child: Column(
-                        children: [
-                          CTextFormField(
-                              textInputWidth: mobileWidth * 0.6,
-                              hintText: 'type email',
-                              icon: Icon(Icons.email),
-                              controller: _emailController),
-                          SizedBox(height: tenPixelsSpaceBetweenWidgets),
-                          CTextFormField(
-                              textInputWidth: mobileWidth * 0.6,
-                              hintText: 'repeat email',
-                              icon: Icon(Icons.repeat),
-                              controller: _emailController)
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 240,
-                    child: StackCenter(
-                      appWidth: mobileWidth,
-                      widgetWidth: 90,
-                      child: RoundButton(
-                          icon: Icons.mail, iconSize: 50, width: 90),
-                    ),
-                  ),
-                ],
-              ),
+              child: PasswordMiddleCard(
+                  mobileWidth: mobileWidth, mobileHeight: mobileHeight),
             ),
           ),
           const Align(
             alignment: Alignment.bottomCenter,
             child: BottomBackgroundBar(),
           ),
+          Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+                padding: const EdgeInsets.only(
+                  top: 50,
+                  left: 30,
+                ),
+                child: RoundButton(
+                    onTap: () => Navigator.of(context).pop(),
+                    icon: Icons.arrow_back,
+                    iconSize: 25,
+                    width: 40)),
+          )
         ]),
       ),
     ));
   }
 }
-
 
 // BlocProvider(
 //       create: (context) => passwordLocator<PasswordCubit>(),

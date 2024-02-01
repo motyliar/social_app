@@ -8,6 +8,7 @@
     "contentSecond": "Dodawaj i przeglądaj ogłoszenia z Twojej okolicy",
     "labelThird": "Po prostu dołącz i korzystaj!",
     "contentThird": "To takie proste, wiele osób czeka właśnie na Ciebie!",
+    "passwordTopLabel": "Zapomniałeś hasło?",
 
     
     "@_SIGN_PAGE": {},
@@ -44,6 +45,8 @@
 
     "@_TEXTFIELDS_HINT_TEXTS": {},
     "enterLogin" : "Wpisz swój login",
-    "enterPassword": "Wpisz swoje hasło"
+    "enterPassword": "Wpisz swoje hasło",
+    "mailEnter": "Wpisz swój mail",
+    "mailConfirm": "Potwierdz swój mail"
     
 }

@@ -8,6 +8,7 @@
     "contentSecond": "Post and browse ads from your city",
     "labelThird": "Just join and enjoy!",
     "contentThird": "It's so simple. There are lots of people waitng just for you",
+    "passwordTopLabel": "Forgot password?",
 
     "@_SIGN_PAGE": {},
     "topBigLabel" : "JoinMee",
@@ -46,5 +47,7 @@
 
     "@_TEXTFIELDS_HINT_TEXTS": {},
     "enterLogin" : "Enter your login",
-    "enterPassword": "Enter your password"
+    "enterPassword": "Enter your password",
+    "mailEnter": "Enter your mail",
+    "mailConfirm": "Confirm your mail"
 }

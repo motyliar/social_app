@@ -10,6 +10,7 @@ class RoundButton extends StatelessWidget {
     required this.width,
     this.backgroundGradient = pinkToBlueRoundGradient,
     this.borderRadius = maxBorderRadius,
+    this.onTap,
     super.key,
   });
 
@@ -18,26 +19,30 @@ class RoundButton extends StatelessWidget {
   final double iconSize;
   final double borderRadius;
   final double width;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          color: Colors.white.withOpacity(0.1),
-          boxShadow: [downShadow]),
-      width: width,
-      height: width,
+    return GestureDetector(
+      onTap: () => onTap!(),
       child: Container(
-        margin: const EdgeInsets.all(fivePixelsSpaceBetweenWidgets),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: const [greyLeftShadow],
-          gradient: backgroundGradient,
-        ),
-        child: Icon(
-          icon,
-          size: iconSize,
+            borderRadius: BorderRadius.circular(borderRadius),
+            color: Colors.white.withOpacity(0.1),
+            boxShadow: [downShadow]),
+        width: width,
+        height: width,
+        child: Container(
+          margin: const EdgeInsets.all(fivePixelsSpaceBetweenWidgets),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(borderRadius),
+            boxShadow: const [greyLeftShadow],
+            gradient: backgroundGradient,
+          ),
+          child: Icon(
+            icon,
+            size: iconSize,
+          ),
         ),
       ),
     );
