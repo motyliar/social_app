@@ -19,6 +19,7 @@ class BottomLabel extends StatelessWidget {
     this.height = 60,
     this.borderRadius = minBorderRadius,
     this.gradient = blueGreenGradient,
+    this.onTap,
   });
 
   final double width;
@@ -26,17 +27,19 @@ class BottomLabel extends StatelessWidget {
   final double borderRadius;
   final double appWidth;
   final Gradient gradient;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: () => onTap!(),
       child: Container(
         margin: const EdgeInsets.only(
             right: _marginFromRight, bottom: _marginFromBottom),
         width: width,
         height: height,
         decoration: BoxDecoration(
-            color: ColorPallete.whiteOpacity80,
+            color: ColorPallete.whiteOpacity60,
             borderRadius: BorderRadius.circular(borderRadius),
             boxShadow: [
               greyBoxShadow(offset: topRight),
@@ -50,7 +53,7 @@ class BottomLabel extends StatelessWidget {
               color: ColorPallete.whiteOpacity60,
               borderRadius: BorderRadius.circular(borderRadius),
               gradient: gradient),
-          child: _BottomLabelDescription(),
+          child: const _BottomLabelDescription(),
         ),
       ),
     );

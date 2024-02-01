@@ -18,10 +18,12 @@ class StackCenter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-          left: _centerWidgetCalculate(), right: _centerWidgetCalculate()),
-      child: child,
-    );
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(
+        margin: EdgeInsets.only(
+            left: _centerWidgetCalculate(), right: _centerWidgetCalculate()),
+        child: child,
+      ),
+    ]);
   }
 }

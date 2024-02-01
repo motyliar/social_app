@@ -10,14 +10,15 @@ class BackgroundCard extends StatelessWidget {
   const BackgroundCard({
     super.key,
     required this.appWidth,
-    required this.appHeight,
     required this.child,
+    required this.totalHeight,
     this.borderRadius = minBorderRadius,
   });
 
   final double appWidth;
-  final double appHeight;
+
   final Widget child;
+  final double totalHeight;
   final double borderRadius;
   final double _marginFromMainBox = 30;
 
@@ -27,7 +28,7 @@ class BackgroundCard extends StatelessWidget {
       margin:
           EdgeInsets.only(right: _marginFromMainBox, left: _marginFromMainBox),
       width: appWidth - totalMargin,
-      height: appHeight * heightMultipler,
+      height: totalHeight,
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.3),
           borderRadius: BorderRadius.circular(borderRadius),

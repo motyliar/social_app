@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/utils/utils.dart';
@@ -12,7 +13,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 const double _marginFromTop = 0.15;
-const double _marginToStartMiddleForm = 250;
 const double _bothSideMargin = 0.6;
 
 class SignInPage extends StatelessWidget {
@@ -46,20 +46,21 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: _marginToStartMiddleForm,
-                child: MiddleLoginCard(
-                  appWidth: mobileWidth,
-                  appHeight: mobileHeight,
-                  textInputWidth: mobileWidth * _bothSideMargin,
+                top: kMarginToStartMiddleForm,
+                child: SizedBox(
+                  height: mobileHeight * 0.45,
+                  child: MiddleLoginCard(
+                    appWidth: mobileWidth,
+                    appHeight: mobileHeight,
+                    textInputWidth: mobileWidth * _bothSideMargin,
+                  ),
                 ),
               ),
-              const Align(
-                alignment: Alignment.bottomCenter,
-                child: BottomBackgroundBar(),
-              ),
+              BottomBackgroundBar(),
               Align(
                 alignment: Alignment.bottomRight,
                 child: BottomLabel(
+                  onTap: () => Navigator.pushNamed(context, routeRegisterPage),
                   appWidth: mobileWidth,
                 ),
               ),

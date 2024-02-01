@@ -4,6 +4,9 @@ import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/shadows.dart';
 import 'package:flutter/material.dart';
 
+const double _buttonTextPaddingHorizontal = 10;
+const double _buttonTextPaddingVertical = 5;
+
 class MidTextButton extends StatelessWidget {
   const MidTextButton({
     required this.buttonWidth,
@@ -34,7 +37,10 @@ class MidTextButton extends StatelessWidget {
             downShadow,
           ]),
       child: Container(
-        width: buttonWidth,
+        padding: const EdgeInsets.symmetric(
+            horizontal: _buttonTextPaddingHorizontal,
+            vertical: _buttonTextPaddingVertical),
+        // width: buttonWidth,
         height: buttonHeight,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),

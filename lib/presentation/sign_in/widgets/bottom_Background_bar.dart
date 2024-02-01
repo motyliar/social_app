@@ -10,13 +10,16 @@ class BottomBackgroundBar extends StatelessWidget {
   final double borderRadius;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(borderRadius),
-              topRight: Radius.circular(50))),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Image.network(ImagesURL.signInBottomBackground),
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(borderRadius),
+                topRight: Radius.circular(50))),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Image.network(ImagesURL.signInBottomBackground),
+      ),
     );
   }
 }

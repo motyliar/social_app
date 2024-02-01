@@ -8,4 +8,6 @@ const double heightOfTextField = 50;
 const double tenPixelsSpaceBetweenWidgets = 10;
 const double fivePixelsSpaceBetweenWidgets = 5;
 
+// Variables to set margin in pre page sign in/on form
+const double kMarginToStartMiddleForm = 250;
 const double kAppStandardMarginard = 20;

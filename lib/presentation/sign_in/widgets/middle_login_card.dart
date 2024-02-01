@@ -29,41 +29,40 @@ class MiddleLoginCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return SizedBox(
-      width: appWidth,
-      height: appHeight * _procent40OfSize,
-      child: Stack(
-        children: [
-          MainStackCard(appWidth: appWidth, appHeight: appHeight),
-          Positioned(
-              top: _roundButtonTopMargin,
-              child: StackCenter(
-                appWidth: appWidth,
-                widgetWidth: roundButtonWidth,
-                child: RoundButton(
-                  width: roundButtonWidth,
-                  icon: Icons.navigate_next,
-                  iconSize: iconSize,
-                ),
-              )),
-          Align(
-            alignment: Alignment.topCenter,
+    return Stack(
+      children: [
+        MainStackCard(appWidth: appWidth, appHeight: appHeight),
+        Positioned(
+            top: _roundButtonTopMargin,
+            child: StackCenter(
+              appWidth: appWidth,
+              widgetWidth: roundButtonWidth,
+              child: RoundButton(
+                width: roundButtonWidth,
+                icon: Icons.navigate_next,
+                iconSize: iconSize,
+              ),
+            )),
+        Positioned(
+          top: 0,
+          child: StackCenter(
+            appWidth: appWidth,
+            widgetWidth: _buttonWidth,
             child: MidTextButton(
               buttonWidth: _buttonWidth,
-              buttonHeight: _buttonHeight,
               textLabel: l10n.login.toUpperCase(),
             ),
           ),
-          Positioned(
-              top: _textFieldsTopMargin,
-              child: StackCenter(
-                appWidth: appWidth,
-                widgetWidth: textInputWidth,
-                child:
-                    TextFieldColumn(textInputWidth: textInputWidth, l10n: l10n),
-              )),
-        ],
-      ),
+        ),
+        Positioned(
+            top: _textFieldsTopMargin,
+            child: StackCenter(
+              appWidth: appWidth,
+              widgetWidth: textInputWidth,
+              child:
+                  TextFieldColumn(textInputWidth: textInputWidth, l10n: l10n),
+            )),
+      ],
     );
   }
 }

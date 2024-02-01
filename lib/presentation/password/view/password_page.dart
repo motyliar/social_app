@@ -13,12 +13,8 @@ import 'package:climbapp/presentation/sign_in/view/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:get/get_navigation/src/routes/transitions_type.dart'
-    as GetTransitions;
 
 const double _marginFromTop = 0.15;
-const double _textFieldTopMargin = 250;
 
 class PasswordPage extends StatelessWidget {
   const PasswordPage({super.key});
@@ -51,35 +47,22 @@ class PasswordPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: _textFieldTopMargin,
+            top: kMarginToStartMiddleForm,
             child: SizedBox(
               height: mobileHeight * 0.40,
               child: PasswordMiddleCard(
                   mobileWidth: mobileWidth, mobileHeight: mobileHeight),
             ),
           ),
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: BottomBackgroundBar(),
-          ),
-          Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 50,
-                  left: 30,
-                ),
-                child: RoundButton(
-                    onTap: () => Navigator.of(context).pop(),
-                    icon: Icons.arrow_back,
-                    iconSize: 25,
-                    width: 40)),
-          )
+          const BottomBackgroundBar(),
+          const ArrowBack(),
         ]),
       ),
     ));
   }
 }
+
+
 
 // BlocProvider(
 //       create: (context) => passwordLocator<PasswordCubit>(),
