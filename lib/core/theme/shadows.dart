@@ -12,7 +12,7 @@ final BoxShadow downShadow = BoxShadow(
     color: ColorPallete().greyShadowColorOpacityMax);
 
 const greyLeftShadow = BoxShadow(
-  offset: Offset(0, 7),
+  offset: Offset(2, 5),
   color: Colors.grey,
   spreadRadius: _spreadValue,
   blurRadius: _maxAppBlur,

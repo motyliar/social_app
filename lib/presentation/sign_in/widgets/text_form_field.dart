@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class CTextFormField extends StatelessWidget {
   const CTextFormField({
-    required this.textInputWidth,
     required this.hintText,
     required this.icon,
     required this.controller,
+    this.textInputWidth = 120,
     this.onChanged,
     super.key,
   });

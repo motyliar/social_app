@@ -10,6 +10,7 @@ import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
 import 'package:climbapp/presentation/register/business/bloc/user_register/user_register_bloc.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';
+import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +19,9 @@ TextEditingController _emailController = TextEditingController();
 TextEditingController _passwordController = TextEditingController();
 TextEditingController _rePasswordController = TextEditingController();
 const double _marginFromTop = 0.15;
+const double _middleCardpercentOfAppHigh = 0.5;
+const double _sizedBixPercentOfHeight = 0.55;
+const double _widthOfTopLabel = 120;
 
 class RegisterPage extends StatelessWidget {
   RegisterPage({super.key});
@@ -57,22 +61,77 @@ class RegisterPage extends StatelessWidget {
               Positioned(
                 top: kMarginToStartMiddleForm,
                 child: SizedBox(
-                  height: mobileHeight,
+                  height: mobileHeight * _sizedBixPercentOfHeight,
                   child: Stack(children: [
                     MainStackCard(
                       appWidth: mobileWidth,
                       appHeight: mobileHeight,
-                      heightMultipler: 0.6,
+                      heightMultipler: _middleCardpercentOfAppHigh,
+                    ),
+                    Positioned(
+                      top: 0,
+                      child: StackCenter(
+                          appWidth: mobileWidth,
+                          widgetWidth: _widthOfTopLabel,
+                          child: MidTextButton(
+                              buttonWidth: _widthOfTopLabel,
+                              textLabel: l10n.signUpLabel)),
+                    ),
+                    Positioned(
+                      top: kTextFieldsStartMarginFromTop,
+                      child: StackCenter(
+                        appWidth: mobileWidth,
+                        widgetWidth: mobileWidth * kMarginMultiplier,
+                        child: Column(
+                          children: [
+                            CTextFormField(
+                                textInputWidth: mobileWidth * kMarginMultiplier,
+                                hintText: l10n.hintUsername,
+                                icon: const Icon(Icons.person),
+                                controller: _nameController),
+                            const SizedBox(
+                              height: fivePixelsSpaceBetweenWidgets,
+                            ),
+                            CTextFormField(
+                                textInputWidth: mobileWidth * kMarginMultiplier,
+                                hintText: l10n.mailEnter,
+                                icon: const Icon(Icons.email),
+                                controller: _emailController),
+                            const SizedBox(
+                              height: fivePixelsSpaceBetweenWidgets,
+                            ),
+                            CTextFormField(
+                                textInputWidth: mobileWidth * kMarginMultiplier,
+                                hintText: l10n.enterPassword,
+                                icon: const Icon(Icons.password),
+                                controller: _passwordController),
+                            const SizedBox(
+                              height: fivePixelsSpaceBetweenWidgets,
+                            ),
+                            CTextFormField(
+                                textInputWidth: mobileWidth * kMarginMultiplier,
+                                hintText: l10n.rePassword,
+                                icon: const Icon(Icons.password),
+                                controller: _rePasswordController),
+                            const SizedBox(
+                              height: fivePixelsSpaceBetweenWidgets,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      child: StackCenter(
+                        appWidth: mobileWidth,
+                        widgetWidth: 90,
+                        child: RoundButton(
+                            icon: Icons.app_registration,
+                            iconSize: 40,
+                            width: 90),
+                      ),
                     ),
                   ]),
-                  // Positioned(
-                  //   top: 0,
-                  //   child: StackCenter(
-                  //       appWidth: mobileWidth,
-                  //       widgetWidth: 120,
-                  //       child: MidTextButton(
-                  //           buttonWidth: 120, textLabel: 'SIGN UP!')),
-                  // ),
                 ),
               ),
             ],

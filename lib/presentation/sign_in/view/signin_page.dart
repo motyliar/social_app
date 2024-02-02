@@ -56,7 +56,7 @@ class SignInPage extends StatelessWidget {
                   ),
                 ),
               ),
-              BottomBackgroundBar(),
+              const BottomBackgroundBar(),
               Align(
                 alignment: Alignment.bottomRight,
                 child: BottomLabel(

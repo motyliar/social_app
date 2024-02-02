@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class ArrowBack extends StatelessWidget {
             left: 30,
           ),
           child: RoundButton(
+              iconMargin: fivePixelsSpaceBetweenWidgets,
               onTap: () => Navigator.of(context).pop(),
               icon: Icons.arrow_back,
               iconSize: 25,

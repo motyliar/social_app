@@ -9,6 +9,7 @@
     "labelThird": "Po prostu dołącz i korzystaj!",
     "contentThird": "To takie proste, wiele osób czeka właśnie na Ciebie!",
     "passwordTopLabel": "Zapomniałeś hasło?",
+      "signUpLabel": "Zarejestruj",
 
     
     "@_SIGN_PAGE": {},
@@ -46,7 +47,9 @@
     "@_TEXTFIELDS_HINT_TEXTS": {},
     "enterLogin" : "Wpisz swój login",
     "enterPassword": "Wpisz swoje hasło",
+    "rePassword": "Potwierdz hasło",
     "mailEnter": "Wpisz swój mail",
-    "mailConfirm": "Potwierdz swój mail"
+    "mailConfirm": "Potwierdz swój mail",
+    "hintUsername": "Nazwa użytkownika"
     
 }

@@ -11,3 +11,5 @@ const double fivePixelsSpaceBetweenWidgets = 5;
 // Variables to set margin in pre page sign in/on form
 const double kMarginToStartMiddleForm = 250;
 const double kAppStandardMarginard = 20;
+const double kTextFieldsStartMarginFromTop = 100;
+const double kMarginMultiplier = 0.6;

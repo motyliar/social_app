@@ -16,3 +16,11 @@ const pinkToBlueRoundGradient =
 final whiteGreyLinearGradient = LinearGradient(
   colors: [Colors.white, Colors.grey.withOpacity(0.2), Colors.white],
 );
+final whiteLinearGradientTopToBottom = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Colors.white.withOpacity(0.0),
+      Colors.white.withOpacity(0.0),
+      Colors.white
+    ]);

@@ -13,7 +13,8 @@ class AppTextStyle {
       textStyle: const TextStyle(fontSize: 12, color: Colors.white));
 
   static final descriptionTextGreySmall = GoogleFonts.raleway(
-      textStyle: const TextStyle(fontSize: 12, color: Colors.grey));
+      textStyle: const TextStyle(
+          fontSize: 12, color: Colors.black, letterSpacing: 0.6));
 
   static final buttonLabelStyle = GoogleFonts.raleway(
       textStyle: const TextStyle(fontSize: 20, letterSpacing: 0.8));

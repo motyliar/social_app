@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
@@ -6,8 +7,7 @@ import 'package:climbapp/presentation/sign_in/view/widgets.dart';
 import 'package:flutter/material.dart';
 
 const double _buttonWidth = 100;
-const double _buttonHeight = 40;
-const double _procent40OfSize = 40;
+
 const double _textFieldsTopMargin = 80;
 const double _roundButtonTopMargin = 240;
 
@@ -38,6 +38,7 @@ class MiddleLoginCard extends StatelessWidget {
               appWidth: appWidth,
               widgetWidth: roundButtonWidth,
               child: RoundButton(
+                onTap: () => Navigator.pushNamed(context, routePasswordPage),
                 width: roundButtonWidth,
                 icon: Icons.navigate_next,
                 iconSize: iconSize,
