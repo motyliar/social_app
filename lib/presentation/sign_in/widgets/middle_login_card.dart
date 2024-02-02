@@ -17,6 +17,8 @@ class MiddleLoginCard extends StatelessWidget {
     required this.appWidth,
     required this.appHeight,
     this.roundButtonWidth = 90,
+    required this.loginController,
+    required this.passwordController,
     this.iconSize = 60,
     super.key,
   });
@@ -25,6 +27,8 @@ class MiddleLoginCard extends StatelessWidget {
   final double appHeight;
   final double roundButtonWidth;
   final double iconSize;
+  final TextEditingController loginController;
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +64,12 @@ class MiddleLoginCard extends StatelessWidget {
             child: StackCenter(
               appWidth: appWidth,
               widgetWidth: textInputWidth,
-              child:
-                  TextFieldColumn(textInputWidth: textInputWidth, l10n: l10n),
+              child: TextFieldColumn(
+                textInputWidth: textInputWidth,
+                l10n: l10n,
+                loginController: loginController,
+                passwordController: passwordController,
+              ),
             )),
       ],
     );
