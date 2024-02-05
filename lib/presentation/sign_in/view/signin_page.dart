@@ -13,11 +13,11 @@ final TextEditingController _passwordController = TextEditingController();
 bool _isPageAlreadyOpened = false;
 
 class SignInPage extends StatelessWidget {
-  SignInPage({super.key});
+  const SignInPage({super.key});
   static Route<dynamic> route() {
     return MaterialPageRoute(
       settings: const RouteSettings(name: routeSignInPage),
-      builder: (_) => SignInPage(),
+      builder: (_) => const SignInPage(),
     );
   }
 

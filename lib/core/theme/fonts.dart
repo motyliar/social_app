@@ -18,7 +18,8 @@ class AppTextStyle {
 
   static final buttonLabelStyle = GoogleFonts.raleway(
       textStyle: const TextStyle(fontSize: 20, letterSpacing: 0.8));
-
+  static final textFieldStyle =
+      GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 14));
   static final buttonMediumSizeStyle =
       GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 14));
   static final buttonSmallSizeStyle =

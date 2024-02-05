@@ -7,7 +7,7 @@ class MainStackCard extends StatelessWidget {
       {super.key,
       required this.appWidth,
       required this.appHeight,
-      this.heightMultipler = 0.36});
+      this.heightMultipler = 0.38});
 
   final double appWidth;
   final double appHeight;

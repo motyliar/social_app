@@ -7,3 +7,4 @@ export '../widgets/text_field_column.dart';
 export '../widgets/bottom_Background_bar.dart';
 export '../widgets/main_stack_card.dart';
 export '../widgets/bottom_label.dart';
+export './signin_page_main.dart';

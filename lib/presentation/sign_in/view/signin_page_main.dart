@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 const double _marginFromTop = 0.15;
 const double _bothSideMargin = 0.6;
-const double _appHeightPrecentMultiplierForMiddleCard = 0.45;
+const double _appHeightPrecentMultiplierForMiddleCard = 0.7;
 
 class SignInPageMain extends StatelessWidget {
   const SignInPageMain({
@@ -14,11 +14,15 @@ class SignInPageMain extends StatelessWidget {
     required this.mobileWidth,
     required this.mobileHeight,
     required this.l10n,
+    required this.loginController,
+    required this.passwordController,
   });
 
   final double mobileWidth;
   final double mobileHeight;
   final AppLocalizations l10n;
+  final TextEditingController passwordController;
+  final TextEditingController loginController;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,8 @@ class SignInPageMain extends StatelessWidget {
               child: SizedBox(
                 height: mobileHeight * _appHeightPrecentMultiplierForMiddleCard,
                 child: MiddleLoginCard(
+                  loginController: loginController,
+                  passwordController: passwordController,
                   appWidth: mobileWidth,
                   appHeight: mobileHeight,
                   textInputWidth: mobileWidth * _bothSideMargin,
