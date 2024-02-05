@@ -1,4 +1,3 @@
-import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
@@ -10,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 const double _buttonWidth = 100;
-final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
+final _loginKey = GlobalKey<FormState>();
 const double _textFieldsTopMargin = 80;
 const double _roundButtonTopMargin = 260;
 

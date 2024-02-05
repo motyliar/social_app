@@ -2,15 +2,11 @@ import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/password_container.dart';
-import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/utils.dart';
-import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
-import 'package:climbapp/presentation/app/widgets/stack_center.dart';
 import 'package:climbapp/presentation/password/business/cubit/password_cubit.dart';
 import 'package:climbapp/presentation/password/widgets/widgets.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';
-import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,92 +27,56 @@ class PasswordPage extends StatelessWidget {
     final mobileWidth = MediaQuery.of(context).size.width;
     final mobileHeight = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-        body: SingleChildScrollView(
-      child: SizedBox(
-        width: mobileWidth,
-        height: mobileHeight,
-        child: Stack(children: [
-          BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
-          const TopBackgroundImage(),
-          Positioned(
-            top: mobileWidth * _marginFromTop,
-            child: TopLabels(
-              bigLabel: l10n.topBigLabel,
-              descriptionLabel: l10n.descriptionLabel,
-            ),
-          ),
-          Positioned(
-            top: kMarginToStartMiddleForm,
+    return BlocProvider(
+      create: (context) => passwordLocator<PasswordCubit>(),
+      child: BlocConsumer<PasswordCubit, PasswordState>(
+        listener: (context, state) {
+          if (state is PasswordSuccess) {
+            Navigator.pushNamed(context, routeSignInPage);
+          }
+          if (state is PasswordFailed) {
+            context.read<PasswordCubit>().clearState();
+            if (state.exceptionMessage != '') {
+              Utils.showToastMessage(
+                message: Utils().toastExceptionFirebaseMessage(
+                  exceptionMessage: state.exceptionMessage,
+                  context: context,
+                ),
+              );
+            }
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+              body: SingleChildScrollView(
             child: SizedBox(
-              height: mobileHeight * 0.40,
-              child: PasswordMiddleCard(
-                  mobileWidth: mobileWidth, mobileHeight: mobileHeight),
+              width: mobileWidth,
+              height: mobileHeight,
+              child: Stack(children: [
+                BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
+                const TopBackgroundImage(),
+                Positioned(
+                  top: mobileWidth * _marginFromTop,
+                  child: TopLabels(
+                    bigLabel: l10n.topBigLabel,
+                    descriptionLabel: l10n.descriptionLabel,
+                  ),
+                ),
+                Positioned(
+                  top: kMarginToStartMiddleForm,
+                  child: SizedBox(
+                    height: mobileHeight * 0.40,
+                    child: PasswordMiddleCard(
+                        mobileWidth: mobileWidth, mobileHeight: mobileHeight),
+                  ),
+                ),
+                const BottomBackgroundBar(),
+                const ArrowBack(),
+              ]),
             ),
-          ),
-          const BottomBackgroundBar(),
-          const ArrowBack(),
-        ]),
+          ));
+        },
       ),
-    ));
+    );
   }
 }
-
-
-
-// BlocProvider(
-//       create: (context) => passwordLocator<PasswordCubit>(),
-//       child: Scaffold(
-//         body: SafeArea(
-//           child: Column(
-//             children: [
-//               Form(
-//                 child: Column(
-//                   children: [
-//                     TextFormField(
-//                       controller: _emailController,
-//                       decoration: const InputDecoration(
-//                         hintText: 'Email',
-//                       ),
-//                     ),
-//                     BlocConsumer<PasswordCubit, PasswordState>(
-//                       listener: (context, state) {
-//                         if (state is PasswordSuccess) {
-//                           Navigator.pushNamed(context, routeSignInPage);
-//                         }
-//                         if (state is PasswordFailed) {
-//                           context.read<PasswordCubit>().clearState();
-//                           if (state.exceptionMessage != '') {
-//                             Utils.showToastMessage(
-//                               message: Utils().toastExceptionFirebaseMessage(
-//                                 exceptionMessage: state.exceptionMessage,
-//                                 context: context,
-//                               ),
-//                             );
-//                           }
-//                         }
-//                       },
-//                       builder: (context, state) {
-//                         return TextButton(
-//                           onPressed: () {
-//                             context
-//                                 .read<PasswordCubit>()
-//                                 .forgottenPassword(_emailController.text);
-//                           },
-//                           child: const Text(
-//                             'SEND',
-//                           ),
-//                         );
-//                       },
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-

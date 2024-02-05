@@ -28,12 +28,9 @@ class CTextFormField extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       width: textInputWidth,
-      // height: heightOfTextField,
       child: TextFormField(
         selectionHeightStyle: BoxHeightStyle.includeLineSpacingMiddle,
-        onChanged: (value) {
-          print('hello');
-        },
+        onChanged: (value) {},
         validator: (value) {
           return validator != null ? validator!(value) : null;
         },
