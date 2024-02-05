@@ -26,15 +26,6 @@ class TextFieldColumn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CTextFormField(
-          validator: (value) {
-            if (value == '') {
-              return 'żle';
-            } else if (!RegExp(r'^[a-zA-Z0-9]').hasMatch(value!)) {
-              return 'Dobrze';
-            } else {
-              return null;
-            }
-          },
           controller: loginController,
           textInputWidth: textInputWidth,
           hintText: l10n.enterLogin,
@@ -43,28 +34,7 @@ class TextFieldColumn extends StatelessWidget {
         const SizedBox(
           height: tenPixelsSpaceBetweenWidgets,
         ),
-
-        // todo
-
-        /* 
-        Należy tutaj zaimplementować validacje do wpisywanych text fieldów 
-        - Najlepiej gdyby zrobić osobne funcke w klasie Validate
-        - Do każdej validacji należy zaimplementować osobny proces
-        - Dodatkowo wszystkie tłumaczenia wprowadzić to international
-        - Zmodyfikować podkreślenie
-        - 
-        */
-
         CTextFormField(
-            validator: (value) {
-              if (value == '') {
-                return l10n.errorMessage;
-              } else if (!RegExp(r'^[a-zA-Z0-9]').hasMatch(value!)) {
-                return 'Dobrze';
-              } else {
-                return null;
-              }
-            },
             obscureText: true,
             textInputWidth: textInputWidth,
             hintText: l10n.enterPassword,
