@@ -50,6 +50,8 @@
     "valEqualValues": "Is not equal",
     "valTooShort": "Too short",
     "valWrongPassword": "Need 1 big letter, 1 number and special sign",
+    "valIncorrectEmail": "Wrong email",
+    "valWrongUserName": "Wrong username characters",
     
 
 

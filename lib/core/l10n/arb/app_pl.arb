@@ -49,6 +49,8 @@
     "valEqualValues": "Nie są takie same",
     "valTooShort": "Za krótkie",
     "valWrongPassword": "Potrzeba 1 dużą litere, 1 cyfrę i 1 znak specjalny",
+    "valIncorrectEmail": "Błędny email",
+    "valWrongUserName": "Błędny użytkownik",
 
     "@_TEXTFIELDS_HINT_TEXTS": {},
     "enterLogin" : "Wpisz swój login",

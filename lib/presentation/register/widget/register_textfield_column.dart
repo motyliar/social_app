@@ -27,6 +27,8 @@ class RegisterTextFieldStack extends StatelessWidget {
     return Column(
       children: [
         CTextFormField(
+            validator: (value) => FormValidation()
+                .userNameValidation(value: value!, context: context),
             textInputWidth: mobileWidth * kMarginMultiplier,
             hintText: l10n.hintUsername,
             icon: const Icon(Icons.person),
@@ -35,6 +37,8 @@ class RegisterTextFieldStack extends StatelessWidget {
           height: fivePixelsSpaceBetweenWidgets,
         ),
         CTextFormField(
+            validator: (value) => FormValidation()
+                .emailValidation(value: value!, context: context),
             textInputWidth: mobileWidth * kMarginMultiplier,
             hintText: l10n.mailEnter,
             icon: const Icon(Icons.email),
@@ -56,6 +60,10 @@ class RegisterTextFieldStack extends StatelessWidget {
           height: fivePixelsSpaceBetweenWidgets,
         ),
         CTextFormField(
+            validator: (value) => FormValidation().passwordValidation(
+                value: value!,
+                context: context,
+                secondValue: passwordController.text),
             obscureText: false,
             textInputWidth: mobileWidth * kMarginMultiplier,
             hintText: l10n.rePassword,
