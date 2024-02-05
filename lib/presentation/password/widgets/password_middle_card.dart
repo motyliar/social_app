@@ -3,6 +3,7 @@ import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/password_container.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/utils.dart';
+import 'package:climbapp/core/utils/validation/validations.dart';
 import 'package:climbapp/presentation/app/widgets/mid_button.dart';
 import 'package:climbapp/presentation/app/widgets/round_button.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
@@ -60,12 +61,22 @@ class PasswordMiddleCard extends StatelessWidget {
                 child: Column(
                   children: [
                     CTextFormField(
+                        validator: (value) => FormValidation()
+                            .forgotPasswordValidation(
+                                value: value!,
+                                context: context,
+                                secondValue: _confirmEmailController.text),
                         textInputWidth: mobileWidth * _marginWidthMultipler,
                         hintText: l10n.mailEnter,
                         icon: const Icon(Icons.email),
                         controller: _emailController),
                     const SizedBox(height: tenPixelsSpaceBetweenWidgets),
                     CTextFormField(
+                        validator: (value) => FormValidation()
+                            .forgotPasswordValidation(
+                                value: value!,
+                                context: context,
+                                secondValue: _emailController.text),
                         textInputWidth: mobileWidth * _marginWidthMultipler,
                         hintText: l10n.mailConfirm,
                         icon: const Icon(Icons.repeat),

@@ -2,8 +2,8 @@ import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
 class FormValidation {
-  final RegExp _emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.+[\w-]{2,4}$');
-  final RegExp _userCorectRegExp = RegExp(r'^(?=.*[!@#$%^&*+=;:]');
+  final RegExp _emailRegExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+  final RegExp _userCorectRegExp = RegExp(r'^(?=.*[!@#$%^&*+=;:])');
   static void onFormValidate(
       {required GlobalKey<FormState> key, required VoidCallback action}) {
     if (key.currentState!.validate()) {
@@ -37,6 +37,9 @@ class FormValidation {
       {required String value,
       required BuildContext context,
       required String secondValue}) {
+    if (_isEmpty(value: value)) {
+      return AppLocalizations.of(context).valEmpty;
+    }
     if (_thisSameValue(firstValue: value, secondValue: secondValue)) {
       return AppLocalizations.of(context).valEqualValues;
     }
