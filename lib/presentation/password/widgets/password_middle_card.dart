@@ -1,5 +1,4 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
-import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/password_container.dart';
 import 'package:climbapp/core/theme/fonts.dart';
@@ -103,8 +102,6 @@ class PasswordMiddleCard extends StatelessWidget {
                       builder: (context, state) {
                         return RoundButton(
                             onTap: () {
-                              print('work');
-
                               context
                                   .read<PasswordCubit>()
                                   .forgottenPassword(_emailController.text);

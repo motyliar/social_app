@@ -1,5 +1,6 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/utils/validation/validations.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +43,11 @@ class RegisterTextFieldStack extends StatelessWidget {
           height: fivePixelsSpaceBetweenWidgets,
         ),
         CTextFormField(
-            obscureText: true,
+            obscureText: false,
+            validator: (value) => FormValidation().passwordValidation(
+                value: value!,
+                context: context,
+                secondValue: rePasswordController.text),
             textInputWidth: mobileWidth * kMarginMultiplier,
             hintText: l10n.enterPassword,
             icon: const Icon(Icons.password),
@@ -51,7 +56,7 @@ class RegisterTextFieldStack extends StatelessWidget {
           height: fivePixelsSpaceBetweenWidgets,
         ),
         CTextFormField(
-            obscureText: true,
+            obscureText: false,
             textInputWidth: mobileWidth * kMarginMultiplier,
             hintText: l10n.rePassword,
             icon: const Icon(Icons.password),

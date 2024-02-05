@@ -45,6 +45,13 @@
     "@_FLUTTERTOAST_MESSAGES": {},
     "successMsg": "Success",
 
+    "@_VALIDATION_TEXTS": {},
+    "valEmpty": "Can't be empty",
+    "valEqualValues": "Is not equal",
+    "valTooShort": "Too short",
+    "valWrongPassword": "Need 1 big letter, 1 number and special sign",
+    
+
 
     "@_TEXTFIELDS_HINT_TEXTS": {},
     "enterLogin" : "Enter your login",
