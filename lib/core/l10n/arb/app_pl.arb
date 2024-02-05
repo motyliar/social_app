@@ -13,8 +13,8 @@
 
     
     "@_SIGN_PAGE": {},
-    "topBigLabel" : "JoinMee",
-    "descriptionLabel": "Miejsce miłoścników sportu",
+    "topbigLabelText" : "JoinMee",
+    "descriptionLabelText": "Miejsce miłoścników sportu",
     "forgotPassword" : "Nie pamiętasz hasła?",
     "dontHaveAccount": "Nie masz konta?",
     "signUp": "Zarejestruj się",

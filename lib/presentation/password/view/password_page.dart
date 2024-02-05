@@ -58,8 +58,8 @@ class PasswordPage extends StatelessWidget {
                 Positioned(
                   top: mobileWidth * _marginFromTop,
                   child: TopLabels(
-                    bigLabel: l10n.topBigLabel,
-                    descriptionLabel: l10n.descriptionLabel,
+                    bigLabelText: l10n.topbigLabelText,
+                    descriptionLabelText: l10n.descriptionLabelText,
                   ),
                 ),
                 Positioned(

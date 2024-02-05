@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class TopLabels extends StatelessWidget {
   const TopLabels({
-    required this.bigLabel,
-    required this.descriptionLabel,
+    required this.bigLabelText,
+    required this.descriptionLabelText,
     this.marginFromLeft = 100,
     super.key,
   });
 
-  final String bigLabel;
-  final String descriptionLabel;
+  final String bigLabelText;
+  final String descriptionLabelText;
   final double marginFromLeft;
 
   @override
@@ -20,8 +20,8 @@ class TopLabels extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(bigLabel, style: AppTextStyle.headersBig),
-            Text(descriptionLabel, style: AppTextStyle.descriptionBig),
+            Text(bigLabelText, style: AppTextStyle.headersBig),
+            Text(descriptionLabelText, style: AppTextStyle.descriptionBig),
           ],
         ));
   }

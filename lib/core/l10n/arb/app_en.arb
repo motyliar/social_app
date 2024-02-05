@@ -12,8 +12,8 @@
     "signUpLabel": "Sign UP!",
 
     "@_SIGN_PAGE": {},
-    "topBigLabel" : "JoinMee",
-    "descriptionLabel": "App for SportLovers",
+    "topbigLabelText" : "JoinMee",
+    "descriptionLabelText": "App for SportLovers",
     "forgotPassword" : "Forgot password?",
     "dontHaveAccount": "Dont have account yet?",
     "signUp": "Sign up",

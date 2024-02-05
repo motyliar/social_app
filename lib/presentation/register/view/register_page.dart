@@ -9,6 +9,7 @@ import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
 import 'package:climbapp/presentation/register/business/bloc/user_register/user_register_bloc.dart';
+import 'package:climbapp/presentation/register/widget/register_textfield_column.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -40,107 +41,139 @@ class RegisterPage extends StatelessWidget {
     final double mobileHeight = MediaQuery.of(context).size.height;
     final double mobileWidth = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: mobileWidth,
-          height: mobileHeight,
-          child: Stack(
-            children: [
-              BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
-              const TopBackgroundImage(),
-              Positioned(
-                top: mobileWidth * _marginFromTop,
-                child: TopLabels(
-                  bigLabel: l10n.topBigLabel,
-                  descriptionLabel: l10n.descriptionLabel,
-                ),
-              ),
-              const ArrowBack(),
-              const BottomBackgroundBar(),
-              Positioned(
-                top: kMarginToStartMiddleForm,
-                child: SizedBox(
-                  height: mobileHeight * _sizedBixPercentOfHeight,
-                  child: Stack(children: [
-                    MainStackCard(
-                      appWidth: mobileWidth,
-                      appHeight: mobileHeight,
-                      heightMultipler: _middleCardpercentOfAppHigh,
+    return BlocProvider(
+      create: (context) => registerLocator<UserRegisterBloc>(),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: mobileWidth,
+            height: mobileHeight,
+            child: BlocConsumer<UserRegisterBloc, UserRegisterState>(
+              listener: (context, state) {
+                if (state is ServerFailure) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<ErrorScreen>(
+                      builder: (context) => const ErrorScreen(
+                        error: 'server failure',
+                      ),
                     ),
-                    Positioned(
-                      top: 0,
-                      child: StackCenter(
-                          appWidth: mobileWidth,
-                          widgetWidth: _widthOfTopLabel,
-                          child: MidTextButton(
-                              buttonWidth: _widthOfTopLabel,
-                              textLabel: l10n.signUpLabel)),
+                  );
+                }
+                if (state is UserRegisterLoaded) {
+                  Utils.showToastMessage(
+                    message: l10n.successMsg,
+                  );
+                  context
+                      .read<UserRegisterBloc>()
+                      .add(AddUserToMongoDB(newUser: state.user));
+                  Navigator.popUntil(context, (route) => route.isFirst);
+                }
+                if (state is UserRegisterFailure) {
+                  Utils.showToastMessage(
+                    message: Utils().toastExceptionFirebaseMessage(
+                      exceptionMessage: state.exceptionMessage,
+                      context: context,
                     ),
-                    Positioned(
-                      top: kTextFieldsStartMarginFromTop,
-                      child: StackCenter(
-                        appWidth: mobileWidth,
-                        widgetWidth: mobileWidth * kMarginMultiplier,
-                        child: Column(
-                          children: [
-                            CTextFormField(
-                                textInputWidth: mobileWidth * kMarginMultiplier,
-                                hintText: l10n.hintUsername,
-                                icon: const Icon(Icons.person),
-                                controller: _nameController),
-                            const SizedBox(
-                              height: fivePixelsSpaceBetweenWidgets,
-                            ),
-                            CTextFormField(
-                                textInputWidth: mobileWidth * kMarginMultiplier,
-                                hintText: l10n.mailEnter,
-                                icon: const Icon(Icons.email),
-                                controller: _emailController),
-                            const SizedBox(
-                              height: fivePixelsSpaceBetweenWidgets,
-                            ),
-                            CTextFormField(
-                                textInputWidth: mobileWidth * kMarginMultiplier,
-                                hintText: l10n.enterPassword,
-                                icon: const Icon(Icons.password),
-                                controller: _passwordController),
-                            const SizedBox(
-                              height: fivePixelsSpaceBetweenWidgets,
-                            ),
-                            CTextFormField(
-                                textInputWidth: mobileWidth * kMarginMultiplier,
-                                hintText: l10n.rePassword,
-                                icon: const Icon(Icons.password),
-                                controller: _rePasswordController),
-                            const SizedBox(
-                              height: fivePixelsSpaceBetweenWidgets,
-                            ),
-                          ],
+                  );
+                }
+              },
+              builder: (context, state) {
+                return Form(
+                  key: _registerKey,
+                  child: Stack(
+                    children: [
+                      BackgroundPainterWidget(
+                          size: Size(mobileWidth, mobileHeight)),
+                      const TopBackgroundImage(),
+                      Positioned(
+                        top: mobileWidth * _marginFromTop,
+                        child: TopLabels(
+                          bigLabelText: l10n.topbigLabelText,
+                          descriptionLabelText: l10n.descriptionLabelText,
                         ),
                       ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: StackCenter(
-                        appWidth: mobileWidth,
-                        widgetWidth: 90,
-                        child: RoundButton(
-                            icon: Icons.app_registration,
-                            iconSize: 40,
-                            width: 90),
+                      const ArrowBack(),
+                      const BottomBackgroundBar(),
+                      Positioned(
+                        top: kMarginToStartMiddleForm,
+                        child: SizedBox(
+                          height: mobileHeight * _sizedBixPercentOfHeight,
+                          child: Stack(children: [
+                            MainStackCard(
+                              appWidth: mobileWidth,
+                              appHeight: mobileHeight,
+                              heightMultipler: _middleCardpercentOfAppHigh,
+                            ),
+                            Positioned(
+                              top: 0,
+                              child: StackCenter(
+                                  appWidth: mobileWidth,
+                                  widgetWidth: _widthOfTopLabel,
+                                  child: MidTextButton(
+                                      buttonWidth: _widthOfTopLabel,
+                                      textLabel: l10n.signUpLabel)),
+                            ),
+                            Positioned(
+                              top: kTextFieldsStartMarginFromTop,
+                              child: StackCenter(
+                                appWidth: mobileWidth,
+                                widgetWidth: mobileWidth * kMarginMultiplier,
+                                child: RegisterTextFieldStack(
+                                  mobileWidth: mobileWidth,
+                                  l10n: l10n,
+                                  nameController: _nameController,
+                                  emailController: _emailController,
+                                  passwordController: _passwordController,
+                                  rePasswordController: _rePasswordController,
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              child: StackCenter(
+                                appWidth: mobileWidth,
+                                widgetWidth: 90,
+                                child: RoundButton(
+                                    onTap: () {
+                                      if (_registerKey.currentState!
+                                          .validate()) {
+                                        context.read<UserRegisterBloc>().add(
+                                              AddUserToFireBaseEvent(
+                                                newUser: RegisterEntites(
+                                                  id: kEmptyValue,
+                                                  userEmail:
+                                                      _emailController.text,
+                                                  userName:
+                                                      _nameController.text,
+                                                  password:
+                                                      _passwordController.text,
+                                                ),
+                                              ),
+                                            );
+                                      }
+                                    },
+                                    icon: Icons.app_registration,
+                                    iconSize: 40,
+                                    width: 90),
+                              ),
+                            ),
+                          ]),
+                        ),
                       ),
-                    ),
-                  ]),
-                ),
-              ),
-            ],
+                    ],
+                  ),
+                );
+              },
+            ),
           ),
         ),
       ),
     );
   }
 }
+
+
 
 
 
