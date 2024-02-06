@@ -24,4 +24,7 @@ class AppTextStyle {
       GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 14));
   static final buttonSmallSizeStyle =
       GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 10));
+
+  static final successSnackBarStyle = GoogleFonts.raleway(
+      textStyle: TextStyle(fontSize: 16, color: Colors.black));
 }

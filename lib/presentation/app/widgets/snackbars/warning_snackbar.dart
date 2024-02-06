@@ -1,5 +1,7 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/theme/fonts.dart';
+import 'package:climbapp/core/theme/shadows.dart';
 import 'package:flutter/material.dart';
 
 const double _backgroundImageDimensions = 250.0;
@@ -54,20 +56,60 @@ class WarningSnackBarWidgets extends StatelessWidget {
 }
 
 class SuccessSnackBarWidgets extends StatelessWidget {
-  const SuccessSnackBarWidgets({super.key, this.snackBarSize = 100});
+  const SuccessSnackBarWidgets(
+      {required this.message,
+      super.key,
+      this.imageHeight = 50,
+      this.snackBarWidth = 130});
+
+  final double imageHeight;
+  final double snackBarWidth;
+  final String message;
+
   @override
-  final double snackBarSize;
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.center,
-      child: SizedBox(
-          width: snackBarSize,
-          height: snackBarSize,
-          child: Image.network(
-            ImagesURL.successSnackBarBackground,
-            width: snackBarSize,
-            height: snackBarSize,
-          )),
+      alignment: Alignment.centerRight,
+      child: Container(
+        padding: const EdgeInsets.only(left: tenPixelsSpaceBetweenWidgets),
+        width: snackBarWidth,
+        height: imageHeight,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [downShadow, greyLeftShadow],
+          borderRadius: const BorderRadius.all(
+            Radius.circular(maxBorderRadius),
+          ),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              message,
+              style: AppTextStyle.successSnackBarStyle,
+            ),
+            const SizedBox(
+              width: tenPixelsSpaceBetweenWidgets,
+            ),
+            Container(
+              width: imageHeight,
+              height: imageHeight,
+              decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(Radius.circular(maxBorderRadius)),
+                  boxShadow: [
+                    downShadow,
+                    greyLeftShadow,
+                  ]),
+              child: Image.network(
+                ImagesURL.successSnackBarBackground,
+                width: imageHeight,
+                height: imageHeight,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
