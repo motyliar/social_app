@@ -14,9 +14,6 @@ class AppSnackBarsView {
       content: WarningSnackBarWidgets(
         message: message,
       ),
-      margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height *
-              _snackBarHeightViewMultipler),
     );
   }
 }

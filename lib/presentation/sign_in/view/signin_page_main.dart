@@ -63,17 +63,6 @@ class SignInPageMain extends StatelessWidget {
                 appWidth: mobileWidth,
               ),
             ),
-            Positioned(
-              top: 400,
-              child: Tooltip(
-                message: 'this is message',
-                child: ElevatedButton(
-                  onPressed: () => Utils.customSnackBarWarning(
-                      context: context, message: 'message'),
-                  child: Text('check'),
-                ),
-              ),
-            )
           ],
         ),
       ),
