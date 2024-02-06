@@ -45,9 +45,6 @@ class DashboardPage extends StatelessWidget {
         body: SafeArea(
             child: Column(
           children: [
-            ElevatedButton(
-                onPressed: () => Navigator.pushNamed(context, routeNoticePage),
-                child: Text('send notice')),
             BlocConsumer<UserBloc, UserState>(
               listener: (context, state) {
                 if (state is UserLoaded) {
@@ -72,7 +69,22 @@ class DashboardPage extends StatelessWidget {
                 });
               },
             ),
-            BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
+          ],
+        )),
+      ),
+    );
+  }
+}
+
+
+
+
+
+
+
+/* stare implementacje bloca do wglądu 
+
+ BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
                 builder: (context, state) {
               if (state is FetchNoticeLoading) {
                 return Center(
@@ -101,9 +113,5 @@ class DashboardPage extends StatelessWidget {
                 );
               },
             )
-          ],
-        )),
-      ),
-    );
-  }
-}
+
+            */

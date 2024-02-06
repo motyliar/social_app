@@ -1,3 +1,4 @@
+import 'package:climbapp/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,5 +27,9 @@ class AppTextStyle {
       GoogleFonts.raleway(textStyle: const TextStyle(fontSize: 10));
 
   static final successSnackBarStyle = GoogleFonts.raleway(
-      textStyle: TextStyle(fontSize: 16, color: Colors.black));
+      textStyle: const TextStyle(fontSize: 16, color: Colors.black));
+
+  static final headersAppBar = GoogleFonts.raleway(
+      textStyle: const TextStyle(
+          fontSize: 18, color: ColorPallete.mainTextColor, letterSpacing: 0.5));
 }
