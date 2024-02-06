@@ -4,6 +4,9 @@ class ImagesURL {
 
   static const signInBottomBackground =
       'http://motyliar.webd.pro/social/bottom_background.jpg';
+
+  static const warningSnackBarBackground =
+      'http://motyliar.webd.pro/social/annoucment.png';
 }
 
 class NetworkURLStorage {

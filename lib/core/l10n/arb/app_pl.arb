@@ -52,6 +52,15 @@
     "valIncorrectEmail": "Błędny email",
     "valWrongUserName": "Błędny użytkownik",
 
+    "@_TOOL_TIPS_TF": {},
+    "tipUserName": "Użyj tylko liter i cyfr",
+    "tipPassword": "Hasło musi się składać z 1 dużej i małej litery, 1 cyfry oraz znaku specjalnego",
+    "tipRePassword": "Hasło musi być takie samo",
+    "tipEmail": "Podaj email, który będziesz używać do logowania",
+
+        "@_SNACKBAR_MESSAGES": {},
+    "snackWarningTitle": "Ups!",
+
     "@_TEXTFIELDS_HINT_TEXTS": {},
     "enterLogin" : "Wpisz swój login",
     "enterPassword": "Wpisz swoje hasło",

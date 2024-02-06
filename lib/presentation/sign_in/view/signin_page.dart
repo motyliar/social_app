@@ -42,12 +42,13 @@ class SignInPage extends StatelessWidget {
         }
       }
       if (state is SignInFailed) {
-        Utils.showToastMessage(
-          message: Utils().toastExceptionFirebaseMessage(
-            exceptionMessage: state.exceptionMessage,
-            context: context,
-          ),
-        );
+        Utils.customSnackBarWarning(context: context, message: '');
+        // Utils.showToastMessage(
+        //   message: Utils().toastExceptionFirebaseMessage(
+        //     exceptionMessage: state.exceptionMessage,
+        //     context: context,
+        //   ),
+        // );
       }
       if (state is SignInToMongoDB) {
         BlocProvider.of<UserBloc>(context).add(

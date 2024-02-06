@@ -2,7 +2,7 @@ import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/fonts.dart';
-import 'package:climbapp/core/theme/icons.dart';
+import 'package:climbapp/core/theme/icons/icons.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +22,16 @@ class TextFieldColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final focusOne = FocusNode();
+    final focusTwo = FocusNode();
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CTextFormField(
+          toolTip: 'Put your userName or Email',
+          focusNode: focusOne,
+          nextFocus: focusTwo,
           controller: loginController,
           textInputWidth: textInputWidth,
           hintText: l10n.enterLogin,
@@ -35,6 +41,9 @@ class TextFieldColumn extends StatelessWidget {
           height: tenPixelsSpaceBetweenWidgets,
         ),
         CTextFormField(
+            toolTip: '',
+            focusNode: focusTwo,
+            isNextFocus: false,
             obscureText: true,
             textInputWidth: textInputWidth,
             hintText: l10n.enterPassword,

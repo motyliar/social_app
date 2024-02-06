@@ -24,3 +24,12 @@ final whiteLinearGradientTopToBottom = LinearGradient(
       Colors.white.withOpacity(0.0),
       Colors.white
     ]);
+
+final redLinearGradientTopToBottom = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      Color(0xFFE74C3C).withOpacity(0.6),
+      Color(0xFFC0392B),
+      Color(0xFFE74C3C),
+    ]);

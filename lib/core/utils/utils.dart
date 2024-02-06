@@ -1,12 +1,18 @@
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/firebase/firebase_error/firebase_error.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/network/network_connected.dart';
+import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/theme/gradients.dart';
+import 'package:climbapp/core/theme/shadows.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 ///[EitherFunc] is most usefull in declaration repository functions
 typedef EitherFunc<T> = Future<Either<Exception, T>>;
@@ -15,12 +21,58 @@ typedef EitherFunc<T> = Future<Either<Exception, T>>;
 ///  the app
 
 class Utils {
-  /// Simple short function [showToastMessage] for app where will need to show
-  /// message after did any action or catch any exception/failure by [message]
+  static void customSnackBarWarning(
+      {required BuildContext context, required String message}) {
+    final snackBar = SnackBar(
+        backgroundColor: Colors.transparent,
+        behavior: SnackBarBehavior.floating,
+        elevation: 0,
+        margin:
+            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.7),
+        content: Container(
+          height: 250,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Stack(children: [
+            Align(
+              alignment: Alignment.center,
+              child: Image.network(
+                'http://motyliar.webd.pro/social/annoucment.png',
+                width: 250,
+                height: 250,
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 50),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('oOPS?!'),
+                    Text(
+                      'Something Wrong',
+                      style: TextStyle(color: Colors.white, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ]),
+        ));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   static void showToastMessage({required String message}) =>
       Fluttertoast.showToast(
-        msg: message,
-      );
+          msg: message,
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.TOP,
+          backgroundColor: ColorPallete.mainDecorationColor,
+          textColor: Colors.white,
+          fontSize: 16);
 
   /// Function [toastExceptionFirebaseMessage] using for showing exception
   /// message cought from FireBaseAuthException. switch-case is needed for

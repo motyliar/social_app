@@ -52,6 +52,13 @@
     "valWrongPassword": "Need 1 big letter, 1 number and special sign",
     "valIncorrectEmail": "Wrong email",
     "valWrongUserName": "Wrong username characters",
+
+    "@_TOOL_TIPS_TF": {},
+    "tipUserName": "Use only letters and numbers",
+    "tipPassword": "Password need 1 big and 1 small letter, 1 number and special sign",
+     "tipRePassword": "RePassword must be this same",
+     "tipEmail": "Type e-mail which you'll use for login",
+    
     
 
 

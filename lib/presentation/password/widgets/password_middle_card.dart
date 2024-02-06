@@ -61,6 +61,7 @@ class PasswordMiddleCard extends StatelessWidget {
                 child: Column(
                   children: [
                     CTextFormField(
+                        toolTip: '',
                         validator: (value) => FormValidation()
                             .forgotPasswordValidation(
                                 value: value!,
@@ -72,6 +73,7 @@ class PasswordMiddleCard extends StatelessWidget {
                         controller: _emailController),
                     const SizedBox(height: tenPixelsSpaceBetweenWidgets),
                     CTextFormField(
+                        toolTip: '',
                         validator: (value) => FormValidation()
                             .forgotPasswordValidation(
                                 value: value!,
