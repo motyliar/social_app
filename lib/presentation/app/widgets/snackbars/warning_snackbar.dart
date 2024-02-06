@@ -8,9 +8,11 @@ const double _messageRightSidePadding = 50.0;
 class WarningSnackBarWidgets extends StatelessWidget {
   const WarningSnackBarWidgets({
     required this.message,
+    required this.imageURL,
     super.key,
   });
   final String message;
+  final String imageURL;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class WarningSnackBarWidgets extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Image.network(
-            ImagesURL.warningSnackBarBackground,
+            imageURL,
             width: _backgroundImageDimensions,
             height: _backgroundImageDimensions,
           ),
@@ -47,6 +49,25 @@ class WarningSnackBarWidgets extends StatelessWidget {
           ),
         )
       ]),
+    );
+  }
+}
+
+class SuccessSnackBarWidgets extends StatelessWidget {
+  const SuccessSnackBarWidgets({super.key, this.snackBarSize = 100});
+  @override
+  final double snackBarSize;
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.center,
+      child: SizedBox(
+          width: snackBarSize,
+          height: snackBarSize,
+          child: Image.network(
+            ImagesURL.successSnackBarBackground,
+            width: snackBarSize,
+            height: snackBarSize,
+          )),
     );
   }
 }

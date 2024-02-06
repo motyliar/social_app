@@ -52,7 +52,7 @@ class SignInPage extends StatelessWidget {
             user: state.userParams,
           ),
         );
-        Utils.customSnackBarWarning(
+        Utils.customSnackBarSuccess(
           context: context,
           message: 'Login',
         );

@@ -81,7 +81,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
                             await Utils().navigatorClear(
                               context: context,
                               routeName: routeSignInPage,
-                              function: () => Utils.customSnackBarWarning(
+                              function: () => Utils.customSnackBarSuccess(
                                 context: context,
                                 message: 'logout',
                               ),

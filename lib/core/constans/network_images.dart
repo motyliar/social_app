@@ -7,6 +7,9 @@ class ImagesURL {
 
   static const warningSnackBarBackground =
       'http://motyliar.webd.pro/social/annoucment.png';
+
+  static const successSnackBarBackground =
+      'http://motyliar.webd.pro/social/approve.png';
 }
 
 class NetworkURLStorage {

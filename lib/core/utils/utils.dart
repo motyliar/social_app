@@ -27,6 +27,13 @@ class Utils {
         .showSnackBar(snackBar.warningSnackBar(message: message));
   }
 
+  static void customSnackBarSuccess(
+      {required BuildContext context, required String message}) {
+    final snackBar = AppSnackBarsView(context: context);
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBar.successSnackBar(message: message));
+  }
+
   /// Function [toastExceptionFirebaseMessage] using for showing exception
   /// message cought from FireBaseAuthException. switch-case is needed for
   /// sending properly l10n [exceptionMessage]
