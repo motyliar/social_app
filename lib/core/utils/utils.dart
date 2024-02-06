@@ -5,16 +5,13 @@ import 'package:climbapp/core/firebase/firebase_error/firebase_error.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/network/network_connected.dart';
 import 'package:climbapp/core/theme/colors.dart';
-import 'package:climbapp/core/theme/gradients.dart';
-import 'package:climbapp/core/theme/shadows.dart';
-import 'package:climbapp/presentation/app/widgets/snackbars/info_snackbar.dart';
+
 import 'package:climbapp/presentation/app/widgets/snackbars/snackbars.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:http/http.dart' as http;
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 ///[EitherFunc] is most usefull in declaration repository functions
 typedef EitherFunc<T> = Future<Either<Exception, T>>;
@@ -29,15 +26,6 @@ class Utils {
     ScaffoldMessenger.of(context)
         .showSnackBar(snackBar.warningSnackBar(message: message));
   }
-
-  static void showToastMessage({required String message}) =>
-      Fluttertoast.showToast(
-          msg: message,
-          toastLength: Toast.LENGTH_LONG,
-          gravity: ToastGravity.TOP,
-          backgroundColor: ColorPallete.mainDecorationColor,
-          textColor: Colors.white,
-          fontSize: 16);
 
   /// Function [toastExceptionFirebaseMessage] using for showing exception
   /// message cought from FireBaseAuthException. switch-case is needed for

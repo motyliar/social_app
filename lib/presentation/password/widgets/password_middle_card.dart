@@ -7,6 +7,7 @@ import 'package:climbapp/core/utils/validation/validations.dart';
 import 'package:climbapp/presentation/app/widgets/mid_button.dart';
 import 'package:climbapp/presentation/app/widgets/round_button.dart';
 import 'package:climbapp/presentation/app/widgets/stack_center.dart';
+import 'package:climbapp/presentation/message/view/subview/message.dart';
 import 'package:climbapp/presentation/password/business/cubit/password_cubit.dart';
 import 'package:climbapp/presentation/sign_in/widgets/main_stack_card.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
@@ -101,12 +102,12 @@ class PasswordMiddleCard extends StatelessWidget {
                     if (state is PasswordFailed) {
                       context.read<PasswordCubit>().clearState();
                       if (state.exceptionMessage != '') {
-                        Utils.showToastMessage(
-                          message: Utils().toastExceptionFirebaseMessage(
-                            exceptionMessage: state.exceptionMessage,
-                            context: context,
-                          ),
+                        final message = Utils().toastExceptionFirebaseMessage(
+                          exceptionMessage: state.exceptionMessage,
+                          context: context,
                         );
+                        Utils.customSnackBarWarning(
+                            context: context, message: message);
                       }
                     }
                   },

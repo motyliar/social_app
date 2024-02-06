@@ -58,7 +58,8 @@ class RegisterPage extends StatelessWidget {
                   );
                 }
                 if (state is UserRegisterLoaded) {
-                  Utils.showToastMessage(
+                  Utils.customSnackBarWarning(
+                    context: context,
                     message: l10n.successMsg,
                   );
                   context
@@ -67,12 +68,12 @@ class RegisterPage extends StatelessWidget {
                   Navigator.popUntil(context, (route) => route.isFirst);
                 }
                 if (state is UserRegisterFailure) {
-                  Utils.showToastMessage(
-                    message: Utils().toastExceptionFirebaseMessage(
-                      exceptionMessage: state.exceptionMessage,
-                      context: context,
-                    ),
+                  final message = Utils().toastExceptionFirebaseMessage(
+                    exceptionMessage: state.exceptionMessage,
+                    context: context,
                   );
+                  Utils.customSnackBarWarning(
+                      message: message, context: context);
                 }
               },
               builder: (context, state) {

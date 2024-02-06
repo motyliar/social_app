@@ -42,13 +42,9 @@ class SignInPage extends StatelessWidget {
         }
       }
       if (state is SignInFailed) {
-        Utils.customSnackBarWarning(context: context, message: '');
-        // Utils.showToastMessage(
-        //   message: Utils().toastExceptionFirebaseMessage(
-        //     exceptionMessage: state.exceptionMessage,
-        //     context: context,
-        //   ),
-        // );
+        final message = Utils().toastExceptionFirebaseMessage(
+            exceptionMessage: state.exceptionMessage, context: context);
+        Utils.customSnackBarWarning(context: context, message: message);
       }
       if (state is SignInToMongoDB) {
         BlocProvider.of<UserBloc>(context).add(
@@ -56,7 +52,8 @@ class SignInPage extends StatelessWidget {
             user: state.userParams,
           ),
         );
-        Utils.showToastMessage(
+        Utils.customSnackBarWarning(
+          context: context,
           message: 'Login',
         );
 
