@@ -1,12 +1,20 @@
+import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+
+const double _backgroundImageDimensions = 250.0;
+const double _messageRightSidePadding = 50.0;
 
 class WarningSnackBarWidgets extends StatelessWidget {
   const WarningSnackBarWidgets({
+    required this.message,
     super.key,
   });
+  final String message;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       height: 250,
       decoration: BoxDecoration(
@@ -17,21 +25,21 @@ class WarningSnackBarWidgets extends StatelessWidget {
         Align(
           alignment: Alignment.center,
           child: Image.network(
-            'http://motyliar.webd.pro/social/annoucment.png',
-            width: 250,
-            height: 250,
+            ImagesURL.warningSnackBarBackground,
+            width: _backgroundImageDimensions,
+            height: _backgroundImageDimensions,
           ),
         ),
-        const Align(
+        Align(
           alignment: Alignment.center,
           child: Padding(
-            padding: EdgeInsets.only(right: 50),
+            padding: const EdgeInsets.only(right: _messageRightSidePadding),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('oOPS?!'),
+                Text(l10n.snackWarningTitle),
                 Text(
-                  'Something Wrong',
+                  message,
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ],

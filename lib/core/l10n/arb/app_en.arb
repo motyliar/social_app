@@ -39,6 +39,10 @@
     "firebaseInvalidCredential": "Wrong User or Password",
     "somethingWrong": "Something wrong",
 
+
+    "@_SNACKBAR_MESSAGES": {},
+    "snackWarningTitle": "Oops!",
+
     
 
 

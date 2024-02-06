@@ -23,8 +23,8 @@ class AppRouter {
         return SignInPage.route();
       case route.routePasswordPage:
         return PasswordPage.route();
-      case route.routeChangePassword:
-        return ChangePassword.route();
+      // case route.routeChangePassword:
+      //   return ChangePassword.route();
       case route.routeDashboardPage:
         return DashboardPage.route();
       case route.routeUserPage:

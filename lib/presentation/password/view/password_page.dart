@@ -37,12 +37,11 @@ class PasswordPage extends StatelessWidget {
           if (state is PasswordFailed) {
             context.read<PasswordCubit>().clearState();
             if (state.exceptionMessage != '') {
-              Utils.showToastMessage(
-                message: Utils().toastExceptionFirebaseMessage(
-                  exceptionMessage: state.exceptionMessage,
-                  context: context,
-                ),
+              final message = Utils().toastExceptionFirebaseMessage(
+                exceptionMessage: state.exceptionMessage,
+                context: context,
               );
+              Utils.customSnackBarWarning(context: context, message: message);
             }
           }
         },

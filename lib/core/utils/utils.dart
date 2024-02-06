@@ -7,6 +7,8 @@ import 'package:climbapp/core/network/network_connected.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/shadows.dart';
+import 'package:climbapp/presentation/app/widgets/snackbars/info_snackbar.dart';
+import 'package:climbapp/presentation/app/widgets/snackbars/snackbars.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,46 +25,9 @@ typedef EitherFunc<T> = Future<Either<Exception, T>>;
 class Utils {
   static void customSnackBarWarning(
       {required BuildContext context, required String message}) {
-    final snackBar = SnackBar(
-        backgroundColor: Colors.transparent,
-        behavior: SnackBarBehavior.floating,
-        elevation: 0,
-        margin:
-            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.7),
-        content: Container(
-          height: 250,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Stack(children: [
-            Align(
-              alignment: Alignment.center,
-              child: Image.network(
-                'http://motyliar.webd.pro/social/annoucment.png',
-                width: 250,
-                height: 250,
-              ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('oOPS?!'),
-                    Text(
-                      'Something Wrong',
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ]),
-        ));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    final snackBar = AppSnackBarsView(context: context);
+    ScaffoldMessenger.of(context)
+        .showSnackBar(snackBar.warningSnackBar(message: message));
   }
 
   static void showToastMessage({required String message}) =>

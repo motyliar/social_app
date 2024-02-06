@@ -95,10 +95,12 @@ class NoticeMainPage extends StatelessWidget {
             BlocConsumer<UpdateNoticeCubit, UpdateNoticeState>(
               listener: (context, state) {
                 if (state is UpdateNoticeSuccess) {
-                  Utils.showToastMessage(message: 'Success');
+                  Utils.customSnackBarWarning(
+                      context: context, message: 'Success');
                 }
                 if (state is UpdateNoticeFailed) {
-                  Utils.showToastMessage(message: "failed");
+                  Utils.customSnackBarWarning(
+                      context: context, message: "failed");
                 }
               },
               builder: (context, state) {
@@ -120,10 +122,12 @@ class NoticeMainPage extends StatelessWidget {
             BlocConsumer<DeleteNoticeCubit, DeleteNoticeState>(
               listener: (context, state) {
                 if (state is DeleteNoticeFailed) {
-                  Utils.showToastMessage(message: 'failed');
+                  Utils.customSnackBarWarning(
+                      context: context, message: 'failed');
                 }
                 if (state is DeleteNoticeSuccess) {
-                  Utils.showToastMessage(message: 'success');
+                  Utils.customSnackBarWarning(
+                      context: context, message: 'success');
                 }
               },
               builder: (context, state) {
