@@ -19,6 +19,7 @@ class CTextFormField extends StatelessWidget {
     this.nextFocus,
     this.isNextFocus = true,
     this.isToolTip = false,
+    this.enableBorders = true,
     super.key,
   });
   final String hintText;
@@ -31,6 +32,7 @@ class CTextFormField extends StatelessWidget {
   final bool obscureText;
   final bool isNextFocus;
   final bool isToolTip;
+  final bool enableBorders;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
 
@@ -63,24 +65,32 @@ class CTextFormField extends StatelessWidget {
           suffixIcon: isToolTip
               ? Tooltip(message: toolTip, child: AppIcons.infoIcon)
               : null,
-          errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(maxBorderRadius),
-              borderSide:
-                  BorderSide(color: Colors.grey[500]!.withOpacity(0.5))),
-          focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(maxBorderRadius),
-              borderSide:
-                  BorderSide(color: Colors.grey[500]!.withOpacity(0.5))),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(maxBorderRadius),
-              borderSide:
-                  BorderSide(color: Colors.grey[500]!.withOpacity(0.5))),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(maxBorderRadius),
-            borderSide: BorderSide(
-              color: Colors.grey[500]!.withOpacity(0.5),
-            ),
-          ),
+          errorBorder: enableBorders
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(maxBorderRadius),
+                  borderSide:
+                      BorderSide(color: Colors.grey[500]!.withOpacity(0.5)))
+              : InputBorder.none,
+          focusedErrorBorder: enableBorders
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(maxBorderRadius),
+                  borderSide:
+                      BorderSide(color: Colors.grey[500]!.withOpacity(0.5)))
+              : InputBorder.none,
+          focusedBorder: enableBorders
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(maxBorderRadius),
+                  borderSide:
+                      BorderSide(color: Colors.grey[500]!.withOpacity(0.5)))
+              : InputBorder.none,
+          enabledBorder: enableBorders
+              ? OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(maxBorderRadius),
+                  borderSide: BorderSide(
+                    color: Colors.grey[500]!.withOpacity(0.5),
+                  ),
+                )
+              : InputBorder.none,
         ),
       ),
     );

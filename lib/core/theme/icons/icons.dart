@@ -25,4 +25,14 @@ class AppIcons {
     Icons.logout,
     color: ColorPallete.pinkDecorationColor,
   );
+  static const dashboardSearch = CustomIcon(
+    Icons.manage_search,
+    color: ColorPallete.pinkDecorationColor,
+    size: 24,
+  );
+  static const searchPink = CustomIcon(
+    Icons.search,
+    color: ColorPallete.pinkDecorationColor,
+    size: 24,
+  );
 }

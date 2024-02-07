@@ -1,4 +1,5 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';
@@ -35,10 +36,15 @@ class SignInPageMain extends StatelessWidget {
             BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
             const TopBackgroundImage(),
             Positioned(
-              top: mobileWidth * _marginFromTop,
-              child: TopLabels(
-                bigLabelText: l10n.topbigLabelText,
-                descriptionLabelText: l10n.descriptionLabelText,
+              top: 30,
+              left: 80,
+              child: Transform.rotate(
+                angle: 6,
+                child: Image.network(
+                  ImagesURL.appLogo,
+                  width: 200,
+                  height: 150,
+                ),
               ),
             ),
             Positioned(
@@ -62,6 +68,21 @@ class SignInPageMain extends StatelessWidget {
                 appWidth: mobileWidth,
               ),
             ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height * 0.3,
+              left: 10,
+              child: Transform.rotate(
+                angle: 7,
+                child: Opacity(
+                  opacity: 0.5,
+                  child: Image.network(
+                    ImagesURL.appLogo,
+                    width: 100,
+                    height: 70,
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

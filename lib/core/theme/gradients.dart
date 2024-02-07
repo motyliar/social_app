@@ -6,6 +6,15 @@ const blueGreenGradient = SweepGradient(center: Alignment.topLeft, colors: [
   Color(0xFFF539A8),
 ]);
 
+final blueGreen = LinearGradient(
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+    colors: [
+      const Color.fromARGB(255, 110, 216, 204),
+      const Color(0xFF59D7C8).withOpacity(0.5),
+      const Color(0xFFA3F264),
+    ]);
+
 const pinkToBlueRoundGradient =
     SweepGradient(center: Alignment.topLeft, colors: [
   Color(0xFFF539A8),
@@ -29,7 +38,7 @@ final redLinearGradientTopToBottom = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: [
-      Color(0xFFE74C3C).withOpacity(0.6),
-      Color(0xFFC0392B),
+      Color.fromARGB(255, 119, 118, 118).withOpacity(0.6),
+      Color.fromARGB(255, 170, 98, 90),
       Color(0xFFE74C3C),
     ]);

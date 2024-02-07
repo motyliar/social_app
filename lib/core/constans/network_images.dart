@@ -10,6 +10,11 @@ class ImagesURL {
 
   static const successSnackBarBackground =
       'http://motyliar.webd.pro/social/approve.png';
+
+  static const appLogo = 'http://motyliar.webd.pro/social/appLogo.png';
+  static const messageIcon = 'http://motyliar.webd.pro/social/message.png';
+  static const friendsIcon = 'http://motyliar.webd.pro/social/friendslogo.png';
+  static const waveIcon = 'http://motyliar.webd.pro/social/wave.png';
 }
 
 class NetworkURLStorage {
