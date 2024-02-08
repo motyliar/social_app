@@ -5,12 +5,14 @@ import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/gradients.dart';
+import 'package:climbapp/core/theme/icons/custom_icons.dart';
 import 'package:climbapp/core/theme/shadows.dart';
 import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
 
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
 import 'package:climbapp/presentation/app/widgets/container_template.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
+import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/slidable_menu_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fetch_single_notice_cubit.dart';
@@ -20,6 +22,7 @@ import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_animations/simple_animations.dart';
 import '../widgets/widgets.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -55,6 +58,7 @@ class DashboardPage extends StatelessWidget {
         BlocProvider(create: (context) => SlidableMenuCubit()),
         BlocProvider(
             create: (context) => ScrollVisibleControlCubit(scrollController)),
+        BlocProvider(create: (context) => LikeIconCubit()),
       ],
       child: Scaffold(
         backgroundColor: ColorPallete.scaffoldBackground,
@@ -146,9 +150,13 @@ class DashboardPage extends StatelessWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(maxBorderRadius)),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(maxBorderRadius),
+                          topRight: Radius.circular(maxBorderRadius),
+                        ),
+                      ),
                       child: Container(
                         margin: const EdgeInsets.only(
                           right: 5,
@@ -158,10 +166,13 @@ class DashboardPage extends StatelessWidget {
                         padding: const EdgeInsets.all(5),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
-                            color: Colors.white,
-                            boxShadow: [downShadow, greyLeftShadow],
-                            borderRadius:
-                                BorderRadius.circular(maxBorderRadius)),
+                          color: Colors.white,
+                          boxShadow: [downShadow, greyLeftShadow],
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(maxBorderRadius),
+                            topRight: Radius.circular(maxBorderRadius),
+                          ),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -229,9 +240,145 @@ class DashboardPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              noticeDivider(),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                width: MediaQuery.of(context).size.width,
+                                height: 5,
+                                decoration: BoxDecoration(gradient: blueGreen),
+                              ),
                               const Text(loremIpsumMid),
                               noticeDivider(),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      BlocBuilder<LikeIconCubit, bool>(
+                                        builder: (context, state) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              context
+                                                  .read<LikeIconCubit>()
+                                                  .changeVisible();
+                                              state
+                                                  ? showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        Future.delayed(
+                                                            const Duration(
+                                                                milliseconds:
+                                                                    750), () {
+                                                          Navigator.of(context)
+                                                              .pop();
+                                                        });
+                                                        return Dialog(
+                                                          elevation: 0,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          child: Align(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child:
+                                                                PlayAnimationBuilder(
+                                                              curve: Curves
+                                                                  .bounceIn,
+                                                              tween:
+                                                                  Tween<double>(
+                                                                      begin: 0,
+                                                                      end: 90),
+                                                              duration:
+                                                                  const Duration(
+                                                                      milliseconds:
+                                                                          650),
+                                                              builder: (context,
+                                                                      value,
+                                                                      _) =>
+                                                                  Icon(
+                                                                Icons.mood,
+                                                                size: value,
+                                                                color: Colors
+                                                                    .yellow,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      },
+                                                    )
+                                                  : null;
+                                            },
+                                            child: Icon(
+                                              Icons.mood,
+                                              size: 20,
+                                              color: state
+                                                  ? Colors.grey
+                                                  : Colors.amber,
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      const CustomIcon(
+                                        Icons.bookmark,
+                                        color: Colors.grey,
+                                      ),
+                                      const CustomIcon(
+                                        Icons.reply,
+                                        color: Colors.grey,
+                                      ),
+                                    ],
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: const Text(
+                                      'Comments 9',
+                                      style: TextStyle(
+                                          fontSize: 12, color: Colors.black),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Container(
+                                margin:
+                                    const EdgeInsets.only(top: 5, bottom: 5),
+                                width: MediaQuery.of(context).size.width,
+                                height: 5,
+                                decoration: BoxDecoration(gradient: blueGreen),
+                              ),
+                              const Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Column(
+                                    children: [
+                                      CustomIcon(Icons.bookmark),
+                                      Text(
+                                        'Save notice',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      CustomIcon(Icons.comment),
+                                      Text(
+                                        'Add comment',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      CustomIcon(Icons.reply),
+                                      Text(
+                                        'Reply to author',
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
