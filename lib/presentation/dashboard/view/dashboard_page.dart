@@ -57,9 +57,10 @@ class DashboardPage extends StatelessWidget {
             create: (context) => ScrollVisibleControlCubit(scrollController)),
       ],
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 243, 240, 240),
+        backgroundColor: ColorPallete.scaffoldBackground,
         body: SafeArea(
           child: Stack(
+            fit: StackFit.expand,
             children: [
               SingleChildScrollView(
                 controller: scrollController,
@@ -161,11 +162,11 @@ class DashboardPage extends StatelessWidget {
                             boxShadow: [downShadow, greyLeftShadow],
                             borderRadius:
                                 BorderRadius.circular(maxBorderRadius)),
-                        child: const Padding(
-                          padding: EdgeInsets.all(8.0),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              Row(
+                              const Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -228,13 +229,9 @@ class DashboardPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Divider(
-                                thickness: 0.5,
-                                color: ColorPallete.mainDecorationColor,
-                                indent: 20,
-                                endIndent: 20,
-                              ),
-                              Text(loremIpsum + loremIpsum),
+                              noticeDivider(),
+                              const Text(loremIpsumMid),
+                              noticeDivider(),
                             ],
                           ),
                         ),
@@ -291,7 +288,7 @@ class SlidableMenu extends StatelessWidget {
               onTap: () => BlocProvider.of<SlidableMenuCubit>(context)
                   .changeVisible(windowName),
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 150),
+                duration: const Duration(milliseconds: 150),
                 width: state[windowName]! ? 35 : 200,
                 height: state[windowName]! ? 35 : 300,
                 decoration: BoxDecoration(
@@ -300,18 +297,23 @@ class SlidableMenu extends StatelessWidget {
                     boxShadow: [greyLeftShadow]),
                 curve: Curves.easeIn,
                 child: state[windowName]!
-                    ? Icon(
+                    ? const Icon(
                         Icons.settings,
                         color: Colors.white,
                       )
                     : Wrap(children: [
                         Column(
                           children: [
-                            TextButton(onPressed: () {}, child: Text('elo')),
-                            TextButton(onPressed: () {}, child: Text('elo')),
-                            TextButton(onPressed: () {}, child: Text('elo')),
-                            TextButton(onPressed: () {}, child: Text('elo')),
-                            TextButton(onPressed: () {}, child: Text('elo')),
+                            TextButton(
+                                onPressed: () {}, child: const Text('elo')),
+                            TextButton(
+                                onPressed: () {}, child: const Text('elo')),
+                            TextButton(
+                                onPressed: () {}, child: const Text('elo')),
+                            TextButton(
+                                onPressed: () {}, child: const Text('elo')),
+                            TextButton(
+                                onPressed: () {}, child: const Text('elo')),
                           ],
                         ),
                       ]),
