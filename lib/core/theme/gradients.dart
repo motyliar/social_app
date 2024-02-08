@@ -38,7 +38,7 @@ final redLinearGradientTopToBottom = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: [
-      Color.fromARGB(255, 119, 118, 118).withOpacity(0.6),
-      Color.fromARGB(255, 170, 98, 90),
-      Color(0xFFE74C3C),
+      Color.fromARGB(255, 248, 244, 244),
+      Colors.white,
+      const Color.fromARGB(255, 110, 216, 204),
     ]);
