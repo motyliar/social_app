@@ -1,4 +1,3 @@
-import 'package:climbapp/presentation/app/widgets/snackbars/warning_snackbar.dart';
 import 'package:flutter/material.dart';
 
 class AppSnackBar extends SnackBar {

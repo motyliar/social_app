@@ -30,6 +30,18 @@ class Utils {
         .showSnackBar(snackBar.successSnackBar(message: message));
   }
 
+  static Future<dynamic> showSuccessDialog(BuildContext context, Widget child) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        Future.delayed(const Duration(milliseconds: 750), () {
+          Navigator.of(context).pop();
+        });
+        return child;
+      },
+    );
+  }
+
   /// Function [toastExceptionFirebaseMessage] using for showing exception
   /// message cought from FireBaseAuthException. switch-case is needed for
   /// sending properly l10n [exceptionMessage]
