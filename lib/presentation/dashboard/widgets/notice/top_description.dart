@@ -42,10 +42,14 @@ class TopDescription extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    notice.content.title.isTooLong,
-                    softWrap: true,
-                    style: AppTextStyle.headersMid,
+                  Column(
+                    children: [
+                      Text(
+                        notice.content.title.isTooLong,
+                        softWrap: true,
+                        style: AppTextStyle.headersMid,
+                      ),
+                    ],
                   ),
                   Row(
                     children: [

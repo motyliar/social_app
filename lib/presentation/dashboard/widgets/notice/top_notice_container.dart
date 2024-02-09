@@ -1,6 +1,7 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/shadows.dart';
+import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
@@ -44,7 +45,7 @@ class TopNoticeContainer extends StatelessWidget {
             topDescription,
             const GradientDivider(),
             Text(
-              notice.content.content,
+              notice.content.content.cut,
               style: AppTextStyle.descriptionMid,
             ),
             noticeDivider(),

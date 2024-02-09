@@ -96,61 +96,7 @@ class DashboardPage extends StatelessWidget {
                         });
                       },
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      height: 100,
-                      width: MediaQuery.of(context).size.width,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 10.0, right: 10, top: 15, bottom: 15),
-                                child: ContainerTemplate(
-                                  color: Colors.white,
-                                  gradient: redLinearGradientTopToBottom,
-                                  width: 120,
-                                  height: 50,
-                                  child: const Align(
-                                      alignment: Alignment.center,
-                                      child: Text('Messages')),
-                                ),
-                              ),
-                              Positioned(
-                                child: Image.network(
-                                  ImagesURL.waveIcon,
-                                  width: 120,
-                                  height: 120,
-                                ),
-                              ),
-                              Positioned(
-                                  top: 0,
-                                  right: 12,
-                                  child: Image.network(
-                                    ImagesURL.messageIcon,
-                                    width: 40,
-                                    height: 40,
-                                  )),
-                              Positioned(
-                                  top: 100,
-                                  left: 0,
-                                  child: Container(
-                                    width: 10,
-                                    height: 15,
-                                    color: Colors.black,
-                                  ))
-                            ],
-                          );
-                        },
-                      ),
-
-                      /* Koniec kategorii użytkownika
-                    Początek ogłoszeń
-                     */
-                    ),
+                    const SlidableNavigator(),
                     Flexible(
                       fit: FlexFit.loose,
                       child: ListView.builder(
@@ -164,26 +110,12 @@ class DashboardPage extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.4,
-                right: 0,
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    SlidableMenu(
-                      windowName: 'first',
-                      icon: Icons.settings,
-                    ),
-                    SlidableMenu(
-                      windowName: 'second',
-                      icon: Icons.settings,
-                    ),
-                    SlidableMenu(
-                      windowName: 'third',
-                      icon: Icons.settings,
-                    ),
-                  ],
-                ),
+              RightOnScreenMenu(
+                menus: List.generate(
+                    3,
+                    (index) => SlidableMenu(
+                        icon: Icons.settings,
+                        windowName: kSlidableNameList[index])),
               ),
             ],
           ),
@@ -195,6 +127,10 @@ class DashboardPage extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 
 

@@ -34,11 +34,11 @@ final whiteLinearGradientTopToBottom = LinearGradient(
       Colors.white
     ]);
 
-final redLinearGradientTopToBottom = LinearGradient(
+const redLinearGradientTopToBottom = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: [
       Color.fromARGB(255, 248, 244, 244),
       Colors.white,
-      const Color.fromARGB(255, 110, 216, 204),
+      Color.fromARGB(255, 110, 216, 204),
     ]);

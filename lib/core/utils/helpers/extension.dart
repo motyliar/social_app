@@ -32,3 +32,23 @@ extension TooLongText on String {
     }
   }
 }
+
+extension MoreThen300Letters on String {
+  String get cut {
+    if (length > 300) {
+      return '''${substring(0, 300)}...''';
+    } else {
+      return this;
+    }
+  }
+}
+
+extension IsTooLong on String {
+  bool isLongThen({int index = 300}) {
+    if (length > index) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+}
