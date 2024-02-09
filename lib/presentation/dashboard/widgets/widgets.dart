@@ -7,3 +7,7 @@ export 'slidable_menu.dart';
 export 'notice/notice_main_box.dart';
 export 'notice/top_notice_container.dart';
 export 'notice/top_description.dart';
+export 'notice/summary_row.dart';
+export 'notice/action_row.dart';
+export 'notice/smile_animation.dart';
+export 'notice/like_action_button.dart';

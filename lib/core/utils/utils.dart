@@ -4,7 +4,10 @@ import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/firebase/firebase_error/firebase_error.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/network/network_connected.dart';
+import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/snackbars/snackbars.dart';
+import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
+import 'package:climbapp/presentation/dashboard/widgets/notice/smile_animation.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -40,6 +43,12 @@ class Utils {
         return child;
       },
     );
+  }
+
+  static void giveLike(BuildContext context, bool didIClick) {
+    print(didIClick);
+    BlocProvider.of<LikeIconCubit>(context).changeVisible();
+    didIClick ? Utils.showSuccessDialog(context, const SmileAnimation()) : null;
   }
 
   /// Function [toastExceptionFirebaseMessage] using for showing exception

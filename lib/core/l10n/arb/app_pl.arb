@@ -45,6 +45,7 @@
     "noticeSave": "Zapisz",
     "noticeAddComment": "Dodaj komentarz",
     "noticeReply": "Odpowiedz",
+    "noticeComments": "Komentarze :",
 
 
     "@_FLUTTERTOAST_MESSAGES": {},
