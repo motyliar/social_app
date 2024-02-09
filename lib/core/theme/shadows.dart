@@ -5,11 +5,11 @@ const double _maxAppBlur = 20;
 const double _midAppBlur = 14;
 const double _spreadValue = 1;
 
-final BoxShadow downShadow = BoxShadow(
-    offset: const Offset(4, 4),
+const BoxShadow downShadow = BoxShadow(
+    offset: Offset(4, 4),
     blurRadius: _midAppBlur,
     spreadRadius: _spreadValue,
-    color: ColorPallete().greyShadowColorOpacityMax);
+    color: ColorPallete.greyShadowColorOpacityMax);
 
 const greyLeftShadow = BoxShadow(
   offset: Offset(2, 5),

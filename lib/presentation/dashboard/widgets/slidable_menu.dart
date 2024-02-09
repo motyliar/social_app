@@ -12,6 +12,7 @@ const double _openStateSizeHeight = 300;
 
 class SlidableMenu extends StatelessWidget {
   const SlidableMenu({
+    required this.icon,
     this.padding = fivePixelsSpaceBetweenWidgets,
     this.durationInMillisecond = _animationDuration,
     this.closeStateSize = _closeStateSize,
@@ -26,6 +27,7 @@ class SlidableMenu extends StatelessWidget {
   final double closeStateSize;
   final double openStateSizeWidth;
   final double openStateSizeHeight;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +49,7 @@ class SlidableMenu extends StatelessWidget {
                     boxShadow: const [greyLeftShadow]),
                 curve: Curves.easeIn,
                 child: state[windowName]!
-                    ? const Icon(
-                        Icons.settings,
-                        color: Colors.white,
-                      )
+                    ? Icon(icon)
                     // todo add children to view - sport to choose
                     : const Wrap(children: [
                         Column(

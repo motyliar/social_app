@@ -3,3 +3,7 @@ export 'icons_row.dart';
 export 'profile_image.dart';
 export 'bottom_bar.dart';
 export 'notice_divider.dart';
+export 'slidable_menu.dart';
+export 'notice/notice_main_box.dart';
+export 'notice/top_notice_container.dart';
+export 'notice/top_description.dart';

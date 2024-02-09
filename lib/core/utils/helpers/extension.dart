@@ -22,3 +22,13 @@ extension CapitalizeOneLetter on String {
         : this;
   }
 }
+
+extension TooLongText on String {
+  String get isTooLong {
+    if (length > 15) {
+      return '${substring(0, 15)}...';
+    } else {
+      return this;
+    }
+  }
+}

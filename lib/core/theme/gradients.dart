@@ -6,13 +6,13 @@ const blueGreenGradient = SweepGradient(center: Alignment.topLeft, colors: [
   Color(0xFFF539A8),
 ]);
 
-final blueGreen = LinearGradient(
+const blueGreen = LinearGradient(
     begin: Alignment.centerLeft,
     end: Alignment.centerRight,
     colors: [
-      const Color.fromARGB(255, 110, 216, 204),
-      const Color(0xFF59D7C8).withOpacity(0.5),
-      const Color(0xFFA3F264),
+      Color.fromARGB(255, 110, 216, 204),
+      Color.fromRGBO(158, 158, 158, 0.8),
+      Color(0xFFA3F264),
     ]);
 
 const pinkToBlueRoundGradient =

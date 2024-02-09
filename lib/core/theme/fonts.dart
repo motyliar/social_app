@@ -32,4 +32,35 @@ class AppTextStyle {
   static final headersAppBar = GoogleFonts.raleway(
       textStyle: const TextStyle(
           fontSize: 18, color: ColorPallete.mainTextColor, letterSpacing: 0.5));
+
+  static const headersBigger = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 18,
+      color: Colors.black,
+      letterSpacing: 0.5);
+  static const headersMid = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 16,
+      color: Colors.black,
+      letterSpacing: 0.5);
+  static const headersSmall = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 14,
+      color: Colors.black,
+      letterSpacing: 0.5);
+  static const descriptionBigger = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 14,
+      color: Colors.black,
+      letterSpacing: 0.5);
+  static const descriptionMid = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 12,
+      color: Colors.black,
+      letterSpacing: 0.5);
+  static const descriptionSmall = TextStyle(
+      fontFamily: 'Raleway',
+      fontSize: 10,
+      color: Colors.black,
+      letterSpacing: 0.5);
 }
