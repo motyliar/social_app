@@ -64,6 +64,32 @@ class DashboardPage extends StatelessWidget {
       ],
       child: Scaffold(
         backgroundColor: ColorPallete.scaffoldBackground,
+        appBar: DashboardAppBar(
+          controller: scrollController,
+          mainChild: BlocConsumer<UserBloc, UserState>(
+            listener: (context, state) {
+              if (state is UserLoaded) {
+                context.read<ThemeCubit>().changeThemeData(
+                      mode: state.user.preferences?.mode ?? false,
+                    );
+              }
+            },
+            builder: (context, state) {
+              return BlocBuilder<UserBloc, UserState>(
+                  builder: (context, state) {
+                if (state is UserLoaded) {
+                  context.read<ThemeCubit>().changeThemeData(
+                        mode: state.user.preferences?.mode ?? false,
+                      );
+                  return DashBoardApp(
+                      imageSrc: state.user.profileAvatar!,
+                      userName: state.user.userName);
+                }
+                return const Text('failed');
+              });
+            },
+          ),
+        ),
         body: SafeArea(
           child: Stack(
             fit: StackFit.expand,
@@ -73,29 +99,6 @@ class DashboardPage extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    BlocConsumer<UserBloc, UserState>(
-                      listener: (context, state) {
-                        if (state is UserLoaded) {
-                          context.read<ThemeCubit>().changeThemeData(
-                                mode: state.user.preferences?.mode ?? false,
-                              );
-                        }
-                      },
-                      builder: (context, state) {
-                        return BlocBuilder<UserBloc, UserState>(
-                            builder: (context, state) {
-                          if (state is UserLoaded) {
-                            context.read<ThemeCubit>().changeThemeData(
-                                  mode: state.user.preferences?.mode ?? false,
-                                );
-                            return DashboardAppBar(
-                                imageSrc: state.user.profileAvatar!,
-                                userName: state.user.userName);
-                          }
-                          return const Text('failed');
-                        });
-                      },
-                    ),
                     const SlidableNavigator(),
                     Flexible(
                       fit: FlexFit.loose,

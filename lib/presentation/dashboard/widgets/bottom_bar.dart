@@ -4,6 +4,8 @@ import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visi
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// todo REFACTORING
+
 class BottomBar extends StatelessWidget {
   const BottomBar({required this.controller, super.key});
   final ScrollController controller;
@@ -28,10 +30,10 @@ class BottomBar extends StatelessWidget {
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.1,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.red,
                             gradient: blueGreen,
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(maxBorderRadius),
                                 topRight: Radius.circular(maxBorderRadius))),
                         child: Column(

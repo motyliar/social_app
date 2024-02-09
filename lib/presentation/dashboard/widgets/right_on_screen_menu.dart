@@ -4,15 +4,17 @@ import 'package:flutter/material.dart';
 class RightOnScreenMenu extends StatelessWidget {
   const RightOnScreenMenu({
     required this.menus,
+    this.precentOfHeight = 0.3,
     super.key,
   });
 
   final List<SlidableMenu> menus;
+  final double precentOfHeight;
 
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).size.height * 0.4,
+      top: MediaQuery.of(context).size.height * precentOfHeight,
       right: 0,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,

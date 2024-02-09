@@ -2,26 +2,68 @@ import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
-import 'package:climbapp/core/theme/shadows.dart';
+
+import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/container_template.dart';
+import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
 import 'package:climbapp/presentation/dashboard/widgets/auto_complete.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
-import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
+
 import 'package:flutter/material.dart';
 
-class DashboardAppBar extends StatelessWidget {
-  final String imageSrc;
-  final String userName;
+const double _height = 155;
 
+class DashboardAppBar extends StatelessWidget implements PreferredSize {
   const DashboardAppBar({
-    required this.imageSrc,
-    required this.userName,
+    required this.mainChild,
+    required this.controller,
+    this.durationInMilisecond = 1200,
     super.key,
   });
 
+  final Widget mainChild;
+  final ScrollController controller;
+  final int durationInMilisecond;
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return BlocProvider(
+        create: (context) => ScrollVisibleControlCubit(controller),
+        child: BlocBuilder<ScrollVisibleControlCubit, bool>(
+          builder: (context, isVisible) {
+            return Visibility(
+              visible: isVisible,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: durationInMilisecond),
+                height: isVisible ? _height : 0,
+                child: mainChild,
+              ),
+            );
+          },
+        ));
+  }
+
+  @override
+  Widget get child => mainChild;
+  @override
+  Size get preferredSize => const Size.fromHeight(_height);
+}
+
+class DashBoardApp extends StatelessWidget {
+  const DashBoardApp(
+      {super.key,
+      required this.imageSrc,
+      required this.userName,
+      this.height = _height});
+
+  final String imageSrc;
+  final String userName;
+  final double height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.transparent,
       height: 155,
       child: Stack(children: [
         Container(
