@@ -31,6 +31,8 @@ class AutoCompleteTextField extends StatelessWidget {
       fieldViewBuilder:
           (context, textEditingController, focusNode, onFieldSubbmited) {
         return CTextFormField(
+          textInputWidth: 250,
+          enableBorders: false,
           hintText: hintText,
           icon: leftIcon,
           controller: textEditingController,

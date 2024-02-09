@@ -24,6 +24,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../widgets/widgets.dart';
 
+ScrollController scrollController = ScrollController();
+
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
   static Route<dynamic> route() {
@@ -36,7 +38,8 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print('main build');
-    ScrollController scrollController = ScrollController();
+
+    ScrollController listViewController = ScrollController();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -68,6 +71,7 @@ class DashboardPage extends StatelessWidget {
               SingleChildScrollView(
                 controller: scrollController,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     BlocConsumer<UserBloc, UserState>(
                       listener: (context, state) {
@@ -147,240 +151,14 @@ class DashboardPage extends StatelessWidget {
                     Początek ogłoszeń
                      */
                     ),
-                    Container(
-                      margin: const EdgeInsets.all(15),
-                      decoration: const BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(maxBorderRadius),
-                          topRight: Radius.circular(maxBorderRadius),
-                        ),
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                          right: 5,
-                          left: 5,
-                          top: 5,
-                        ),
-                        padding: const EdgeInsets.all(5),
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [downShadow, greyLeftShadow],
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(maxBorderRadius),
-                            topRight: Radius.circular(maxBorderRadius),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              const Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundImage:
-                                            NetworkImage(ImagesURL.friendsIcon),
-                                        radius: 23,
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5.0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              'Category',
-                                              style: TextStyle(fontSize: 16),
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  'User name',
-                                                  style:
-                                                      TextStyle(fontSize: 12),
-                                                ),
-                                                SizedBox(
-                                                  width: 3,
-                                                ),
-                                                Text('10.01.2023',
-                                                    style: TextStyle(
-                                                        fontSize: 10)),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(right: 10.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Icon(Icons.more_vert),
-                                        SizedBox(
-                                          width: 3,
-                                        ),
-                                        Text(
-                                          'CLIMBING',
-                                          style: TextStyle(fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                width: MediaQuery.of(context).size.width,
-                                height: 5,
-                                decoration: BoxDecoration(gradient: blueGreen),
-                              ),
-                              const Text(loremIpsumMid),
-                              noticeDivider(),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(
-                                    children: [
-                                      BlocBuilder<LikeIconCubit, bool>(
-                                        builder: (context, state) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              context
-                                                  .read<LikeIconCubit>()
-                                                  .changeVisible();
-                                              state
-                                                  ? showDialog(
-                                                      context: context,
-                                                      builder: (context) {
-                                                        Future.delayed(
-                                                            const Duration(
-                                                                milliseconds:
-                                                                    750), () {
-                                                          Navigator.of(context)
-                                                              .pop();
-                                                        });
-                                                        return Dialog(
-                                                          elevation: 0,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          child: Align(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            child:
-                                                                PlayAnimationBuilder(
-                                                              curve: Curves
-                                                                  .bounceIn,
-                                                              tween:
-                                                                  Tween<double>(
-                                                                      begin: 0,
-                                                                      end: 90),
-                                                              duration:
-                                                                  const Duration(
-                                                                      milliseconds:
-                                                                          650),
-                                                              builder: (context,
-                                                                      value,
-                                                                      _) =>
-                                                                  Icon(
-                                                                Icons.mood,
-                                                                size: value,
-                                                                color: Colors
-                                                                    .yellow,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    )
-                                                  : null;
-                                            },
-                                            child: Icon(
-                                              Icons.mood,
-                                              size: 20,
-                                              color: state
-                                                  ? Colors.grey
-                                                  : Colors.amber,
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                      const CustomIcon(
-                                        Icons.bookmark,
-                                        color: Colors.grey,
-                                      ),
-                                      const CustomIcon(
-                                        Icons.reply,
-                                        color: Colors.grey,
-                                      ),
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: const Text(
-                                      'Comments 9',
-                                      style: TextStyle(
-                                          fontSize: 12, color: Colors.black),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(top: 5, bottom: 5),
-                                width: MediaQuery.of(context).size.width,
-                                height: 5,
-                                decoration: BoxDecoration(gradient: blueGreen),
-                              ),
-                              const Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Column(
-                                    children: [
-                                      CustomIcon(Icons.bookmark),
-                                      Text(
-                                        'Save notice',
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      CustomIcon(Icons.comment),
-                                      Text(
-                                        'Add comment',
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      CustomIcon(Icons.reply),
-                                      Text(
-                                        'Reply to author',
-                                        style: TextStyle(fontSize: 12),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
+                    Flexible(
+                      fit: FlexFit.loose,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        controller: listViewController,
+                        itemCount: 3,
+                        itemBuilder: (context, index) => const SingleNotice(),
                       ),
                     ),
                   ],
@@ -409,6 +187,222 @@ class DashboardPage extends StatelessWidget {
         ),
         bottomSheet: BottomBar(
           controller: scrollController,
+        ),
+      ),
+    );
+  }
+}
+
+class SingleNotice extends StatelessWidget {
+  const SingleNotice({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.all(15),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(maxBorderRadius),
+          topRight: Radius.circular(maxBorderRadius),
+        ),
+      ),
+      child: Container(
+        margin: const EdgeInsets.only(
+          right: 5,
+          left: 5,
+          top: 5,
+        ),
+        padding: const EdgeInsets.all(5),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [downShadow, greyLeftShadow],
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(maxBorderRadius),
+            topRight: Radius.circular(maxBorderRadius),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(ImagesURL.friendsIcon),
+                        radius: 23,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 5.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Category',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  'User name',
+                                  style: TextStyle(fontSize: 12),
+                                ),
+                                SizedBox(
+                                  width: 3,
+                                ),
+                                Text('10.01.2023',
+                                    style: TextStyle(fontSize: 10)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Icon(Icons.more_vert),
+                        SizedBox(
+                          width: 3,
+                        ),
+                        Text(
+                          'CLIMBING',
+                          style: TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 5, bottom: 5),
+                width: MediaQuery.of(context).size.width,
+                height: 5,
+                decoration: BoxDecoration(gradient: blueGreen),
+              ),
+              const Text(loremIpsumMid),
+              noticeDivider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      BlocBuilder<LikeIconCubit, bool>(
+                        builder: (context, state) {
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<LikeIconCubit>().changeVisible();
+                              state
+                                  ? showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        Future.delayed(
+                                            const Duration(milliseconds: 750),
+                                            () {
+                                          Navigator.of(context).pop();
+                                        });
+                                        return Dialog(
+                                          elevation: 0,
+                                          backgroundColor: Colors.transparent,
+                                          child: Align(
+                                            alignment: Alignment.center,
+                                            child: PlayAnimationBuilder(
+                                              curve: Curves.bounceIn,
+                                              tween: Tween<double>(
+                                                  begin: 0, end: 90),
+                                              duration: const Duration(
+                                                  milliseconds: 650),
+                                              builder: (context, value, _) =>
+                                                  Icon(
+                                                Icons.mood,
+                                                size: value,
+                                                color: Colors.yellow,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : null;
+                            },
+                            child: Icon(
+                              Icons.mood,
+                              size: 20,
+                              color: state ? Colors.grey : Colors.amber,
+                            ),
+                          );
+                        },
+                      ),
+                      const CustomIcon(
+                        Icons.bookmark,
+                        color: Colors.grey,
+                      ),
+                      const CustomIcon(
+                        Icons.reply,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: const Text(
+                      'Comments 9',
+                      style: TextStyle(fontSize: 12, color: Colors.black),
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 5, bottom: 5),
+                width: MediaQuery.of(context).size.width,
+                height: 5,
+                decoration: BoxDecoration(gradient: blueGreen),
+              ),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    children: [
+                      CustomIcon(Icons.bookmark),
+                      Text(
+                        'Save notice',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      CustomIcon(Icons.comment),
+                      Text(
+                        'Add comment',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      CustomIcon(Icons.reply),
+                      Text(
+                        'Reply to author',
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
