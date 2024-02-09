@@ -4,6 +4,7 @@ import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
 import 'package:climbapp/core/theme/shadows.dart';
 import 'package:climbapp/presentation/app/widgets/container_template.dart';
+import 'package:climbapp/presentation/dashboard/widgets/auto_complete.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -65,12 +66,11 @@ class DashboardAppBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CTextFormField(
-                    enableBorders: false,
-                    textInputWidth: 250,
-                    hintText: 'Search for sport notice',
-                    icon: AppIcons.dashboardSearch,
-                    controller: TextEditingController()),
+                const AutoCompleteTextField(
+                  hintText: 'Search for sport notice',
+                  leftIcon: AppIcons.dashboardSearch,
+                  wordsLists: <String>[],
+                ),
                 IconButton(onPressed: () {}, icon: AppIcons.searchPink),
               ],
             ),

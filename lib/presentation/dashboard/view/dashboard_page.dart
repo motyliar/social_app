@@ -1,6 +1,5 @@
 import 'package:climbapp/core/constans/export_constans.dart';
-import 'package:climbapp/core/constans/router_constans.dart';
-import 'package:climbapp/core/constans/url_constans.dart';
+
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
@@ -16,11 +15,11 @@ import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_c
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/slidable_menu_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fetch_single_notice_cubit.dart';
-import 'package:climbapp/presentation/sign_in/view/widgets.dart';
+
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_animations/simple_animations.dart';
 import '../widgets/widgets.dart';
