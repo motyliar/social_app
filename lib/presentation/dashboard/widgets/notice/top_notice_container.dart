@@ -1,8 +1,10 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/icons/custom_icons.dart';
 import 'package:climbapp/core/theme/shadows.dart';
 import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
+import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
@@ -14,11 +16,12 @@ const List<BoxShadow> _boxShadows = [downShadow, greyLeftShadow];
 
 class TopNoticeContainer extends StatelessWidget {
   const TopNoticeContainer({
+    required this.notice,
     required this.topDescription,
     this.boxShadows = _boxShadows,
     super.key,
   });
-
+  final NoticeEntity notice;
   final List<BoxShadow> boxShadows;
   final Widget topDescription;
 
@@ -46,7 +49,10 @@ class TopNoticeContainer extends StatelessWidget {
           children: [
             topDescription,
             const GradientDivider(),
-            const Text(loremIpsumMid),
+            Text(
+              notice.content.content,
+              style: AppTextStyle.descriptionMid,
+            ),
             noticeDivider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

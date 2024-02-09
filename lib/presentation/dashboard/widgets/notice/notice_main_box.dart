@@ -29,21 +29,24 @@ class SingleNotice extends StatelessWidget {
           topRight: Radius.circular(borderRadius),
         ),
       ),
-      child: const TopNoticeContainer(
+      child: TopNoticeContainer(
+        notice: notice,
         topDescription: TopDescription(
-          notice: NoticeEntity(
-              id: '111',
-              author: 'Karol',
-              authorId: '11111',
-              category: 'Climbing',
-              content: ContentEntity(
-                  id: '11',
-                  title: 'what s up aaaaaaaaaaaaaaaaaaaaaaaaaa',
-                  content: loremIpsum),
-              createdAt: '.10.01.2002',
-              updatedAt: '10.10.10'),
+          notice: notice,
         ),
       ),
     );
   }
 }
+
+NoticeEntity notice = NoticeEntity(
+    id: '111',
+    author: 'Karol',
+    authorId: '11111',
+    category: 'Climbing',
+    content: ContentEntity(
+        id: '11',
+        title: 'what s up aaaaaaaaaaaaaaaaaaaaaaaaaa',
+        content: loremIpsum),
+    createdAt: '.10.01.2002',
+    updatedAt: '10.10.10');

@@ -43,6 +43,12 @@
     "@_SNACKBAR_MESSAGES": {},
     "snackWarningTitle": "Oops!",
 
+
+    "@_DASHBOARD_PAGE": {},
+    "noticeSave": "Save notice",
+    "noticeAddComment": "Add Comment",
+    "noticeReply": "Reply to author",
+
     
 
 

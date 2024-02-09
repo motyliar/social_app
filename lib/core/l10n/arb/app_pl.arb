@@ -40,6 +40,12 @@
     "firebaseEmptyValues": "Uzupełnij wszystkie pola",
     "somethingWrong": "Coś poszło nie tak",
 
+    
+    "@_DASHBOARD_PAGE": {},
+    "noticeSave": "Zapisz",
+    "noticeAddComment": "Dodaj komentarz",
+    "noticeReply": "Odpowiedz",
+
 
     "@_FLUTTERTOAST_MESSAGES": {},
     "successMsg": "Sukces!",
