@@ -10,7 +10,6 @@ class ResponseHandler extends IResponseHandler {
   @override
   EitherFunc<T> checkStatusCodeAndReturnData<T>(Response response,
       {String? dataGetter}) async {
-    print('STATUS CODE: ${response.statusCode}');
     if (response.statusCode == 200) {
       return Right(_convertResponseToData<T>(response, dataGetter: dataGetter));
     } else if (response.statusCode == 404) {

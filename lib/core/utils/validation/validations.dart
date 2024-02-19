@@ -43,7 +43,7 @@ class FormValidation {
     if (_thisSameValue(firstValue: value, secondValue: secondValue)) {
       return AppLocalizations.of(context).valEqualValues;
     }
-    if (_isEightDigit(value: value)) {
+    if (!_isEightDigit(value: value)) {
       return AppLocalizations.of(context).valTooShort;
     }
     if (!_isWeakPassword(value: value)) {
@@ -76,7 +76,7 @@ class FormValidation {
   }
 
   bool _isEightDigit({required String value}) {
-    return value.length <= 7;
+    return value.length > 7;
   }
 
   bool _isCorrectEmail({required String value}) {

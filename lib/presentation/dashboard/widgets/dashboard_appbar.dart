@@ -54,8 +54,9 @@ class DashBoardApp extends StatelessWidget {
       {super.key,
       required this.imageSrc,
       required this.userName,
+      this.isSearchBar = true,
       this.height = _height});
-
+  final bool isSearchBar;
   final String imageSrc;
   final String userName;
   final double height;
@@ -97,28 +98,39 @@ class DashBoardApp extends StatelessWidget {
             ],
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: ContainerTemplate(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: 50,
-            color: ColorPallete.mainDecorationColor.withOpacity(1),
-            gradient: blueGreen,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const AutoCompleteTextField(
-                  hintText: 'Search for sport notice',
-                  leftIcon: AppIcons.dashboardSearch,
-                  wordsLists: <String>[],
-                ),
-                IconButton(onPressed: () {}, icon: AppIcons.searchPink),
-              ],
-            ),
-          ),
-        )
+        isSearchBar ? SearchBar() : SizedBox(),
       ]),
+    );
+  }
+}
+
+class SearchBar extends StatelessWidget {
+  const SearchBar({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: ContainerTemplate(
+        width: MediaQuery.of(context).size.width * 0.8,
+        height: 50,
+        color: ColorPallete.mainDecorationColor.withOpacity(1),
+        gradient: blueGreen,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const AutoCompleteTextField(
+              hintText: 'Search for sport notice',
+              leftIcon: AppIcons.dashboardSearch,
+              wordsLists: <String>[],
+            ),
+            IconButton(onPressed: () {}, icon: AppIcons.searchPink),
+          ],
+        ),
+      ),
     );
   }
 }

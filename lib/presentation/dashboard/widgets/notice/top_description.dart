@@ -44,10 +44,13 @@ class TopDescription extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        notice.content.title.isTooLong,
-                        softWrap: true,
-                        style: AppTextStyle.headersMid,
+                      SizedBox(
+                        width: 140,
+                        child: Text(
+                          notice.content.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppTextStyle.headersMid,
+                        ),
                       ),
                     ],
                   ),

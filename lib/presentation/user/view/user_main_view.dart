@@ -1,4 +1,5 @@
 import 'package:climbapp/presentation/app.dart';
+import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,32 +18,39 @@ class UserMainView extends StatelessWidget {
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           if (state is UserLoaded) {
-            return Scaffold(
-              appBar: UserAppBar(
-                size: MediaQuery.of(context).size.width,
-                name: state.user.userName,
-                imageSrc: state.user.profileAvatar!,
-              ),
-              body: BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
-                builder: (context, state) {
-                  if (state is ViewSwitchInitial) {
-                    return UserPage();
-                  }
-                  if (state is ViewSwitchSport) {
-                    return UserSport();
-                  }
-                  if (state is ViewSwitchSettings) {
-                    return AccountSettings();
-                  }
-                  if (state is ViewSwitchInfo) {
-                    return UserInfoo();
-                  }
-                  if (state is ViewSwitchNotice) {
-                    return UserNotice();
-                  } else {
-                    return UserPage();
-                  }
-                },
+            return SafeArea(
+              child: Scaffold(
+                appBar: DashboardAppBar(
+                  controller: ScrollController(),
+                  mainChild: DashBoardApp(
+                    imageSrc: state.user.profileAvatar!,
+                    userName: state.user.userName,
+                    isSearchBar: false,
+                  ),
+                ),
+                body: SingleChildScrollView(
+                  child: BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
+                    builder: (context, state) {
+                      if (state is ViewSwitchInitial) {
+                        return UserPage();
+                      }
+                      if (state is ViewSwitchSport) {
+                        return UserSport();
+                      }
+                      if (state is ViewSwitchSettings) {
+                        return AccountSettings();
+                      }
+                      if (state is ViewSwitchInfo) {
+                        return UserInfoo();
+                      }
+                      if (state is ViewSwitchNotice) {
+                        return UserNotice();
+                      } else {
+                        return UserPage();
+                      }
+                    },
+                  ),
+                ),
               ),
             );
           } else {

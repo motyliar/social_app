@@ -1,7 +1,5 @@
-import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
-import 'package:climbapp/presentation/dashboard/widgets/notice/smile_animation.dart';
 import 'package:flutter/material.dart';
 
 class LikeActionButton extends StatelessWidget {
