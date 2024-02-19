@@ -17,7 +17,7 @@ class BottomLabel extends StatelessWidget {
     required this.appWidth,
     this.width = 200,
     this.height = 60,
-    this.borderRadius = minBorderRadius,
+    this.borderRadius = kMinBorderRadius,
     this.gradient = blueGreenGradient,
     this.onTap,
   });

@@ -13,6 +13,7 @@ import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 const double _height = 155;
+const double _imageHeight = 120;
 
 class DashboardAppBar extends StatelessWidget implements PreferredSize {
   const DashboardAppBar({
@@ -57,18 +58,22 @@ class DashBoardApp extends StatelessWidget {
       required this.imageSrc,
       required this.userName,
       this.isSearchBar = true,
-      this.height = _height});
+      this.height = _height,
+      this.marginLeft = 20,
+      this.marginRight = 20});
   final ScrollController controller;
   final bool isSearchBar;
   final String imageSrc;
   final String userName;
   final double height;
+  final double marginLeft;
+  final double marginRight;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.transparent,
-      height: 155,
+      height: height,
       child: Stack(children: [
         Container(
           decoration: const BoxDecoration(
@@ -82,14 +87,14 @@ class DashBoardApp extends StatelessWidget {
                 ),
               )),
           width: MediaQuery.of(context).size.width,
-          height: 120,
+          height: _imageHeight,
           child: Column(
             children: [
               const SizedBox(
                 height: 20,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding: EdgeInsets.only(left: marginLeft, right: marginRight),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

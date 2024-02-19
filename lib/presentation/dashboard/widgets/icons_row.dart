@@ -25,8 +25,10 @@ class IconsRow extends StatelessWidget {
             icon: AppIcons.messages),
         IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => UserMainView()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UserMainView()));
             },
             icon: AppIcons.profile),
         BlocBuilder<SignInBloc, SignInState>(

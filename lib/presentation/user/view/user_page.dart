@@ -1,5 +1,11 @@
+import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/theme/fonts.dart';
+import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/utils/helpers/extension.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
+import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/widgets/user_appbar.dart';
@@ -8,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../business/enum.dart';
 
 const double _spaceFromAppBar = 30;
-const double _generalPagePadding = 30;
+const double _generalPagePadding = 20;
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -24,155 +30,78 @@ class UserPage extends StatelessWidget {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
         if (state is UserLoaded) {
-          return Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: _generalPagePadding,
-              vertical: _generalPagePadding,
-            ),
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: _spaceFromAppBar,
+          return Center(
+            child: Column(
+              children: [
+                ContainerTemplate(
+                  margin: const EdgeInsets.only(
+                      left: _generalPagePadding, right: _generalPagePadding),
+                  padding: EdgeInsets.only(
+                    bottom: _generalPagePadding,
                   ),
-                  Text('My propeteries:'),
-                  SizedBox(
-                    height: _generalPagePadding,
+                  borderRadius: kMinBorderRadius,
+                  color: ColorPallete.whiteOpacity80,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      MidTextButton(
+                          buttonWidth: 300, textLabel: 'Edit Profile'),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 230,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<ViewSwitchCubit>()
-                                  .changeStatus(ViewStatus.settings);
-                            },
-                            child: Text('ACCOUNT SETTINGS')),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<ViewSwitchCubit>()
-                                  .changeStatus(ViewStatus.info);
-                            },
-                            child: Text('INFO')),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<ViewSwitchCubit>()
-                                  .changeStatus(ViewStatus.sport);
-                            },
-                            child: Text('MY SPORTS')),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<ViewSwitchCubit>()
-                                  .changeStatus(ViewStatus.notice);
-                            },
-                            child: Text('MY NOTICE')),
-                      ],
-                    ),
+                ),
+                GradientDivider(
+                  dividerHeight: 15,
+                ),
+                ContainerTemplate(
+                  margin: const EdgeInsets.only(
+                      left: _generalPagePadding, right: _generalPagePadding),
+                  padding: const EdgeInsets.all(_generalPagePadding),
+                  borderRadius: kMinBorderRadius,
+                  width: MediaQuery.of(context).size.width,
+                  color: ColorPallete.whiteOpacity80,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'General Information',
+                        style: AppTextStyle.headersSmall,
+                      ),
+                      Divider(),
+                      InformationRowWidget(
+                        icon: Icons.person,
+                        title: 'Name: ',
+                        details: state.user.userName,
+                      ),
+                      InformationRowWidget(
+                          icon: Icons.email,
+                          title: 'Email: ',
+                          details: state.user.userEmail),
+                      InformationRowWidget(
+                          icon: Icons.calendar_month,
+                          title: 'Age: ',
+                          details: state.user.details?.age == null
+                              ? ' not specified'
+                              : state.user.details!.age.toString()),
+                      InformationRowWidget(
+                          icon: Icons.location_city,
+                          title: 'From: ',
+                          details: 'Poznan'),
+                      InformationRowWidget(
+                          icon: Icons.military_tech,
+                          iconColor: ColorPallete.gold,
+                          title: 'Rank : ',
+                          details: '4.8')
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: _generalPagePadding),
-                    width:
-                        MediaQuery.of(context).size.width - _generalPagePadding,
-                    child: const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'User Recommendations',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: 5.0),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.black,
-                            ),
-                            Text('  4/5 (100)'),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text('User: Bogdan, 23.08.2023  (5)  '),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 15,
-                            ),
-                            Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                              size: 15,
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child: Text(
-                              'Naprawde świetny gość, bardzo polecam, grało mi się z nim świetnie'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3),
-                          child: Text(
-                            'check more',
-                            style: TextStyle(fontSize: 10),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(state.user.userName),
-                  Text(
-                    state.user.userEmail,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Text(
-                      'BACK',
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                GradientDivider(
+                  dividerHeight: 15,
+                ),
+                ContainerTemplate(
+                  width: MediaQuery.of(context).size.width,
+                  borderRadius: kMinBorderRadius,
+                )
+              ],
             ),
           );
         } else {
@@ -182,3 +111,72 @@ class UserPage extends StatelessWidget {
     );
   }
 }
+
+class InformationRowWidget extends StatelessWidget {
+  const InformationRowWidget({
+    required this.icon,
+    required this.title,
+    required this.details,
+    this.iconColor = ColorPallete.mainDecorationColor,
+    super.key,
+  });
+  final IconData icon;
+  final String title;
+  final String details;
+  final Color iconColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 5.0),
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: iconColor,
+          ),
+          Text(title),
+          Text(
+            details,
+            style: AppTextStyle.descriptionMid,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+// child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       children: [
+//                         ElevatedButton(
+//                             onPressed: () {
+//                               context
+//                                   .read<ViewSwitchCubit>()
+//                                   .changeStatus(ViewStatus.settings);
+//                             },
+//                             child: Text('ACCOUNT SETTINGS')),
+//                         ElevatedButton(
+//                             onPressed: () {
+//                               context
+//                                   .read<ViewSwitchCubit>()
+//                                   .changeStatus(ViewStatus.info);
+//                             },
+//                             child: Text('INFO')),
+//                         ElevatedButton(
+//                             onPressed: () {
+//                               context
+//                                   .read<ViewSwitchCubit>()
+//                                   .changeStatus(ViewStatus.sport);
+//                             },
+//                             child: Text('MY SPORTS')),
+//                         ElevatedButton(
+//                             onPressed: () {
+//                               context
+//                                   .read<ViewSwitchCubit>()
+//                                   .changeStatus(ViewStatus.notice);
+//                             },
+//                             child: Text('MY NOTICE')),

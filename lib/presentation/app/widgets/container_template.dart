@@ -6,23 +6,30 @@ import 'package:flutter/material.dart';
 class ContainerTemplate extends StatelessWidget {
   ContainerTemplate(
       {required this.width,
-      required this.height,
       this.borderRadius = maxBorderRadius,
       this.child,
       this.color = Colors.transparent,
+      this.height,
       this.gradient,
+      this.padding,
+      this.margin,
       super.key});
 
   final double width;
-  final double height;
+  final double? height;
   final Widget? child;
   final double borderRadius;
   final Color color;
   final Gradient? gradient;
   final List<BoxShadow> boxShadows = [downShadow, greyLeftShadow];
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
+
   @override
   Widget build(Object context) {
     return Container(
+      margin: margin,
+      padding: padding,
       width: width,
       height: height,
       decoration: BoxDecoration(

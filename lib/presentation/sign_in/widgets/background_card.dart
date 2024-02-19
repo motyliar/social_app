@@ -12,7 +12,7 @@ class BackgroundCard extends StatelessWidget {
     required this.appWidth,
     required this.child,
     required this.totalHeight,
-    this.borderRadius = minBorderRadius,
+    this.borderRadius = kMinBorderRadius,
   });
 
   final double appWidth;

@@ -1,6 +1,6 @@
 const double maxBorderRadius = 50;
 const double midBorderRadius = 30;
-const double minBorderRadius = 20;
+const double kMinBorderRadius = 20;
 
 const double heightOfTextField = 50;
 

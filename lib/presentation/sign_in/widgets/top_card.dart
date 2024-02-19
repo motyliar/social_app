@@ -8,7 +8,7 @@ const double _totalMargin = 60;
 class TopCard extends StatelessWidget {
   TopCard({
     required this.appWidth,
-    this.borderRadius = minBorderRadius,
+    this.borderRadius = kMinBorderRadius,
     super.key,
   });
   final Gradient gradient = whiteGreyLinearGradient;

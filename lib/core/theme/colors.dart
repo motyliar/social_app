@@ -9,4 +9,5 @@ class ColorPallete {
   final greyShadowColorOpacityMid = Colors.grey[500]!.withOpacity(0.5);
   static const whiteOpacity80 = Color.fromRGBO(255, 255, 255, 0.8);
   static const whiteOpacity60 = Color.fromRGBO(255, 255, 255, 0.6);
+  static const gold = Color.fromARGB(255, 136, 123, 2);
 }
