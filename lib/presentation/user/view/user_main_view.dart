@@ -1,3 +1,4 @@
+import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
@@ -13,6 +14,7 @@ class UserMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
     return BlocProvider(
       create: (context) => ViewSwitchCubit(),
       child: BlocBuilder<UserBloc, UserState>(
@@ -20,9 +22,11 @@ class UserMainView extends StatelessWidget {
           if (state is UserLoaded) {
             return SafeArea(
               child: Scaffold(
+                backgroundColor: ColorPallete.scaffoldBackground,
                 appBar: DashboardAppBar(
-                  controller: ScrollController(),
+                  controller: scrollController,
                   mainChild: DashBoardApp(
+                    controller: scrollController,
                     imageSrc: state.user.profileAvatar!,
                     userName: state.user.userName,
                     isSearchBar: false,

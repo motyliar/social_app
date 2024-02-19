@@ -5,18 +5,24 @@ import 'package:climbapp/presentation/app/widgets/container_template.dart';
 import 'package:climbapp/presentation/dashboard/widgets/auto_complete.dart';
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({
+const double _height = 50;
+
+class CSearchBar extends StatelessWidget {
+  const CSearchBar({
+    required this.width,
+    this.height = _height,
     super.key,
   });
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: ContainerTemplate(
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: 50,
+        width: width,
+        height: height,
         color: ColorPallete.mainDecorationColor.withOpacity(1),
         gradient: blueGreen,
         child: Row(

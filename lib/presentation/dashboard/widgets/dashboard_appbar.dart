@@ -7,6 +7,7 @@ import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/container_template.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
 import 'package:climbapp/presentation/dashboard/widgets/auto_complete.dart';
+import 'package:climbapp/presentation/dashboard/widgets/search_bar.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 
 import 'package:flutter/material.dart';
@@ -52,10 +53,12 @@ class DashboardAppBar extends StatelessWidget implements PreferredSize {
 class DashBoardApp extends StatelessWidget {
   const DashBoardApp(
       {super.key,
+      required this.controller,
       required this.imageSrc,
       required this.userName,
       this.isSearchBar = true,
       this.height = _height});
+  final ScrollController controller;
   final bool isSearchBar;
   final String imageSrc;
   final String userName;
@@ -91,46 +94,21 @@ class DashBoardApp extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ProfileImage(imageSrc: imageSrc, userName: userName),
-                    const IconsRow(),
+                    IconsRow(
+                      controller: controller,
+                    ),
                   ],
                 ),
               ),
             ],
           ),
         ),
-        isSearchBar ? SearchBar() : SizedBox(),
+        isSearchBar
+            ? CSearchBar(
+                width: MediaQuery.of(context).size.width * 0.8,
+              )
+            : const SizedBox(),
       ]),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  const SearchBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ContainerTemplate(
-        width: MediaQuery.of(context).size.width * 0.8,
-        height: 50,
-        color: ColorPallete.mainDecorationColor.withOpacity(1),
-        gradient: blueGreen,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const AutoCompleteTextField(
-              hintText: 'Search for sport notice',
-              leftIcon: AppIcons.dashboardSearch,
-              wordsLists: <String>[],
-            ),
-            IconButton(onPressed: () {}, icon: AppIcons.searchPink),
-          ],
-        ),
-      ),
     );
   }
 }

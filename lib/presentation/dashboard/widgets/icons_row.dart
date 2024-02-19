@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 
 class IconsRow extends StatelessWidget {
   const IconsRow({
+    required this.controller,
     super.key,
   });
+  final ScrollController controller;
 
   @override
   Widget build(BuildContext context) {

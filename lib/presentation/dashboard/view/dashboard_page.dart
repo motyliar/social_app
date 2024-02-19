@@ -13,8 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
 
-ScrollController scrollController = ScrollController();
-
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
   static Route<dynamic> route() {
@@ -26,6 +24,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScrollController scrollController = ScrollController();
     ScrollController listViewController = ScrollController();
     return MultiBlocProvider(
       providers: [
@@ -70,6 +69,7 @@ class DashboardPage extends StatelessWidget {
                           mode: state.user.preferences?.mode ?? false,
                         );
                     return DashBoardApp(
+                        controller: scrollController,
                         imageSrc: state.user.profileAvatar!,
                         userName: state.user.userName);
                   }
