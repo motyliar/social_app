@@ -42,6 +42,8 @@ class CTextFormField extends StatelessWidget {
       color: Colors.transparent,
       width: textInputWidth,
       child: TextFormField(
+        maxLines: 10,
+        minLines: 1,
         focusNode: focusNode,
         onFieldSubmitted: isNextFocus
             ? (value) {
