@@ -1,13 +1,19 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
+import 'package:climbapp/core/theme/icons/icons.dart';
+import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
+import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
+import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 
 import 'package:flutter/material.dart';
@@ -28,15 +34,28 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user);
-    return BlocProvider(
-      create: (context) => userLocator<FriendsActionBloc>()
-        ..add(FetchFriendsListEvent(params: GetFriendsParams(userId: user.id))),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => userLocator<FriendsActionBloc>()
+            ..add(FetchFriendsListEvent(
+                params: GetFriendsParams(userId: user.id))),
+        ),
+        BlocProvider(
+          create: (context) => userLocator<FetchUserNoticeCubit>()
+            ..fetchReturnByState(
+                GetNoticeParams(url: AppUrl.fetchUserNoticeURL(user.id))),
+        ),
+      ],
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           if (state is UserLoaded) {
             return Center(
               child: Column(
                 children: [
+                  SizedBox(
+                    height: tenPixelsSpaceBetweenWidgets,
+                  ),
                   ContainerTemplate(
                     margin: const EdgeInsets.only(
                         left: _generalPagePadding, right: _generalPagePadding),
@@ -195,6 +214,106 @@ class UserPage extends StatelessWidget {
                   ),
                   const GradientDivider(
                     dividerHeight: 15,
+                  ),
+                  ContainerTemplate(
+                    borderRadius: kMinBorderRadius,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                      right: _generalPagePadding,
+                      left: _generalPagePadding,
+                    ),
+                    color: ColorPallete.whiteOpacity80,
+                    padding: const EdgeInsets.all(_generalPagePadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Active Notices",
+                              style: AppTextStyle.headersSmall,
+                            ),
+                            Text(
+                              'Total notices: ${context.select((FetchUserNoticeCubit cubit) => cubit.state.userNotices.length)}',
+                              style: AppTextStyle.descriptionSmall,
+                            )
+                          ],
+                        ),
+                        Divider(),
+                        BlocBuilder<FetchUserNoticeCubit, FetchUserNoticeState>(
+                          builder: (context, state) {
+                            return SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              height: state.userNotices.length * 38,
+                              child: ListView.builder(
+                                  itemCount: state.userNotices.length,
+                                  itemBuilder: (context, index) {
+                                    return Column(
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              state.userNotices[index].content
+                                                  .title
+                                                  .capitalize(),
+                                              style: AppTextStyle
+                                                  .descriptionBigger
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            const Row(
+                                              children: [
+                                                AppIcons.edit,
+                                                AppIcons.forward,
+                                                AppIcons.delete,
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              'category: ${state.userNotices[index].category}',
+                                              style:
+                                                  AppTextStyle.descriptionSmall,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'comments: ${state.userNotices[index].comments?.length ?? 0}',
+                                                  style: AppTextStyle
+                                                      .descriptionSmall,
+                                                ),
+                                                SizedBox(
+                                                  width:
+                                                      fivePixelsSpaceBetweenWidgets,
+                                                ),
+                                                Text('view: 100',
+                                                    style: AppTextStyle
+                                                        .descriptionSmall),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                  GradientDivider(
+                    dividerHeight: 15,
+                    bottomMargin: _generalPagePadding,
                   ),
                 ],
               ),

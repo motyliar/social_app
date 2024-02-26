@@ -35,4 +35,19 @@ class AppIcons {
     color: ColorPallete.pinkDecorationColor,
     size: 24,
   );
+
+  static const home = CustomIcon(Icons.home);
+  static const delete = CustomIcon(
+    Icons.delete,
+    color: Colors.red,
+    size: 16,
+  );
+  static const forward = CustomIcon(
+    Icons.forward,
+    size: 16,
+  );
+  static const edit = CustomIcon(
+    Icons.edit,
+    size: 16,
+  );
 }

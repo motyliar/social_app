@@ -20,6 +20,7 @@ class CTextFormField extends StatelessWidget {
     this.isNextFocus = true,
     this.isToolTip = false,
     this.enableBorders = true,
+    this.isMultineLine = false,
     super.key,
   });
   final String hintText;
@@ -35,6 +36,7 @@ class CTextFormField extends StatelessWidget {
   final bool enableBorders;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
+  final bool isMultineLine;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class CTextFormField extends StatelessWidget {
       color: Colors.transparent,
       width: textInputWidth,
       child: TextFormField(
-        maxLines: 10,
+        maxLines: isMultineLine ? 1 : 10,
         minLines: 1,
         focusNode: focusNode,
         onFieldSubmitted: isNextFocus

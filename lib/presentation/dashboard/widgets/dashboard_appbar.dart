@@ -17,12 +17,14 @@ class DashboardAppBar extends StatelessWidget implements PreferredSize {
     required this.mainChild,
     required this.controller,
     this.durationInMilisecond = 1200,
+    this.height = _height,
     super.key,
   });
 
   final Widget mainChild;
   final ScrollController controller;
   final int durationInMilisecond;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSize {
               visible: isVisible,
               child: AnimatedContainer(
                 duration: Duration(milliseconds: durationInMilisecond),
-                height: isVisible ? _height : 0,
+                height: isVisible ? height : 0,
                 child: mainChild,
               ),
             );
@@ -45,7 +47,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSize {
   @override
   Widget get child => mainChild;
   @override
-  Size get preferredSize => const Size.fromHeight(_height);
+  Size get preferredSize => Size.fromHeight(height);
 }
 
 class DashBoardApp extends StatelessWidget {
@@ -57,7 +59,8 @@ class DashBoardApp extends StatelessWidget {
       this.isSearchBar = true,
       this.height = _height,
       this.marginLeft = 20,
-      this.marginRight = 20});
+      this.marginRight = 20,
+      this.isProfile = false});
   final ScrollController controller;
   final bool isSearchBar;
   final String imageSrc;
@@ -65,6 +68,7 @@ class DashBoardApp extends StatelessWidget {
   final double height;
   final double marginLeft;
   final double marginRight;
+  final bool isProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +101,7 @@ class DashBoardApp extends StatelessWidget {
                   children: [
                     ProfileImage(imageSrc: imageSrc, userName: userName),
                     IconsRow(
+                      isProfile: isProfile,
                       controller: controller,
                     ),
                   ],

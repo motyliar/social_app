@@ -9,9 +9,11 @@ import 'package:flutter/material.dart';
 class IconsRow extends StatelessWidget {
   const IconsRow({
     required this.controller,
+    this.isProfile = false,
     super.key,
   });
   final ScrollController controller;
+  final bool isProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +28,14 @@ class IconsRow extends StatelessWidget {
             icon: AppIcons.messages),
         AppBarIcons(
             onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const UserMainView()));
+              isProfile
+                  ? Navigator.pushNamed(context, routeDashboardPage)
+                  : Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const UserMainView()));
             },
-            icon: AppIcons.profile),
+            icon: isProfile ? AppIcons.home : AppIcons.profile),
         BlocBuilder<SignInBloc, SignInState>(
           builder: (context, state) {
             return AppBarIcons(

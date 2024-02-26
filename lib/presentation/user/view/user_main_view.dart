@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../widgets/widgets.dart';
 import '../view/subview/subview.dart';
 
+const double _appBarHeight = 100;
+
 class UserMainView extends StatelessWidget {
   const UserMainView({super.key});
 
@@ -24,12 +26,14 @@ class UserMainView extends StatelessWidget {
               child: Scaffold(
                 backgroundColor: ColorPallete.scaffoldBackground,
                 appBar: DashboardAppBar(
+                  height: _appBarHeight,
                   controller: scrollController,
                   mainChild: DashBoardApp(
                     controller: scrollController,
                     imageSrc: state.user.profileAvatar!,
                     userName: state.user.userName,
                     isSearchBar: false,
+                    isProfile: true,
                   ),
                 ),
                 body: SingleChildScrollView(
