@@ -16,15 +16,16 @@ class IconsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        IconButton(
-            onPressed: () => Navigator.pushNamed(context, routeFriendsPage),
+        AppBarIcons(
+            onTap: () => Navigator.pushNamed(context, routeFriendsPage),
             icon: AppIcons.friends),
-        IconButton(
-            onPressed: () => Navigator.pushNamed(context, routeMessagePage),
+        AppBarIcons(
+            onTap: () => Navigator.pushNamed(context, routeMessagePage),
             icon: AppIcons.messages),
-        IconButton(
-            onPressed: () {
+        AppBarIcons(
+            onTap: () {
               Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -33,8 +34,8 @@ class IconsRow extends StatelessWidget {
             icon: AppIcons.profile),
         BlocBuilder<SignInBloc, SignInState>(
           builder: (context, state) {
-            return IconButton(
-                onPressed: () async {
+            return AppBarIcons(
+                onTap: () async {
                   context.read<SignInBloc>().add(LogOut());
                   await Utils().navigatorClear(
                     context: context,
@@ -49,6 +50,27 @@ class IconsRow extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+}
+
+class AppBarIcons extends StatelessWidget {
+  const AppBarIcons({
+    required this.onTap,
+    required this.icon,
+    this.padding = const EdgeInsets.only(right: 8.0),
+    super.key,
+  });
+
+  final VoidCallback onTap;
+  final Icon icon;
+  final EdgeInsetsGeometry padding;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: GestureDetector(onTap: () => onTap(), child: icon),
     );
   }
 }

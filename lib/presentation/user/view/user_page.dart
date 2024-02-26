@@ -150,7 +150,7 @@ class UserPage extends StatelessWidget {
                                                 : Column(children: [
                                                     Stack(children: [
                                                       CircleAvatar(
-                                                        radius: 40,
+                                                        radius: 35,
                                                         backgroundImage:
                                                             NetworkImage(state
                                                                 .friends[index]
@@ -183,8 +183,8 @@ class UserPage extends StatelessWidget {
                               );
                             },
                           ),
-                          Divider(),
-                          Align(
+                          const Divider(),
+                          const Align(
                             alignment: Alignment.centerRight,
                             child: Text(
                               'check more...',
@@ -192,7 +192,10 @@ class UserPage extends StatelessWidget {
                             ),
                           ),
                         ]),
-                  )
+                  ),
+                  const GradientDivider(
+                    dividerHeight: 15,
+                  ),
                 ],
               ),
             );

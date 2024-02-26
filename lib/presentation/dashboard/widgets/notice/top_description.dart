@@ -54,41 +54,47 @@ class TopDescription extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        notice.author,
-                        style: AppTextStyle.descriptionMid,
-                      ),
-                      const SizedBox(
-                        width: fivePixelsSpaceBetweenWidgets,
-                      ),
-                      Text(notice.createdAt,
-                          style: AppTextStyle.descriptionSmall),
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              notice.author,
+                              style: AppTextStyle.descriptionMid,
+                            ),
+                            const SizedBox(
+                              width: fivePixelsSpaceBetweenWidgets,
+                            ),
+                            Text(notice.createdAt,
+                                style: AppTextStyle.descriptionSmall),
+                            const SizedBox(
+                              width: fivePixelsSpaceBetweenWidgets,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          width: tenPixelsSpaceBetweenWidgets,
+                        ),
+                        Text(
+                          notice.category.toUpperCase(),
+                          style: AppTextStyle.descriptionBigger,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
         Padding(
           padding: const EdgeInsets.only(right: tenPixelsSpaceBetweenWidgets),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                icon,
-                color: iconColor,
-              ),
-              const SizedBox(
-                width: fivePixelsSpaceBetweenWidgets,
-              ),
-              Text(
-                notice.category.toUpperCase(),
-                style: AppTextStyle.descriptionBigger,
-              ),
-            ],
+          child: Icon(
+            icon,
+            color: iconColor,
           ),
         ),
       ],

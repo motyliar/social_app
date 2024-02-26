@@ -72,6 +72,7 @@ class MiddleLoginCard extends StatelessWidget {
                   builder: (context, state) {
                     return RoundButton(
                       onTap: () {
+                        print('click');
                         if (_loginKey.currentState!.validate()) {
                           context.read<SignInBloc>().add(
                                 SignInProcess(
