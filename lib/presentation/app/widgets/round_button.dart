@@ -1,6 +1,7 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/shadows.dart';
+import 'package:climbapp/presentation/app.dart';
 import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {
@@ -52,4 +53,18 @@ class RoundButton extends StatelessWidget {
       ),
     );
   }
+}
+
+const double _iconSize = 20;
+const double _buttonWidth = 50;
+
+class RoundBackButton extends RoundButton {
+  const RoundBackButton({
+    super.onTap,
+    super.key,
+  }) : super(
+          icon: Icons.arrow_back,
+          iconSize: _iconSize,
+          width: _buttonWidth,
+        );
 }

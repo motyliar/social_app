@@ -137,10 +137,14 @@ class UserPage extends StatelessWidget {
                     borderRadius: kMinBorderRadius,
                     color: ColorPallete.whiteOpacity80,
                     width: MediaQuery.of(context).size.width,
-                    child: const Column(
+                    child: Column(
                       children: [
                         MidTextButton(
-                            buttonWidth: 300, textLabel: 'Edit Preferences'),
+                            onTap: () =>
+                                BlocProvider.of<ViewSwitchCubit>(context)
+                                    .changeStatus(ViewStatus.sport),
+                            buttonWidth: 300,
+                            textLabel: 'Favourite sports'),
                       ],
                     ),
                   ),
