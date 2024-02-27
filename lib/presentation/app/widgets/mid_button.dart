@@ -15,6 +15,7 @@ class MidTextButton extends StatelessWidget {
     this.borderRadius = midBorderRadius,
     this.backgroundGradient = blueGreenGradient,
     this.textStyle,
+    this.onTap,
     super.key,
   });
   final double buttonWidth;
@@ -23,33 +24,39 @@ class MidTextButton extends StatelessWidget {
   final String textLabel;
   final Gradient backgroundGradient;
   final TextStyle? textStyle;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: kAppStandardMarginard),
-      width: buttonWidth,
-      height: buttonHeight,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(borderRadius),
-          color: Colors.white.withOpacity(0.1),
-          boxShadow: [
-            downShadow,
-          ]),
+    return GestureDetector(
+      onTap: () {
+        onTap == null ? null : onTap!();
+      },
       child: Container(
-        padding: const EdgeInsets.symmetric(
-            horizontal: _buttonTextPaddingHorizontal,
-            vertical: _buttonTextPaddingVertical),
-        // width: buttonWidth,
+        margin: const EdgeInsets.only(top: kAppStandardMarginard),
+        width: buttonWidth,
         height: buttonHeight,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
-            boxShadow: const [greyLeftShadow],
-            gradient: backgroundGradient),
-        child: Align(
-            alignment: Alignment.center,
-            child: Text(textLabel,
-                style: textStyle ?? AppTextStyle.buttonLabelStyle)),
+            color: Colors.white.withOpacity(0.1),
+            boxShadow: [
+              downShadow,
+            ]),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: _buttonTextPaddingHorizontal,
+              vertical: _buttonTextPaddingVertical),
+          // width: buttonWidth,
+          height: buttonHeight,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(borderRadius),
+              boxShadow: const [greyLeftShadow],
+              gradient: backgroundGradient),
+          child: Align(
+              alignment: Alignment.center,
+              child: Text(textLabel,
+                  style: textStyle ?? AppTextStyle.buttonLabelStyle)),
+        ),
       ),
     );
   }

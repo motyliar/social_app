@@ -13,3 +13,4 @@ const double kMarginToStartMiddleForm = 250;
 const double kAppStandardMarginard = 20;
 const double kTextFieldsStartMarginFromTop = 100;
 const double kMarginMultiplier = 0.6;
+const double kGeneralPagesMargin = 20.0;

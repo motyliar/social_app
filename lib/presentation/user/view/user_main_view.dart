@@ -49,7 +49,7 @@ class UserMainView extends StatelessWidget {
                         return AccountSettings();
                       }
                       if (state is ViewSwitchInfo) {
-                        return UserInfoo();
+                        return UserDetails();
                       }
                       if (state is ViewSwitchNotice) {
                         return UserNotice();

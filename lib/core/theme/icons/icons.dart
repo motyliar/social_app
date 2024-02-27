@@ -50,4 +50,6 @@ class AppIcons {
     Icons.edit,
     size: 16,
   );
+  static const gallery = CustomIcon(Icons.collections_bookmark, size: 50);
+  static const camera = CustomIcon(Icons.photo_camera, size: 50);
 }

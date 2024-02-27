@@ -1,25 +1,24 @@
-import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
-import 'package:climbapp/core/constans/router_constans.dart';
+
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
 
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
+
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
+import 'package:climbapp/presentation/user/business/enum.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-const double _spaceFromAppBar = 30;
 const double _generalPagePadding = 20;
 
 class UserPage extends StatelessWidget {
@@ -53,24 +52,33 @@ class UserPage extends StatelessWidget {
             return Center(
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: tenPixelsSpaceBetweenWidgets,
                   ),
-                  ContainerTemplate(
-                    margin: const EdgeInsets.only(
-                        left: _generalPagePadding, right: _generalPagePadding),
-                    padding: const EdgeInsets.only(
-                      bottom: _generalPagePadding,
-                    ),
-                    borderRadius: kMinBorderRadius,
-                    color: ColorPallete.whiteOpacity80,
-                    width: MediaQuery.of(context).size.width,
-                    child: const Column(
-                      children: [
-                        MidTextButton(
-                            buttonWidth: 300, textLabel: 'Edit Profile'),
-                      ],
-                    ),
+                  BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
+                    builder: (context, state) {
+                      return ContainerTemplate(
+                        margin: const EdgeInsets.only(
+                            left: _generalPagePadding,
+                            right: _generalPagePadding),
+                        padding: const EdgeInsets.only(
+                          bottom: _generalPagePadding,
+                        ),
+                        borderRadius: kMinBorderRadius,
+                        color: ColorPallete.whiteOpacity80,
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          children: [
+                            MidTextButton(
+                                onTap: () => context
+                                    .read<ViewSwitchCubit>()
+                                    .changeStatus(ViewStatus.info),
+                                buttonWidth: 300,
+                                textLabel: 'Edit Profile'),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                   const GradientDivider(
                     dividerHeight: 15,
@@ -114,6 +122,25 @@ class UserPage extends StatelessWidget {
                             iconColor: ColorPallete.gold,
                             title: 'Rank : ',
                             details: '4.8')
+                      ],
+                    ),
+                  ),
+                  const GradientDivider(
+                    dividerHeight: 15,
+                  ),
+                  ContainerTemplate(
+                    margin: const EdgeInsets.only(
+                        left: _generalPagePadding, right: _generalPagePadding),
+                    padding: const EdgeInsets.only(
+                      bottom: _generalPagePadding,
+                    ),
+                    borderRadius: kMinBorderRadius,
+                    color: ColorPallete.whiteOpacity80,
+                    width: MediaQuery.of(context).size.width,
+                    child: const Column(
+                      children: [
+                        MidTextButton(
+                            buttonWidth: 300, textLabel: 'Edit Preferences'),
                       ],
                     ),
                   ),
