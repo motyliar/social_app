@@ -18,6 +18,6 @@ const List<String> kHorizontalMenuDescriptions = [
 
 //profile avatar sizing
 const double kBigAvatar = 50;
-const double kMediumAvatar = 35;
+const double kMediumAvatar = 28;
 const double kDotActiveBig = 8;
-const double kDotActiveMedium = 4;
+const double kDotActiveMedium = 3;

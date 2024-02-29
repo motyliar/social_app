@@ -1,3 +1,4 @@
+import 'package:climbapp/core/datahelpers/params/auth/logout.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/network/network_connected.dart';
 import 'package:climbapp/core/utils/utils.dart';
@@ -5,6 +6,7 @@ import 'package:climbapp/data/sign_in/datasources/sign_in_remote_data.dart';
 import 'package:climbapp/data/sign_in/models/sign_in_model.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
 import 'package:climbapp/domains/sign_in/repository/sign_in_repository.dart';
+import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
@@ -35,8 +37,13 @@ class SignInRepositoryImpl extends SignInRepository {
   }
 
   @override
-  Future<void> logOut() {
-    return FirebaseAuth.instance.signOut();
+  Future<void> logOut(LogOutParams params) async {
+    try {
+      await _signInRemoteDataSources.logOut(params);
+      await FirebaseAuth.instance.signOut();
+    } catch (e) {
+      throw ServerException.error();
+    }
   }
 
   @override

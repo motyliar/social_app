@@ -1,8 +1,11 @@
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/datahelpers/params/auth/logout.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/view/user_main_view.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +20,8 @@ class IconsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userEmail =
+        context.select((UserBloc bloc) => bloc.state.user.userEmail);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -40,7 +45,9 @@ class IconsRow extends StatelessWidget {
           builder: (context, state) {
             return AppBarIcons(
                 onTap: () async {
-                  context.read<SignInBloc>().add(LogOut());
+                  context.read<SignInBloc>().add(LogOutEvent(
+                      params: LogOutParams(
+                          url: AppUrl.logoutURL(), email: userEmail)));
                   await Utils().navigatorClear(
                     context: context,
                     routeName: routeSignInPage,

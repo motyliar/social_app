@@ -1,10 +1,7 @@
 import 'package:climbapp/core/services/get_it/user_container.dart';
-
 import 'package:climbapp/core/theme/themes_export.dart';
-
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
-
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
@@ -79,7 +76,7 @@ class FriendsPage extends StatelessWidget {
                   ),
                 ],
               ),
-              GradientDivider(
+              const GradientDivider(
                 dividerHeight: kMidDividerHeight,
               ),
               BlocBuilder<FriendsActionBloc, FriendsActionState>(
@@ -173,36 +170,68 @@ class FriendsPage extends StatelessWidget {
                 if (blocstate is FriendsLoaded) {
                   return SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      height: _heightCalculate(
-                          itemsCount: blocstate.friends.length),
+                      height: Utils.sizeCalculator(
+                          totalDimension: 130,
+                          multipler: blocstate.friends.length.toDouble()),
                       child: ListView.builder(
                         itemCount: blocstate.friends.length,
                         itemBuilder: ((context, index) {
                           return Column(
                             children: [
                               GestureDetector(
-                                onTap: () => Navigator.popAndPushNamed(
-                                  context,
-                                  routeProfilePage,
-                                ),
-                                child: UserViewCard(children: [
-                                  Row(
+                                onTap: () => Navigator.pushNamed(
+                                    context, routeProfilePage,
+                                    arguments: blocstate.friends[index]),
+                                child: UserViewCard(
+                                    margin: const EdgeInsets.only(
+                                        top: kMidEmptySpace,
+                                        left: kGeneralPagesMargin,
+                                        right: kGeneralPagesMargin),
+                                    padding: const EdgeInsets.only(
+                                        left: kGeneralPagesMargin,
+                                        right: 40,
+                                        top: kMinEmptySpace,
+                                        bottom: kMinEmptySpace),
                                     children: [
-                                      StatusUserAvatar(
-                                          radius: kMediumAvatar,
-                                          activeDotRadius: kDotActiveMedium,
-                                          dotRightPosition: 3,
-                                          isActive: user.active.isActive,
-                                          avatar: user.profileAvatar!),
-                                      Text(
-                                        user.userName,
-                                        style: AppTextStyle.descriptionMid,
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              StatusUserAvatar(
+                                                  radius: kMediumAvatar,
+                                                  activeDotRadius:
+                                                      kDotActiveMedium,
+                                                  dotRightPosition: 0,
+                                                  isActive: blocstate
+                                                      .friends[index].isActive,
+                                                  avatar: blocstate
+                                                      .friends[index]
+                                                      .profileAvatar),
+                                              const SizedBox(
+                                                width: kMidEmptySpace,
+                                              ),
+                                              Text(
+                                                blocstate
+                                                    .friends[index].userName
+                                                    .capitalize(),
+                                                style: AppTextStyle.headersMid,
+                                              ),
+                                            ],
+                                          ),
+                                          Column(
+                                            children: [
+                                              AppIcons.messages
+                                                  .copyWith(size: 25),
+                                              AppIcons.delete
+                                                  .copyWith(size: 25),
+                                            ],
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ]),
+                                    ]),
                               ),
-                              Divider(),
                             ],
                           );
                         }),

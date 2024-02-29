@@ -7,10 +7,14 @@ class UserViewCard extends StatelessWidget {
   const UserViewCard({
     required this.children,
     this.crossAxisAlignment = CrossAxisAlignment.start,
+    this.margin,
+    this.padding,
     super.key,
   });
   final List<Widget> children;
   final CrossAxisAlignment crossAxisAlignment;
+  final EdgeInsetsGeometry? margin;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -18,11 +22,12 @@ class UserViewCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       color: ColorPallete.whiteOpacity80,
       borderRadius: kMinBorderRadius,
-      margin: const EdgeInsets.only(
-        left: kGeneralPagesMargin,
-        right: kGeneralPagesMargin,
-      ),
-      padding: const EdgeInsets.all(kGeneralPagesMargin),
+      margin: margin ??
+          const EdgeInsets.only(
+            left: kGeneralPagesMargin,
+            right: kGeneralPagesMargin,
+          ),
+      padding: padding ?? const EdgeInsets.all(kGeneralPagesMargin),
       child: Column(
         crossAxisAlignment: crossAxisAlignment,
         children: children,

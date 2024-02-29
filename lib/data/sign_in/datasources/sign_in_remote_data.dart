@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/datahelpers/params/auth/logout.dart';
+import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/data/sign_in/models/sign_in_model.dart';
 import 'package:dartz/dartz.dart';
@@ -10,6 +12,7 @@ import 'package:http/http.dart' as http;
 abstract class SignInRemoteDataSources {
   Future<String> loginAction(SignInModel user);
   Future<Either<Exception, SignInModel>> catchUserToken(SignInModel user);
+  Future<void> logOut(LogOutParams params);
 }
 
 class SignInRemoteDataSourcesImpl extends SignInRemoteDataSources {
@@ -17,7 +20,7 @@ class SignInRemoteDataSourcesImpl extends SignInRemoteDataSources {
   final http.Client client;
   @override
   Future<String> loginAction(SignInModel user) async {
-    print('funkcja logowania');
+    debugPrint('funkcja logowania');
     final credential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: user.email, password: user.password);
     final userID = credential.user!.uid;
@@ -37,9 +40,9 @@ class SignInRemoteDataSourcesImpl extends SignInRemoteDataSources {
         AppUrl.loginMap(userEmail: user.email, userID: user.password),
       ),
     );
-    print('RESPOSNSE STATUS: ${response.statusCode}');
+    debugPrint('RESPOSNSE STATUS: ${response.statusCode}');
     if (response.statusCode == 200) {
-      print('RESPOSNSE BODY: ${response.body}');
+      debugPrint('RESPOSNSE BODY: ${response.body}');
       final userModel = SignInModel.fromJson(
         jsonDecode(response.body) as Map<String, dynamic>,
       );
@@ -52,6 +55,16 @@ class SignInRemoteDataSourcesImpl extends SignInRemoteDataSources {
       return Left(ServerException.errorMessage(responseBody: response.body));
     } else {
       throw Exception(response.body);
+    }
+  }
+
+  @override
+  Future<void> logOut(LogOutParams params) async {
+    try {
+      await HttpPostDataHandler(params: params).getResponseFromServer();
+    } catch (e) {
+      debugPrint(e.toString());
+      throw ServerException.error();
     }
   }
 }
