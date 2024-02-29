@@ -26,16 +26,7 @@ class SummaryRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            Stack(
-              children: [
-                const MidTextButton(
-                    margin: EdgeInsets.all(0),
-                    buttonHeight: 30,
-                    buttonWidth: 70,
-                    textLabel: ''),
-                Image.network(ImagesURL.appLogoSmallM)
-              ],
-            ),
+            AppLogoButton(),
             SizedBox(
               width: kMidEmptySpace,
             ),

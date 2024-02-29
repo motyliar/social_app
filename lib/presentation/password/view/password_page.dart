@@ -64,7 +64,7 @@ class PasswordPage extends StatelessWidget {
                 Positioned(
                   top: kMarginToStartMiddleForm,
                   child: SizedBox(
-                    height: mobileHeight * 0.40,
+                    height: mobileHeight * 0.50,
                     child: PasswordMiddleCard(
                         mobileWidth: mobileWidth, mobileHeight: mobileHeight),
                   ),

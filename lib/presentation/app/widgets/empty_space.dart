@@ -11,3 +11,7 @@ class EmptySpace extends StatelessWidget {
     );
   }
 }
+
+class EmptySpaceWidth extends SizedBox {
+  const EmptySpaceWidth({super.width = kMinEmptySpace, super.key});
+}

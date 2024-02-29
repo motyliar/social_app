@@ -2,10 +2,12 @@ import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/friends/widgets/widgets.dart';
+import 'package:climbapp/presentation/profile/view/profile_page.dart';
 
 import 'package:climbapp/presentation/profile/widgets/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
@@ -14,6 +16,8 @@ import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// TODO jeśli search jest puste , nic nie robic
+// TODO wyrzucić informację not found
 TextEditingController _searchController = TextEditingController();
 
 class FriendsPage extends StatelessWidget {
@@ -120,38 +124,28 @@ class FriendsPage extends StatelessWidget {
                     height:
                         _heightCalculate(itemsCount: blocstate.friend.length),
                     child: ListView.builder(
-                        itemCount: blocstate.friend.length,
-                        itemBuilder: ((context, index) => GestureDetector(
-                              onTap: () => Navigator.popAndPushNamed(
-                                  context, routeProfilePage,
-                                  arguments: blocstate.friend[index]),
-                              child: Card(
-                                  child: ListTile(
-                                leading: Image.network(
-                                  blocstate.friend[index].profileAvatar,
-                                  width: 60,
-                                  height: 60,
-                                ),
-                                title: Text(blocstate.friend[index].userName),
-                                subtitle: Row(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.refresh)),
-                                    IconButton(
-                                        onPressed: () async {
-                                          context.read<FriendsActionBloc>().add(
-                                              AddFriendEvent(
-                                                  params: GetFriendsParams(
-                                                      userId: user.id,
-                                                      friendId: blocstate
-                                                          .friend[index].id)));
-                                        },
-                                        icon: const Icon(Icons.add)),
-                                  ],
-                                ),
-                              )),
-                            ))),
+                      itemCount: blocstate.friend.length,
+                      itemBuilder: ((context, index) => SingleUserPreview(
+                            singleUser: blocstate.friend[index],
+                            rightActionIcons: [
+                              RightActionIcon(
+                                text: 'Send message',
+                                icon: AppIcons.messages.copyWith(size: 25),
+                                onTap: () {},
+                              ),
+                              RightActionIcon(
+                                  text: isMyFriend(user.friends,
+                                          blocstate.friend[index].id)
+                                      ? 'Remove friend'
+                                      : 'Send request',
+                                  icon: isMyFriend(user.friends,
+                                          blocstate.friend[index].id)
+                                      ? AppIcons.delete.copyWith(size: 25)
+                                      : AppIcons.personIcon.copyWith(size: 25),
+                                  onTap: () {}),
+                            ],
+                          )),
+                    ),
                   );
                 }
                 if (blocstate is FriendsLoaded) {
@@ -165,68 +159,19 @@ class FriendsPage extends StatelessWidget {
                         itemBuilder: ((context, index) {
                           return Column(
                             children: [
-                              GestureDetector(
-                                onTap: () => Navigator.pushNamed(
-                                    context, routeProfilePage,
-                                    arguments: blocstate.friends[index]),
-                                child: UserViewCard(
-                                    margin: const EdgeInsets.only(
-                                        top: kMidEmptySpace,
-                                        left: kGeneralPagesMargin,
-                                        right: kGeneralPagesMargin),
-                                    padding: const EdgeInsets.only(
-                                        left: kGeneralPagesMargin,
-                                        right: 40,
-                                        top: kMinEmptySpace,
-                                        bottom: kMinEmptySpace),
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              StatusUserAvatar(
-                                                  radius: kMediumAvatar,
-                                                  activeDotRadius:
-                                                      kDotActiveMedium,
-                                                  dotRightPosition: 0,
-                                                  isActive: blocstate
-                                                      .friends[index].isActive,
-                                                  avatar: blocstate
-                                                      .friends[index]
-                                                      .profileAvatar),
-                                              const SizedBox(
-                                                width: kMidEmptySpace,
-                                              ),
-                                              Text(
-                                                blocstate
-                                                    .friends[index].userName
-                                                    .capitalize(),
-                                                style: AppTextStyle.headersMid,
-                                              ),
-                                            ],
-                                          ),
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              RightActionIcon(
-                                                text: 'Send message',
-                                                icon: AppIcons.messages
-                                                    .copyWith(size: 25),
-                                                onTap: () {},
-                                              ),
-                                              RightActionIcon(
-                                                  text: 'Delete friend',
-                                                  icon: AppIcons.delete
-                                                      .copyWith(size: 25),
-                                                  onTap: () {})
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ]),
+                              SingleUserPreview(
+                                singleUser: blocstate.friends[index],
+                                rightActionIcons: [
+                                  RightActionIcon(
+                                    text: 'Send message',
+                                    icon: AppIcons.messages.copyWith(size: 25),
+                                    onTap: () {},
+                                  ),
+                                  RightActionIcon(
+                                      text: 'Delete friend',
+                                      icon: AppIcons.delete.copyWith(size: 25),
+                                      onTap: () {})
+                                ],
                               ),
                             ],
                           );
@@ -240,6 +185,64 @@ class FriendsPage extends StatelessWidget {
           ),
         )),
       ),
+    );
+  }
+}
+
+class SingleUserPreview extends StatelessWidget {
+  const SingleUserPreview({
+    required this.singleUser,
+    required this.rightActionIcons,
+    this.actionIconLeftPadding = 40,
+    this.textStyle,
+    super.key,
+  });
+  final FriendsEntity singleUser;
+  final List<Widget> rightActionIcons;
+  final TextStyle? textStyle;
+  final double actionIconLeftPadding;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () =>
+          Navigator.pushNamed(context, routeProfilePage, arguments: singleUser),
+      child: UserViewCard(
+          margin: const EdgeInsets.only(
+              top: kMidEmptySpace,
+              left: kGeneralPagesMargin,
+              right: kGeneralPagesMargin),
+          padding: EdgeInsets.only(
+              left: kGeneralPagesMargin,
+              right: actionIconLeftPadding,
+              top: kMinEmptySpace,
+              bottom: kMinEmptySpace),
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    StatusUserAvatar(
+                        radius: kMediumAvatar,
+                        activeDotRadius: kDotActiveMedium,
+                        dotRightPosition: 0,
+                        isActive: singleUser.isActive,
+                        avatar: singleUser.profileAvatar),
+                    const SizedBox(
+                      width: kMidEmptySpace,
+                    ),
+                    Text(
+                      singleUser.userName.capitalize(),
+                      style: textStyle ?? AppTextStyle.headersMid,
+                    ),
+                  ],
+                ),
+                Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: rightActionIcons),
+              ],
+            ),
+          ]),
     );
   }
 }

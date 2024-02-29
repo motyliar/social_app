@@ -18,7 +18,7 @@ TextEditingController _emailController = TextEditingController();
 TextEditingController _confirmEmailController = TextEditingController();
 final _passwordKey = GlobalKey<FormState>();
 const double _buttonWidth = 160;
-const double _marginWidthMultipler = 0.6;
+const double _marginWidthMultipler = 0.7;
 const double _roundButtonIconSize = 50;
 const double _roundButtonWidth = 90;
 

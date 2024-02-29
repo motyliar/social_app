@@ -1,3 +1,4 @@
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/theme/themes_export.dart';
@@ -24,6 +25,7 @@ class RightActionIcon extends StatelessWidget {
           text,
           style: textStyle ?? AppTextStyle.descriptionSmall,
         ),
+        const EmptySpaceWidth(),
         GestureDetector(
           child: icon,
         ),

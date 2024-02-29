@@ -12,4 +12,5 @@ class ColorPallete {
   static const whiteOpacity60 = Color.fromRGBO(255, 255, 255, 0.6);
   static const gold = Color.fromARGB(255, 136, 123, 2);
   static const rateStarYellow = Color.fromARGB(255, 219, 199, 16);
+  static const black80 = Color.fromRGBO(7, 7, 7, 0.8);
 }
