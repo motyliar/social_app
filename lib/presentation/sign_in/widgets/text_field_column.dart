@@ -46,7 +46,6 @@ class TextFieldColumn extends StatelessWidget {
             focusNode: focusTwo,
             isNextFocus: false,
             obscureText: true,
-            isMultineLine: true,
             textInputWidth: textInputWidth,
             hintText: l10n.enterPassword,
             icon: AppIcons.passwordIcon,

@@ -9,13 +9,12 @@ import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
-import 'package:climbapp/presentation/app/widgets/button_icon.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/profile/business/cubit/add_to_friend/add_to_friend_cubit.dart';
 import 'package:climbapp/presentation/profile/business/cubit/fetch_user/fetch_user_profile_cubit.dart';
-import 'package:climbapp/presentation/profile/widgets/description_column.dart';
-import 'package:climbapp/presentation/profile/widgets/little_top_bar.dart';
+
+import 'package:climbapp/presentation/profile/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -71,21 +70,10 @@ class ProfilePage extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Stack(children: [
-                            CircleAvatar(
-                              radius: 50,
-                              backgroundImage: NetworkImage(user.profileAvatar),
-                            ),
-                            Positioned(
-                                bottom: 0,
-                                right: 10,
-                                child: CircleAvatar(
-                                  radius: 8,
-                                  backgroundColor: state.user.active.isActive
-                                      ? ColorPallete.greenActiveColor
-                                      : ColorPallete.greyShadowColorOpacityMax,
-                                ))
-                          ]),
+                          StatusUserAvatar(
+                            isActive: state.user.active.isActive,
+                            avatar: user.profileAvatar,
+                          ),
                           Column(
                             children: [
                               const GradientDivider(

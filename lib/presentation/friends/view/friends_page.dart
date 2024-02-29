@@ -1,12 +1,18 @@
-import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
-import 'package:climbapp/core/theme/colors.dart';
+
+import 'package:climbapp/core/theme/themes_export.dart';
+
 import 'package:climbapp/core/utils/helpers/helpers.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
+
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
+import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
-import 'package:climbapp/presentation/friends/widgets/sure_alert.dart';
+
 import 'package:climbapp/presentation/profile/widgets/widgets.dart';
+import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +30,7 @@ class FriendsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user);
-    print('this $user');
+
     return BlocProvider(
       create: (context) => userLocator<FriendsActionBloc>()
         ..add(FetchFriendsListEvent(params: GetFriendsParams(userId: user.id))),
@@ -35,32 +41,47 @@ class FriendsPage extends StatelessWidget {
           child: Column(
             children: [
               LitlleTopBar(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              UserViewCard(
                 children: [
-                  Text(user.userName.capitalize()),
-                  IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.reply)),
-                  SizedBox(
-                      width: 150,
-                      child: TextField(
-                        controller: _searchController,
-                      )),
-                  BlocBuilder<FriendsActionBloc, FriendsActionState>(
-                    builder: (context, state) {
-                      return IconButton(
-                          onPressed: () {
-                            context.read<FriendsActionBloc>().add(
-                                SearchForUsersEvent(
-                                    userByName: _searchController.text));
-                          },
-                          icon: const Icon(Icons.search));
-                    },
+                  HeadersSmallText(text: 'Find someone'),
+                  Divider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ContainerTemplate(
+                        padding: const EdgeInsets.only(left: kMinEmptySpace),
+                        borderRadius: kSmallButtonBorderRadius,
+                        color: ColorPallete.whiteOpacity80,
+                        gradient: pinkToBlueRoundGradient,
+                        width: Utils.sizeCalculator(
+                            totalDimension: MediaQuery.of(context).size.width,
+                            multipler: 0.5),
+                        child: CTextFormField(
+                          enableBorders: false,
+                          controller: _searchController,
+                          hintText: 'find friend',
+                        ),
+                      ),
+                      BlocBuilder<FriendsActionBloc, FriendsActionState>(
+                        builder: (context, state) {
+                          return MidTextButton(
+                              textStyle: AppTextStyle.descriptionSmall,
+                              margin: const EdgeInsets.only(left: 5),
+                              onTap: () => context
+                                  .read<FriendsActionBloc>()
+                                  .add(SearchForUsersEvent(
+                                      userByName: _searchController.text)),
+                              textLabel: 'Search');
+                        },
+                      ),
+                    ],
                   ),
                 ],
               ),
-              Divider(),
+              GradientDivider(
+                dividerHeight: kMidDividerHeight,
+              ),
               BlocBuilder<FriendsActionBloc, FriendsActionState>(
                 builder: (context, state) {
                   return Row(
@@ -117,10 +138,7 @@ class FriendsPage extends StatelessWidget {
                                 subtitle: Row(
                                   children: [
                                     IconButton(
-                                        onPressed: () {
-                                          print(
-                                              'blocstate length: ${blocstate.friend.length}');
-                                        },
+                                        onPressed: () {},
                                         icon: const Icon(Icons.refresh)),
                                     IconButton(
                                         onPressed: () async {
@@ -154,64 +172,41 @@ class FriendsPage extends StatelessWidget {
                 }
                 if (blocstate is FriendsLoaded) {
                   return SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height:
-                        _heightCalculate(itemsCount: blocstate.friends.length),
-                    child: ListView.builder(
+                      width: MediaQuery.of(context).size.width,
+                      height: _heightCalculate(
+                          itemsCount: blocstate.friends.length),
+                      child: ListView.builder(
                         itemCount: blocstate.friends.length,
-                        itemBuilder: ((context, index) => Card(
-                                child: ListTile(
-                              leading: Image.network(
-                                blocstate.friends[index].profileAvatar,
-                                width: 60,
-                                height: 60,
+                        itemBuilder: ((context, index) {
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () => Navigator.popAndPushNamed(
+                                  context,
+                                  routeProfilePage,
+                                ),
+                                child: UserViewCard(children: [
+                                  Row(
+                                    children: [
+                                      StatusUserAvatar(
+                                          radius: kMediumAvatar,
+                                          activeDotRadius: kDotActiveMedium,
+                                          dotRightPosition: 3,
+                                          isActive: user.active.isActive,
+                                          avatar: user.profileAvatar!),
+                                      Text(
+                                        user.userName,
+                                        style: AppTextStyle.descriptionMid,
+                                      ),
+                                    ],
+                                  ),
+                                ]),
                               ),
-                              title: Text(blocstate.friends[index].userName),
-                              subtitle: Row(
-                                children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        print(
-                                            'blocstate length: ${blocstate.friends.length}');
-                                      },
-                                      icon: const Icon(Icons.refresh)),
-                                  IconButton(
-                                      onPressed: () async {
-                                        context.read<FriendsActionBloc>().add(
-                                            DeleteFriendFromListEvent(
-                                                params: GetFriendsParams(
-                                                    userId: user.id,
-                                                    friendId: blocstate
-                                                        .friends[index].id)));
-                                        await Future.delayed(
-                                            Duration(seconds: 1), () {
-                                          print('teraz się to wykonuje');
-                                          context
-                                              .read<FriendsActionBloc>()
-                                              .add(FetchFriendsListEvent(
-                                                  params: GetFriendsParams(
-                                                userId: user.id,
-                                              )));
-                                        });
-                                      },
-                                      icon: const Icon(Icons.delete)),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, routeMessagePage,
-                                            arguments: MessageUserDetails(
-                                                senderName: user.userName,
-                                                senderId: user.id,
-                                                recipientName: blocstate
-                                                    .friends[index].userName,
-                                                recipientId: blocstate
-                                                    .friends[index].id));
-                                      },
-                                      icon: Icon(Icons.mail))
-                                ],
-                              ),
-                            )))),
-                  );
+                              Divider(),
+                            ],
+                          );
+                        }),
+                      ));
                 } else {
                   return Text('null');
                 }

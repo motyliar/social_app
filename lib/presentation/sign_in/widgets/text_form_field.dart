@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 class CTextFormField extends StatelessWidget {
   const CTextFormField({
     required this.hintText,
-    required this.icon,
     required this.controller,
+    this.icon,
     this.textInputWidth = 120,
     this.toolTip,
     this.onChanged,
@@ -20,13 +20,13 @@ class CTextFormField extends StatelessWidget {
     this.isNextFocus = true,
     this.isToolTip = false,
     this.enableBorders = true,
-    this.isMultineLine = false,
+    this.isMultineLine,
     super.key,
   });
   final String hintText;
   final String? toolTip;
   final double textInputWidth;
-  final Icon icon;
+  final Icon? icon;
   final TextEditingController controller;
   final VoidCallback? onChanged;
   final Function(String?)? validator;
@@ -36,7 +36,7 @@ class CTextFormField extends StatelessWidget {
   final bool enableBorders;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
-  final bool isMultineLine;
+  final bool? isMultineLine;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class CTextFormField extends StatelessWidget {
       color: Colors.transparent,
       width: textInputWidth,
       child: TextFormField(
-        maxLines: isMultineLine ? 1 : 10,
+        maxLines: isMultineLine == null ? 1 : 10,
         minLines: 1,
         focusNode: focusNode,
         onFieldSubmitted: isNextFocus
