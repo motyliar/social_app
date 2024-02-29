@@ -5,7 +5,8 @@ import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/view/dashboard_page.dart';
 import 'package:climbapp/presentation/notice/view/comment_main_page.dart';
 import 'package:climbapp/presentation/notice/view/notice_main_page.dart';
-import 'package:climbapp/presentation/on_board/view/pre_on_board.dart';
+import 'package:climbapp/presentation/profile/view/profile_page.dart';
+
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -13,12 +14,10 @@ class AppRouter {
     debugPrint('${settings.name}');
 
     switch (settings.name) {
-      case route.routePreBoardPage:
-        return PreOnBoard.route();
       case route.routeRegisterPage:
         return RegisterPage.route();
-      case route.routeOnBoard:
-        return OnBoard.route();
+      case route.routeProfilePage:
+        return ProfilePage.route();
       case route.routeSignInPage:
         return SignInPage.route();
       case route.routePasswordPage:

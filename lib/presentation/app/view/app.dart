@@ -11,7 +11,6 @@ import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/checkbox/message_checkbox_cubit.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
-import 'package:climbapp/presentation/on_board/business/firstOpen/first_open_cubit.dart';
 
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 
@@ -49,8 +48,6 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => MessageCheckboxCubit(),
         ),
-        BlocProvider(
-            create: (context) => preLocator<FirstOpenCubit>()..checkStatus())
       ],
       child: BlocBuilder<LocaleCubit, String>(
         builder: (context, localeState) {
