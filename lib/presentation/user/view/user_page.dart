@@ -53,7 +53,7 @@ class UserPage extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(
-                    height: tenPixelsSpaceBetweenWidgets,
+                    height: kMidEmptySpace,
                   ),
                   BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
                     builder: (context, state) {
@@ -194,42 +194,50 @@ class UserPage extends StatelessWidget {
                                                 color: Colors.transparent,
                                                 borderRadius:
                                                     BorderRadius.circular(50)),
-                                            child: state.friends.length <
-                                                    index + 1
-                                                ? Text('')
-                                                : Column(children: [
-                                                    Stack(children: [
-                                                      CircleAvatar(
-                                                        radius: 35,
-                                                        backgroundImage:
-                                                            NetworkImage(state
-                                                                .friends[index]
-                                                                .profileAvatar),
-                                                      ),
-                                                      Positioned(
-                                                        bottom: 0,
-                                                        right: 0,
-                                                        child: Container(
-                                                          width: 15,
-                                                          height: 15,
-                                                          decoration: BoxDecoration(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          50),
-                                                              color: state
+                                            child:
+                                                state.friends.length < index + 1
+                                                    ? Text('')
+                                                    : GestureDetector(
+                                                        onTap: () => Navigator
+                                                            .popAndPushNamed(
+                                                                context,
+                                                                routeProfilePage,
+                                                                arguments: state
+                                                                        .friends[
+                                                                    index]),
+                                                        child: Column(
+                                                            children: [
+                                                              Stack(children: [
+                                                                CircleAvatar(
+                                                                  radius: 35,
+                                                                  backgroundImage: NetworkImage(state
                                                                       .friends[
                                                                           index]
-                                                                      .isActive
-                                                                  ? Colors.green
-                                                                  : Colors
-                                                                      .grey),
-                                                        ),
-                                                      ),
-                                                    ]),
-                                                    Text(state.friends[index]
-                                                        .userName)
-                                                  ])))),
+                                                                      .profileAvatar),
+                                                                ),
+                                                                Positioned(
+                                                                  bottom: 0,
+                                                                  right: 0,
+                                                                  child:
+                                                                      Container(
+                                                                    width: 15,
+                                                                    height: 15,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                50),
+                                                                        color: state.friends[index].isActive
+                                                                            ? ColorPallete.greenActiveColor
+                                                                            : ColorPallete.greyShadowColorOpacityMax),
+                                                                  ),
+                                                                ),
+                                                              ]),
+                                                              Text(state
+                                                                  .friends[
+                                                                      index]
+                                                                  .userName)
+                                                            ]),
+                                                      )))),
                               );
                             },
                           ),
@@ -323,8 +331,7 @@ class UserPage extends StatelessWidget {
                                                       .descriptionSmall,
                                                 ),
                                                 SizedBox(
-                                                  width:
-                                                      fivePixelsSpaceBetweenWidgets,
+                                                  width: kMinEmptySpace,
                                                 ),
                                                 Text('view: 100',
                                                     style: AppTextStyle

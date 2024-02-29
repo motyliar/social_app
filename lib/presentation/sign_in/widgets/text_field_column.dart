@@ -39,7 +39,7 @@ class TextFieldColumn extends StatelessWidget {
           icon: AppIcons.emailIcon,
         ),
         const SizedBox(
-          height: tenPixelsSpaceBetweenWidgets,
+          height: kMidEmptySpace,
         ),
         CTextFormField(
             toolTip: '',
@@ -52,7 +52,7 @@ class TextFieldColumn extends StatelessWidget {
             icon: AppIcons.passwordIcon,
             controller: passwordController),
         const SizedBox(
-          height: tenPixelsSpaceBetweenWidgets,
+          height: kMidEmptySpace,
         ),
         GestureDetector(
             onTap: () => Navigator.pushNamed(context, routePasswordPage),

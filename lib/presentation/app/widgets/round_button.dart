@@ -12,7 +12,7 @@ class RoundButton extends StatelessWidget {
     this.backgroundGradient = pinkToBlueRoundGradient,
     this.borderRadius = maxBorderRadius,
     this.onTap,
-    this.iconMargin = tenPixelsSpaceBetweenWidgets,
+    this.iconMargin = kMidEmptySpace,
     super.key,
   });
 

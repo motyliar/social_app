@@ -9,9 +9,9 @@ const double _buttonTextPaddingVertical = 5;
 
 class MidTextButton extends StatelessWidget {
   const MidTextButton({
-    required this.buttonWidth,
-    this.buttonHeight = 40,
     required this.textLabel,
+    this.buttonWidth,
+    this.buttonHeight,
     this.borderRadius = midBorderRadius,
     this.backgroundGradient = blueGreenGradient,
     this.margin = const EdgeInsets.only(top: kAppStandardMarginard),
@@ -19,8 +19,8 @@ class MidTextButton extends StatelessWidget {
     this.onTap,
     super.key,
   });
-  final double buttonWidth;
-  final double buttonHeight;
+  final double? buttonWidth;
+  final double? buttonHeight;
   final double borderRadius;
   final String textLabel;
   final Gradient backgroundGradient;
@@ -37,13 +37,11 @@ class MidTextButton extends StatelessWidget {
       child: Container(
         margin: margin,
         width: buttonWidth,
-        height: buttonHeight,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(borderRadius),
-            color: Colors.white.withOpacity(0.1),
-            boxShadow: [
-              downShadow,
-            ]),
+        height: buttonHeight ?? 40,
+        decoration:
+            BoxDecoration(color: Colors.white.withOpacity(0.1), boxShadow: [
+          downShadow,
+        ]),
         child: Container(
           padding: const EdgeInsets.symmetric(
               horizontal: _buttonTextPaddingHorizontal,

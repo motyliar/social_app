@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class GradientDivider extends StatelessWidget {
   const GradientDivider({
-    this.topMargin = fivePixelsSpaceBetweenWidgets,
-    this.bottomMargin = fivePixelsSpaceBetweenWidgets,
-    this.dividerHeight = fivePixelsSpaceBetweenWidgets,
+    this.topMargin = kMinEmptySpace,
+    this.bottomMargin = kMinEmptySpace,
+    this.dividerHeight = kMinEmptySpace,
     this.gradient = blueGreen,
     this.child,
+    this.width,
+    this.borderRadius,
     super.key,
   });
 
@@ -17,14 +19,16 @@ class GradientDivider extends StatelessWidget {
   final double dividerHeight;
   final Gradient gradient;
   final Widget? child;
+  final double? width;
+  final BorderRadius? borderRadius;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: topMargin, bottom: bottomMargin),
-      width: MediaQuery.of(context).size.width,
+      width: width ?? MediaQuery.of(context).size.width,
       height: dividerHeight,
-      decoration: BoxDecoration(gradient: gradient),
+      decoration: BoxDecoration(gradient: gradient, borderRadius: borderRadius),
       child: child,
     );
   }

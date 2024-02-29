@@ -37,7 +37,7 @@ class RegisterTextFieldStack extends StatelessWidget {
             icon: AppIcons.personIcon,
             controller: nameController),
         const SizedBox(
-          height: fivePixelsSpaceBetweenWidgets,
+          height: kMinEmptySpace,
         ),
         CTextFormField(
             toolTip: l10n.tipEmail,
@@ -49,7 +49,7 @@ class RegisterTextFieldStack extends StatelessWidget {
             icon: AppIcons.emailIcon,
             controller: emailController),
         const SizedBox(
-          height: fivePixelsSpaceBetweenWidgets,
+          height: kMinEmptySpace,
         ),
         CTextFormField(
             toolTip: l10n.tipPassword,
@@ -64,7 +64,7 @@ class RegisterTextFieldStack extends StatelessWidget {
             icon: AppIcons.passwordIcon,
             controller: passwordController),
         const SizedBox(
-          height: fivePixelsSpaceBetweenWidgets,
+          height: kMinEmptySpace,
         ),
         CTextFormField(
             isToolTip: true,
@@ -79,7 +79,7 @@ class RegisterTextFieldStack extends StatelessWidget {
             icon: AppIcons.passwordIcon,
             controller: rePasswordController),
         const SizedBox(
-          height: fivePixelsSpaceBetweenWidgets,
+          height: kMinEmptySpace,
         ),
       ],
     );

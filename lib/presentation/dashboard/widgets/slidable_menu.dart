@@ -13,7 +13,7 @@ const double _openStateSizeHeight = 300;
 class SlidableMenu extends StatelessWidget {
   const SlidableMenu({
     required this.icon,
-    this.padding = fivePixelsSpaceBetweenWidgets,
+    this.padding = kMinEmptySpace,
     this.durationInMillisecond = _animationDuration,
     this.closeStateSize = _closeStateSize,
     this.openStateSizeWidth = _openStateSizeWidth,

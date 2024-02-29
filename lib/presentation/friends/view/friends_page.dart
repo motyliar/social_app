@@ -101,49 +101,56 @@ class FriendsPage extends StatelessWidget {
                           _heightCalculate(itemsCount: blocstate.friend.length),
                       child: ListView.builder(
                           itemCount: blocstate.friend.length,
-                          itemBuilder: ((context, index) => Card(
-                                  child: ListTile(
-                                leading: Image.network(
-                                  blocstate.friend[index].profileAvatar,
-                                  width: 60,
-                                  height: 60,
-                                ),
-                                title: Text(blocstate.friend[index].userName),
-                                subtitle: Row(
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          print(
-                                              'blocstate length: ${blocstate.friend.length}');
-                                        },
-                                        icon: const Icon(Icons.refresh)),
-                                    IconButton(
-                                        onPressed: () async {
-                                          print('to się wykonuje');
-                                          context.read<FriendsActionBloc>().add(
-                                              AddFriendEvent(
-                                                  params: GetFriendsParams(
-                                                      userId: user.id,
-                                                      friendId: blocstate
-                                                          .friend[index].id)));
-                                          print('druga funkcja');
-                                          print("to jest: $blocstate");
-                                          // await Future.delayed(
-                                          //     Duration(seconds: 1), () {
-                                          //   print('teraz się to wykonuje');
+                          itemBuilder: ((context, index) => GestureDetector(
+                                onTap: () => Navigator.popAndPushNamed(
+                                    context, routeProfilePage,
+                                    arguments: blocstate.friend[index]),
+                                child: Card(
+                                    child: ListTile(
+                                  leading: Image.network(
+                                    blocstate.friend[index].profileAvatar,
+                                    width: 60,
+                                    height: 60,
+                                  ),
+                                  title: Text(blocstate.friend[index].userName),
+                                  subtitle: Row(
+                                    children: [
+                                      IconButton(
+                                          onPressed: () {
+                                            print(
+                                                'blocstate length: ${blocstate.friend.length}');
+                                          },
+                                          icon: const Icon(Icons.refresh)),
+                                      IconButton(
+                                          onPressed: () async {
+                                            print('to się wykonuje');
+                                            context
+                                                .read<FriendsActionBloc>()
+                                                .add(AddFriendEvent(
+                                                    params: GetFriendsParams(
+                                                        userId: user.id,
+                                                        friendId: blocstate
+                                                            .friend[index]
+                                                            .id)));
+                                            print('druga funkcja');
+                                            print("to jest: $blocstate");
+                                            // await Future.delayed(
+                                            //     Duration(seconds: 1), () {
+                                            //   print('teraz się to wykonuje');
 
-                                          //   BlocProvider.of<FriendsActionBloc>(
-                                          //           context)
-                                          //       .add(FetchFriendsListEvent(
-                                          //           params: GetFriendsParams(
-                                          //     userId: user.id,
-                                          //   )));
-                                          // });
-                                        },
-                                        icon: const Icon(Icons.add)),
-                                  ],
-                                ),
-                              )))),
+                                            //   BlocProvider.of<FriendsActionBloc>(
+                                            //           context)
+                                            //       .add(FetchFriendsListEvent(
+                                            //           params: GetFriendsParams(
+                                            //     userId: user.id,
+                                            //   )));
+                                            // });
+                                          },
+                                          icon: const Icon(Icons.add)),
+                                    ],
+                                  ),
+                                )),
+                              ))),
                     );
                   }
                   if (blocstate is FriendsLoaded) {

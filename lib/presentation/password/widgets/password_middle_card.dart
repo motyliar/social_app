@@ -72,7 +72,7 @@ class PasswordMiddleCard extends StatelessWidget {
                         hintText: l10n.mailEnter,
                         icon: const Icon(Icons.email),
                         controller: _emailController),
-                    const SizedBox(height: tenPixelsSpaceBetweenWidgets),
+                    const SizedBox(height: kMidEmptySpace),
                     CTextFormField(
                         toolTip: '',
                         validator: (value) => FormValidation()

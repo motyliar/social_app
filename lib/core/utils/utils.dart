@@ -4,6 +4,7 @@ import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/firebase/firebase_error/firebase_error.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/network/network_connected.dart';
+import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/snackbars/snackbars.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
@@ -43,6 +44,17 @@ class Utils {
         return child;
       },
     );
+  }
+
+  static bool _checkIsToday(String today, String userDate) {
+    return today.toLowerCase() == userDate.toLowerCase().isTooLong(10);
+  }
+
+  static String currentData(String today, String userDate) {
+    print(userDate);
+    return !_checkIsToday(today, userDate)
+        ? userDate.isTooLong(10)
+        : userDate.substring(10);
   }
 
   static void giveLike(BuildContext context, bool didIClick) {

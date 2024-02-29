@@ -72,7 +72,25 @@ class UserSport extends StatelessWidget {
                                   : 'Favourite sports',
                               style: AppTextStyle.headersSmall,
                             ),
-                            Divider(),
+                            const Divider(),
+                            state.sports.sports.isEmpty
+                                ? Container()
+                                : const Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        'Set your skill',
+                                        style: AppTextStyle.descriptionMid,
+                                      ),
+                                      SizedBox(
+                                        width: kMinEmptySpace,
+                                      ),
+                                      Tooltip(
+                                          message: 'From begginer to advanced',
+                                          child: Icon(Icons.info)),
+                                    ],
+                                  ),
                             SizedBox(
                               width: Utils.sizeCalculator(
                                   totalDimension:
@@ -96,10 +114,8 @@ class UserSport extends StatelessWidget {
                                           children: [
                                             MidTextButton(
                                                 margin: const EdgeInsets.only(
-                                                    left:
-                                                        fivePixelsSpaceBetweenWidgets,
-                                                    bottom:
-                                                        fivePixelsSpaceBetweenWidgets),
+                                                    left: kMinEmptySpace,
+                                                    bottom: kMinEmptySpace),
                                                 textStyle:
                                                     AppTextStyle.headersSmall,
                                                 buttonWidth: 110,
@@ -167,8 +183,8 @@ class UserSport extends StatelessWidget {
             textLabel: 'Save',
             textStyle: AppTextStyle.headersSmall,
             margin: const EdgeInsets.only(
-                top: fivePixelsSpaceBetweenWidgets,
-                bottom: fivePixelsSpaceBetweenWidgets,
+                top: kMinEmptySpace,
+                bottom: kMinEmptySpace,
                 right: kGeneralPagesMargin),
           ),
         ),

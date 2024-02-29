@@ -24,9 +24,9 @@ extension CapitalizeOneLetter on String {
 }
 
 extension TooLongText on String {
-  String get isTooLong {
-    if (length > 15) {
-      return '${substring(0, 15)}...';
+  String isTooLong(int index) {
+    if (length > index) {
+      return substring(0, index);
     } else {
       return this;
     }

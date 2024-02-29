@@ -28,7 +28,7 @@ class SummaryRow extends StatelessWidget {
               onTap: () => Utils.giveLike(context, visible),
             ),
             const SizedBox(
-              width: tenPixelsSpaceBetweenWidgets,
+              width: kMidEmptySpace,
             ),
             const Text('20'),
           ],

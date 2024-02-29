@@ -1,6 +1,8 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
+import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
@@ -47,7 +49,7 @@ class BottomBar extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.1,
+                        height: MediaQuery.of(context).size.height * 0.09,
                         decoration: const BoxDecoration(
                             color: Colors.red,
                             gradient: blueGreen,
@@ -57,7 +59,7 @@ class BottomBar extends StatelessWidget {
                         child: Column(
                           children: [
                             const SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
@@ -72,6 +74,7 @@ class BottomBar extends StatelessWidget {
                                           .where((element) =>
                                               element.isActive == true)
                                           .toList();
+
                                       return ListView.builder(
                                           scrollDirection: Axis.horizontal,
                                           itemCount: friends.length,
@@ -112,10 +115,15 @@ class BottomBar extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Align(
-                      alignment: Alignment.topCenter,
-                      child: Text('Active Friends'),
-                    )
+                    // Align(
+                    //   alignment: Alignment.topCenter,
+                    //   child: Text(
+                    //     'Active Friends',
+                    //     style: AppTextStyle.headersSmall.copyWith(
+                    //         color: ColorPallete.pinkDecorationColor,
+                    //         fontWeight: FontWeight.bold),
+                    //   ),
+                    // )
                   ],
                 ),
               ),

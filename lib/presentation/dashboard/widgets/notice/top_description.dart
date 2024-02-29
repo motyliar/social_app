@@ -37,8 +37,7 @@ class TopDescription extends StatelessWidget {
               radius: avatarSize,
             ),
             Padding(
-              padding:
-                  const EdgeInsets.only(left: fivePixelsSpaceBetweenWidgets),
+              padding: const EdgeInsets.only(left: kMinEmptySpace),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -66,17 +65,17 @@ class TopDescription extends StatelessWidget {
                               style: AppTextStyle.descriptionMid,
                             ),
                             const SizedBox(
-                              width: fivePixelsSpaceBetweenWidgets,
+                              width: kMinEmptySpace,
                             ),
                             Text(notice.createdAt,
                                 style: AppTextStyle.descriptionSmall),
                             const SizedBox(
-                              width: fivePixelsSpaceBetweenWidgets,
+                              width: kMinEmptySpace,
                             ),
                           ],
                         ),
                         const SizedBox(
-                          width: tenPixelsSpaceBetweenWidgets,
+                          width: kMidEmptySpace,
                         ),
                         Text(
                           notice.category.toUpperCase(),
@@ -91,7 +90,7 @@ class TopDescription extends StatelessWidget {
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(right: tenPixelsSpaceBetweenWidgets),
+          padding: const EdgeInsets.only(right: kMidEmptySpace),
           child: Icon(
             icon,
             color: iconColor,

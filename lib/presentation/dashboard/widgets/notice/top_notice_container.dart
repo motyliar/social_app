@@ -24,11 +24,11 @@ class TopNoticeContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        right: fivePixelsSpaceBetweenWidgets,
-        left: fivePixelsSpaceBetweenWidgets,
-        top: fivePixelsSpaceBetweenWidgets,
+        right: kMinEmptySpace,
+        left: kMinEmptySpace,
+        top: kMinEmptySpace,
       ),
-      padding: const EdgeInsets.all(fivePixelsSpaceBetweenWidgets),
+      padding: const EdgeInsets.all(kMinEmptySpace),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -39,7 +39,7 @@ class TopNoticeContainer extends StatelessWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(fivePixelsSpaceBetweenWidgets),
+        padding: const EdgeInsets.all(kMinEmptySpace),
         child: Column(
           children: [
             topDescription,

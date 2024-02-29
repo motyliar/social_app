@@ -46,8 +46,8 @@ class BottomLabel extends StatelessWidget {
               greyBoxShadow(offset: bottomLeft)
             ]),
         child: Container(
-          padding: const EdgeInsets.all(fivePixelsSpaceBetweenWidgets),
-          margin: const EdgeInsets.all(fivePixelsSpaceBetweenWidgets),
+          padding: const EdgeInsets.all(kMinEmptySpace),
+          margin: const EdgeInsets.all(kMinEmptySpace),
           width: appWidth - _totalMargin,
           decoration: BoxDecoration(
               color: ColorPallete.whiteOpacity60,

@@ -52,4 +52,8 @@ class AppIcons {
   );
   static const gallery = CustomIcon(Icons.collections_bookmark, size: 50);
   static const camera = CustomIcon(Icons.photo_camera, size: 50);
+  static const star = CustomIcon(
+    Icons.star,
+    color: ColorPallete.rateStarYellow,
+  );
 }

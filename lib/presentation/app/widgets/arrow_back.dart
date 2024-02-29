@@ -17,7 +17,7 @@ class ArrowBack extends StatelessWidget {
             left: 30,
           ),
           child: RoundButton(
-              iconMargin: fivePixelsSpaceBetweenWidgets,
+              iconMargin: kMinEmptySpace,
               onTap: () => Navigator.of(context).pop(),
               icon: Icons.arrow_back,
               iconSize: 25,

@@ -20,7 +20,7 @@ class TopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(
-        tenPixelsSpaceBetweenWidgets,
+        kMidEmptySpace,
       ),
       width: appWidth - _totalMargin,
       decoration: BoxDecoration(

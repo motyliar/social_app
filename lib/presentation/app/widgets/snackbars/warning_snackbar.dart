@@ -71,7 +71,7 @@ class SuccessSnackBarWidgets extends StatelessWidget {
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
-        padding: const EdgeInsets.only(left: tenPixelsSpaceBetweenWidgets),
+        padding: const EdgeInsets.only(left: kMidEmptySpace),
         width: snackBarWidth,
         height: imageHeight,
         decoration: BoxDecoration(
@@ -89,7 +89,7 @@ class SuccessSnackBarWidgets extends StatelessWidget {
               style: AppTextStyle.successSnackBarStyle,
             ),
             const SizedBox(
-              width: tenPixelsSpaceBetweenWidgets,
+              width: kMidEmptySpace,
             ),
             Container(
               width: imageHeight,
