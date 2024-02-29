@@ -12,23 +12,13 @@ class ImagesURL {
       'http://motyliar.webd.pro/social/approve.png';
 
   static const appLogo = 'http://motyliar.webd.pro/social/appLogo.png';
+  static const appLogoButton =
+      'http://motyliar.webd.pro/social/appLogo_button.png';
+  static const appLogoSmall =
+      'http://motyliar.webd.pro/social/appLogo_small.png';
+  static const appLogoSmallM =
+      'http://motyliar.webd.pro/social/appLogo_small_m.png';
   static const messageIcon = 'http://motyliar.webd.pro/social/message.png';
   static const friendsIcon = 'http://motyliar.webd.pro/social/friendslogo.png';
   static const waveIcon = 'http://motyliar.webd.pro/social/wave.png';
-}
-
-class NetworkURLStorage {
-  List<String> get getImages => _OnBoardImages;
-
-  static const String _welcomeFirstImage =
-      "http://motyliar.webd.pro/social/climbless.png";
-  static const String _welcomeSecondImage =
-      "http://motyliar.webd.pro/social/volleyless.png";
-  static const String _welcomeThirdImage =
-      "http://motyliar.webd.pro/social/runners.png";
-  final List<String> _OnBoardImages = [
-    _welcomeFirstImage,
-    _welcomeSecondImage,
-    _welcomeThirdImage
-  ];
 }

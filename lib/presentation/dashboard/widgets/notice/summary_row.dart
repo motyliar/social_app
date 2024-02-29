@@ -1,8 +1,10 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,19 @@ class SummaryRow extends StatelessWidget {
       children: [
         Row(
           children: [
+            Stack(
+              children: [
+                const MidTextButton(
+                    margin: EdgeInsets.all(0),
+                    buttonHeight: 30,
+                    buttonWidth: 70,
+                    textLabel: ''),
+                Image.network(ImagesURL.appLogoSmallM)
+              ],
+            ),
+            SizedBox(
+              width: kMidEmptySpace,
+            ),
             LikeActionButton(
               onTap: () => Utils.giveLike(context, visible),
             ),
