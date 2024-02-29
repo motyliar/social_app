@@ -9,10 +9,12 @@ const String routePasswordPage = 'passwordPage';
 const String routeChangePassword = 'changePasswordPage';
 const String routeDashboardPage = 'dashboardPage';
 const String routeUserPage = 'userPage';
+const String routeUserMain = 'userMain';
 const String routeFriendsPage = 'friendsPage';
 const String routeNoticePage = 'noticePage';
 const String routeCommentPage = 'commentPage';
 const String routePreBoardPage = 'prePage';
+const String routeProfilePage = 'profile';
 
 /// [routeMessagePage] route name navigate to Message Page
 const String routeMessagePage = 'messagePage';

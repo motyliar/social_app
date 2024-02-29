@@ -8,6 +8,7 @@ class GradientDivider extends StatelessWidget {
     this.bottomMargin = fivePixelsSpaceBetweenWidgets,
     this.dividerHeight = fivePixelsSpaceBetweenWidgets,
     this.gradient = blueGreen,
+    this.child,
     super.key,
   });
 
@@ -15,6 +16,7 @@ class GradientDivider extends StatelessWidget {
   final double bottomMargin;
   final double dividerHeight;
   final Gradient gradient;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class GradientDivider extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: dividerHeight,
       decoration: BoxDecoration(gradient: gradient),
+      child: child,
     );
   }
 }

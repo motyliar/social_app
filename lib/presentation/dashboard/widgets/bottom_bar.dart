@@ -1,4 +1,5 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
@@ -75,28 +76,35 @@ class BottomBar extends StatelessWidget {
                                           scrollDirection: Axis.horizontal,
                                           itemCount: friends.length,
                                           itemBuilder: (context, index) =>
-                                              Stack(children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 8.0),
-                                                  child: CircleAvatar(
-                                                      radius: 25,
-                                                      backgroundImage:
-                                                          NetworkImage(friends[
-                                                                  index]
-                                                              .profileAvatar)),
-                                                ),
-                                                Align(
-                                                  alignment:
-                                                      Alignment.bottomLeft,
-                                                  child: Icon(
-                                                    Icons.sports_volleyball,
-                                                    color: Colors.green,
-                                                    size: 15,
+                                              GestureDetector(
+                                                onTap: () =>
+                                                    Navigator.pushNamed(context,
+                                                        routeProfilePage,
+                                                        arguments:
+                                                            friends[index]),
+                                                child: Stack(children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            right: 8.0),
+                                                    child: CircleAvatar(
+                                                        radius: 25,
+                                                        backgroundImage:
+                                                            NetworkImage(friends[
+                                                                    index]
+                                                                .profileAvatar)),
                                                   ),
-                                                )
-                                              ]));
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.bottomLeft,
+                                                    child: Icon(
+                                                      Icons.sports_volleyball,
+                                                      color: Colors.green,
+                                                      size: 15,
+                                                    ),
+                                                  )
+                                                ]),
+                                              ));
                                     },
                                   )),
                             ),

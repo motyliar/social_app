@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
@@ -13,6 +14,13 @@ const double _appBarHeight = 100;
 
 class UserMainView extends StatelessWidget {
   const UserMainView({super.key});
+
+  static Route<dynamic> route() {
+    return MaterialPageRoute(
+      settings: RouteSettings(name: routeUserMain),
+      builder: (_) => UserMainView(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
