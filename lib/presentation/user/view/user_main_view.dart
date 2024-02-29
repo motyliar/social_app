@@ -45,14 +45,9 @@ class UserMainView extends StatelessWidget {
                       if (state is ViewSwitchSport) {
                         return UserSport();
                       }
-                      if (state is ViewSwitchSettings) {
-                        return AccountSettings();
-                      }
+
                       if (state is ViewSwitchInfo) {
                         return UserDetails();
-                      }
-                      if (state is ViewSwitchNotice) {
-                        return UserNotice();
                       } else {
                         return UserPage();
                       }

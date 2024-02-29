@@ -1,6 +1,10 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/gradients.dart';
+import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
+import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,8 +16,21 @@ class BottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ScrollVisibleControlCubit(controller),
+    final user = context.select((UserBloc bloc) => bloc.state.user);
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ScrollVisibleControlCubit(controller),
+        ),
+        BlocProvider(
+          create: (context) => userLocator<FriendsActionBloc>()
+            ..add(
+              FetchFriendsListEvent(
+                params: GetFriendsParams(userId: user.id),
+              ),
+            ),
+        ),
+      ],
       child: BlocBuilder<ScrollVisibleControlCubit, bool>(
         builder: (context, isVisible) {
           return AnimatedContainer(
@@ -45,20 +62,44 @@ class BottomBar extends StatelessWidget {
                               padding: const EdgeInsets.only(
                                   right: 25.0, left: 25.0),
                               child: SizedBox(
-                                width: MediaQuery.of(context).size.width,
-                                height: 50,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount: 20,
-                                    itemBuilder: (context, index) => Container(
-                                          margin: const EdgeInsets.all(5),
-                                          width: 30,
-                                          height: 30,
-                                          color: Colors.blue,
-                                          child: Text('new $index'),
-                                        )),
-                              ),
-                            )
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 50,
+                                  child: BlocBuilder<FriendsActionBloc,
+                                      FriendsActionState>(
+                                    builder: (context, state) {
+                                      final friends = state.friends
+                                          .where((element) =>
+                                              element.isActive == true)
+                                          .toList();
+                                      return ListView.builder(
+                                          scrollDirection: Axis.horizontal,
+                                          itemCount: friends.length,
+                                          itemBuilder: (context, index) =>
+                                              Stack(children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8.0),
+                                                  child: CircleAvatar(
+                                                      radius: 25,
+                                                      backgroundImage:
+                                                          NetworkImage(friends[
+                                                                  index]
+                                                              .profileAvatar)),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      Alignment.bottomLeft,
+                                                  child: Icon(
+                                                    Icons.sports_volleyball,
+                                                    color: Colors.green,
+                                                    size: 15,
+                                                  ),
+                                                )
+                                              ]));
+                                    },
+                                  )),
+                            ),
                           ],
                         ),
                       ),
