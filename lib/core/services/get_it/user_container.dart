@@ -43,7 +43,8 @@ import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_comment/update_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
-import 'package:climbapp/presentation/profile/business/cubit/fetch_user_profile_cubit.dart';
+import 'package:climbapp/presentation/profile/business/cubit/add_to_friend/add_to_friend_cubit.dart';
+import 'package:climbapp/presentation/profile/business/cubit/fetch_user/fetch_user_profile_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:get_it/get_it.dart';
 
@@ -83,6 +84,8 @@ void userInit() {
     ..registerFactory(() => UpdateCommentCubit(updateComment: userLocator()))
     ..registerFactory(
         () => FetchUserProfileCubit(getUserUseCase: userLocator()))
+    ..registerFactory(() => AddToFriendCubit(
+        addFriendUseCase: userLocator(), deleteFriendUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(

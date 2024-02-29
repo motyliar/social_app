@@ -12,8 +12,10 @@ import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/button_icon.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/profile/business/fetch_user/fetch_user_profile_cubit.dart';
+import 'package:climbapp/presentation/profile/business/cubit/add_to_friend/add_to_friend_cubit.dart';
+import 'package:climbapp/presentation/profile/business/cubit/fetch_user/fetch_user_profile_cubit.dart';
 import 'package:climbapp/presentation/profile/widgets/description_column.dart';
+import 'package:climbapp/presentation/profile/widgets/little_top_bar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -40,42 +42,22 @@ class ProfilePage extends StatelessWidget {
     String today = DateTime.now().toString().isTooLong(10);
     final appUser = context.select((UserBloc bloc) => bloc.state);
 
-    return BlocProvider(
-      create: (context) => userLocator<FetchUserProfileCubit>()
-        ..getUserDetails(GetUserParams(token: '0000', userId: user.id)),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => userLocator<FetchUserProfileCubit>()
+            ..getUserDetails(GetUserParams(token: '0000', userId: user.id)),
+        ),
+        BlocProvider(
+          create: (context) => userLocator<AddToFriendCubit>(),
+        ),
+      ],
       child: Scaffold(
         backgroundColor: ColorPallete.scaffoldBackground,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(children: [
-              GradientDivider(
-                dividerHeight: 70,
-                topMargin: 0,
-                bottomMargin: kGeneralPagesMargin,
-                borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(midBorderRadius),
-                    bottomRight: Radius.circular(midBorderRadius)),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: kMinEmptySpace,
-                      right: kGeneralPagesMargin,
-                      left: kGeneralPagesMargin),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      RoundBackButton(
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      ButtonIcon(
-                          onTap: () =>
-                              Navigator.popAndPushNamed(context, routeUserMain),
-                          child: AppIcons.personIcon.copyWith(
-                              size: 30,
-                              color: ColorPallete.pinkDecorationColor)),
-                    ],
-                  ),
-                ),
-              ),
+              const LitlleTopBar(),
               BlocBuilder<FetchUserProfileCubit, FetchUserProfileState>(
                 builder: (context, state) {
                   if (state is FetchUserProfileLoading) {
@@ -84,7 +66,6 @@ class ProfilePage extends StatelessWidget {
                     );
                   }
                   if (state is FetchUserProfileLoaded) {
-                    print(state.user.active.lastLoggedIn);
                     return UserViewCard(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,10 +117,6 @@ class ProfilePage extends StatelessWidget {
                                   ]),
                                 ],
                               ),
-                              LayoutBuilder(builder: ((context, constraints) {
-                                print(constraints.maxWidth);
-                                return Container();
-                              })),
                               const GradientDivider(
                                 gradient: pinkToBlueRoundGradient,
                                 width: 100,
@@ -157,32 +134,69 @@ class ProfilePage extends StatelessWidget {
                 dividerHeight: kMidDividerHeight,
               ),
               UserViewCard(children: [
-                BlocBuilder<FetchUserProfileCubit, FetchUserProfileState>(
-                    builder: (context, state) {
-                  if (state is FetchUserProfileLoaded) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        const MidTextButton(
-                          margin: EdgeInsets.all(kMinEmptySpace),
-                          borderRadius: kSmallButtonBorderRadius,
-                          textLabel: 'Send message',
-                          textStyle: AppTextStyle.headersSmall,
-                        ),
-                        MidTextButton(
-                          borderRadius: kSmallButtonBorderRadius,
-                          margin: const EdgeInsets.all(kMinEmptySpace),
-                          textLabel:
-                              isMyFriend(appUser.user.friends, state.user.id)
-                                  ? 'Remove from friends'
-                                  : 'Add to friends',
-                          textStyle: AppTextStyle.headersSmall,
-                        ),
-                      ],
-                    );
-                  }
-                  return const Text('something wrong');
-                })
+                BlocConsumer<AddToFriendCubit, AddToFriendState>(
+                  listener: (context, state) {
+                    if (state.status == FriendStatus.add) {
+                      appUser.user.friends.add(user.id);
+                    }
+                    if (state.status == FriendStatus.delete) {
+                      appUser.user.friends.remove(user.id);
+                    }
+                  },
+                  builder: (context, state) {
+                    return BlocBuilder<FetchUserProfileCubit,
+                        FetchUserProfileState>(builder: (context, state) {
+                      if (state is FetchUserProfileLoaded) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const MidTextButton(
+                              margin: EdgeInsets.all(kMinEmptySpace),
+                              borderRadius: kSmallButtonBorderRadius,
+                              textLabel: 'Send message',
+                              textStyle: AppTextStyle.headersSmall,
+                            ),
+                            BlocBuilder<AddToFriendCubit, AddToFriendState>(
+                              buildWhen: (previous, current) =>
+                                  previous.status != current.status,
+                              builder: (context, state) {
+                                return MidTextButton(
+                                  onTap: () {
+                                    !isMyFriend(appUser.user.friends, user.id)
+                                        ? BlocProvider.of<AddToFriendCubit>(
+                                                context)
+                                            .addToFriend(
+                                            GetFriendsParams(
+                                              userId: appUser.user.id,
+                                              friendId: user.id,
+                                            ),
+                                          )
+                                        : BlocProvider.of<AddToFriendCubit>(
+                                                context)
+                                            .deleteFromFriends(
+                                            GetFriendsParams(
+                                              userId: appUser.user.id,
+                                              friendId: user.id,
+                                            ),
+                                          );
+                                  },
+                                  borderRadius: kSmallButtonBorderRadius,
+                                  margin: const EdgeInsets.all(kMinEmptySpace),
+                                  textLabel:
+                                      isMyFriend(appUser.user.friends, user.id)
+                                          ? 'Remove from friends'
+                                          : 'Add to friends',
+                                  textStyle: AppTextStyle.headersSmall,
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      }
+                      return const Text('something wrong');
+                    });
+                  },
+                )
               ]),
               const GradientDivider(
                 dividerHeight: kMidDividerHeight,
