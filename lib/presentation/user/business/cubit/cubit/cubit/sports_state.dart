@@ -1,13 +1,13 @@
 part of 'sports_cubit.dart';
 
-enum SportStatus { success, fail, neutral }
+enum SportStatus { success, fail, neutral, rebuild }
 
 sealed class SportsState extends Equatable {
   const SportsState(
-      {this.sports = const <Sport>[],
-      this.possibleSport = sportsList,
+      {required this.sports,
+      this.possibleSport = const <Sport>[],
       this.status = SportStatus.success});
-  final List<Sport> sports;
+  final SportsList sports;
   final List<Sport> possibleSport;
   final SportStatus status;
 
@@ -15,13 +15,21 @@ sealed class SportsState extends Equatable {
   List<Object> get props => [sports, possibleSport, status];
 }
 
-final class SportsAction extends SportsState {
+class SportsAction extends SportsState {
   const SportsAction(
-      List<Sport> sports, List<Sport> possibleSport, SportStatus status)
-      : super(sports: sports, possibleSport: possibleSport, status: status);
+      {required super.sports,
+      required super.possibleSport,
+      required super.status});
 
-  SportsAction copyWith(List<Sport>? sports, List<Sport>? possibleSport,
-          SportStatus? status) =>
-      SportsAction(sports ?? this.sports, possibleSport ?? this.possibleSport,
-          status ?? this.status);
+  SportsAction copyWith(
+          {SportsList? sports,
+          List<Sport>? possibleSport,
+          SportStatus? status}) =>
+      SportsAction(
+          sports: sports ?? this.sports,
+          possibleSport: possibleSport ?? this.possibleSport,
+          status: status ?? this.status);
+
+  @override
+  List<Object> get props => [sports, possibleSport, status];
 }

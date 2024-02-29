@@ -131,6 +131,11 @@ class Utils {
     });
   }
 
+  static double sizeCalculator(
+      {required double totalDimension, required double multipler}) {
+    return totalDimension * multipler;
+  }
+
   /// [performNetworkOperation] is short function to check NetworkConnection and
   /// after function check is server available to send request.
   EitherFunc<T> performNetworkOperation<T>(

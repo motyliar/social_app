@@ -39,7 +39,7 @@ class AppIcons {
   static const home = CustomIcon(Icons.home);
   static const delete = CustomIcon(
     Icons.delete,
-    color: Colors.red,
+    color: ColorPallete.pinkDecorationColor,
     size: 16,
   );
   static const forward = CustomIcon(

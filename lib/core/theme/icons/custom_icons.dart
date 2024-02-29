@@ -9,6 +9,6 @@ class CustomIcon extends Icon {
     super.key,
   });
 
-  CustomIcon copyWith(Color? color, double? size) =>
+  CustomIcon copyWith({Color? color, double? size}) =>
       CustomIcon(icon, color: color ?? this.color, size: size ?? this.size);
 }

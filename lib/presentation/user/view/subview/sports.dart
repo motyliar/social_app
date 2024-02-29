@@ -1,13 +1,25 @@
-class Sport {
-  const Sport({
+import 'package:equatable/equatable.dart';
+
+class Sport extends Equatable {
+  Sport({
     required this.name,
     this.value = 0,
   });
   final String name;
-  final int value;
+  int value;
+
+  Sport copyWith({int? value}) => Sport(
+        name: name,
+        value: value ?? this.value,
+      );
+
+  @override
+  String toString() => 'Name: $name, value: $value';
+  @override
+  List<Object> get props => [value, name];
 }
 
-const List<Sport> sportsList = [
+List<Sport> sportsList = [
   Sport(
     name: 'Climbing',
   ),
@@ -19,3 +31,13 @@ const List<Sport> sportsList = [
   Sport(name: 'Squash'),
   Sport(name: 'Hiking'),
 ];
+
+class SportsList extends Equatable {
+  SportsList({required this.sports});
+  List<Sport> sports;
+
+  SportsList copyWith({List<Sport>? sports}) =>
+      SportsList(sports: sports ?? this.sports);
+  @override
+  List<Object> get props => [sports];
+}

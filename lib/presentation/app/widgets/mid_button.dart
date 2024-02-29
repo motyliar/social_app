@@ -14,6 +14,7 @@ class MidTextButton extends StatelessWidget {
     required this.textLabel,
     this.borderRadius = midBorderRadius,
     this.backgroundGradient = blueGreenGradient,
+    this.margin = const EdgeInsets.only(top: kAppStandardMarginard),
     this.textStyle,
     this.onTap,
     super.key,
@@ -25,6 +26,7 @@ class MidTextButton extends StatelessWidget {
   final Gradient backgroundGradient;
   final TextStyle? textStyle;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry margin;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class MidTextButton extends StatelessWidget {
         onTap == null ? null : onTap!();
       },
       child: Container(
-        margin: const EdgeInsets.only(top: kAppStandardMarginard),
+        margin: margin,
         width: buttonWidth,
         height: buttonHeight,
         decoration: BoxDecoration(

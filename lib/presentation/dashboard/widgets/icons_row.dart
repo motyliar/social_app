@@ -67,7 +67,7 @@ class AppBarIcons extends StatelessWidget {
   });
 
   final VoidCallback onTap;
-  final Icon icon;
+  final Widget icon;
   final EdgeInsetsGeometry padding;
 
   @override
