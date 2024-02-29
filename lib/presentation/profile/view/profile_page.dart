@@ -10,9 +10,9 @@ import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/button_icon.dart';
-import 'package:climbapp/presentation/app/widgets/empty_space.dart';
+
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/profile/business/cubit/fetch_user_profile_cubit.dart';
+import 'package:climbapp/presentation/profile/business/fetch_user/fetch_user_profile_cubit.dart';
 import 'package:climbapp/presentation/profile/widgets/description_column.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
@@ -257,18 +257,15 @@ class ProfilePage extends StatelessWidget {
                             'From: Marcin',
                             style: AppTextStyle.descriptionMid,
                           ),
-                          Text(
-                            'climbing',
-                            style: AppTextStyle.headersSmall,
-                          ),
+                          HeadersSmallText(text: 'climbing')
                         ],
                       ),
-                      GradientDivider(
+                      const GradientDivider(
                         width: 100,
                       ),
                       Text(loremIpsumMid.isTooLong(150)),
-                      Divider(),
-                      Align(
+                      const Divider(),
+                      const Align(
                         alignment: Alignment.centerRight,
                         child: MidTextButton(
                           borderRadius: kSmallButtonBorderRadius,
@@ -282,14 +279,11 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ],
               ),
-              GradientDivider(
+              const GradientDivider(
                 dividerHeight: kMidDividerHeight,
               ),
-              UserViewCard(children: [
-                Text(
-                  'Activity:',
-                  style: AppTextStyle.headersSmall,
-                ),
+              const UserViewCard(children: [
+                HeadersSmallText(text: 'Activity'),
                 Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
