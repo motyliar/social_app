@@ -5,6 +5,7 @@ import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
+import 'package:climbapp/presentation/friends/widgets/widgets.dart';
 
 import 'package:climbapp/presentation/profile/widgets/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';
@@ -139,26 +140,12 @@ class FriendsPage extends StatelessWidget {
                                         icon: const Icon(Icons.refresh)),
                                     IconButton(
                                         onPressed: () async {
-                                          print('to się wykonuje');
                                           context.read<FriendsActionBloc>().add(
                                               AddFriendEvent(
                                                   params: GetFriendsParams(
                                                       userId: user.id,
                                                       friendId: blocstate
                                                           .friend[index].id)));
-                                          print('druga funkcja');
-                                          print("to jest: $blocstate");
-                                          // await Future.delayed(
-                                          //     Duration(seconds: 1), () {
-                                          //   print('teraz się to wykonuje');
-
-                                          //   BlocProvider.of<FriendsActionBloc>(
-                                          //           context)
-                                          //       .add(FetchFriendsListEvent(
-                                          //           params: GetFriendsParams(
-                                          //     userId: user.id,
-                                          //   )));
-                                          // });
                                         },
                                         icon: const Icon(Icons.add)),
                                   ],
@@ -221,11 +208,20 @@ class FriendsPage extends StatelessWidget {
                                             ],
                                           ),
                                           Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
                                             children: [
-                                              AppIcons.messages
-                                                  .copyWith(size: 25),
-                                              AppIcons.delete
-                                                  .copyWith(size: 25),
+                                              RightActionIcon(
+                                                text: 'Send message',
+                                                icon: AppIcons.messages
+                                                    .copyWith(size: 25),
+                                                onTap: () {},
+                                              ),
+                                              RightActionIcon(
+                                                  text: 'Delete friend',
+                                                  icon: AppIcons.delete
+                                                      .copyWith(size: 25),
+                                                  onTap: () {})
                                             ],
                                           ),
                                         ],

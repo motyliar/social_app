@@ -32,7 +32,6 @@ class TextFieldColumn extends StatelessWidget {
           toolTip: 'Put your userName or Email',
           focusNode: focusOne,
           nextFocus: focusTwo,
-          isMultineLine: true,
           controller: loginController,
           textInputWidth: textInputWidth,
           hintText: l10n.enterLogin,

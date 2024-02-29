@@ -2,7 +2,6 @@ import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/network_images.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
-import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:flutter/material.dart';
 
