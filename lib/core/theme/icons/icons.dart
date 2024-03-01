@@ -56,4 +56,5 @@ class AppIcons {
     Icons.star,
     color: ColorPallete.rateStarYellow,
   );
+  static const notifications = CustomIcon(Icons.notifications);
 }

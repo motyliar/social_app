@@ -40,7 +40,7 @@ class IconsRow extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const UserMainView()));
             },
-            icon: isProfile ? AppIcons.home : AppIcons.profile),
+            icon: isProfile ? AppIcons.home : AppIcons.notifications),
         BlocBuilder<SignInBloc, SignInState>(
           builder: (context, state) {
             return AppBarIcons(

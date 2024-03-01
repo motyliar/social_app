@@ -37,6 +37,7 @@ class UserMainView extends StatelessWidget {
                   height: _appBarHeight,
                   controller: scrollController,
                   mainChild: DashBoardApp(
+                    isAnimateImage: true,
                     controller: scrollController,
                     imageSrc: state.user.profileAvatar!,
                     userName: state.user.userName,

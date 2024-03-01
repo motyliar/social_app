@@ -60,7 +60,8 @@ class DashBoardApp extends StatelessWidget {
       this.height = _height,
       this.marginLeft = 20,
       this.marginRight = 20,
-      this.isProfile = false});
+      this.isProfile = false,
+      this.isAnimateImage});
   final ScrollController controller;
   final bool isSearchBar;
   final String imageSrc;
@@ -69,6 +70,7 @@ class DashBoardApp extends StatelessWidget {
   final double marginLeft;
   final double marginRight;
   final bool isProfile;
+  final bool? isAnimateImage;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,11 @@ class DashBoardApp extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    ProfileImage(imageSrc: imageSrc, userName: userName),
+                    ProfileImage(
+                      imageSrc: imageSrc,
+                      userName: userName,
+                      isAnimate: isAnimateImage,
+                    ),
                     IconsRow(
                       isProfile: isProfile,
                       controller: controller,
