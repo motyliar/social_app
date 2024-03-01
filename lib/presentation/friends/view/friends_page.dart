@@ -16,7 +16,6 @@ import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// TODO jeśli search jest puste , nic nie robic
 // TODO wyrzucić informację not found
 TextEditingController _searchController = TextEditingController();
 
@@ -70,10 +69,11 @@ class FriendsPage extends StatelessWidget {
                           return MidTextButton(
                               textStyle: AppTextStyle.descriptionSmall,
                               margin: const EdgeInsets.only(left: 5),
-                              onTap: () => context
-                                  .read<FriendsActionBloc>()
-                                  .add(SearchForUsersEvent(
-                                      userByName: _searchController.text)),
+                              onTap: () => _searchController.text.isEmpty
+                                  ? null
+                                  : context.read<FriendsActionBloc>().add(
+                                      SearchForUsersEvent(
+                                          userByName: _searchController.text)),
                               textLabel: 'Search');
                         },
                       ),
@@ -121,62 +121,84 @@ class FriendsPage extends StatelessWidget {
                 if (blocstate is FriendsSearchingSuccess) {
                   return SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    height:
-                        _heightCalculate(itemsCount: blocstate.friend.length),
-                    child: ListView.builder(
-                      itemCount: blocstate.friend.length,
-                      itemBuilder: ((context, index) => SingleUserPreview(
-                            singleUser: blocstate.friend[index],
-                            rightActionIcons: [
-                              RightActionIcon(
-                                text: 'Send message',
-                                icon: AppIcons.messages.copyWith(size: 25),
-                                onTap: () {},
-                              ),
-                              RightActionIcon(
-                                  text: isMyFriend(user.friends,
-                                          blocstate.friend[index].id)
-                                      ? 'Remove friend'
-                                      : 'Send request',
-                                  icon: isMyFriend(user.friends,
-                                          blocstate.friend[index].id)
-                                      ? AppIcons.delete.copyWith(size: 25)
-                                      : AppIcons.personIcon.copyWith(size: 25),
-                                  onTap: () {}),
-                            ],
-                          )),
-                    ),
+                    height: blocstate.friend.isEmpty
+                        ? 100
+                        : _heightCalculate(itemsCount: blocstate.friend.length),
+                    child: blocstate.friend.isEmpty
+                        ? const UserViewCard(
+                            margin: EdgeInsets.only(
+                                top: kGeneralPagesMargin,
+                                left: 100,
+                                right: 100),
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                                HeadersSmallText(text: 'Not found'),
+                                Divider()
+                              ])
+                        : ListView.builder(
+                            itemCount: blocstate.friend.length,
+                            itemBuilder: ((context, index) => SingleUserPreview(
+                                  singleUser: blocstate.friend[index],
+                                  rightActionIcons: [
+                                    RightActionIcon(
+                                      text: 'Send message',
+                                      icon:
+                                          AppIcons.messages.copyWith(size: 25),
+                                      onTap: () {},
+                                    ),
+                                    RightActionIcon(
+                                        text: isMyFriend(user.friends,
+                                                blocstate.friend[index].id)
+                                            ? 'Remove friend'
+                                            : 'Send request',
+                                        icon: isMyFriend(user.friends,
+                                                blocstate.friend[index].id)
+                                            ? AppIcons.delete.copyWith(size: 25)
+                                            : AppIcons.personIcon
+                                                .copyWith(size: 25),
+                                        onTap: () {}),
+                                  ],
+                                )),
+                          ),
                   );
                 }
                 if (blocstate is FriendsLoaded) {
-                  return SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: Utils.sizeCalculator(
-                          totalDimension: 130,
-                          multipler: blocstate.friends.length.toDouble()),
-                      child: ListView.builder(
-                        itemCount: blocstate.friends.length,
-                        itemBuilder: ((context, index) {
-                          return Column(
-                            children: [
-                              SingleUserPreview(
-                                singleUser: blocstate.friends[index],
-                                rightActionIcons: [
-                                  RightActionIcon(
-                                    text: 'Send message',
-                                    icon: AppIcons.messages.copyWith(size: 25),
-                                    onTap: () {},
-                                  ),
-                                  RightActionIcon(
-                                      text: 'Delete friend',
-                                      icon: AppIcons.delete.copyWith(size: 25),
-                                      onTap: () {})
-                                ],
-                              ),
-                            ],
-                          );
-                        }),
-                      ));
+                  return RefreshIndicator(
+                    onRefresh: () async => context
+                        .read<FriendsActionBloc>()
+                        .add(FetchFriendsListEvent(
+                            params: GetFriendsParams(userId: user.id))),
+                    child: SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: Utils.sizeCalculator(
+                            totalDimension: 130,
+                            multipler: blocstate.friends.length.toDouble()),
+                        child: ListView.builder(
+                          itemCount: blocstate.friends.length,
+                          itemBuilder: ((context, index) {
+                            return Column(
+                              children: [
+                                SingleUserPreview(
+                                  singleUser: blocstate.friends[index],
+                                  rightActionIcons: [
+                                    RightActionIcon(
+                                      text: 'Send message',
+                                      icon:
+                                          AppIcons.messages.copyWith(size: 25),
+                                      onTap: () {},
+                                    ),
+                                    RightActionIcon(
+                                        text: 'Delete friend',
+                                        icon:
+                                            AppIcons.delete.copyWith(size: 25),
+                                        onTap: () {})
+                                  ],
+                                ),
+                              ],
+                            );
+                          }),
+                        )),
+                  );
                 } else {
                   return Text('null');
                 }

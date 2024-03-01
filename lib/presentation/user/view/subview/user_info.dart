@@ -160,7 +160,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => _pickImage(ImageSource.camera),
+                    onTap: () => _pickImage(ImageSource.camera, quality: 20),
                     child: const Column(
                       children: [
                         AppIcons.camera,
@@ -176,13 +176,13 @@ class _UserDetailsState extends State<UserDetails> {
         });
   }
 
-  Future<void> _pickImage(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source, {int quality = 5}) async {
     final fetchImage = await ImagePicker().pickImage(source: source);
     if (fetchImage == null) return;
     final bytes = await FlutterImageCompress.compressWithFile(fetchImage.path,
-        quality: 5);
+        quality: quality);
     final base64String = base64Encode(Uint8List.fromList(bytes!));
-    print(base64String.length);
+    debugPrint(base64String.length.toString());
     setState(() {
       _imageString = base64String;
     });

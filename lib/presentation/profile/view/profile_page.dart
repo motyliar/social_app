@@ -142,7 +142,7 @@ class ProfilePage extends StatelessWidget {
                               margin: EdgeInsets.all(kMinEmptySpace),
                               borderRadius: kSmallButtonBorderRadius,
                               textLabel: 'Send message',
-                              textStyle: AppTextStyle.headersSmall,
+                              textStyle: AppTextStyle.descriptionMid,
                             ),
                             BlocBuilder<AddToFriendCubit, AddToFriendState>(
                               buildWhen: (previous, current) =>
@@ -172,9 +172,9 @@ class ProfilePage extends StatelessWidget {
                                   margin: const EdgeInsets.all(kMinEmptySpace),
                                   textLabel:
                                       isMyFriend(appUser.user.friends, user.id)
-                                          ? 'Remove from friends'
+                                          ? 'Remove friends'
                                           : 'Add to friends',
-                                  textStyle: AppTextStyle.headersSmall,
+                                  textStyle: AppTextStyle.descriptionMid,
                                 );
                               },
                             ),
