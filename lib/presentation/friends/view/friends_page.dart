@@ -6,7 +6,8 @@ import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
-import 'package:climbapp/presentation/friends/business/cubit/cubit/search_visible_cubit.dart';
+import 'package:climbapp/presentation/friends/business/cubit/cubit/search_option_cubit.dart';
+import 'package:climbapp/presentation/friends/business/cubit/search_visible/search_visible_cubit.dart';
 import 'package:climbapp/presentation/friends/widgets/widgets.dart';
 import 'package:climbapp/presentation/profile/view/profile_page.dart';
 
@@ -18,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 //todo zrobić last search list
+// todo podział na poszukiwania globalne i wśród przyjaciół
 
 TextEditingController _searchController = TextEditingController();
 
@@ -44,6 +46,7 @@ class FriendsPage extends StatelessWidget {
         BlocProvider(
           create: (context) => SearchVisibleCubit(),
         ),
+        BlocProvider(create: (context) => SearchOptionCubit()),
       ],
       child: Scaffold(
         backgroundColor: ColorPallete.scaffoldBackground,
@@ -51,7 +54,7 @@ class FriendsPage extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              LitlleTopBar(),
+              const LitlleTopBar(),
               BlocBuilder<SearchVisibleCubit, bool>(
                 builder: (context, isVisible) {
                   return UserViewCard(children: [
@@ -95,38 +98,73 @@ class FriendsPage extends StatelessWidget {
                               BlocBuilder<FriendsActionBloc,
                                   FriendsActionState>(
                                 builder: (context, state) {
-                                  return MidTextButton(
-                                      textStyle: AppTextStyle.descriptionSmall,
-                                      margin: const EdgeInsets.only(left: 5),
-                                      onTap: () => _searchController
-                                              .text.isEmpty
-                                          ? null
-                                          : context
-                                              .read<FriendsActionBloc>()
-                                              .add(SearchForUsersEvent(
-                                                  userByName:
-                                                      _searchController.text)),
-                                      textLabel: 'Search');
+                                  return BlocBuilder<SearchOptionCubit, bool>(
+                                    builder: (context, isMy) {
+                                      return MidTextButton(
+                                          textStyle:
+                                              AppTextStyle.descriptionSmall,
+                                          margin:
+                                              const EdgeInsets.only(left: 5),
+                                          onTap: () => _searchController
+                                                  .text.isEmpty
+                                              ? null
+                                              : isMy
+                                                  ? context
+                                                      .read<FriendsActionBloc>()
+                                                      .add(SearchFromListEvent(
+                                                          _searchController
+                                                              .text))
+                                                  : context
+                                                      .read<FriendsActionBloc>()
+                                                      .add(
+                                                        SearchForUsersEvent(
+                                                          userByName:
+                                                              _searchController
+                                                                  .text,
+                                                        ),
+                                                      ),
+                                          textLabel: 'Search');
+                                    },
+                                  );
                                 },
                               ),
                             ],
                           ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              MidTextButton(
-                                buttonHeight: 30,
-                                textLabel: 'Only my',
-                                textStyle: AppTextStyle.descriptionSmall,
-                                backgroundGradient: greyNeutralGradient,
-                              ),
-                              MidTextButton(
-                                buttonHeight: 30,
-                                textLabel: 'Look for new',
-                                textStyle: AppTextStyle.descriptionSmall,
-                                backgroundGradient: greyNeutralGradient,
-                              ),
-                            ],
+                          BlocBuilder<SearchOptionCubit, bool>(
+                            builder: (context, isMy) {
+                              return Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  MidTextButton(
+                                    onTap: () => isMy
+                                        ? null
+                                        : context
+                                            .read<SearchOptionCubit>()
+                                            .changeSearchOption(),
+                                    buttonHeight: 30,
+                                    textLabel: 'Only my',
+                                    textStyle: AppTextStyle.descriptionSmall,
+                                    backgroundGradient: isMy
+                                        ? pinkToBlueRoundGradient
+                                        : greyNeutralGradient,
+                                  ),
+                                  MidTextButton(
+                                    onTap: () => isMy
+                                        ? context
+                                            .read<SearchOptionCubit>()
+                                            .changeSearchOption()
+                                        : null,
+                                    buttonHeight: 30,
+                                    textLabel: 'Look global',
+                                    textStyle: AppTextStyle.descriptionSmall,
+                                    backgroundGradient: isMy
+                                        ? greyNeutralGradient
+                                        : pinkToBlueRoundGradient,
+                                  ),
+                                ],
+                              );
+                            },
                           ),
                         ],
                       ),
@@ -143,30 +181,44 @@ class FriendsPage extends StatelessWidget {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (blocstate is FriendsSearchingSuccess) {
+                  print(blocstate);
                   return RefreshIndicator(
-                    onRefresh: () async => context
-                        .read<FriendsActionBloc>()
-                        .add(ChangeStateViewEvent()),
+                    onRefresh: () async => context.read<FriendsActionBloc>()
+                      ..add(FetchFriendsListEvent(
+                          params: GetFriendsParams(userId: user.id))),
                     color: ColorPallete.mainDecorationColor,
                     backgroundColor: ColorPallete.pinkDecorationColor,
                     strokeWidth: 4,
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: blocstate.friend.isEmpty
-                          ? 100
-                          : _heightCalculate(
-                              itemsCount: blocstate.friend.length),
+                          ? 130
+                          : Utils.sizeCalculator(
+                              totalDimension: 150,
+                              multipler: blocstate.friend.length.toDouble()),
                       child: blocstate.friend.isEmpty
-                          ? const UserViewCard(
-                              margin: EdgeInsets.only(
-                                  top: kGeneralPagesMargin,
-                                  left: 100,
-                                  right: 100),
-                              crossAxisAlignment: CrossAxisAlignment.center,
+                          ? ListView(
                               children: [
-                                  HeadersSmallText(text: 'Not found'),
-                                  Divider()
-                                ])
+                                UserViewCard(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  margin: const EdgeInsets.only(
+                                      left: 100,
+                                      right: 100,
+                                      top: kGeneralPagesMargin),
+                                  children: [
+                                    Text(
+                                      'Not found',
+                                      style: AppTextStyle.headersSmall,
+                                    ),
+                                    Divider(),
+                                    Text(
+                                      'pull down to refresh',
+                                      style: AppTextStyle.descriptionSmall,
+                                    )
+                                  ],
+                                )
+                              ],
+                            )
                           : ListView.builder(
                               itemCount: blocstate.friend.length,
                               itemBuilder: ((context, index) =>
@@ -198,44 +250,70 @@ class FriendsPage extends StatelessWidget {
                   );
                 }
                 if (blocstate is FriendsLoaded) {
+                  print(blocstate);
                   return RefreshIndicator(
+                    onRefresh: () async => context.read<FriendsActionBloc>()
+                      ..add(FetchFriendsListEvent(
+                          params: GetFriendsParams(userId: user.id))),
                     color: ColorPallete.mainDecorationColor,
                     backgroundColor: ColorPallete.pinkDecorationColor,
                     strokeWidth: 4,
-                    onRefresh: () async => context
-                        .read<FriendsActionBloc>()
-                        .add(FetchFriendsListEvent(
-                            params: GetFriendsParams(userId: user.id))),
                     child: SizedBox(
                         width: MediaQuery.of(context).size.width,
-                        height: Utils.sizeCalculator(
-                            totalDimension: 130,
-                            multipler: blocstate.friends.length.toDouble()),
-                        child: ListView.builder(
-                          itemCount: blocstate.friends.length,
-                          itemBuilder: ((context, index) {
-                            return Column(
-                              children: [
-                                SingleUserPreview(
-                                  singleUser: blocstate.friends[index],
-                                  rightActionIcons: [
-                                    RightActionIcon(
-                                      text: 'Send message',
-                                      icon:
-                                          AppIcons.messages.copyWith(size: 25),
-                                      onTap: () {},
-                                    ),
-                                    RightActionIcon(
-                                        text: 'Delete friend',
-                                        icon:
-                                            AppIcons.delete.copyWith(size: 25),
-                                        onTap: () {})
-                                  ],
-                                ),
-                              ],
-                            );
-                          }),
-                        )),
+                        height: blocstate.friends.isEmpty
+                            ? 130
+                            : Utils.sizeCalculator(
+                                totalDimension: 130,
+                                multipler: blocstate.friends.length.toDouble()),
+                        child: blocstate.friends.isEmpty
+                            ? ListView(
+                                children: [
+                                  UserViewCard(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    margin: const EdgeInsets.only(
+                                        left: 100,
+                                        right: 100,
+                                        top: kGeneralPagesMargin),
+                                    children: [
+                                      Text(
+                                        'Not found',
+                                        style: AppTextStyle.headersSmall,
+                                      ),
+                                      Divider(),
+                                      Text(
+                                        'pull down to refresh',
+                                        style: AppTextStyle.descriptionSmall,
+                                      )
+                                    ],
+                                  )
+                                ],
+                              )
+                            : ListView.builder(
+                                itemCount: blocstate.friends.length,
+                                itemBuilder: ((context, index) {
+                                  return Column(
+                                    children: [
+                                      SingleUserPreview(
+                                        singleUser: blocstate.friends[index],
+                                        rightActionIcons: [
+                                          RightActionIcon(
+                                            text: 'Send message',
+                                            icon: AppIcons.messages
+                                                .copyWith(size: 25),
+                                            onTap: () {},
+                                          ),
+                                          RightActionIcon(
+                                              text: 'Delete friend',
+                                              icon: AppIcons.delete
+                                                  .copyWith(size: 25),
+                                              onTap: () {})
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                }),
+                              )),
                   );
                 } else {
                   return Text('null');
@@ -247,66 +325,4 @@ class FriendsPage extends StatelessWidget {
       ),
     );
   }
-}
-
-class SingleUserPreview extends StatelessWidget {
-  const SingleUserPreview({
-    required this.singleUser,
-    required this.rightActionIcons,
-    this.actionIconLeftPadding = 40,
-    this.textStyle,
-    super.key,
-  });
-  final FriendsEntity singleUser;
-  final List<Widget> rightActionIcons;
-  final TextStyle? textStyle;
-  final double actionIconLeftPadding;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, routeProfilePage, arguments: singleUser),
-      child: UserViewCard(
-          margin: const EdgeInsets.only(
-              top: kMidEmptySpace,
-              left: kGeneralPagesMargin,
-              right: kGeneralPagesMargin),
-          padding: EdgeInsets.only(
-              left: kGeneralPagesMargin,
-              right: actionIconLeftPadding,
-              top: kMinEmptySpace,
-              bottom: kMinEmptySpace),
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    StatusUserAvatar(
-                        radius: kMediumAvatar,
-                        activeDotRadius: kDotActiveMedium,
-                        dotRightPosition: 0,
-                        isActive: singleUser.isActive,
-                        avatar: singleUser.profileAvatar),
-                    const SizedBox(
-                      width: kMidEmptySpace,
-                    ),
-                    Text(
-                      singleUser.userName.capitalize(),
-                      style: textStyle ?? AppTextStyle.headersMid,
-                    ),
-                  ],
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: rightActionIcons),
-              ],
-            ),
-          ]),
-    );
-  }
-}
-
-double _heightCalculate({required int itemsCount}) {
-  return (itemsCount * 100).toDouble();
 }

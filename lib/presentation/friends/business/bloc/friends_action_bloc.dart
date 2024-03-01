@@ -30,7 +30,9 @@ class FriendsActionBloc extends Bloc<FriendsActionEvent, FriendsActionState> {
     on<AddFriendEvent>(_addFriend);
     on<SearchForUsersEvent>(_searchUser);
     on<ChangeStateViewEvent>(_changeView);
+    on<SearchFromListEvent>(_searchFromList);
   }
+
   Future<void> _fetchFriends(
       FetchFriendsListEvent event, Emitter<FriendsActionState> emit) async {
     final result = await _getFriendUseCase.execute(event.params);
@@ -67,10 +69,21 @@ class FriendsActionBloc extends Bloc<FriendsActionEvent, FriendsActionState> {
                 FriendsSearchingSuccess(friend: data, false, state.friends))));
   }
 
+  Future<void> _searchFromList(
+      SearchFromListEvent event, Emitter<FriendsActionState> emit) async {
+    emit(FriendsLoaded(_searchFromMyFriendsList(state.friends, event.value),
+        state.isMyFriend));
+  }
+
+  List<FriendsEntity> _searchFromMyFriendsList(
+      List<FriendsEntity> myFriends, String value) {
+    return myFriends
+        .where((element) => element.userName.toLowerCase().contains(value))
+        .toList();
+  }
+
   void _changeView(
       ChangeStateViewEvent event, Emitter<FriendsActionState> emit) {
-    print('this is ${state.friends}');
-    print(state);
     if (state is FriendsLoaded) {
       emit(FriendsSearchingSuccess(
           friend: <FriendsEntity>[], false, state.friends));

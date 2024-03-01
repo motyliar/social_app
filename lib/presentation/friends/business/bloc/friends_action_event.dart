@@ -29,10 +29,22 @@ class AddFriendEvent extends FriendsActionEvent {
 }
 
 class SearchForUsersEvent extends FriendsActionEvent {
-  const SearchForUsersEvent({required this.userByName});
+  const SearchForUsersEvent({
+    required this.userByName,
+  });
   final String userByName;
+
   @override
-  List<Object> get props => [userByName];
+  List<Object> get props => [
+        userByName,
+      ];
 }
 
 class ChangeStateViewEvent extends FriendsActionEvent {}
+
+class SearchFromListEvent extends FriendsActionEvent {
+  const SearchFromListEvent(this.value);
+  final String value;
+  @override
+  List<Object> get props => [value];
+}
