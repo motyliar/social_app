@@ -42,3 +42,8 @@ const redLinearGradientTopToBottom = LinearGradient(
       Colors.white,
       Color.fromARGB(255, 110, 216, 204),
     ]);
+
+const greyNeutralGradient = LinearGradient(
+    begin: Alignment.bottomLeft,
+    end: Alignment.topRight,
+    colors: [Colors.grey, Colors.white, Colors.grey]);
