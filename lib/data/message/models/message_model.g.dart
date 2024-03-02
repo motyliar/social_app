@@ -28,13 +28,14 @@ class MessageModelAdapter extends TypeAdapter<MessageModel> {
       isReply: fields[8] as bool,
       createdAt: fields[9] as String,
       updatedAt: fields[10] as String,
+      avatars: (fields[11] as List?)?.cast<AvatarsModel>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, MessageModel obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class MessageModelAdapter extends TypeAdapter<MessageModel> {
       ..writeByte(9)
       ..write(obj.createdAt)
       ..writeByte(10)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(11)
+      ..write(obj.avatars);
   }
 
   @override
@@ -66,6 +69,43 @@ class MessageModelAdapter extends TypeAdapter<MessageModel> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is MessageModelAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class AvatarsModelAdapter extends TypeAdapter<AvatarsModel> {
+  @override
+  final int typeId = 11;
+
+  @override
+  AvatarsModel read(BinaryReader reader) {
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return AvatarsModel(
+      id: fields[0] as String,
+      profileAvatar: fields[1] as String,
+    );
+  }
+
+  @override
+  void write(BinaryWriter writer, AvatarsModel obj) {
+    writer
+      ..writeByte(2)
+      ..writeByte(0)
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.profileAvatar);
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is AvatarsModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
@@ -87,6 +127,9 @@ _$MessageModelImpl _$$MessageModelImplFromJson(Map<String, dynamic> json) =>
       isReply: json['isReply'] as bool,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
+      avatars: (json['avatars'] as List<dynamic>?)
+          ?.map((e) => AvatarsModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$MessageModelImplToJson(_$MessageModelImpl instance) =>
@@ -102,4 +145,17 @@ Map<String, dynamic> _$$MessageModelImplToJson(_$MessageModelImpl instance) =>
       'isReply': instance.isReply,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'avatars': instance.avatars,
+    };
+
+_$AvatarsModelImpl _$$AvatarsModelImplFromJson(Map<String, dynamic> json) =>
+    _$AvatarsModelImpl(
+      id: json['id'] as String,
+      profileAvatar: json['profileAvatar'] as String,
+    );
+
+Map<String, dynamic> _$$AvatarsModelImplToJson(_$AvatarsModelImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'profileAvatar': instance.profileAvatar,
     };

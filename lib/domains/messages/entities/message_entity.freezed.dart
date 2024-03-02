@@ -12,7 +12,7 @@ part of 'message_entity.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MessageEntity _$MessageEntityFromJson(Map<String, dynamic> json) {
   return _MessageEntity.fromJson(json);
@@ -31,6 +31,7 @@ mixin _$MessageEntity {
   bool get isReply => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
+  List<Avatars>? get avatars => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,7 +56,8 @@ abstract class $MessageEntityCopyWith<$Res> {
       bool isRead,
       bool isReply,
       String createdAt,
-      String updatedAt});
+      String updatedAt,
+      List<Avatars>? avatars});
 }
 
 /// @nodoc
@@ -82,6 +84,7 @@ class _$MessageEntityCopyWithImpl<$Res, $Val extends MessageEntity>
     Object? isReply = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatars = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -128,6 +131,10 @@ class _$MessageEntityCopyWithImpl<$Res, $Val extends MessageEntity>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatars: freezed == avatars
+          ? _value.avatars
+          : avatars // ignore: cast_nullable_to_non_nullable
+              as List<Avatars>?,
     ) as $Val);
   }
 }
@@ -151,7 +158,8 @@ abstract class _$$MessageEntityImplCopyWith<$Res>
       bool isRead,
       bool isReply,
       String createdAt,
-      String updatedAt});
+      String updatedAt,
+      List<Avatars>? avatars});
 }
 
 /// @nodoc
@@ -176,6 +184,7 @@ class __$$MessageEntityImplCopyWithImpl<$Res>
     Object? isReply = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatars = freezed,
   }) {
     return _then(_$MessageEntityImpl(
       id: null == id
@@ -222,6 +231,10 @@ class __$$MessageEntityImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatars: freezed == avatars
+          ? _value._avatars
+          : avatars // ignore: cast_nullable_to_non_nullable
+              as List<Avatars>?,
     ));
   }
 }
@@ -240,7 +253,9 @@ class _$MessageEntityImpl implements _MessageEntity {
       required this.isRead,
       required this.isReply,
       required this.createdAt,
-      required this.updatedAt});
+      required this.updatedAt,
+      final List<Avatars>? avatars})
+      : _avatars = avatars;
 
   factory _$MessageEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageEntityImplFromJson(json);
@@ -267,10 +282,19 @@ class _$MessageEntityImpl implements _MessageEntity {
   final String createdAt;
   @override
   final String updatedAt;
+  final List<Avatars>? _avatars;
+  @override
+  List<Avatars>? get avatars {
+    final value = _avatars;
+    if (value == null) return null;
+    if (_avatars is EqualUnmodifiableListView) return _avatars;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'MessageEntity(id: $id, to: $to, from: $from, sender: $sender, recipient: $recipient, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MessageEntity(id: $id, to: $to, from: $from, sender: $sender, recipient: $recipient, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt, avatars: $avatars)';
   }
 
   @override
@@ -291,13 +315,26 @@ class _$MessageEntityImpl implements _MessageEntity {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other._avatars, _avatars));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, to, from, sender, recipient,
-      subject, content, isRead, isReply, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      to,
+      from,
+      sender,
+      recipient,
+      subject,
+      content,
+      isRead,
+      isReply,
+      createdAt,
+      updatedAt,
+      const DeepCollectionEquality().hash(_avatars));
 
   @JsonKey(ignore: true)
   @override
@@ -325,7 +362,8 @@ abstract class _MessageEntity implements MessageEntity {
       required final bool isRead,
       required final bool isReply,
       required final String createdAt,
-      required final String updatedAt}) = _$MessageEntityImpl;
+      required final String updatedAt,
+      final List<Avatars>? avatars}) = _$MessageEntityImpl;
 
   factory _MessageEntity.fromJson(Map<String, dynamic> json) =
       _$MessageEntityImpl.fromJson;
@@ -353,7 +391,160 @@ abstract class _MessageEntity implements MessageEntity {
   @override
   String get updatedAt;
   @override
+  List<Avatars>? get avatars;
+  @override
   @JsonKey(ignore: true)
   _$$MessageEntityImplCopyWith<_$MessageEntityImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+Avatars _$AvatarsFromJson(Map<String, dynamic> json) {
+  return _Avatars.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Avatars {
+  String get id => throw _privateConstructorUsedError;
+  String get profileAvatar => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AvatarsCopyWith<Avatars> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AvatarsCopyWith<$Res> {
+  factory $AvatarsCopyWith(Avatars value, $Res Function(Avatars) then) =
+      _$AvatarsCopyWithImpl<$Res, Avatars>;
+  @useResult
+  $Res call({String id, String profileAvatar});
+}
+
+/// @nodoc
+class _$AvatarsCopyWithImpl<$Res, $Val extends Avatars>
+    implements $AvatarsCopyWith<$Res> {
+  _$AvatarsCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? profileAvatar = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileAvatar: null == profileAvatar
+          ? _value.profileAvatar
+          : profileAvatar // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AvatarsImplCopyWith<$Res> implements $AvatarsCopyWith<$Res> {
+  factory _$$AvatarsImplCopyWith(
+          _$AvatarsImpl value, $Res Function(_$AvatarsImpl) then) =
+      __$$AvatarsImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String id, String profileAvatar});
+}
+
+/// @nodoc
+class __$$AvatarsImplCopyWithImpl<$Res>
+    extends _$AvatarsCopyWithImpl<$Res, _$AvatarsImpl>
+    implements _$$AvatarsImplCopyWith<$Res> {
+  __$$AvatarsImplCopyWithImpl(
+      _$AvatarsImpl _value, $Res Function(_$AvatarsImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? profileAvatar = null,
+  }) {
+    return _then(_$AvatarsImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileAvatar: null == profileAvatar
+          ? _value.profileAvatar
+          : profileAvatar // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AvatarsImpl implements _Avatars {
+  const _$AvatarsImpl({required this.id, required this.profileAvatar});
+
+  factory _$AvatarsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AvatarsImplFromJson(json);
+
+  @override
+  final String id;
+  @override
+  final String profileAvatar;
+
+  @override
+  String toString() {
+    return 'Avatars(id: $id, profileAvatar: $profileAvatar)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AvatarsImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.profileAvatar, profileAvatar) ||
+                other.profileAvatar == profileAvatar));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, profileAvatar);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AvatarsImplCopyWith<_$AvatarsImpl> get copyWith =>
+      __$$AvatarsImplCopyWithImpl<_$AvatarsImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AvatarsImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Avatars implements Avatars {
+  const factory _Avatars(
+      {required final String id,
+      required final String profileAvatar}) = _$AvatarsImpl;
+
+  factory _Avatars.fromJson(Map<String, dynamic> json) = _$AvatarsImpl.fromJson;
+
+  @override
+  String get id;
+  @override
+  String get profileAvatar;
+  @override
+  @JsonKey(ignore: true)
+  _$$AvatarsImplCopyWith<_$AvatarsImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

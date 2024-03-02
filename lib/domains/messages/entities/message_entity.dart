@@ -15,7 +15,18 @@ class MessageEntity with _$MessageEntity {
       required bool isRead,
       required bool isReply,
       required String createdAt,
-      required String updatedAt}) = _MessageEntity;
+      required String updatedAt,
+      List<Avatars>? avatars}) = _MessageEntity;
   factory MessageEntity.fromJson(Map<String, dynamic> json) =>
       _$MessageEntityFromJson(json);
+}
+
+@freezed
+class Avatars with _$Avatars {
+  const factory Avatars({
+    required String id,
+    required String profileAvatar,
+  }) = _Avatars;
+  factory Avatars.fromJson(Map<String, dynamic> json) =>
+      _$AvatarsFromJson(json);
 }

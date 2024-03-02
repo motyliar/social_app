@@ -12,7 +12,7 @@ part of 'message_model.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 MessageModel _$MessageModelFromJson(Map<String, dynamic> json) {
   return _MessageModel.fromJson(json);
@@ -43,6 +43,8 @@ mixin _$MessageModel {
   String get createdAt => throw _privateConstructorUsedError;
   @HiveField(10)
   String get updatedAt => throw _privateConstructorUsedError;
+  @HiveField(11)
+  List<AvatarsModel>? get avatars => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -67,7 +69,8 @@ abstract class $MessageModelCopyWith<$Res> {
       @HiveField(7) bool isRead,
       @HiveField(8) bool isReply,
       @HiveField(9) String createdAt,
-      @HiveField(10) String updatedAt});
+      @HiveField(10) String updatedAt,
+      @HiveField(11) List<AvatarsModel>? avatars});
 }
 
 /// @nodoc
@@ -94,6 +97,7 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
     Object? isReply = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatars = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -140,6 +144,10 @@ class _$MessageModelCopyWithImpl<$Res, $Val extends MessageModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatars: freezed == avatars
+          ? _value.avatars
+          : avatars // ignore: cast_nullable_to_non_nullable
+              as List<AvatarsModel>?,
     ) as $Val);
   }
 }
@@ -163,7 +171,8 @@ abstract class _$$MessageModelImplCopyWith<$Res>
       @HiveField(7) bool isRead,
       @HiveField(8) bool isReply,
       @HiveField(9) String createdAt,
-      @HiveField(10) String updatedAt});
+      @HiveField(10) String updatedAt,
+      @HiveField(11) List<AvatarsModel>? avatars});
 }
 
 /// @nodoc
@@ -188,6 +197,7 @@ class __$$MessageModelImplCopyWithImpl<$Res>
     Object? isReply = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatars = freezed,
   }) {
     return _then(_$MessageModelImpl(
       id: null == id
@@ -234,6 +244,10 @@ class __$$MessageModelImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatars: freezed == avatars
+          ? _value._avatars
+          : avatars // ignore: cast_nullable_to_non_nullable
+              as List<AvatarsModel>?,
     ));
   }
 }
@@ -252,8 +266,10 @@ class _$MessageModelImpl extends _MessageModel {
       @HiveField(7) required this.isRead,
       @HiveField(8) required this.isReply,
       @HiveField(9) required this.createdAt,
-      @HiveField(10) required this.updatedAt})
-      : super._();
+      @HiveField(10) required this.updatedAt,
+      @HiveField(11) final List<AvatarsModel>? avatars})
+      : _avatars = avatars,
+        super._();
 
   factory _$MessageModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MessageModelImplFromJson(json);
@@ -292,10 +308,20 @@ class _$MessageModelImpl extends _MessageModel {
   @override
   @HiveField(10)
   final String updatedAt;
+  final List<AvatarsModel>? _avatars;
+  @override
+  @HiveField(11)
+  List<AvatarsModel>? get avatars {
+    final value = _avatars;
+    if (value == null) return null;
+    if (_avatars is EqualUnmodifiableListView) return _avatars;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'MessageModel(id: $id, to: $to, from: $from, sender: $sender, recipient: $recipient, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'MessageModel(id: $id, to: $to, from: $from, sender: $sender, recipient: $recipient, subject: $subject, content: $content, isRead: $isRead, isReply: $isReply, createdAt: $createdAt, updatedAt: $updatedAt, avatars: $avatars)';
   }
 
   @override
@@ -316,13 +342,26 @@ class _$MessageModelImpl extends _MessageModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            const DeepCollectionEquality().equals(other._avatars, _avatars));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, to, from, sender, recipient,
-      subject, content, isRead, isReply, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      to,
+      from,
+      sender,
+      recipient,
+      subject,
+      content,
+      isRead,
+      isReply,
+      createdAt,
+      updatedAt,
+      const DeepCollectionEquality().hash(_avatars));
 
   @JsonKey(ignore: true)
   @override
@@ -350,7 +389,8 @@ abstract class _MessageModel extends MessageModel {
       @HiveField(7) required final bool isRead,
       @HiveField(8) required final bool isReply,
       @HiveField(9) required final String createdAt,
-      @HiveField(10) required final String updatedAt}) = _$MessageModelImpl;
+      @HiveField(10) required final String updatedAt,
+      @HiveField(11) final List<AvatarsModel>? avatars}) = _$MessageModelImpl;
   const _MessageModel._() : super._();
 
   factory _MessageModel.fromJson(Map<String, dynamic> json) =
@@ -391,7 +431,175 @@ abstract class _MessageModel extends MessageModel {
   @HiveField(10)
   String get updatedAt;
   @override
+  @HiveField(11)
+  List<AvatarsModel>? get avatars;
+  @override
   @JsonKey(ignore: true)
   _$$MessageModelImplCopyWith<_$MessageModelImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+AvatarsModel _$AvatarsModelFromJson(Map<String, dynamic> json) {
+  return _AvatarsModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AvatarsModel {
+  @HiveField(0)
+  String get id => throw _privateConstructorUsedError;
+  @HiveField(1)
+  String get profileAvatar => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $AvatarsModelCopyWith<AvatarsModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AvatarsModelCopyWith<$Res> {
+  factory $AvatarsModelCopyWith(
+          AvatarsModel value, $Res Function(AvatarsModel) then) =
+      _$AvatarsModelCopyWithImpl<$Res, AvatarsModel>;
+  @useResult
+  $Res call({@HiveField(0) String id, @HiveField(1) String profileAvatar});
+}
+
+/// @nodoc
+class _$AvatarsModelCopyWithImpl<$Res, $Val extends AvatarsModel>
+    implements $AvatarsModelCopyWith<$Res> {
+  _$AvatarsModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? profileAvatar = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileAvatar: null == profileAvatar
+          ? _value.profileAvatar
+          : profileAvatar // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AvatarsModelImplCopyWith<$Res>
+    implements $AvatarsModelCopyWith<$Res> {
+  factory _$$AvatarsModelImplCopyWith(
+          _$AvatarsModelImpl value, $Res Function(_$AvatarsModelImpl) then) =
+      __$$AvatarsModelImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({@HiveField(0) String id, @HiveField(1) String profileAvatar});
+}
+
+/// @nodoc
+class __$$AvatarsModelImplCopyWithImpl<$Res>
+    extends _$AvatarsModelCopyWithImpl<$Res, _$AvatarsModelImpl>
+    implements _$$AvatarsModelImplCopyWith<$Res> {
+  __$$AvatarsModelImplCopyWithImpl(
+      _$AvatarsModelImpl _value, $Res Function(_$AvatarsModelImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? profileAvatar = null,
+  }) {
+    return _then(_$AvatarsModelImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      profileAvatar: null == profileAvatar
+          ? _value.profileAvatar
+          : profileAvatar // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$AvatarsModelImpl extends _AvatarsModel {
+  const _$AvatarsModelImpl(
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.profileAvatar})
+      : super._();
+
+  factory _$AvatarsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AvatarsModelImplFromJson(json);
+
+  @override
+  @HiveField(0)
+  final String id;
+  @override
+  @HiveField(1)
+  final String profileAvatar;
+
+  @override
+  String toString() {
+    return 'AvatarsModel(id: $id, profileAvatar: $profileAvatar)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AvatarsModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.profileAvatar, profileAvatar) ||
+                other.profileAvatar == profileAvatar));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, profileAvatar);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AvatarsModelImplCopyWith<_$AvatarsModelImpl> get copyWith =>
+      __$$AvatarsModelImplCopyWithImpl<_$AvatarsModelImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AvatarsModelImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _AvatarsModel extends AvatarsModel {
+  const factory _AvatarsModel(
+      {@HiveField(0) required final String id,
+      @HiveField(1) required final String profileAvatar}) = _$AvatarsModelImpl;
+  const _AvatarsModel._() : super._();
+
+  factory _AvatarsModel.fromJson(Map<String, dynamic> json) =
+      _$AvatarsModelImpl.fromJson;
+
+  @override
+  @HiveField(0)
+  String get id;
+  @override
+  @HiveField(1)
+  String get profileAvatar;
+  @override
+  @JsonKey(ignore: true)
+  _$$AvatarsModelImplCopyWith<_$AvatarsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

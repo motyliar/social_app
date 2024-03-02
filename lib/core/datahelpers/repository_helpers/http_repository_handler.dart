@@ -2,6 +2,7 @@ import 'package:climbapp/core/datahelpers/handlers/response_handlers.impl.dart';
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 abstract class HttpRepositoryHandler {
@@ -17,7 +18,8 @@ abstract class HttpRepositoryHandler {
   EitherFunc<T> returnData<T>({String? dataGetter}) async {
     try {
       final response = await sendRequest();
-      print(response.body);
+      debugPrint(response.statusCode.toString());
+
       return _handleResponse<T>(response, dataGetter: dataGetter);
     } catch (e) {
       throw ServerException('return-data');

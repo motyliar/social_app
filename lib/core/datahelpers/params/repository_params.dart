@@ -3,5 +3,5 @@ abstract class RepositoryParams {
   final Uri? url;
 
   Map<String, dynamic> requestMapBody();
-  Map<String, String> headers() => {'Content-Type': 'application/json'};
+  Map<String, String> headers() => {'content-Type': 'application/json'};
 }

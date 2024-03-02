@@ -25,8 +25,10 @@ class MessageRepositoryImpl extends MessagesRepository {
       if (serverConnectionTest.isRight()) {
         try {
           return await _messageRemoteDataSources.sendMessage(message).then(
-              (response) => response.fold(
-                  (failure) => Left(failure), (data) => Right(data)));
+              (response) => response.fold((failure) => Left(failure), (data) {
+                    print(data);
+                    return Right(data);
+                  }));
         } catch (error) {
           return Left(ServerException(error.toString()));
         }

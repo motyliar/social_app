@@ -9,18 +9,20 @@ class UserViewCard extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.margin,
     this.padding,
+    this.color,
     super.key,
   });
   final List<Widget> children;
   final CrossAxisAlignment crossAxisAlignment;
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return ContainerTemplate(
       width: MediaQuery.of(context).size.width,
-      color: ColorPallete.whiteOpacity80,
+      color: color ?? ColorPallete.whiteOpacity80,
       borderRadius: kMinBorderRadius,
       margin: margin ??
           const EdgeInsets.only(

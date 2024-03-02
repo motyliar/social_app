@@ -1,6 +1,8 @@
+import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
+import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
@@ -9,8 +11,10 @@ import 'package:climbapp/presentation/message/business/cubit/delete/message_dele
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
 import 'package:climbapp/presentation/message/widgets/checkbox.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 bool isChecked = true;
 
@@ -70,52 +74,119 @@ class ListOfMessage extends StatelessWidget {
                           ));
                     },
                   ),
-                  IconButton(
-                    onPressed: () {
-                      showDialog(
-                          barrierColor: Colors.transparent,
-                          context: context,
-                          builder: (BuildContext context) {
-                            return Stack(children: [
-                              Positioned(
-                                  child: Container(
-                                color: Colors.transparent,
-                                height: MediaQuery.of(context).size.height,
-                              )),
-                              Positioned(
-                                top: 100,
-                                child: AlertDialog(
-                                  backgroundColor: Colors.transparent,
-                                  elevation: 0,
-                                  content: SizedBox(
-                                    width: 30,
-                                    height: 40,
-                                    child: Center(
-                                      child: LinearProgressIndicator(
-                                          color: Colors.grey.withOpacity(0.5)),
-                                    ),
-                                  ),
-                                ),
-                              )
-                            ]);
-                          });
-                      Future.delayed(
-                          Duration(seconds: 1),
-                          () => context.read<MessageActionBloc>().add(
-                                LoadUserMessagesEvent(
-                                    params: GetMessageParams(
-                                        url: AppUrl.getUserMessages(user.id),
-                                        direction: direction)),
-                              )).whenComplete(
-                          () => Navigator.of(context).pop());
-                    },
-                    icon: Icon(Icons.refresh),
-                  ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     showDialog(
+                  //         barrierColor: Colors.transparent,
+                  //         context: context,
+                  //         builder: (BuildContext context) {
+                  //           return Stack(children: [
+                  //             Positioned(
+                  //                 child: Container(
+                  //               color: Colors.transparent,
+                  //               height: MediaQuery.of(context).size.height,
+                  //             )),
+                  //             Positioned(
+                  //               top: 100,
+                  //               child: AlertDialog(
+                  //                 backgroundColor: Colors.transparent,
+                  //                 elevation: 0,
+                  //                 content: SizedBox(
+                  //                   width: 30,
+                  //                   height: 40,
+                  //                   child: Center(
+                  //                     child: LinearProgressIndicator(
+                  //                         color: Colors.grey.withOpacity(0.5)),
+                  //                   ),
+                  //                 ),
+                  //               ),
+                  //             )
+                  //           ]);
+                  //         });
+                  //     Future.delayed(
+                  //         Duration(seconds: 1),
+                  //         () => context.read<MessageActionBloc>().add(
+                  //               LoadUserMessagesEvent(
+                  //                   params: GetMessageParams(
+                  //                       url: AppUrl.getUserMessages(user.id),
+                  //                       direction: direction)),
+                  //             )).whenComplete(
+                  //         () => Navigator.of(context).pop());
+                  //   },
+                  //   icon: Icon(Icons.refresh),
+                  // ),
                 ],
               ),
+              Column(
+                children: List.generate(
+                  state.messages.length,
+                  (index) => UserViewCard(
+                      color: state.messages[index].isRead
+                          ? ColorPallete.whiteOpacity80
+                          : ColorPallete.mainDecorationColor,
+                      margin: const EdgeInsets.only(top: kMinEmptySpace),
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              'From:',
+                              style: AppTextStyle.descriptionMid,
+                            ),
+                            Gap(kMidEmptySpace),
+                            Text(state.messages[index].sender,
+                                style: AppTextStyle.descriptionMid),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text('Subject:',
+                                    style: AppTextStyle.descriptionMid),
+                                Gap(kMidEmptySpace),
+                                Text(state.messages[index].subject,
+                                    style: AppTextStyle.descriptionMid),
+                              ],
+                            ),
+                            BlocBuilder<MessageCheckboxCubit,
+                                MessageCheckboxState>(
+                              builder: (context, messagesState) {
+                                final _messagesList = state.messages;
+                                return CheckBoxWidgets(
+                                    onTap: () {
+                                      context
+                                          .read<MessageCheckboxCubit>()
+                                          .toggleNotfication(
+                                              index,
+                                              messagesState.isCheck
+                                                  ? false
+                                                  : true);
+
+                                      messagesState.checkBoxes[index]['isCheck']
+                                          ? context
+                                              .read<MessageDeleteCubit>()
+                                              .addIdToDelete(
+                                                  _messagesList[index].id)
+                                          : context
+                                              .read<MessageDeleteCubit>()
+                                              .deleteIdFromList(
+                                                  _messagesList[index].id);
+                                    },
+                                    isCheck: messagesState.checkBoxes[index]
+                                        ['isCheck']);
+                              },
+                            ),
+                          ],
+                        ),
+                      ]),
+                ),
+              ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: MediaQuery.of(context).size.height * 0.5,
+                width: MediaQuery.of(context).size.width,
+                height: Utils.sizeCalculator(
+                    totalDimension: 50,
+                    multipler: state.messages.length.toDouble()),
                 child: ListView.builder(
                     itemCount: state.messages.length,
                     itemBuilder: (context, index) {
@@ -159,29 +230,6 @@ class ListOfMessage extends StatelessWidget {
                                 Divider(),
                               ],
                             ),
-                          ),
-                          BlocBuilder<MessageCheckboxCubit,
-                              MessageCheckboxState>(
-                            builder: (context, state) {
-                              return CheckBoxWidgets(
-                                  onTap: () {
-                                    context
-                                        .read<MessageCheckboxCubit>()
-                                        .toggleNotfication(index,
-                                            state.isCheck ? false : true);
-                                    print(state.isCheck);
-                                    state.checkBoxes[index]['isCheck']
-                                        ? context
-                                            .read<MessageDeleteCubit>()
-                                            .addIdToDelete(
-                                                _messagesList[index].id)
-                                        : context
-                                            .read<MessageDeleteCubit>()
-                                            .deleteIdFromList(
-                                                _messagesList[index].id);
-                                  },
-                                  isCheck: state.checkBoxes[index]['isCheck']);
-                            },
                           ),
                         ],
                       );

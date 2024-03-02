@@ -29,7 +29,8 @@ class HiveInit {
       ..registerAdapter(NoticeModelAdapter())
       ..registerAdapter(ContentModelAdapter())
       ..registerAdapter(CommentsModelAdapter())
-      ..registerAdapter(OnBoardModelAdapter());
+      ..registerAdapter(OnBoardModelAdapter())
+      ..registerAdapter(AvatarsModelAdapter());
   }
 
   Future<void> _openHiveBoxes() async {

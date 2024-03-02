@@ -9,6 +9,8 @@ class MessageDownloader {
   Future<List<dynamic>> fetchMessageData() async {
     return await HttpPostDataHandler(params: _getMessageParams)
         .returnData<List<dynamic>>(dataGetter: _getMessageParams.direction)
-        .then((r) => r.fold((failure) => throw failure, (data) => data));
+        .then((r) => r.fold((failure) => throw failure, (data) {
+              return data;
+            }));
   }
 }

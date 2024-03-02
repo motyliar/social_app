@@ -2,6 +2,7 @@ import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../../core/constans/export_constans.dart';
 import '../../app/widgets/app_widgets.dart';
@@ -29,8 +30,15 @@ class LitlleTopBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            RoundBackButton(
-              onTap: () => Navigator.of(context).pop(),
+            Row(
+              children: [
+                RoundBackButton(
+                  onTap: () => Navigator.of(context).pop(),
+                ),
+                Gap(kGeneralPagesMargin),
+                Transform.rotate(
+                    angle: 7, child: Image.network(ImagesURL.appLogoSmallM)),
+              ],
             ),
             ButtonIcon(
                 onTap: () => Navigator.popAndPushNamed(context, routeUserMain),

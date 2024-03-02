@@ -1,3 +1,5 @@
+import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class CheckBoxWidgets extends StatelessWidget {
@@ -19,19 +21,19 @@ class CheckBoxWidgets extends StatelessWidget {
       onTap: () => onTap!(),
       child: Container(
         decoration: BoxDecoration(
-            border: Border.all(
-          width: 1.5,
-          color: Colors.black,
-        )),
+          borderRadius: BorderRadius.circular(kMinBorderRadius),
+        ),
         child: Container(
-          color: isCheck ? color.withOpacity(0.3) : Colors.white,
+          color: isCheck
+              ? Colors.grey.withOpacity(0.3)
+              : ColorPallete.greyShadowColorOpacityMax,
           width: size,
           height: size,
           child: isCheck
               ? Icon(
                   Icons.done,
                   size: size,
-                  color: Colors.black,
+                  color: ColorPallete.pinkDecorationColor,
                   weight: 700,
                   grade: 200,
                 )

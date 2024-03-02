@@ -1,7 +1,7 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/shadows.dart';
-import 'package:climbapp/presentation/app.dart';
+
 import 'package:flutter/material.dart';
 
 class RoundButton extends StatelessWidget {

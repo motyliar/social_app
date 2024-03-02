@@ -8,6 +8,7 @@ import 'package:climbapp/data/message/helpers/message_downloader.dart';
 import 'package:climbapp/data/message/helpers/response_conventer.dart';
 import 'package:climbapp/data/message/models/message_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 const String _dataGetter = 'status';
@@ -33,10 +34,12 @@ class MessageRemoteDataSourcesImpl extends MessageRemoteDataSources {
   EitherFunc<List<MessageModel>> getUserMessage(GetMessageParams params) async {
     try {
       final responseData = await MessageDownloader(params).fetchMessageData();
+
       final mappedData =
           ResponseConverter(responseData).mapResponseToMessageModel();
       return Right(mappedData);
     } catch (e) {
+      debugPrint(e.toString());
       return Left(ServerException.failed());
     }
   }

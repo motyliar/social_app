@@ -19,6 +19,9 @@ _$MessageEntityImpl _$$MessageEntityImplFromJson(Map<String, dynamic> json) =>
       isReply: json['isReply'] as bool,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
+      avatars: (json['avatars'] as List<dynamic>?)
+          ?.map((e) => Avatars.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$MessageEntityImplToJson(_$MessageEntityImpl instance) =>
@@ -34,4 +37,17 @@ Map<String, dynamic> _$$MessageEntityImplToJson(_$MessageEntityImpl instance) =>
       'isReply': instance.isReply,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'avatars': instance.avatars,
+    };
+
+_$AvatarsImpl _$$AvatarsImplFromJson(Map<String, dynamic> json) =>
+    _$AvatarsImpl(
+      id: json['id'] as String,
+      profileAvatar: json['profileAvatar'] as String,
+    );
+
+Map<String, dynamic> _$$AvatarsImplToJson(_$AvatarsImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'profileAvatar': instance.profileAvatar,
     };

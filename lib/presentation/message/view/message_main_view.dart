@@ -1,9 +1,17 @@
+import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/theme/fonts.dart';
+import 'package:climbapp/core/theme/gradients.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
+import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
 import 'package:climbapp/presentation/message/view/message_preview.dart';
 import 'package:climbapp/presentation/message/view/subview/message_reply.dart';
+import 'package:climbapp/presentation/profile/widgets/widgets.dart';
+import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import '../view/subview/message_subview.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 
@@ -28,15 +36,28 @@ class MessageMainView extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
+              const LitlleTopBar(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back)),
-                  const Text('Your Messanger'),
+                  MidTextButton(
+                    textLabel: 'Received',
+                    borderRadius: kSmallButtonBorderRadius,
+                  ),
+                  MidTextButton(
+                    textLabel: 'Send',
+                    borderRadius: kSmallButtonBorderRadius,
+                  ),
+                  MidTextButton(
+                    textLabel: 'Thrash',
+                    borderRadius: kSmallButtonBorderRadius,
+                  ),
                 ],
               ),
+              Gap(kGeneralPagesMargin),
+              UserViewCard(children: [
+                GradientDivider(),
+              ]),
               BlocBuilder<MessageViewCubit, MessageViewState>(
                 builder: (context, state) {
                   return Container(
