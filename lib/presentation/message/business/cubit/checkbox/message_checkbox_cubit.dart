@@ -21,4 +21,8 @@ class MessageCheckboxCubit extends Cubit<MessageCheckboxState> {
         ..[index]['isCheck'] =
             state.checkBoxes[index]['isCheck'] ? false : true,
       isCheck: value));
+
+  void addAllToDelete(List<Map<dynamic, dynamic>> allElements) {
+    emit(state.copyWith(checkBoxes: List.from(allElements)));
+  }
 }

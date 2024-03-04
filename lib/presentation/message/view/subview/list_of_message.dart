@@ -18,6 +18,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 
+//todo zrobic przejście do pojedynczej wiadomości
+//todo zrobić boczny panel z wyborem odpowiedniej kategori wiadomości lub zmniejszyć przyciski górne,
+// usunąć grafient divider
+// zaimplementować przejście do pojedynczej wiadomości wysyłanej bezpośrednio do użytkownika
+
 bool isChecked = true;
 ScrollController _pageController = ScrollController();
 ScrollController _listController = ScrollController();
@@ -44,43 +49,93 @@ class ListOfMessage extends StatelessWidget {
           controller: _pageController,
           child: BlocBuilder<MessageActionBloc, MessageActionState>(
             builder: (context, state) {
-              print(state.messages.length);
+              final listMessages = state.messages;
               BlocProvider.of<MessageCheckboxCubit>(context).addItemsToMap(
                   MessageLogic.boolCreator(state.messages.length));
               return Column(
                 children: [
+                  const Gap(15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      const Text('ACTION'),
                       BlocBuilder<MessageDeleteCubit, MessageDeleteState>(
-                        builder: (context, state) {
-                          return IconButton(
-                              onPressed: () {
-                                context
-                                    .read<MessageDeleteCubit>()
-                                    .deleteMessagesFromDB(
-                                      deleteParams: MessageDeleteParams(
-                                          url: AppUrl.deleteMessage(user.id),
-                                          direction: direction,
-                                          delete: state.messageIds),
-                                    );
-                                MessageLogic.refreshState(
-                                    refreshFunction: () =>
-                                        BlocProvider.of<MessageActionBloc>(
+                        builder: (context, delete) {
+                          return Row(
+                            children: [
+                              Visibility(
+                                visible: delete.messageIds.isNotEmpty,
+                                child: IconButton(
+                                    onPressed: () {
+                                      context
+                                          .read<MessageDeleteCubit>()
+                                          .deleteMessagesFromDB(
+                                            deleteParams: MessageDeleteParams(
+                                                url: AppUrl.deleteMessage(
+                                                    user.id),
+                                                direction: direction,
+                                                delete: delete.messageIds),
+                                          );
+                                      MessageLogic.refreshState(
+                                          refreshFunction: () => BlocProvider
+                                                  .of<MessageActionBloc>(
+                                                      context)
+                                              .add(LoadUserMessagesEvent(
+                                                  params: GetMessageParams(
+                                                      url: AppUrl
+                                                          .getUserMessages(
+                                                              user.id),
+                                                      direction: direction))));
+                                    },
+                                    icon: Badge(
+                                      label: Text(
+                                          delete.messageIds.length.toString()),
+                                      isLabelVisible: delete.messageIds.isEmpty
+                                          ? false
+                                          : true,
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: delete.messageIds.isEmpty
+                                            ? Colors.grey
+                                            : Colors.red,
+                                      ),
+                                    )),
+                              ),
+                              Visibility(
+                                visible: delete.messageIds.isNotEmpty,
+                                child: GestureDetector(
+                                    onTap: () {
+                                      BlocProvider.of<MessageDeleteCubit>(
+                                              context)
+                                          .addAllToDelete(
+                                              MessageLogic.generateIdsList(
+                                                  messages: state.messages));
+                                      BlocProvider.of<MessageCheckboxCubit>(
+                                              context)
+                                          .addAllToDelete(
+                                              MessageLogic.generateCheckedBox(
+                                                  listSize:
+                                                      state.messages.length));
+                                    },
+                                    child: const Text('ALL')),
+                              ),
+                              Visibility(
+                                  visible: delete.messageIds.isNotEmpty,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<MessageDeleteCubit>(
                                                 context)
-                                            .add(LoadUserMessagesEvent(
-                                                params: GetMessageParams(
-                                                    url: AppUrl.getUserMessages(
-                                                        user.id),
-                                                    direction: direction))));
-                              },
-                              icon: Icon(
-                                Icons.delete,
-                                color: state.messageIds.isEmpty
-                                    ? Colors.grey
-                                    : Colors.red,
-                              ));
+                                            .clearDeleteList();
+                                        BlocProvider.of<MessageCheckboxCubit>(
+                                                context)
+                                            .addAllToDelete(
+                                                MessageLogic.generateCheckedBox(
+                                                    listSize:
+                                                        state.messages.length,
+                                                    wantToCheck: false));
+                                      },
+                                      icon: const Icon(Icons.cancel))),
+                            ],
+                          );
                         },
                       ),
                     ],
@@ -137,113 +192,103 @@ class ListOfMessage extends StatelessWidget {
                                         ),
                                   )
                                 ]),
-                            child: UserViewCard(
-                                color: state.messages[index].isRead
-                                    ? ColorPallete.whiteOpacity80
-                                    : ColorPallete.mainDecorationColor,
-                                margin: EdgeInsets.only(
-                                    top: kMinEmptySpace,
-                                    left: kGeneralPagesMargin,
-                                    right: kGeneralPagesMargin,
-                                    bottom: index == state.messages.length - 1
-                                        ? 10
-                                        : 0),
-                                children: [
-                                  Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 20,
-                                        backgroundImage: NetworkImage(state
-                                            .messages[0]
-                                            .avatars![0]
-                                            .profileAvatar),
-                                      ),
-                                      const Gap(kMinEmptySpace),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              const Text('From: '),
-                                              Text(
-                                                  state.messages[index].sender),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(
-                                                width: 200,
-                                                child: Row(
+                            child: BlocBuilder<MessageCheckboxCubit,
+                                MessageCheckboxState>(
+                              builder: (context, isCheck) {
+                                return GestureDetector(
+                                  onLongPress: () {
+                                    context
+                                        .read<MessageCheckboxCubit>()
+                                        .toggleNotfication(index,
+                                            isCheck.isCheck ? false : true);
+                                    isCheck.checkBoxes[index]['isCheck']
+                                        ? context
+                                            .read<MessageDeleteCubit>()
+                                            .addIdToDelete(
+                                                listMessages[index].id)
+                                        : context
+                                            .read<MessageDeleteCubit>()
+                                            .deleteIdFromList(
+                                                listMessages[index].id);
+                                  },
+                                  child: UserViewCard(
+                                      color: isCheck.checkBoxes[index]
+                                              ['isCheck']
+                                          ? Colors.red
+                                          : state.messages[index].isRead
+                                              ? ColorPallete.whiteOpacity80
+                                              : ColorPallete
+                                                  .mainDecorationColor,
+                                      margin: EdgeInsets.only(
+                                          top: kMinEmptySpace,
+                                          left: kGeneralPagesMargin,
+                                          right: kGeneralPagesMargin,
+                                          bottom:
+                                              index == state.messages.length - 1
+                                                  ? 10
+                                                  : 0),
+                                      children: [
+                                        Row(
+                                          children: [
+                                            CircleAvatar(
+                                              radius: 20,
+                                              backgroundImage: NetworkImage(
+                                                  state.messages[0].avatars![0]
+                                                      .profileAvatar),
+                                            ),
+                                            const Gap(kMinEmptySpace),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
                                                   children: [
-                                                    const Text('Subject:',
-                                                        style: AppTextStyle
-                                                            .descriptionMid),
-                                                    const Gap(kMidEmptySpace),
-                                                    Expanded(
-                                                      child: Text(
-                                                        state.messages[index]
-                                                            .subject,
-                                                        style: AppTextStyle
-                                                            .descriptionMid,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ),
+                                                    const Text('From: '),
+                                                    Text(state.messages[index]
+                                                        .sender),
                                                   ],
                                                 ),
-                                              ),
-                                              const Gap(kMinEmptySpace),
-                                              BlocBuilder<MessageCheckboxCubit,
-                                                  MessageCheckboxState>(
-                                                builder:
-                                                    (context, messagesState) {
-                                                  final messagesList =
-                                                      state.messages;
-                                                  return CheckBoxWidgets(
-                                                      onTap: () {
-                                                        context
-                                                            .read<
-                                                                MessageCheckboxCubit>()
-                                                            .toggleNotfication(
-                                                                index,
-                                                                messagesState
-                                                                        .isCheck
-                                                                    ? false
-                                                                    : true);
-
-                                                        messagesState.checkBoxes[
-                                                                    index]
-                                                                ['isCheck']
-                                                            ? context
-                                                                .read<
-                                                                    MessageDeleteCubit>()
-                                                                .addIdToDelete(
-                                                                    messagesList[
-                                                                            index]
-                                                                        .id)
-                                                            : context
-                                                                .read<
-                                                                    MessageDeleteCubit>()
-                                                                .deleteIdFromList(
-                                                                    messagesList[
-                                                                            index]
-                                                                        .id);
-                                                      },
-                                                      isCheck: messagesState
-                                                              .checkBoxes[index]
-                                                          ['isCheck']);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ]),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SizedBox(
+                                                      width: 200,
+                                                      child: Row(
+                                                        children: [
+                                                          const Text('Subject:',
+                                                              style: AppTextStyle
+                                                                  .descriptionMid),
+                                                          const Gap(
+                                                              kMidEmptySpace),
+                                                          Expanded(
+                                                            child: Text(
+                                                              state
+                                                                  .messages[
+                                                                      index]
+                                                                  .subject,
+                                                              style: AppTextStyle
+                                                                  .descriptionMid,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    const Gap(kMinEmptySpace),
+                                                  ],
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ]),
+                                );
+                              },
+                            ),
                           ),
                         ),
                       ),

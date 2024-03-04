@@ -22,6 +22,13 @@
     "skip": "skip",
     "login" : "login",
 
+    "@_MESSAGES_PAGE": {},
+    "receivedPageTop": "Received",
+    "sendPageTop": "Send",
+    "deleteButton": "Delete",
+
+
+
     
     "@_ERROR_MESSAGES": {},
     "errorMessage": "Page Not Found",

@@ -2,7 +2,7 @@ import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
-import 'package:climbapp/domains/friends/entities/friends_entity.dart';
+
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
@@ -18,10 +18,12 @@ import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-//todo zrobić last search list
-// todo podział na poszukiwania globalne i wśród przyjaciół
+//todo zrobić last search list w temp
 
 TextEditingController _searchController = TextEditingController();
+ScrollController _pageScrollController = ScrollController();
+ScrollController _friendsController = ScrollController();
+ScrollController _searchSqrController = ScrollController();
 
 class FriendsPage extends StatelessWidget {
   const FriendsPage({super.key});
@@ -52,6 +54,7 @@ class FriendsPage extends StatelessWidget {
         backgroundColor: ColorPallete.scaffoldBackground,
         body: SafeArea(
             child: SingleChildScrollView(
+          controller: _pageScrollController,
           child: Column(
             children: [
               const LitlleTopBar(),
@@ -64,7 +67,7 @@ class FriendsPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          HeadersSmallText(text: 'Find someone'),
+                          const HeadersSmallText(text: 'Find someone'),
                           Icon(
                             isVisible ? Icons.remove : Icons.add,
                           )
@@ -178,10 +181,10 @@ class FriendsPage extends StatelessWidget {
               BlocBuilder<FriendsActionBloc, FriendsActionState>(
                   builder: (context, blocstate) {
                 if (blocstate is FriendsActionInitial) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (blocstate is FriendsSearchingSuccess) {
-                  print(blocstate);
+                  print(blocstate.friend.length);
                   return RefreshIndicator(
                     onRefresh: () async => context.read<FriendsActionBloc>()
                       ..add(FetchFriendsListEvent(
@@ -189,64 +192,61 @@ class FriendsPage extends StatelessWidget {
                     color: ColorPallete.mainDecorationColor,
                     backgroundColor: ColorPallete.pinkDecorationColor,
                     strokeWidth: 4,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: blocstate.friend.isEmpty
-                          ? 130
-                          : Utils.sizeCalculator(
-                              totalDimension: 150,
-                              multipler: blocstate.friend.length.toDouble()),
-                      child: blocstate.friend.isEmpty
-                          ? ListView(
+                    child: blocstate.friend.isEmpty
+                        ? SingleChildScrollView(
+                            controller: _friendsController,
+                            child: const UserViewCard(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              margin: EdgeInsets.only(
+                                  left: 100,
+                                  right: 100,
+                                  top: kGeneralPagesMargin),
                               children: [
-                                UserViewCard(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  margin: const EdgeInsets.only(
-                                      left: 100,
-                                      right: 100,
-                                      top: kGeneralPagesMargin),
-                                  children: [
-                                    Text(
-                                      'Not found',
-                                      style: AppTextStyle.headersSmall,
-                                    ),
-                                    Divider(),
-                                    Text(
-                                      'pull down to refresh',
-                                      style: AppTextStyle.descriptionSmall,
-                                    )
-                                  ],
+                                Text(
+                                  'Not found',
+                                  style: AppTextStyle.headersSmall,
+                                ),
+                                Divider(),
+                                Text(
+                                  'pull down to refresh',
+                                  style: AppTextStyle.descriptionSmall,
                                 )
                               ],
-                            )
-                          : ListView.builder(
-                              itemCount: blocstate.friend.length,
-                              itemBuilder: ((context, index) =>
-                                  SingleUserPreview(
-                                    singleUser: blocstate.friend[index],
-                                    rightActionIcons: [
-                                      RightActionIcon(
-                                        text: 'Send message',
-                                        icon: AppIcons.messages
-                                            .copyWith(size: 25),
-                                        onTap: () {},
-                                      ),
-                                      RightActionIcon(
-                                          text: isMyFriend(user.friends,
-                                                  blocstate.friend[index].id)
-                                              ? 'Remove friend'
-                                              : 'Send request',
-                                          icon: isMyFriend(user.friends,
-                                                  blocstate.friend[index].id)
-                                              ? AppIcons.delete
-                                                  .copyWith(size: 25)
-                                              : AppIcons.personIcon
-                                                  .copyWith(size: 25),
-                                          onTap: () {}),
-                                    ],
-                                  )),
                             ),
-                    ),
+                          )
+                        : SingleChildScrollView(
+                            controller: _friendsController,
+                            child: Column(
+                              children: List.generate(
+                                  blocstate.friend.length,
+                                  (index) => SingleUserPreview(
+                                        singleUser: blocstate.friend[index],
+                                        rightActionIcons: [
+                                          RightActionIcon(
+                                            text: 'Send message',
+                                            icon: AppIcons.messages
+                                                .copyWith(size: 25),
+                                            onTap: () {},
+                                          ),
+                                          RightActionIcon(
+                                              text: isMyFriend(
+                                                      user.friends,
+                                                      blocstate
+                                                          .friend[index].id)
+                                                  ? 'Remove friend'
+                                                  : 'Send request',
+                                              icon: isMyFriend(
+                                                      user.friends,
+                                                      blocstate
+                                                          .friend[index].id)
+                                                  ? AppIcons.delete
+                                                      .copyWith(size: 25)
+                                                  : AppIcons.personIcon
+                                                      .copyWith(size: 25),
+                                              onTap: () {}),
+                                        ],
+                                      )),
+                            )),
                   );
                 }
                 if (blocstate is FriendsLoaded) {
@@ -267,11 +267,12 @@ class FriendsPage extends StatelessWidget {
                                 multipler: blocstate.friends.length.toDouble()),
                         child: blocstate.friends.isEmpty
                             ? ListView(
-                                children: [
+                                controller: _searchSqrController,
+                                children: const [
                                   UserViewCard(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                    margin: const EdgeInsets.only(
+                                    margin: EdgeInsets.only(
                                         left: 100,
                                         right: 100,
                                         top: kGeneralPagesMargin),
@@ -316,7 +317,7 @@ class FriendsPage extends StatelessWidget {
                               )),
                   );
                 } else {
-                  return Text('null');
+                  return const Text('null');
                 }
               })
             ],

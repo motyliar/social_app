@@ -10,7 +10,7 @@ class MessageDeleteCubit extends Cubit<MessageDeleteState> {
   final DeleteMessageUseCase _deleteMessageUseCase;
   MessageDeleteCubit({required DeleteMessageUseCase deleteMessageUseCase})
       : _deleteMessageUseCase = deleteMessageUseCase,
-        super(MessageDeleteState(messageIds: const <String>[]));
+        super(const MessageDeleteState(messageIds: <String>[]));
 
   void addIdToDelete(String messageId) {
     emit(state.copyWith(
@@ -30,5 +30,13 @@ class MessageDeleteCubit extends Cubit<MessageDeleteState> {
     await _deleteMessageUseCase.execute(deleteParams).then((response) =>
         response.fold((failure) => print(failure),
             (data) => emit(state.copyWith(messageIds: <String>[]))));
+  }
+
+  void addAllToDelete(List<String> idsList) {
+    emit(state.copyWith(messageIds: List.from(idsList)));
+  }
+
+  void clearDeleteList() {
+    emit(state.copyWith(messageIds: List.from([])));
   }
 }

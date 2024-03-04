@@ -1,5 +1,7 @@
+import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 const String _nameValue = "name";
 const String _check = "isCheck";
@@ -19,5 +21,16 @@ class MessageLogic {
       int durationInSeconds = _durationInSeconds}) async {
     Future.delayed(
         Duration(seconds: durationInSeconds), () => refreshFunction());
+  }
+
+  static List<String> generateIdsList({required List<MessageEntity> messages}) {
+    return List.generate(messages.length, (index) => messages[index].id)
+        .toList();
+  }
+
+  static List<Map<String, dynamic>> generateCheckedBox(
+      {required int listSize, bool wantToCheck = true}) {
+    return List.generate(
+        listSize, (index) => {"name": index, "isCheck": wantToCheck}).toList();
   }
 }

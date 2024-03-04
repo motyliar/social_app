@@ -38,44 +38,10 @@ class MessageMainView extends StatelessWidget {
           child: Column(
             children: [
               const LitlleTopBar(),
-              BlocBuilder<MessageViewCubit, MessageViewState>(
-                builder: (context, state) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      MidTextButton(
-                        textLabel: 'Received',
-                        borderRadius: kSmallButtonBorderRadius,
-                        onTap: () => context
-                            .read<MessageViewCubit>()
-                            .changeView(MessageView.received),
-                      ),
-                      MidTextButton(
-                        textLabel: 'Send',
-                        borderRadius: kSmallButtonBorderRadius,
-                        onTap: () => context
-                            .read<MessageViewCubit>()
-                            .changeView(MessageView.send),
-                      ),
-                      MidTextButton(
-                        textLabel: 'Thrash',
-                        borderRadius: kSmallButtonBorderRadius,
-                        onTap: () => context
-                            .read<MessageViewCubit>()
-                            .changeView(MessageView.received),
-                      ),
-                    ],
-                  );
-                },
-              ),
-              const Gap(kGeneralPagesMargin),
-              const UserViewCard(children: [
-                GradientDivider(),
-              ]),
               const Gap(kGeneralPagesMargin),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.6,
+                height: MediaQuery.of(context).size.height * 0.8,
                 child: BlocBuilder<MessageViewCubit, MessageViewState>(
                     builder: (context, state) {
                   if (state is MessageViewInitial) {
@@ -111,16 +77,51 @@ class MessageMainView extends StatelessWidget {
             ],
           ),
         )),
+        bottomSheet: BlocBuilder<MessageViewCubit, MessageViewState>(
+          builder: (context, state) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                MidTextButton(
+                  textLabel: 'Received',
+                  borderRadius: kSmallButtonBorderRadius,
+                  onTap: () => context
+                      .read<MessageViewCubit>()
+                      .changeView(MessageView.received),
+                ),
+                MidTextButton(
+                  textLabel: 'Send',
+                  borderRadius: kSmallButtonBorderRadius,
+                  onTap: () => context
+                      .read<MessageViewCubit>()
+                      .changeView(MessageView.send),
+                ),
+                MidTextButton(
+                  textLabel: 'Thrash',
+                  borderRadius: kSmallButtonBorderRadius,
+                  onTap: () => context
+                      .read<MessageViewCubit>()
+                      .changeView(MessageView.received),
+                ),
+              ],
+            );
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: BlocBuilder<MessageViewCubit, MessageViewState>(
           builder: (context, state) {
-            return FloatingActionButton(
-                onPressed: () => BlocProvider.of<MessageViewCubit>(context)
-                    .changeView(MessageView.create),
-                backgroundColor: ColorPallete.mainDecorationColor,
-                child: const Icon(
-                  Icons.add,
-                  color: ColorPallete.pinkDecorationColor,
-                ));
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 80),
+              child: FloatingActionButton(
+                  tooltip: 'Create new message',
+                  onPressed: () => BlocProvider.of<MessageViewCubit>(context)
+                      .changeView(MessageView.create),
+                  backgroundColor: ColorPallete.greyShadowColorOpacityMax,
+                  child: const Icon(
+                    Icons.add,
+                    color: ColorPallete.pinkDecorationColor,
+                  )),
+            );
           },
         ),
       ),

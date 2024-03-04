@@ -19,6 +19,11 @@
     "dontHaveAccount": "Nie masz konta?",
     "signUp": "Zarejestruj się",
 
+      "@_MESSAGES_PAGE": {},
+    "receivedPageTop": "Odebrane",
+    "sendPageTop": "Wysłane",
+    "deleteButton": "Usuń",
+
 
      "@_BUTTONS": {},
     "skip": "pomiń",
