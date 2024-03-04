@@ -18,3 +18,4 @@ const String routeProfilePage = 'profile';
 
 /// [routeMessagePage] route name navigate to Message Page
 const String routeMessagePage = 'messagePage';
+const String routeSingleMessage = 'singleMessage';

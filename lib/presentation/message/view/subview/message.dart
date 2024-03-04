@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ TextEditingController _content = TextEditingController();
 
 class Message extends StatelessWidget {
   final MessageEntity? message;
-  const Message({this.message, super.key});
+  const Message({required this.message, super.key});
 
   @override
   Widget build(BuildContext context) {

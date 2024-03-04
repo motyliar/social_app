@@ -38,6 +38,39 @@ class MessageMainView extends StatelessWidget {
           child: Column(
             children: [
               const LitlleTopBar(),
+              BlocBuilder<MessageViewCubit, MessageViewState>(
+                builder: (context, state) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MidTextButton(
+                        textStyle: AppTextStyle.descriptionSmall,
+                        textLabel: 'Received',
+                        borderRadius: kSmallButtonBorderRadius,
+                        onTap: () => context
+                            .read<MessageViewCubit>()
+                            .changeView(MessageView.received),
+                      ),
+                      MidTextButton(
+                        textStyle: AppTextStyle.descriptionSmall,
+                        textLabel: 'Send',
+                        borderRadius: kSmallButtonBorderRadius,
+                        onTap: () => context
+                            .read<MessageViewCubit>()
+                            .changeView(MessageView.send),
+                      ),
+                      MidTextButton(
+                        textStyle: AppTextStyle.descriptionSmall,
+                        textLabel: 'Thrash',
+                        borderRadius: kSmallButtonBorderRadius,
+                        onTap: () => context
+                            .read<MessageViewCubit>()
+                            .changeView(MessageView.received),
+                      ),
+                    ],
+                  );
+                },
+              ),
               const Gap(kGeneralPagesMargin),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
@@ -77,36 +110,6 @@ class MessageMainView extends StatelessWidget {
             ],
           ),
         )),
-        bottomSheet: BlocBuilder<MessageViewCubit, MessageViewState>(
-          builder: (context, state) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                MidTextButton(
-                  textLabel: 'Received',
-                  borderRadius: kSmallButtonBorderRadius,
-                  onTap: () => context
-                      .read<MessageViewCubit>()
-                      .changeView(MessageView.received),
-                ),
-                MidTextButton(
-                  textLabel: 'Send',
-                  borderRadius: kSmallButtonBorderRadius,
-                  onTap: () => context
-                      .read<MessageViewCubit>()
-                      .changeView(MessageView.send),
-                ),
-                MidTextButton(
-                  textLabel: 'Thrash',
-                  borderRadius: kSmallButtonBorderRadius,
-                  onTap: () => context
-                      .read<MessageViewCubit>()
-                      .changeView(MessageView.received),
-                ),
-              ],
-            );
-          },
-        ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: BlocBuilder<MessageViewCubit, MessageViewState>(
           builder: (context, state) {

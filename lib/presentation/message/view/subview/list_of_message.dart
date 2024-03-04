@@ -1,4 +1,5 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
@@ -18,9 +19,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 
-//todo zrobic przejście do pojedynczej wiadomości
 //todo zrobić boczny panel z wyborem odpowiedniej kategori wiadomości lub zmniejszyć przyciski górne,
-// usunąć grafient divider
+// todo : lista wiadomości musi zaczynać się od najnowszych
+// dodanie daty do każdej wiadomości aby można było ustalić kiedy wysłane
+
 // zaimplementować przejście do pojedynczej wiadomości wysyłanej bezpośrednio do użytkownika
 
 bool isChecked = true;
@@ -34,6 +36,7 @@ class ListOfMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user);
+    String today = DateTime.now().toString().isTooLong(10);
     return MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -43,7 +46,7 @@ class ListOfMessage extends StatelessWidget {
                       direction: direction,
                       url: AppUrl.getUserMessages(user.id)))),
           ),
-          BlocProvider(create: (context) => userLocator<MessageDeleteCubit>())
+          BlocProvider(create: (context) => userLocator<MessageDeleteCubit>()),
         ],
         child: SingleChildScrollView(
           controller: _pageController,
@@ -195,97 +198,139 @@ class ListOfMessage extends StatelessWidget {
                             child: BlocBuilder<MessageCheckboxCubit,
                                 MessageCheckboxState>(
                               builder: (context, isCheck) {
-                                return GestureDetector(
-                                  onLongPress: () {
-                                    context
-                                        .read<MessageCheckboxCubit>()
-                                        .toggleNotfication(index,
-                                            isCheck.isCheck ? false : true);
-                                    isCheck.checkBoxes[index]['isCheck']
-                                        ? context
-                                            .read<MessageDeleteCubit>()
-                                            .addIdToDelete(
-                                                listMessages[index].id)
-                                        : context
-                                            .read<MessageDeleteCubit>()
-                                            .deleteIdFromList(
-                                                listMessages[index].id);
-                                  },
-                                  child: UserViewCard(
-                                      color: isCheck.checkBoxes[index]
-                                              ['isCheck']
-                                          ? Colors.red
-                                          : state.messages[index].isRead
-                                              ? ColorPallete.whiteOpacity80
-                                              : ColorPallete
-                                                  .mainDecorationColor,
-                                      margin: EdgeInsets.only(
-                                          top: kMinEmptySpace,
-                                          left: kGeneralPagesMargin,
-                                          right: kGeneralPagesMargin,
-                                          bottom:
-                                              index == state.messages.length - 1
+                                return BlocBuilder<MessageViewCubit,
+                                    MessageViewState>(
+                                  builder: (context, view) {
+                                    return GestureDetector(
+                                      onTap: () => BlocProvider.of<
+                                              MessageViewCubit>(context)
+                                          .changeView(MessageView.message,
+                                              message: state.messages[index]),
+                                      onLongPress: () {
+                                        context
+                                            .read<MessageCheckboxCubit>()
+                                            .toggleNotfication(index,
+                                                isCheck.isCheck ? false : true);
+                                        isCheck.checkBoxes[index]['isCheck']
+                                            ? context
+                                                .read<MessageDeleteCubit>()
+                                                .addIdToDelete(
+                                                    listMessages[index].id)
+                                            : context
+                                                .read<MessageDeleteCubit>()
+                                                .deleteIdFromList(
+                                                    listMessages[index].id);
+                                      },
+                                      child: UserViewCard(
+                                          padding: const EdgeInsets.only(
+                                              left: 15, top: 15, bottom: 10),
+                                          color: isCheck.checkBoxes[index]
+                                                  ['isCheck']
+                                              ? Colors.red
+                                              : state.messages[index].isRead
+                                                  ? ColorPallete.whiteOpacity80
+                                                  : ColorPallete
+                                                      .mainDecorationColor,
+                                          margin: EdgeInsets.only(
+                                              top: kMinEmptySpace,
+                                              left: kMidEmptySpace,
+                                              right: kMidEmptySpace,
+                                              bottom: index ==
+                                                      state.messages.length - 1
                                                   ? 10
-                                                  : 0),
-                                      children: [
-                                        Row(
+                                                  : 5),
                                           children: [
-                                            CircleAvatar(
-                                              radius: 20,
-                                              backgroundImage: NetworkImage(
-                                                  state.messages[0].avatars![0]
-                                                      .profileAvatar),
-                                            ),
-                                            const Gap(kMinEmptySpace),
-                                            Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                            Row(
                                               children: [
-                                                Row(
-                                                  children: [
-                                                    const Text('From: '),
-                                                    Text(state.messages[index]
-                                                        .sender),
-                                                  ],
+                                                CircleAvatar(
+                                                  radius: 20,
+                                                  backgroundImage: NetworkImage(
+                                                      state
+                                                          .messages[0]
+                                                          .avatars![0]
+                                                          .profileAvatar),
                                                 ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                const Gap(kMidEmptySpace),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
                                                     SizedBox(
-                                                      width: 200,
+                                                      width: 230,
                                                       child: Row(
-                                                        children: [
-                                                          const Text('Subject:',
-                                                              style: AppTextStyle
-                                                                  .descriptionMid),
-                                                          const Gap(
-                                                              kMidEmptySpace),
-                                                          Expanded(
-                                                            child: Text(
-                                                              state
-                                                                  .messages[
-                                                                      index]
-                                                                  .subject,
-                                                              style: AppTextStyle
-                                                                  .descriptionMid,
-                                                              overflow:
-                                                                  TextOverflow
-                                                                      .ellipsis,
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Row(
+                                                              children: [
+                                                                Text(
+                                                                  state
+                                                                      .messages[
+                                                                          index]
+                                                                      .sender,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
+                                                            Row(
+                                                              children: [
+                                                                Text(Utils.currentData(
+                                                                    today,
+                                                                    state
+                                                                        .messages[
+                                                                            index]
+                                                                        .createdAt))
+                                                              ],
+                                                            )
+                                                          ]),
                                                     ),
-                                                    const Gap(kMinEmptySpace),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        SizedBox(
+                                                          width: 200,
+                                                          child: Row(
+                                                            children: [
+                                                              const Text(
+                                                                  'Subject:',
+                                                                  style: AppTextStyle
+                                                                      .descriptionMid),
+                                                              const Gap(
+                                                                  kMidEmptySpace),
+                                                              Expanded(
+                                                                child: Text(
+                                                                  state
+                                                                      .messages[
+                                                                          index]
+                                                                      .subject,
+                                                                  style: AppTextStyle
+                                                                      .descriptionMid,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        const Gap(
+                                                            kMinEmptySpace),
+                                                      ],
+                                                    ),
                                                   ],
-                                                ),
+                                                )
                                               ],
-                                            )
-                                          ],
-                                        ),
-                                      ]),
+                                            ),
+                                          ]),
+                                    );
+                                  },
                                 );
                               },
                             ),

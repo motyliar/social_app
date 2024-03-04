@@ -54,7 +54,7 @@ class Utils {
     print(userDate);
     return !_checkIsToday(today, userDate)
         ? userDate.isTooLong(10)
-        : userDate.substring(10);
+        : userDate.substring(10, 16);
   }
 
   static void giveLike(BuildContext context, bool didIClick) {

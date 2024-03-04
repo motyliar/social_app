@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
@@ -7,6 +8,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MessagePreview extends StatelessWidget {
   const MessagePreview({required this.message, super.key});
   final MessageEntity message;
+  static Route route({required MessageEntity message}) {
+    return MaterialPageRoute(
+        settings: const RouteSettings(name: routeSingleMessage),
+        builder: (_) => MessagePreview(
+              message: message,
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,9 +47,9 @@ class MessagePreview extends StatelessWidget {
         ),
         RichText(
           text: TextSpan(
-              style: TextStyle(color: Colors.black, fontSize: 15),
+              style: const TextStyle(color: Colors.black, fontSize: 15),
               children: <TextSpan>[
-                TextSpan(
+                const TextSpan(
                     text: 'Subject: ',
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 TextSpan(text: message.subject),

@@ -2,8 +2,10 @@ import 'package:climbapp/core/constans/router_constans.dart' as route;
 import 'package:climbapp/core/error/error_screen.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
+import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/view/dashboard_page.dart';
+import 'package:climbapp/presentation/message/view/subview/message.dart';
 import 'package:climbapp/presentation/notice/view/comment_main_page.dart';
 import 'package:climbapp/presentation/notice/view/notice_main_page.dart';
 import 'package:climbapp/presentation/profile/view/profile_page.dart';
@@ -36,6 +38,9 @@ class AppRouter {
         return FriendsPage.route();
       case route.routeMessagePage:
         return MessageMainView.route();
+      case route.routeSingleMessage:
+        return MessagePreview.route(
+            message: settings.arguments as MessageEntity);
       case route.routeNoticePage:
         return NoticeMainPage.route();
       case route.routeCommentPage:
