@@ -10,20 +10,20 @@ class Message extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(message);
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(
           children: [
-            ElevatedButton(onPressed: () {}, child: Text('Send New Message')),
-            SizedBox(
+            ElevatedButton(
+                onPressed: () {}, child: const Text('Send New Message')),
+            const SizedBox(
               height: 50,
             ),
             Form(
                 child: Column(
               children: [
-                Row(
+                const Row(
                   children: [
                     Text('Send to:'),
                     SizedBox(
@@ -35,7 +35,7 @@ class Message extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Subject'),
+                    const Text('Subject'),
                     SizedBox(
                       width: 200,
                       child: TextFormField(
@@ -44,18 +44,18 @@ class Message extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 TextFormField(
                   controller: _content,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 ElevatedButton(
                   onPressed: () {},
-                  child: Text('Send'),
+                  child: const Text('Send'),
                 ),
               ],
             ))

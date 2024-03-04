@@ -1,5 +1,6 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
+import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
@@ -37,67 +38,41 @@ class MessageMainView extends StatelessWidget {
           child: Column(
             children: [
               const LitlleTopBar(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MidTextButton(
-                    textLabel: 'Received',
-                    borderRadius: kSmallButtonBorderRadius,
-                  ),
-                  MidTextButton(
-                    textLabel: 'Send',
-                    borderRadius: kSmallButtonBorderRadius,
-                  ),
-                  MidTextButton(
-                    textLabel: 'Thrash',
-                    borderRadius: kSmallButtonBorderRadius,
-                  ),
-                ],
-              ),
-              Gap(kGeneralPagesMargin),
-              UserViewCard(children: [
-                GradientDivider(),
-              ]),
               BlocBuilder<MessageViewCubit, MessageViewState>(
                 builder: (context, state) {
-                  return Container(
-                    height: 100,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<MessageViewCubit>()
-                                  .changeView(MessageView.received);
-                            },
-                            child: const Text('Received')),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<MessageViewCubit>()
-                                  .changeView(MessageView.send);
-                            },
-                            child: const Text('Send')),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<MessageViewCubit>()
-                                  .changeView(MessageView.received);
-                            },
-                            child: const Text('Trash')),
-                        ElevatedButton(
-                            onPressed: () {
-                              context
-                                  .read<MessageViewCubit>()
-                                  .changeView(MessageView.create);
-                            },
-                            child: const Text('New')),
-                      ],
-                    ),
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      MidTextButton(
+                        textLabel: 'Received',
+                        borderRadius: kSmallButtonBorderRadius,
+                        onTap: () => context
+                            .read<MessageViewCubit>()
+                            .changeView(MessageView.received),
+                      ),
+                      MidTextButton(
+                        textLabel: 'Send',
+                        borderRadius: kSmallButtonBorderRadius,
+                        onTap: () => context
+                            .read<MessageViewCubit>()
+                            .changeView(MessageView.send),
+                      ),
+                      MidTextButton(
+                        textLabel: 'Thrash',
+                        borderRadius: kSmallButtonBorderRadius,
+                        onTap: () => context
+                            .read<MessageViewCubit>()
+                            .changeView(MessageView.received),
+                      ),
+                    ],
                   );
                 },
               ),
+              const Gap(kGeneralPagesMargin),
+              const UserViewCard(children: [
+                GradientDivider(),
+              ]),
+              const Gap(kGeneralPagesMargin),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
                 height: MediaQuery.of(context).size.height * 0.6,
@@ -136,6 +111,18 @@ class MessageMainView extends StatelessWidget {
             ],
           ),
         )),
+        floatingActionButton: BlocBuilder<MessageViewCubit, MessageViewState>(
+          builder: (context, state) {
+            return FloatingActionButton(
+                onPressed: () => BlocProvider.of<MessageViewCubit>(context)
+                    .changeView(MessageView.create),
+                backgroundColor: ColorPallete.mainDecorationColor,
+                child: const Icon(
+                  Icons.add,
+                  color: ColorPallete.pinkDecorationColor,
+                ));
+          },
+        ),
       ),
     );
   }
