@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MessageReply extends StatelessWidget {
-  MessageReply({required this.message, super.key});
+  const MessageReply({required this.message, super.key});
   final MessageEntity message;
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _subject =
+    final TextEditingController subject =
         TextEditingController(text: 'FWD: ${message.subject}');
-    TextEditingController _content = TextEditingController(text: '''
+    TextEditingController content = TextEditingController(text: '''
     
     
     ${message.sender} sent on ${message.createdAt}
@@ -30,19 +30,19 @@ class MessageReply extends StatelessWidget {
             Text(
               'Reply to : ${message.sender}',
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
-            Text('Subject: '),
+            const Text('Subject: '),
             TextFormField(
-              controller: _subject,
+              controller: subject,
             ),
             TextFormField(
               minLines: 5,
               maxLines: 50,
-              controller: _content,
+              controller: content,
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             ElevatedButton(
@@ -59,12 +59,12 @@ class MessageReply extends StatelessWidget {
                               from: message.to,
                               sender: message.recipient,
                               recipient: message.sender,
-                              content: _content.text,
-                              subject: _subject.text,
+                              content: content.text,
+                              subject: subject.text,
                             ))),
                   );
                 },
-                child: Text('SEND')),
+                child: const Text('SEND')),
           ],
         ),
       )),
