@@ -17,7 +17,7 @@ class AppIcons {
     size: 16,
     color: ColorPallete.pinkDecorationColor,
   );
-
+  static const reply = CustomIcon(Icons.reply);
   static const friends = CustomIcon(Icons.people);
   static const messages = CustomIcon(Icons.message);
   static const profile = CustomIcon(Icons.person);

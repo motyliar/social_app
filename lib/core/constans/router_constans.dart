@@ -15,6 +15,7 @@ const String routeNoticePage = 'noticePage';
 const String routeCommentPage = 'commentPage';
 const String routePreBoardPage = 'prePage';
 const String routeProfilePage = 'profile';
+const String routeCreateMessage = 'createMessage';
 
 /// [routeMessagePage] route name navigate to Message Page
 const String routeMessagePage = 'messagePage';

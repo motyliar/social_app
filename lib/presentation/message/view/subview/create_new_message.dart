@@ -1,3 +1,4 @@
+import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
@@ -6,11 +7,18 @@ import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// todo refactoring do zrobienia dwie strony nowa wiadomosc i odpopowiedz na wiadomosci
+// jak to skonczymy zostały detale w innych działach i można przesyłac
+
 TextEditingController _subject = TextEditingController();
 TextEditingController _content = TextEditingController();
 
 class CreateNewMessage extends StatelessWidget {
   const CreateNewMessage({super.key});
+  static Route route() => MaterialPageRoute(
+        settings: const RouteSettings(name: routeCreateMessage),
+        builder: (_) => const CreateNewMessage(),
+      );
 
   @override
   Widget build(BuildContext context) {

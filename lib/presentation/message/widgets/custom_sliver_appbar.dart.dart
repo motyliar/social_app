@@ -1,4 +1,5 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/domains/user/entities/user_entity.dart';
@@ -29,6 +30,7 @@ class CustomSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      backgroundColor: ColorPallete.scaffoldBackground,
       automaticallyImplyLeading: false,
       expandedHeight: height ??
           Utils.sizeCalculator(

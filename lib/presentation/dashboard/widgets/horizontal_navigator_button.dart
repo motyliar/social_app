@@ -14,6 +14,7 @@ class HorizontalNavigatorButton extends StatelessWidget {
   const HorizontalNavigatorButton({
     super.key,
     required this.descriptionText,
+    required this.onTap,
     this.paddingSides = _paddingSides,
     this.paddingUpDown = _paddingUpDown,
     this.gradient = redLinearGradientTopToBottom,
@@ -39,49 +40,53 @@ class HorizontalNavigatorButton extends StatelessWidget {
   final String backgroundImageURL;
   final Size backgroundImageSize;
   final double backgroundImageOpacity;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-              left: paddingSides,
-              right: paddingSides,
-              top: paddingUpDown,
-              bottom: paddingUpDown),
-          child: ContainerTemplate(
-            color: Colors.white,
-            gradient: gradient,
-            width: width,
-            height: height,
-            child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  descriptionText,
-                  style: AppTextStyle.descriptionMid,
-                )),
-          ),
-        ),
-        Positioned(
-          child: Opacity(
-            opacity: 0.5,
-            child: Image.network(
-              backgroundImageURL,
-              width: backgroundImageSize.width,
-              height: backgroundImageSize.height,
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+                left: paddingSides,
+                right: paddingSides,
+                top: paddingUpDown,
+                bottom: paddingUpDown),
+            child: ContainerTemplate(
+              color: Colors.white,
+              gradient: gradient,
+              width: width,
+              height: height,
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    descriptionText,
+                    style: AppTextStyle.descriptionMid,
+                  )),
             ),
           ),
-        ),
-        Positioned(
-            top: descriptionImagePosition.dx,
-            right: descriptionImagePosition.dy,
-            child: Image.network(
-              descriptionImageURL,
-              width: descriptionImageSize.width,
-              height: descriptionImageSize.height,
-            )),
-      ],
+          Positioned(
+            child: Opacity(
+              opacity: 0.5,
+              child: Image.network(
+                backgroundImageURL,
+                width: backgroundImageSize.width,
+                height: backgroundImageSize.height,
+              ),
+            ),
+          ),
+          Positioned(
+              top: descriptionImagePosition.dx,
+              right: descriptionImagePosition.dy,
+              child: Image.network(
+                descriptionImageURL,
+                width: descriptionImageSize.width,
+                height: descriptionImageSize.height,
+              )),
+        ],
+      ),
     );
   }
 }

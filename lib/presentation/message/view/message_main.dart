@@ -60,6 +60,9 @@ class MessageMain extends StatelessWidget {
                   user: user,
                   messages: listMessages,
                 ),
+                const SliverToBoxAdapter(
+                  child: SizedBox(height: kGeneralPagesMargin),
+                ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                       (context, index) => CreatingSlidableActions(
@@ -134,6 +137,15 @@ class MessageMain extends StatelessWidget {
               ]),
             );
           },
+        ),
+        floatingActionButton: Padding(
+          padding: const EdgeInsets.only(bottom: 60.0),
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.pushNamed(context, routeCreateMessage);
+            },
+            child: const Icon(Icons.add),
+          ),
         ),
       ),
     );
