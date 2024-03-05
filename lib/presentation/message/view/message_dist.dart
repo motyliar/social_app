@@ -6,8 +6,8 @@ import 'package:climbapp/presentation/message/view/subview/create_new_message.da
 import 'package:climbapp/presentation/message/view/subview/message_reply.dart';
 import 'package:flutter/material.dart';
 
-const String _directionReceived = 'received';
-const String _directionSend = 'send';
+const String _directionReceived = kReceivedMessageDirection;
+const String _directionSend = kSendMessageDirection;
 
 class MessageDistributor extends StatelessWidget {
   const MessageDistributor({super.key});

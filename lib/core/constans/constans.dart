@@ -8,6 +8,8 @@ const String kSomethingGoesWrong = 'something-wrong';
 const String kNoData = 'no-data';
 const String kNotFound = 'not-found';
 const String kParseData = 'data-not-parsed';
+const String kSendMessageDirection = 'send';
+const String kReceivedMessageDirection = 'received';
 
 const List<String> kSlidableNameList = ['first', 'second', 'third'];
 const List<String> kHorizontalMenuDescriptions = [

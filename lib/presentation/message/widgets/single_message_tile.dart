@@ -1,6 +1,5 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/theme/colors.dart';
-import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
