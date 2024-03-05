@@ -52,3 +52,55 @@ class LitlleTopBar extends StatelessWidget {
     );
   }
 }
+
+class LittleAppBar extends StatelessWidget {
+  const LittleAppBar({super.key});
+
+  @override
+  Widget build(BuildContext context) => Container(
+      padding: const EdgeInsets.only(
+          left: kGeneralPagesMargin, right: kGeneralPagesMargin),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.15,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(
+            midBorderRadius,
+          ),
+          bottomRight: Radius.circular(
+            midBorderRadius,
+          ),
+        ),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          filterQuality: FilterQuality.high,
+          image: NetworkImage(
+            ImagesURL.signInBottomBackground,
+          ),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              RoundBackButton(
+                onTap: () => Navigator.of(context).pop(),
+              ),
+              const Gap(kGeneralPagesMargin * 3),
+              Transform.rotate(
+                  angle: 0,
+                  child: Image.network(
+                    ImagesURL.appLogoSmallM,
+                    scale: 0.7,
+                    filterQuality: FilterQuality.high,
+                  )),
+            ],
+          ),
+          ButtonIcon(
+              onTap: () => Navigator.popAndPushNamed(context, routeUserMain),
+              child: AppIcons.personIcon
+                  .copyWith(size: 30, color: ColorPallete.pinkDecorationColor)),
+        ],
+      ));
+}

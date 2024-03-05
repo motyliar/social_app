@@ -65,7 +65,9 @@ class ListOfMessage extends StatelessWidget {
                     BlocBuilder<MessageDeleteCubit, MessageDeleteState>(
                       builder: (context, delete) {
                         return AnimatedAction(
-                            childOne: const NavigationState(),
+                            childOne: const NavigationState(
+                              direction: 'd',
+                            ),
                             childTwo: DeleteActionButtons(
                                 user: user,
                                 direction: direction,

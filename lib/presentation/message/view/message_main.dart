@@ -80,27 +80,34 @@ class MessageMain extends StatelessWidget {
               child: CustomScrollView(slivers: [
                 SliverAppBar(
                   automaticallyImplyLeading: false,
-                  expandedHeight: MediaQuery.of(context).size.height * 0.30,
+                  expandedHeight: MediaQuery.of(context).size.height * 0.20,
                   floating: true,
                   flexibleSpace: FlexibleSpaceBar(
-                    background: Column(
+                    background: Stack(
                       children: [
-                        const LitlleTopBar(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            BlocBuilder<MessageDeleteCubit, MessageDeleteState>(
-                              builder: (context, delete) {
-                                return AnimatedAction(
-                                    childOne: const NavigationState(),
-                                    childTwo: DeleteActionButtons(
-                                        user: user,
+                        const LittleAppBar(),
+                        Positioned(
+                          bottom: 0,
+                          left: kGeneralPagesMargin,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              BlocBuilder<MessageDeleteCubit,
+                                  MessageDeleteState>(
+                                builder: (context, delete) {
+                                  return AnimatedAction(
+                                      childOne: NavigationState(
                                         direction: direction,
-                                        messages: messages.messages),
-                                    condition: delete.messageIds.isEmpty);
-                              },
-                            ),
-                          ],
+                                      ),
+                                      childTwo: DeleteActionButtons(
+                                          user: user,
+                                          direction: direction,
+                                          messages: messages.messages),
+                                      condition: delete.messageIds.isEmpty);
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
