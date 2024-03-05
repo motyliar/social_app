@@ -5,6 +5,8 @@ import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/view/dashboard_page.dart';
+import 'package:climbapp/presentation/message/view/message_dist.dart';
+import 'package:climbapp/presentation/message/view/message_main.dart';
 import 'package:climbapp/presentation/message/view/subview/message.dart';
 import 'package:climbapp/presentation/notice/view/comment_main_page.dart';
 import 'package:climbapp/presentation/notice/view/notice_main_page.dart';
@@ -37,7 +39,9 @@ class AppRouter {
       case route.routeFriendsPage:
         return FriendsPage.route();
       case route.routeMessagePage:
-        return MessageMainView.route();
+        return MessageDistributor.route();
+      // case route.routeMessageMain:
+      //   return MessageMain.route(direction: settings.arguments as String);
       case route.routeSingleMessage:
         return MessagePreview.route(
             message: settings.arguments as MessageEntity);

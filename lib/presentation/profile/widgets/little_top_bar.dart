@@ -10,15 +10,17 @@ import '../../app/widgets/button_icon.dart';
 
 class LitlleTopBar extends StatelessWidget {
   const LitlleTopBar({
+    this.bottomMargin = kGeneralPagesMargin,
     super.key,
   });
+  final double bottomMargin;
 
   @override
   Widget build(BuildContext context) {
     return GradientDivider(
-      dividerHeight: 70,
+      dividerHeight: MediaQuery.of(context).size.height * 0.1,
       topMargin: 0,
-      bottomMargin: kGeneralPagesMargin,
+      bottomMargin: bottomMargin,
       borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(midBorderRadius),
           bottomRight: Radius.circular(midBorderRadius)),
@@ -35,7 +37,7 @@ class LitlleTopBar extends StatelessWidget {
                 RoundBackButton(
                   onTap: () => Navigator.of(context).pop(),
                 ),
-                Gap(kGeneralPagesMargin),
+                const Gap(kGeneralPagesMargin),
                 Transform.rotate(
                     angle: 7, child: Image.network(ImagesURL.appLogoSmallM)),
               ],

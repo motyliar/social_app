@@ -8,6 +8,7 @@ import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
 import 'package:climbapp/presentation/message/view/message_preview.dart';
 import 'package:climbapp/presentation/message/view/subview/message_reply.dart';
+import 'package:climbapp/presentation/message/widgets/navigation_state.dart';
 import 'package:climbapp/presentation/profile/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
@@ -34,47 +35,17 @@ class MessageMainView extends StatelessWidget {
       create: (context) => MessageViewCubit(),
       child: Scaffold(
         body: SafeArea(
-            child: SingleChildScrollView(
+            child: SizedBox(
+          height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              const LitlleTopBar(),
-              BlocBuilder<MessageViewCubit, MessageViewState>(
-                builder: (context, state) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      MidTextButton(
-                        textStyle: AppTextStyle.descriptionSmall,
-                        textLabel: 'Received',
-                        borderRadius: kSmallButtonBorderRadius,
-                        onTap: () => context
-                            .read<MessageViewCubit>()
-                            .changeView(MessageView.received),
-                      ),
-                      MidTextButton(
-                        textStyle: AppTextStyle.descriptionSmall,
-                        textLabel: 'Send',
-                        borderRadius: kSmallButtonBorderRadius,
-                        onTap: () => context
-                            .read<MessageViewCubit>()
-                            .changeView(MessageView.send),
-                      ),
-                      MidTextButton(
-                        textStyle: AppTextStyle.descriptionSmall,
-                        textLabel: 'Thrash',
-                        borderRadius: kSmallButtonBorderRadius,
-                        onTap: () => context
-                            .read<MessageViewCubit>()
-                            .changeView(MessageView.received),
-                      ),
-                    ],
-                  );
-                },
+              const LitlleTopBar(
+                bottomMargin: 0,
               ),
-              const Gap(kGeneralPagesMargin),
+              const NavigationState(),
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.9,
-                height: MediaQuery.of(context).size.height * 0.8,
+                height: MediaQuery.of(context).size.height * 0.7,
                 child: BlocBuilder<MessageViewCubit, MessageViewState>(
                     builder: (context, state) {
                   if (state is MessageViewInitial) {
@@ -114,7 +85,7 @@ class MessageMainView extends StatelessWidget {
         floatingActionButton: BlocBuilder<MessageViewCubit, MessageViewState>(
           builder: (context, state) {
             return Padding(
-              padding: const EdgeInsets.only(bottom: 80),
+              padding: const EdgeInsets.only(bottom: 60),
               child: FloatingActionButton(
                   tooltip: 'Create new message',
                   onPressed: () => BlocProvider.of<MessageViewCubit>(context)
