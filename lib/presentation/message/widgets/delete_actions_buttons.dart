@@ -39,12 +39,17 @@ class DeleteActionButtons extends StatelessWidget {
                               delete: delete.messageIds),
                         );
                     MessageLogic.refreshState(
-                        refreshFunction: () =>
-                            BlocProvider.of<MessageActionBloc>(context).add(
+                        refreshFunction: () => {
+                              BlocProvider.of<MessageActionBloc>(context).add(
                                 LoadUserMessagesEvent(
-                                    params: GetMessageParams(
-                                        url: AppUrl.getUserMessages(user.id),
-                                        direction: direction))));
+                                  params: GetMessageParams(
+                                      url: AppUrl.getUserMessages(user.id),
+                                      direction: direction),
+                                ),
+                              ),
+                              BlocProvider.of<MessageDeleteCubit>(context)
+                                  .clearDeleteList(),
+                            });
                   },
                   icon: Badge(
                     label: Text(delete.messageIds.length.toString()),

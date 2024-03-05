@@ -1,24 +1,17 @@
 import 'package:climbapp/core/constans/export_constans.dart';
-import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
-import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/extension.dart';
-import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
-import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/checkbox/message_checkbox_cubit.dart';
 import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
 import 'package:climbapp/presentation/message/business/logic/message_logic.dart';
-import 'package:climbapp/presentation/message/view/message_preview.dart';
-import 'package:climbapp/presentation/message/view/subview/message_reply.dart';
-import 'package:climbapp/presentation/message/widgets/animated_action.dart';
-import 'package:climbapp/presentation/message/widgets/delete_actions_buttons.dart';
-import 'package:climbapp/presentation/message/widgets/navigation_state.dart';
+import 'package:climbapp/presentation/message/widgets/widgets.dart';
 import 'package:climbapp/presentation/profile/widgets/little_top_bar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
@@ -27,8 +20,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:gap/gap.dart';
 
-import 'subview/message_subview.dart';
-
 class MessageMain extends StatelessWidget {
   const MessageMain({required this.direction, super.key});
 
@@ -36,6 +27,7 @@ class MessageMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final user = context.select((UserBloc userBloc) => userBloc.state.user);
     String today = DateTime.now().toString().isTooLong(10);
     return MultiBlocProvider(
@@ -126,7 +118,7 @@ class MessageMain extends StatelessWidget {
                                     icon: Icons.message,
                                     backgroundColor:
                                         ColorPallete.mainDecorationColor,
-                                    label: 'Send',
+                                    label: l10n.sendPageTop,
                                   )
                                 ]),
                             endActionPane: ActionPane(
@@ -137,7 +129,7 @@ class MessageMain extends StatelessWidget {
                                         kSmallButtonBorderRadius),
                                     backgroundColor: Colors.red,
                                     icon: Icons.delete,
-                                    label: 'Delete',
+                                    label: l10n.deleteButton,
                                     onPressed: (context) => context
                                         .read<MessageDeleteCubit>()
                                         .deleteMessagesFromDB(
@@ -158,12 +150,27 @@ class MessageMain extends StatelessWidget {
                                     MessageViewState>(
                                   builder: (context, view) {
                                     return GestureDetector(
-                                      onTap: () =>
-                                          BlocProvider.of<MessageViewCubit>(
-                                                  context)
-                                              .changeView(MessageView.message,
-                                                  message:
-                                                      messages.messages[index]),
+                                      onTap: () => {
+                                        BlocProvider.of<MessageViewCubit>(
+                                                context)
+                                            .changeView(MessageView.message,
+                                                message:
+                                                    messages.messages[index]),
+                                        context.read<MessageActionBloc>().add(
+                                              UpdateMessageEvent(
+                                                params:
+                                                    MessageUpdateParams<bool>(
+                                                  direction: direction,
+                                                  url: AppUrl.updateMessage(
+                                                      user.id),
+                                                  update: true,
+                                                  field: 'isRead',
+                                                  messageId:
+                                                      listMessages[index].id,
+                                                ),
+                                              ),
+                                            ),
+                                      },
                                       onLongPress: () {
                                         context
                                             .read<MessageCheckboxCubit>()
@@ -179,112 +186,22 @@ class MessageMain extends StatelessWidget {
                                                 .deleteIdFromList(
                                                     listMessages[index].id);
                                       },
-                                      child: UserViewCard(
-                                          padding: const EdgeInsets.only(
-                                              left: 15, top: 15, bottom: 10),
-                                          color: isCheck.checkBoxes[index]
-                                                  ['isCheck']
-                                              ? Colors.red
-                                              : listMessages[index].isRead
-                                                  ? ColorPallete.whiteOpacity80
-                                                  : ColorPallete
-                                                      .mainDecorationColor,
-                                          margin: EdgeInsets.only(
-                                              top: kMinEmptySpace,
-                                              left: kMidEmptySpace,
-                                              right: kMidEmptySpace,
-                                              bottom: index ==
-                                                      listMessages.length - 1
-                                                  ? 40
-                                                  : 5),
-                                          children: [
-                                            Row(
-                                              children: [
-                                                CircleAvatar(
-                                                  radius: 20,
-                                                  backgroundImage: NetworkImage(
-                                                      listMessages[listMessages
-                                                                  .length -
-                                                              1]
-                                                          .avatars![0]
-                                                          .profileAvatar),
-                                                ),
-                                                const Gap(kMidEmptySpace),
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 230,
-                                                      child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Row(
-                                                              children: [
-                                                                Text(
-                                                                  listMessages[
-                                                                          index]
-                                                                      .sender,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Text(Utils.currentData(
-                                                                    today,
-                                                                    listMessages[
-                                                                            index]
-                                                                        .createdAt))
-                                                              ],
-                                                            )
-                                                          ]),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        SizedBox(
-                                                          width: 200,
-                                                          child: Row(
-                                                            children: [
-                                                              const Text(
-                                                                  'Subject:',
-                                                                  style: AppTextStyle
-                                                                      .descriptionMid),
-                                                              const Gap(
-                                                                  kMidEmptySpace),
-                                                              Expanded(
-                                                                child: Text(
-                                                                  listMessages[
-                                                                          index]
-                                                                      .subject,
-                                                                  style: AppTextStyle
-                                                                      .descriptionMid,
-                                                                  overflow:
-                                                                      TextOverflow
-                                                                          .ellipsis,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        const Gap(
-                                                            kMinEmptySpace),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ]),
+                                      child: SingleMessageTile(
+                                          avatar: AnimatedAvatar(
+                                            isRead: isCheck.checkBoxes[index]
+                                                ['isCheck'],
+                                            avatarImage: listMessages[
+                                                    listMessages.length - 1]
+                                                .avatars![0]
+                                                .profileAvatar,
+                                          ),
+                                          description: MessageDescriptions(
+                                              message: listMessages[index],
+                                              today: today),
+                                          isSelected: isCheck.checkBoxes[index]
+                                              ['isCheck'],
+                                          isRead: listMessages[index].isRead,
+                                          today: today),
                                     );
                                   },
                                 );
@@ -301,40 +218,3 @@ class MessageMain extends StatelessWidget {
     );
   }
 }
-
-
-
-// appBar: AppBar(
-//         title: const Text('App bar'),
-//       ),
-//       body: BlocBuilder<MessageViewCubit, MessageViewState>(
-//           builder: (context, state) {
-//         if (state is MessageViewInitial) {
-//           return ListOfMessage(
-//             direction: _directionReceived,
-//             key: UniqueKey(),
-//           );
-//         }
-//         if (state is MessageViewSend) {
-//           return ListOfMessage(
-//             direction: _directionSend,
-//             key: UniqueKey(),
-//           );
-//         }
-//         if (state is MessageViewNewMessage) {
-//           return const CreateNewMessage();
-//         }
-//         if (state is MessageViewMessage) {
-//           return MessagePreview(
-//             message: state.message,
-//           );
-//         }
-//         if (state is MessageViewReply) {
-//           return MessageReply(message: state.message);
-//         } else {
-//           return ListOfMessage(
-//             direction: _directionReceived,
-//             key: UniqueKey(),
-//           );
-//         }
-//       }),

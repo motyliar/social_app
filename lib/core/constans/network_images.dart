@@ -21,4 +21,5 @@ class ImagesURL {
   static const messageIcon = 'http://motyliar.webd.pro/social/message.png';
   static const friendsIcon = 'http://motyliar.webd.pro/social/friendslogo.png';
   static const waveIcon = 'http://motyliar.webd.pro/social/wave.png';
+  static const approve = 'http://motyliar.webd.pro/social/approve.png';
 }
