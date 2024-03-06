@@ -13,13 +13,13 @@ The application is exclusively for the Android platform.<br><br>
 **DataBase:** ![Static Badge](https://img.shields.io/badge/MongoDB--Atlas-white?label=NoSQL&labelColor=yellow)<br>
 ## JoinMee - SocialApp
 ![Static Badge](https://img.shields.io/badge/Important-red)
-App still in develop stage. Still working on it<br><br>
+App still in develop stage. <br><br>
 ### About
 The project is a social media app designed for the sports community. Its main functionality is to help users find people to do sports together.
 The app is based on sending sports notices to a global notice board and allows communication between users via an in-app messenger.
 <br>Readme update from: 6.03.24
 
-### Screenshoots
+### Screenshots
 <p align="center" >
   <span style="margin-right: 10px;">
 <img src="http://motyliar.webd.pro/social/screens/screen_one.jpg" alt="Logo" width="130" height="250" > 
@@ -35,6 +35,7 @@ The app is based on sending sports notices to a global notice board and allows c
 - **GetIt** - dependency app inject
 - **Firebase** - user authorization
 - **Freezed** - model generator
+- **Http** - RESTApi
 
 ### Testing
 For testing app use
