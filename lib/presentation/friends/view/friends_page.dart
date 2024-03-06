@@ -1,5 +1,7 @@
+import 'package:climbapp/core/datahelpers/params/message_view.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
+import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
 
@@ -288,9 +290,11 @@ class FriendsPage extends StatelessWidget {
                                                 .copyWith(size: 25),
                                             onTap: () => {
                                               Navigator.pushNamed(
-                                                  context, routeCreateMessage,
-                                                  arguments:
-                                                      blocstate.friends[index]),
+                                                  context, routeMessagePage,
+                                                  arguments: MessageViewParams(
+                                                      view: MessageView.other,
+                                                      friend: blocstate
+                                                          .friends[index])),
                                             },
                                           ),
                                         ],

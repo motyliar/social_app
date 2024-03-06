@@ -1,7 +1,12 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/datahelpers/params/message_view.dart';
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/shadows.dart';
+import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/extension.dart';
+import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
@@ -22,6 +27,7 @@ class TopNoticeContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Container(
       margin: const EdgeInsets.only(
         right: kMinEmptySpace,
@@ -51,10 +57,32 @@ class TopNoticeContainer extends StatelessWidget {
             noticeDivider(),
             const SummaryRow(),
             const GradientDivider(),
-            const ActionRow(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DescriptionIcon(icon: Icons.bookmark, text: l10n.noticeSave),
+                DescriptionIcon(
+                    icon: Icons.comment, text: l10n.noticeAddComment),
+                DescriptionIcon(
+                  icon: Icons.reply,
+                  text: l10n.noticeReply,
+                  onTap: () => Navigator.pushNamed(context, routeMessagePage,
+                      arguments: MessageViewParams(
+                          view: MessageView.other,
+                          friend: noticeToFriend(notice))),
+                ),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
+
+  FriendsEntity noticeToFriend(NoticeEntity notice) => FriendsEntity(
+      id: notice.authorId,
+      userName: notice.author,
+      profileAvatar: '',
+      isActive: false,
+      lastLoggedIn: '');
 }

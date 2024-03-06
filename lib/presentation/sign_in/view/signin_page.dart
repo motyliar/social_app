@@ -2,6 +2,7 @@ import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
+import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/sign_in/view/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
@@ -67,9 +68,7 @@ class SignInPage extends StatelessWidget {
       }
     }, builder: (context, state) {
       if (state is SignInToMongoDB) {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return const LoadingState();
       }
       return SignInPageMain(
         loginController: _loginController,

@@ -27,6 +27,7 @@ class RightActionIcon extends StatelessWidget {
         ),
         const EmptySpaceWidth(),
         GestureDetector(
+          onTap: () => onTap(),
           child: icon,
         ),
       ],
