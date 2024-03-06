@@ -35,6 +35,7 @@ The app is based on sending sports notices to a global notice board and allows c
 - **GetIt** - dependency app inject
 - **Firebase** - user authorization
 - **Freezed** - model generator
+- **Http** - RESTApi
 
 ### Testing
 For testing app use
