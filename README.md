@@ -19,7 +19,7 @@ The project is a social media app designed for the sports community. Its main fu
 The app is based on sending sports notices to a global notice board and allows communication between users via an in-app messenger.
 <br>Readme update from: 6.03.24
 
-### Screenshoots
+### Screenshots
 <p align="center" >
   <span style="margin-right: 10px;">
 <img src="http://motyliar.webd.pro/social/screens/screen_one.jpg" alt="Logo" width="130" height="250" > 
