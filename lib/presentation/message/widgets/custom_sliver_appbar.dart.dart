@@ -18,14 +18,16 @@ class CustomSliverAppBar extends StatelessWidget {
     required this.user,
     required this.messages,
     this.height,
-    this.child,
+    this.background,
+    this.children,
   });
 
   final String direction;
   final UserEntity user;
   final List<MessageEntity> messages;
   final double? height;
-  final Widget? child;
+  final Widget? background;
+  final List<Widget>? children;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class CustomSliverAppBar extends StatelessWidget {
               multipler: 0.20),
       floating: true,
       flexibleSpace: FlexibleSpaceBar(
-        background: child ??
+        background: background ??
             Stack(
               children: [
                 const LittleAppBar(),
@@ -46,23 +48,24 @@ class CustomSliverAppBar extends StatelessWidget {
                   bottom: 0,
                   left: kGeneralPagesMargin,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      BlocBuilder<MessageDeleteCubit, MessageDeleteState>(
-                        builder: (context, delete) {
-                          return AnimatedAction(
-                              childOne: NavigationState(
-                                direction: direction,
-                              ),
-                              childTwo: DeleteActionButtons(
-                                  user: user,
-                                  direction: direction,
-                                  messages: messages),
-                              condition: delete.messageIds.isEmpty);
-                        },
-                      ),
-                    ],
-                  ),
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: children ??
+                          [
+                            BlocBuilder<MessageDeleteCubit, MessageDeleteState>(
+                              builder: (context, delete) {
+                                return AnimatedAction(
+                                    childOne: NavigationState(
+                                      thirdText: 'Thrash',
+                                      direction: direction,
+                                    ),
+                                    childTwo: DeleteActionButtons(
+                                        user: user,
+                                        direction: direction,
+                                        messages: messages),
+                                    condition: delete.messageIds.isEmpty);
+                              },
+                            ),
+                          ]),
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
+import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/mid_button.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
@@ -11,10 +12,20 @@ import '../../../core/constans/export_constans.dart';
 class NavigationState extends StatelessWidget {
   const NavigationState({
     required this.direction,
+    this.thirdButtonFunction,
+    required this.thirdText,
+    this.isThird = false,
+    this.activeButtonStyle = AppTextStyle.headersSmall,
+    this.inActiveButtonStyle = AppTextStyle.descriptionSmall,
     super.key,
   });
 
   final String direction;
+  final VoidCallback? thirdButtonFunction;
+  final bool isThird;
+  final String thirdText;
+  final TextStyle activeButtonStyle;
+  final TextStyle inActiveButtonStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +41,8 @@ class NavigationState extends StatelessWidget {
                 child: MidTextButton(
                   margin: const EdgeInsets.all(0),
                   textStyle: direction.toLowerCase() == 'received'
-                      ? AppTextStyle.headersSmall
-                      : AppTextStyle.descriptionSmall,
+                      ? activeButtonStyle
+                      : inActiveButtonStyle,
                   textLabel: 'Received',
                   borderRadius: kSmallButtonBorderRadius,
                   onTap: () => context
@@ -45,8 +56,8 @@ class NavigationState extends StatelessWidget {
                 child: MidTextButton(
                   margin: const EdgeInsets.all(0),
                   textStyle: direction.toLowerCase() == 'send'
-                      ? AppTextStyle.headersSmall
-                      : AppTextStyle.descriptionSmall,
+                      ? activeButtonStyle
+                      : inActiveButtonStyle,
                   textLabel: 'Send',
                   borderRadius: kSmallButtonBorderRadius,
                   onTap: () => context
@@ -56,15 +67,15 @@ class NavigationState extends StatelessWidget {
               ),
               const Gap(kGeneralPagesMargin),
               Opacity(
-                opacity: direction.toLowerCase() == 'thrash' ? 1 : 0.6,
+                opacity: isThird ? 1 : 0.6,
                 child: MidTextButton(
                   margin: const EdgeInsets.all(0),
-                  textStyle: AppTextStyle.descriptionSmall,
-                  textLabel: 'Thrash',
+                  textStyle: isThird ? activeButtonStyle : inActiveButtonStyle,
+                  textLabel: thirdText.capitalize(),
                   borderRadius: kSmallButtonBorderRadius,
-                  onTap: () => context
-                      .read<MessageViewCubit>()
-                      .changeView(MessageView.received),
+                  onTap: () => thirdButtonFunction != null
+                      ? thirdButtonFunction!()
+                      : null,
                 ),
               ),
             ],

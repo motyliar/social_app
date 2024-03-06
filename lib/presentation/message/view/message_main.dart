@@ -66,7 +66,7 @@ class MessageMain extends StatelessWidget {
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                       (context, index) => CreatingSlidableActions(
-                            message: messages.messages[index],
+                            message: listMessages[index],
                             l10n: l10n,
                             user: user,
                             index: index,
@@ -83,8 +83,7 @@ class MessageMain extends StatelessWidget {
                                         BlocProvider.of<MessageViewCubit>(
                                                 context)
                                             .changeView(MessageView.message,
-                                                message:
-                                                    messages.messages[index]),
+                                                message: listMessages[index]),
                                         context.read<MessageActionBloc>().add(
                                               UpdateMessageEvent(
                                                 params: _updateIsReadParams(
@@ -142,7 +141,8 @@ class MessageMain extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 60.0),
           child: FloatingActionButton(
             onPressed: () {
-              Navigator.pushNamed(context, routeCreateMessage);
+              BlocProvider.of<MessageViewCubit>(context)
+                  .changeView(MessageView.create);
             },
             child: const Icon(Icons.add),
           ),

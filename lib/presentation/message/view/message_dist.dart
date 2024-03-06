@@ -30,7 +30,7 @@ class MessageDistributor extends StatelessWidget {
           );
         }
         if (viewState is MessageViewNewMessage) {
-          return const CreateNewMessage();
+          return CreateNewMessage();
         }
         if (viewState is MessageViewMessage) {
           return MessagePreview(
