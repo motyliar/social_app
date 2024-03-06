@@ -1,7 +1,9 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/datahelpers/params/auth/logout.dart';
+import 'package:climbapp/core/datahelpers/params/message_view.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
+import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/sign_in/business/sign_in/sign_in_bloc.dart';
@@ -29,7 +31,8 @@ class IconsRow extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, routeFriendsPage),
             icon: AppIcons.friends),
         AppBarIcons(
-            onTap: () => Navigator.pushNamed(context, routeMessagePage),
+            onTap: () => Navigator.pushNamed(context, routeMessagePage,
+                arguments: const MessageViewParams(view: MessageView.received)),
             icon: AppIcons.messages),
         AppBarIcons(
             onTap: () {
