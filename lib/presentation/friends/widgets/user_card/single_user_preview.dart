@@ -13,17 +13,21 @@ class SingleUserPreview extends StatelessWidget {
     required this.rightActionIcons,
     this.actionIconLeftPadding = 40,
     this.textStyle,
+    this.onTap,
     super.key,
   });
   final FriendsEntity singleUser;
   final List<Widget> rightActionIcons;
   final TextStyle? textStyle;
   final double actionIconLeftPadding;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, routeProfilePage, arguments: singleUser),
+      onTap: () => onTap != null
+          ? onTap!()
+          : Navigator.pushNamed(context, routeProfilePage,
+              arguments: singleUser),
       child: UserViewCard(
           margin: const EdgeInsets.only(
               top: kMidEmptySpace,
