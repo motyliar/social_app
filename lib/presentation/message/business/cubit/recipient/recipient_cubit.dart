@@ -8,7 +8,7 @@ part 'recipient_state.dart';
 class RecipientCubit extends Cubit<RecipientState> {
   RecipientCubit() : super(const RecipientState());
 
-  void addRecipient(FriendsEntity recipient) {
+  Future<void> addRecipient(FriendsEntity recipient) async {
     emit(state.copyWith(recipient: recipient));
   }
 }

@@ -33,4 +33,10 @@ class MessageLogic {
     return List.generate(
         listSize, (index) => {"name": index, "isCheck": wantToCheck}).toList();
   }
+
+  static String createReMessageTemplate(MessageEntity message) => '''
+    ${message.sender} sent on ${message.createdAt}
+    previous message:
+
+    ${message.content}''';
 }

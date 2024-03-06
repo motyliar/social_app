@@ -38,7 +38,7 @@ class MessageDistributor extends StatelessWidget {
           );
         }
         if (viewState is MessageViewReply) {
-          return MessageReply(message: viewState.message);
+          return CreateNewMessage(message: viewState.message);
         } else {
           return MessageMain(
             direction: _directionReceived,

@@ -6,6 +6,7 @@ import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
+import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
@@ -15,6 +16,7 @@ import 'package:climbapp/presentation/friends/widgets/widgets.dart';
 import 'package:climbapp/presentation/message/business/bloc/message/message_action_bloc.dart';
 import 'package:climbapp/presentation/message/business/cubit/recipient/recipient_cubit.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
+import 'package:climbapp/presentation/message/business/logic/message_logic.dart';
 import 'package:climbapp/presentation/message/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
@@ -26,24 +28,35 @@ import 'package:gap/gap.dart';
 // jak to skonczymy zostały detale w innych działach i można przesyłac
 // todo po wysłaniu wiadomości przejście do home i wyczyszczenie wszystkich contextów
 TextEditingController userController = TextEditingController();
-TextEditingController subjectController = TextEditingController();
 
 @immutable
 class CreateNewMessage extends StatelessWidget {
-  CreateNewMessage({super.key});
+  CreateNewMessage({super.key, this.message});
   static Route route() => MaterialPageRoute(
         settings: const RouteSettings(name: routeCreateMessage),
         builder: (_) => CreateNewMessage(),
       );
-
-  late TextEditingController contentController =
-      TextEditingController(text: '');
+  final MessageEntity? message;
+  late TextEditingController contentController = TextEditingController(
+      text: message != null
+          ? MessageLogic.createReMessageTemplate(message!)
+          : '');
+  late TextEditingController subjectController = TextEditingController(
+      text: message != null ? 'FWD: ${message!.subject}' : '');
 
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user);
     return BlocProvider(
-      create: (_) => RecipientCubit(),
+      create: (context) => RecipientCubit()
+        ..addRecipient(message != null
+            ? recipientFromMessage(message!)
+            : const FriendsEntity(
+                id: '',
+                userName: '',
+                profileAvatar: '',
+                isActive: false,
+                lastLoggedIn: '')),
       child: Scaffold(
         backgroundColor: ColorPallete.scaffoldBackground,
         body: SafeArea(
@@ -83,21 +96,14 @@ class CreateNewMessage extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.40,
                                   child: Text(
-                                    state.recipient?.userName.capitalize() ??
-                                        'Choose recipient',
-                                    style: state.recipient != null
+                                    state.recipient?.userName == ''
+                                        ? 'Choose recipient'
+                                        : state.recipient!.userName,
+                                    style: state.recipient?.userName != ''
                                         ? AppTextStyle.headersSmall.copyWith(
                                             fontWeight: FontWeight.bold)
                                         : AppTextStyle.descriptionMid,
                                   ),
-                                  //  TextFormField(
-                                  //     controller: userController,
-                                  //     decoration: const InputDecoration(
-                                  //         hintStyle:
-                                  //             AppTextStyle.descriptionMid,
-                                  //         hintText: 'username or e-mail',
-                                  //         border: InputBorder.none),
-                                  //   ),
                                 ),
                               ],
                             ),
@@ -130,14 +136,16 @@ class CreateNewMessage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const HeadersSmallText(text: 'Subject'),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.6,
                           child: TextFormField(
+                            style: AppTextStyle.headersSmall,
                             maxLines: 1,
                             maxLength: 200,
                             controller: subjectController,
                             decoration: const InputDecoration(
+                              hintText: 'subject',
+                              hintStyle: AppTextStyle.descriptionMid,
                               border: InputBorder.none,
                             ),
                           ),
@@ -154,6 +162,7 @@ class CreateNewMessage extends StatelessWidget {
                               BorderRadius.circular(kMinBorderRadius)),
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: TextFormField(
+                        style: AppTextStyle.headersSmall,
                         minLines: 10,
                         maxLines: 1000,
                         controller: contentController,
@@ -166,7 +175,7 @@ class CreateNewMessage extends StatelessWidget {
                     BlocBuilder<RecipientCubit, RecipientState>(
                       builder: (context, state) {
                         return MidTextButton(
-                            onTap: () => state.recipient == null
+                            onTap: () => state.recipient!.userName == ''
                                 ? debugPrint('no recipient')
                                 : {
                                     context.read<MessageActionBloc>().add(
@@ -201,6 +210,13 @@ class CreateNewMessage extends StatelessWidget {
       ),
     );
   }
+
+  FriendsEntity recipientFromMessage(MessageEntity message) => FriendsEntity(
+      id: message.from,
+      userName: message.sender,
+      profileAvatar: '',
+      isActive: false,
+      lastLoggedIn: '');
 
   Future<FriendsEntity?> getRecipient(
       BuildContext context, UserEntity user) async {
