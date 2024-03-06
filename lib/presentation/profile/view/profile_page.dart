@@ -1,12 +1,15 @@
 import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/datahelpers/params/message_view.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
+import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
+import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 
@@ -138,11 +141,26 @@ class ProfilePage extends StatelessWidget {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            const MidTextButton(
-                              margin: EdgeInsets.all(kMinEmptySpace),
-                              borderRadius: kSmallButtonBorderRadius,
-                              textLabel: 'Send message',
-                              textStyle: AppTextStyle.descriptionMid,
+                            BlocBuilder<FetchUserProfileCubit,
+                                FetchUserProfileState>(
+                              builder: (context, state) {
+                                if (state is FetchUserProfileLoaded) {
+                                  return MidTextButton(
+                                    onTap: () => Navigator.pushNamed(
+                                        context, routeMessagePage,
+                                        arguments: MessageViewParams(
+                                            view: MessageView.other,
+                                            friend:
+                                                convertToFriend(state.user))),
+                                    margin:
+                                        const EdgeInsets.all(kMinEmptySpace),
+                                    borderRadius: kSmallButtonBorderRadius,
+                                    textLabel: 'Send message',
+                                    textStyle: AppTextStyle.descriptionMid,
+                                  );
+                                }
+                                return const Text('no data');
+                              },
                             ),
                             BlocBuilder<AddToFriendCubit, AddToFriendState>(
                               buildWhen: (previous, current) =>
@@ -302,6 +320,13 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+
+FriendsEntity convertToFriend(UserEntity user) => FriendsEntity(
+    id: user.id,
+    userName: user.userName,
+    profileAvatar: '',
+    isActive: user.active.isActive,
+    lastLoggedIn: user.active.lastLoggedIn);
 
 bool isMyFriend(List<String> userFriends, String profileID) {
   for (String id in userFriends) {

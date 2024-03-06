@@ -1,1 +1,1 @@
-enum MessageView { send, received, create, message, reply }
+enum MessageView { send, received, create, message, reply, other }

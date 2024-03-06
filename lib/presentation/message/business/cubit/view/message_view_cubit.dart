@@ -17,6 +17,8 @@ class MessageViewCubit extends Cubit<MessageViewState> {
         emit(MessageViewRecivied());
       case MessageView.create:
         emit(MessageViewNewMessage());
+      case MessageView.other:
+        emit(MessageViewOtherMessage());
       case MessageView.message:
         emit(MessageViewMessage(message: message!));
       case MessageView.reply:

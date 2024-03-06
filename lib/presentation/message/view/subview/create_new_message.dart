@@ -31,11 +31,14 @@ TextEditingController userController = TextEditingController();
 
 @immutable
 class CreateNewMessage extends StatelessWidget {
-  CreateNewMessage({super.key, this.message});
-  static Route route() => MaterialPageRoute(
+  CreateNewMessage({super.key, this.message, this.friend});
+  static Route route({required FriendsEntity friend}) => MaterialPageRoute(
         settings: const RouteSettings(name: routeCreateMessage),
-        builder: (_) => CreateNewMessage(),
+        builder: (_) => CreateNewMessage(
+          friend: friend,
+        ),
       );
+  final FriendsEntity? friend;
   final MessageEntity? message;
   late TextEditingController contentController = TextEditingController(
       text: message != null
@@ -51,12 +54,14 @@ class CreateNewMessage extends StatelessWidget {
       create: (context) => RecipientCubit()
         ..addRecipient(message != null
             ? recipientFromMessage(message!)
-            : const FriendsEntity(
-                id: '',
-                userName: '',
-                profileAvatar: '',
-                isActive: false,
-                lastLoggedIn: '')),
+            : friend != null
+                ? friend!
+                : const FriendsEntity(
+                    id: '',
+                    userName: '',
+                    profileAvatar: '',
+                    isActive: false,
+                    lastLoggedIn: '')),
       child: Scaffold(
         backgroundColor: ColorPallete.scaffoldBackground,
         body: SafeArea(

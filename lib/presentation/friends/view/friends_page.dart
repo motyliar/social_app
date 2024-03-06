@@ -228,22 +228,6 @@ class FriendsPage extends StatelessWidget {
                                                 .copyWith(size: 25),
                                             onTap: () {},
                                           ),
-                                          RightActionIcon(
-                                              text: isMyFriend(
-                                                      user.friends,
-                                                      blocstate
-                                                          .friend[index].id)
-                                                  ? 'Remove friend'
-                                                  : 'Send request',
-                                              icon: isMyFriend(
-                                                      user.friends,
-                                                      blocstate
-                                                          .friend[index].id)
-                                                  ? AppIcons.delete
-                                                      .copyWith(size: 25)
-                                                  : AppIcons.personIcon
-                                                      .copyWith(size: 25),
-                                              onTap: () {}),
                                         ],
                                       )),
                             )),
@@ -302,13 +286,13 @@ class FriendsPage extends StatelessWidget {
                                             text: 'Send message',
                                             icon: AppIcons.messages
                                                 .copyWith(size: 25),
-                                            onTap: () {},
+                                            onTap: () => {
+                                              Navigator.pushNamed(
+                                                  context, routeCreateMessage,
+                                                  arguments:
+                                                      blocstate.friends[index]),
+                                            },
                                           ),
-                                          RightActionIcon(
-                                              text: 'Delete friend',
-                                              icon: AppIcons.delete
-                                                  .copyWith(size: 25),
-                                              onTap: () {})
                                         ],
                                       ),
                                     ],

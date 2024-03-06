@@ -15,6 +15,8 @@ final class MessageViewRecivied extends MessageViewState {}
 
 final class MessageViewNewMessage extends MessageViewState {}
 
+final class MessageViewOtherMessage extends MessageViewState {}
+
 final class MessageViewReply extends MessageViewState {
   const MessageViewReply({required this.message});
   final MessageEntity message;
