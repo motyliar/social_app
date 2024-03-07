@@ -29,7 +29,7 @@ class UserDetails extends StatefulWidget {
 }
 
 String? _imageString = '';
-File? imageFile;
+late File? imageFile;
 
 class _UserDetailsState extends State<UserDetails> {
   @override
@@ -172,7 +172,7 @@ class _UserDetailsState extends State<UserDetails> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () => _pickImage(ImageSource.camera, quality: 20),
+                    onTap: () => _pickImage(ImageSource.camera, quality: 10),
                     child: const Column(
                       children: [
                         AppIcons.camera,
@@ -244,11 +244,12 @@ Future<void> sendImageToServer(String filePath, String userId) async {
   debugPrint('function run');
   debugPrint(filePath);
   final request = http.MultipartRequest(
-      'POST', Uri.parse('http://192.168.1.41:3000/up/upload?file=$userId'));
+      'POST', Uri.parse('http://65.21.202.169:20119/up/upload?file=$userId'));
   request.files.add(await http.MultipartFile.fromPath(
     'image',
     filePath,
   ));
   var response = await request.send();
-  debugPrint(response.statusCode.toString());
+  final responseBody = await response.stream.bytesToString();
+  debugPrint(jsonDecode(responseBody)['file']);
 }

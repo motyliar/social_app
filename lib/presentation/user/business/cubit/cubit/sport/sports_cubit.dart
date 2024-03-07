@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/presentation/user/view/subview/sports.dart';
 
 import 'package:equatable/equatable.dart';

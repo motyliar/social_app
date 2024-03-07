@@ -98,4 +98,7 @@ class AppUrl {
     required String userID,
   }) =>
       {'userEmail': userEmail, 'userAuthID': userID};
+
+  static Uri uploadImageURL(String userId) =>
+      Uri.parse('http://65.21.202.169:20119/up/upload?file=$userId');
 }
