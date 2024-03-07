@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/domains/image/usecase/upload_image_usecase.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -25,6 +28,10 @@ class ImageSenderCubit extends Cubit<ImageSenderState> {
       debugPrint(e.message);
       emit(ImageSenderFailed());
     }
+  }
+
+  Future<void> pickFile(File file) async {
+    emit(ImageSenderState(imageFile: file));
   }
 
   Future<String> _sendRequest(ImageParams params) async {

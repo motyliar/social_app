@@ -1,18 +1,14 @@
-import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
-
 import 'package:climbapp/presentation/user/business/cubit/image_sender/image_sender_cubit.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
-import 'package:climbapp/core/constans/app_sizing_const.dart';
-import 'package:climbapp/core/theme/colors.dart';
-import 'package:climbapp/core/theme/fonts.dart';
-import 'package:climbapp/core/theme/icons/icons.dart';
+
+import 'package:climbapp/presentation/user/business/logic/user_logic.dart';
+
+import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
@@ -25,19 +21,10 @@ import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 
-class UserDetails extends StatefulWidget {
+class UserDetails extends StatelessWidget {
   const UserDetails({super.key});
 
-  @override
-  State<UserDetails> createState() => _UserDetailsState();
-}
-
-// String? _imageString = '';
-late File? imageFile;
-
-class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -87,11 +74,28 @@ class _UserDetailsState extends State<UserDetails> {
                         backgroundImage: NetworkImage(user.profileAvatar!),
                       ),
                     ]),
-                MidTextButton(
-                  onTap: () => showImagePickerOption(
-                      context, () async => _pickImage(ImageSource.gallery)),
-                  buttonWidth: 100,
-                  textLabel: l10n.change,
+                BlocBuilder<ImageSenderCubit, ImageSenderState>(
+                  builder: (context, state) {
+                    return MidTextButton(
+                      onTap: () async => {
+                        showImagePickerOption(context, () async {
+                          await UserLogic.pickFileFromMobile(
+                                  ImageSource.gallery,
+                                  context: context)
+                              .then((value) async => {
+                                    await context
+                                        .read<ImageSenderCubit>()
+                                        .pickFile(value)
+                                        .then((value) =>
+                                            Navigator.of(context).pop()),
+                                  });
+                        }),
+                        debugPrint(state.imageFile!.path.toString()),
+                      },
+                      buttonWidth: 100,
+                      textLabel: l10n.change,
+                    );
+                  },
                 ),
                 BlocBuilder<UserBloc, UserState>(
                   builder: (context, userBloc) {
@@ -103,7 +107,7 @@ class _UserDetailsState extends State<UserDetails> {
                                   context
                                       .read<ImageSenderCubit>()
                                       .sendRequest(ImageParams(
-                                        filePath: imageFile!.path,
+                                        filePath: state.imageFile!.path,
                                         userId: user.id,
                                         url: AppUrl.uploadImageURL(
                                           user.id,
@@ -171,19 +175,7 @@ class _UserDetailsState extends State<UserDetails> {
           ],
         ));
   }
-
-  Future<void> _pickImage(ImageSource source, {int quality = 5}) async {
-    final fetchImage = await ImagePicker().pickImage(source: source);
-
-    if (fetchImage == null) return;
-    final bytes = await FlutterImageCompress.compressWithFile(fetchImage.path,
-        quality: quality);
-    final base64String = base64Encode(Uint8List.fromList(bytes!));
-    debugPrint(base64String.length.toString());
-    File fetchFile = File(fetchImage.path);
-    setState(() {
-      imageFile = fetchFile;
-    });
-    Navigator.of(context).pop();
-  }
 }
+
+// String? _imageString = '';
+late File? imageFile;
