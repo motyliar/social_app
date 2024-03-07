@@ -10,6 +10,7 @@
     "contentThird": "It's so simple. There are lots of people waitng just for you",
     "passwordTopLabel": "Forgot password?",
     "signUpLabel": "Sign UP!",
+    "loading": "Loading...",
 
     "@_SIGN_PAGE": {},
     "topbigLabelText" : "JoinMee",
@@ -26,6 +27,16 @@
     "receivedPageTop": "Received",
     "sendPageTop": "Send",
     "deleteButton": "Delete",
+
+    "@_USER_PAGE": {},
+    "detailsTitle" : "Edit your details",
+    "changeAvatar" : "Change avatar",
+    "name": "Name",
+    "age": "Age",
+    "city": "City",
+    "phone": "Phone",
+    "confirm": "Confirm",
+    "change": "Change",
 
 
 

@@ -234,7 +234,7 @@ class CreateNewMessage extends StatelessWidget {
                 context.read<FriendsActionBloc>().add(FetchFriendsListEvent(
                     params: GetFriendsParams(userId: user.id)));
                 if (state is FriendsLoading) {
-                  const LoadingState();
+                  const LoadingPage();
                 }
                 if (state is FriendsLoaded) {
                   return SizedBox(

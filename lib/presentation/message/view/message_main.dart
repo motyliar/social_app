@@ -50,7 +50,7 @@ class MessageMain extends StatelessWidget {
             BlocProvider.of<MessageCheckboxCubit>(context).addItemsToMap(
                 MessageLogic.boolCreator(messages.messages.length));
             if (messages is MessageActionInitial) {
-              return const LoadingState();
+              return const LoadingPage();
             }
             final listMessages = messages.messages.reversed.toList();
             return SafeArea(

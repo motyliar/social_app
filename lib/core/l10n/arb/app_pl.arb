@@ -10,6 +10,7 @@
     "contentThird": "To takie proste, wiele osób czeka właśnie na Ciebie!",
     "passwordTopLabel": "Zapomniałeś hasło?",
       "signUpLabel": "Zarejestruj",
+      "loading": "Wczytuje...",
 
     
     "@_SIGN_PAGE": {},
@@ -23,6 +24,16 @@
     "receivedPageTop": "Odebrane",
     "sendPageTop": "Wysłane",
     "deleteButton": "Usuń",
+
+    "@_USER_PAGE": {},
+    "detailsTitle" : "Zmień swoje dane",
+    "changeAvatar" : "Zmień zdjęcie profilowe",
+    "name": "Imię",
+    "age": "Wiek",
+    "city": "Miasto",
+    "phone": "Telefon",
+    "confirm": "Zapisz",
+    "change": "Zmień",
 
 
      "@_BUTTONS": {},

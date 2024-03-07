@@ -12,11 +12,13 @@ class ProfileImage extends StatelessWidget {
     required this.imageSrc,
     required this.userName,
     this.isAnimate,
+    this.onTap,
   });
 
   final String imageSrc;
   final String userName;
   final bool? isAnimate;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,9 @@ class ProfileImage extends StatelessWidget {
       child: BlocBuilder<TapDownCubit, bool>(
         builder: (context, isTap) {
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, routeUserMain),
+            onTap: () => onTap == null
+                ? Navigator.pushNamed(context, routeUserMain)
+                : onTap!(),
             onTapDown: (details) =>
                 isAnimate ?? BlocProvider.of<TapDownCubit>(context).onTapDown(),
             onTapCancel: () =>

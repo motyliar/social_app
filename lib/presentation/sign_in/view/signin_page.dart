@@ -68,7 +68,7 @@ class SignInPage extends StatelessWidget {
       }
     }, builder: (context, state) {
       if (state is SignInToMongoDB) {
-        return const LoadingState();
+        return const LoadingPage();
       }
       return SignInPageMain(
         loginController: _loginController,

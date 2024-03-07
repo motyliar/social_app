@@ -42,6 +42,7 @@ class UserMainView extends StatelessWidget {
                     userName: state.user.userName,
                     isSearchBar: false,
                     isProfile: true,
+                    profileImageFunction: () => debugPrint('test'),
                   ),
                 ),
                 body: SingleChildScrollView(

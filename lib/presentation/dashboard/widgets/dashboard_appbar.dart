@@ -61,7 +61,8 @@ class DashBoardApp extends StatelessWidget {
       this.marginLeft = 20,
       this.marginRight = 20,
       this.isProfile = false,
-      this.isAnimateImage});
+      this.isAnimateImage,
+      this.profileImageFunction});
   final ScrollController controller;
   final bool isSearchBar;
   final String imageSrc;
@@ -71,6 +72,7 @@ class DashBoardApp extends StatelessWidget {
   final double marginRight;
   final bool isProfile;
   final bool? isAnimateImage;
+  final VoidCallback? profileImageFunction;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +104,9 @@ class DashBoardApp extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ProfileImage(
+                      onTap: profileImageFunction != null
+                          ? () => profileImageFunction!()
+                          : null,
                       imageSrc: imageSrc,
                       userName: userName,
                       isAnimate: isAnimateImage,

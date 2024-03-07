@@ -44,7 +44,7 @@ class WarningSnackBarWidgets extends StatelessWidget {
                 Text(l10n.snackWarningTitle),
                 Text(
                   message,
-                  style: TextStyle(color: Colors.white, fontSize: 14),
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
               ],
             ),
@@ -74,10 +74,9 @@ class SuccessSnackBarWidgets extends StatelessWidget {
         padding: const EdgeInsets.only(left: kMidEmptySpace),
         width: snackBarWidth,
         height: imageHeight,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Colors.white,
-          boxShadow: [downShadow, greyLeftShadow],
-          borderRadius: const BorderRadius.all(
+          borderRadius: BorderRadius.all(
             Radius.circular(maxBorderRadius),
           ),
         ),
@@ -94,9 +93,9 @@ class SuccessSnackBarWidgets extends StatelessWidget {
             Container(
               width: imageHeight,
               height: imageHeight,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   borderRadius:
-                      const BorderRadius.all(Radius.circular(maxBorderRadius)),
+                      BorderRadius.all(Radius.circular(maxBorderRadius)),
                   boxShadow: [
                     downShadow,
                     greyLeftShadow,
