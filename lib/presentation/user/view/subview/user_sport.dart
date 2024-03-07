@@ -8,9 +8,9 @@ import 'package:climbapp/core/theme/shadows.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
-import 'package:climbapp/presentation/app/widgets/empty_space.dart';
+
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/user/business/cubit/cubit/cubit/sports_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/cubit/sport/sports_cubit.dart';
 import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/business/enum.dart';
 import 'package:climbapp/presentation/user/view/subview/sports.dart';
@@ -25,7 +25,7 @@ class UserSport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> favoriteSports = [];
-    Sport? _draggingSport;
+    Sport? draggingSport;
     return BlocProvider(
       create: (context) => SportsCubit(),
       child: Column(children: [
@@ -44,7 +44,7 @@ class UserSport extends StatelessWidget {
         BlocConsumer<SportsCubit, SportsState>(
           listener: (context, state) {
             if (state.status == SportStatus.fail) {
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                 content: Text('Too much'),
                 duration: Duration(milliseconds: 500),
               ));
@@ -215,7 +215,7 @@ class UserSport extends StatelessWidget {
                             child: Draggable<Sport>(
                               data: state.possibleSport[index],
                               onDragStarted: () =>
-                                  _draggingSport = state.possibleSport[index],
+                                  draggingSport = state.possibleSport[index],
                               childWhenDragging: Container(),
                               feedback: Material(
                                 color: Colors.transparent,

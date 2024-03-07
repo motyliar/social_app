@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 abstract class HttpMultiPartData {
   HttpMultiPartData({required this.params});
-  final RepositoryParams params;
+  final ImageParams params;
   Future<http.MultipartRequest> sendRequest();
 }
 
@@ -14,6 +14,8 @@ class PostMultiPartData extends HttpMultiPartData {
   @override
   Future<http.MultipartRequest> sendRequest() async {
     final request = http.MultipartRequest('POST', params.url!);
+    request.files
+        .add(await http.MultipartFile.fromPath('image', params.filePath));
     return request;
   }
 }

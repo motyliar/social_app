@@ -1,7 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
+import 'package:climbapp/core/utils/helpers/helpers.dart';
+import 'package:climbapp/presentation/user/business/cubit/cubit/image_sender_cubit.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/theme/colors.dart';
@@ -45,105 +50,131 @@ class _UserDetailsState extends State<UserDetails> {
     TextEditingController phoneController = TextEditingController(
         text: user.details?.phone.toString() ?? '+48-000-000-000');
 
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-              left: kGeneralPagesMargin, top: kGeneralPagesMargin),
-          child: Align(
-            alignment: Alignment.bottomLeft,
-            child: RoundButton(
-              onTap: () =>
-                  context.read<ViewSwitchCubit>().changeStatus(ViewStatus.main),
-              icon: Icons.arrow_back,
-              iconSize: 20,
-              width: 50,
+    return BlocProvider(
+      create: (context) => userLocator<ImageSenderCubit>(),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+                left: kGeneralPagesMargin, top: kGeneralPagesMargin),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: RoundButton(
+                onTap: () => context
+                    .read<ViewSwitchCubit>()
+                    .changeStatus(ViewStatus.main),
+                icon: Icons.arrow_back,
+                iconSize: 20,
+                width: 50,
+              ),
             ),
           ),
-        ),
-        const EmptySpace(),
-        UserViewCard(
-          children: [
-            Text(
-              l10n.changeAvatar,
-              style: AppTextStyle.headersSmall,
-            ),
-            const Divider(),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CircleAvatar(
-                    radius: 60,
-                    backgroundImage: _imageString != null
-                        ? MemoryImage(
-                            Uint8List.fromList(
-                              base64Decode(
-                                _imageString!,
+          const EmptySpace(),
+          UserViewCard(
+            children: [
+              Text(
+                l10n.changeAvatar,
+                style: AppTextStyle.headersSmall,
+              ),
+              const Divider(),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  CircleAvatar(
+                      radius: 60,
+                      backgroundImage: _imageString != null
+                          ? MemoryImage(
+                              Uint8List.fromList(
+                                base64Decode(
+                                  _imageString!,
+                                ),
                               ),
-                            ),
-                          )
-                        : null),
-                MidTextButton(
-                  onTap: () => showImagePickerOption(context),
-                  buttonWidth: 100,
-                  textLabel: l10n.change,
-                ),
-                MidTextButton(
-                  textLabel: 'send',
-                  onTap: () async =>
-                      sendImageToServer(imageFile!.path, user.id),
-                )
-              ],
-            )
-          ],
-        ),
-        const GradientDivider(
-          dividerHeight: 15.0,
-        ),
-        ContainerTemplate(
-          borderRadius: kMinBorderRadius,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.only(
-              right: kGeneralPagesMargin, left: kGeneralPagesMargin),
-          padding: const EdgeInsets.all(kGeneralPagesMargin),
-          color: ColorPallete.whiteOpacity80,
-          child: Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(l10n.detailsTitle, style: AppTextStyle.headersSmall),
-                const Divider(),
-                ToChangeField(
-                  nameController: nameController,
-                  fieldName: l10n.name,
-                ),
-                ToChangeField(
-                  nameController: ageController,
-                  fieldName: l10n.age,
-                  numberKeyboard: true,
-                ),
-                ToChangeField(
-                  nameController: cityController,
-                  fieldName: l10n.city,
-                ),
-                ToChangeField(
-                  nameController: phoneController,
-                  fieldName: l10n.phone,
-                  numberKeyboard: true,
-                ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: MidTextButton(
-                        buttonWidth: 120, textLabel: l10n.confirm))
-              ],
+                            )
+                          : null),
+                  MidTextButton(
+                    onTap: () => showImagePickerOption(context),
+                    buttonWidth: 100,
+                    textLabel: l10n.change,
+                  ),
+                  BlocBuilder<UserBloc, UserState>(
+                    builder: (context, userBloc) {
+                      return BlocBuilder<ImageSenderCubit, ImageSenderState>(
+                        builder: (context, state) {
+                          return MidTextButton(
+                              textLabel: 'send',
+                              onTap: () async => {
+                                    context
+                                        .read<ImageSenderCubit>()
+                                        .sendRequest(ImageParams(
+                                          filePath: imageFile!.path,
+                                          userId: user.id,
+                                          url: AppUrl.uploadImageURL(
+                                            user.id,
+                                          ),
+                                        )),
+                                    BlocProvider.of<UserBloc>(context).add(
+                                      LoadUserEvent(
+                                        user: GetUserParams(
+                                            token: '00', userId: user.id),
+                                      ),
+                                    ),
+                                  });
+                        },
+                      );
+                    },
+                  )
+                ],
+              )
+            ],
+          ),
+          const GradientDivider(
+            dividerHeight: 15.0,
+          ),
+          ContainerTemplate(
+            borderRadius: kMinBorderRadius,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(
+                right: kGeneralPagesMargin, left: kGeneralPagesMargin),
+            padding: const EdgeInsets.all(kGeneralPagesMargin),
+            color: ColorPallete.whiteOpacity80,
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l10n.detailsTitle, style: AppTextStyle.headersSmall),
+                  const Divider(),
+                  ToChangeField(
+                    nameController: nameController,
+                    fieldName: l10n.name,
+                  ),
+                  ToChangeField(
+                    nameController: ageController,
+                    fieldName: l10n.age,
+                    numberKeyboard: true,
+                  ),
+                  ToChangeField(
+                    nameController: cityController,
+                    fieldName: l10n.city,
+                  ),
+                  ToChangeField(
+                    nameController: phoneController,
+                    fieldName: l10n.phone,
+                    numberKeyboard: true,
+                  ),
+                  Align(
+                      alignment: Alignment.centerRight,
+                      child: MidTextButton(
+                          buttonWidth: 120, textLabel: l10n.confirm))
+                ],
+              ),
             ),
           ),
-        ),
-        const GradientDivider(
-          dividerHeight: kMidDividerHeight,
-        ),
-      ],
+          const GradientDivider(
+            dividerHeight: kMidDividerHeight,
+          ),
+        ],
+      ),
     );
   }
 
@@ -238,18 +269,4 @@ class ToChangeField extends StatelessWidget {
       ],
     );
   }
-}
-
-Future<void> sendImageToServer(String filePath, String userId) async {
-  debugPrint('function run');
-  debugPrint(filePath);
-  final request = http.MultipartRequest(
-      'POST', Uri.parse('http://65.21.202.169:20119/up/upload?file=$userId'));
-  request.files.add(await http.MultipartFile.fromPath(
-    'image',
-    filePath,
-  ));
-  var response = await request.send();
-  final responseBody = await response.stream.bytesToString();
-  debugPrint(jsonDecode(responseBody)['file']);
 }

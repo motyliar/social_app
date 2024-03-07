@@ -1,6 +1,8 @@
 import 'package:climbapp/data/friends/datasources/locale/friends_locale_data_sources.dart';
 import 'package:climbapp/data/friends/datasources/remote/friends_remote_data_sources.dart';
 import 'package:climbapp/data/friends/repository/friends_repository_impl.dart';
+import 'package:climbapp/data/image/repository/image_repository_impl.dart';
+import 'package:climbapp/data/image/sources/image_remote.dart';
 import 'package:climbapp/data/message/datasources/remote/message_remote_datasources.dart';
 import 'package:climbapp/data/message/repository/message_repository_impl.dart';
 import 'package:climbapp/data/notice/datasources/remote/notice_remote_data_sources.dart';
@@ -13,6 +15,8 @@ import 'package:climbapp/domains/friends/usecases/add_friend.dart';
 import 'package:climbapp/domains/friends/usecases/delete_friend_usecase.dart';
 import 'package:climbapp/domains/friends/usecases/get_friend_usecase.dart';
 import 'package:climbapp/domains/friends/usecases/search_users_usecase.dart';
+import 'package:climbapp/domains/image/repository/image_repository.dart';
+import 'package:climbapp/domains/image/usecase/upload_image_usecase.dart';
 import 'package:climbapp/domains/messages/repository/message_repository.dart';
 import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/get_user_messages_usecase.dart';
@@ -46,6 +50,7 @@ import 'package:climbapp/presentation/notice/business/cubit/update_notice/update
 import 'package:climbapp/presentation/profile/business/cubit/add_to_friend/add_to_friend_cubit.dart';
 import 'package:climbapp/presentation/profile/business/cubit/fetch_user/fetch_user_profile_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/business/cubit/cubit/image_sender_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 final userLocator = GetIt.instance;
@@ -86,6 +91,7 @@ void userInit() {
         () => FetchUserProfileCubit(getUserUseCase: userLocator()))
     ..registerFactory(() => AddToFriendCubit(
         addFriendUseCase: userLocator(), deleteFriendUseCase: userLocator()))
+    ..registerFactory(() => ImageSenderCubit(uploadImageUseCase: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -130,6 +136,10 @@ void userInit() {
         () => DeleteSingleCommentUseCase(repository: userLocator()))
     ..registerLazySingleton(
         () => UpdateCommentUseCase(repository: userLocator()))
+
+    //IMAGE
+    ..registerLazySingleton(
+        () => UploadImageUseCase(imageRepository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(
@@ -148,6 +158,9 @@ void userInit() {
     //NOTICES
     ..registerLazySingleton<NoticeRepository>(
         () => NoticeRepositoryImpl(noticeRemoteDataSources: userLocator()))
+    // IMAGE
+    ..registerLazySingleton<ImageRepository>(
+        () => ImageRepositoryImpl(imageRemoteSource: userLocator()))
 
     // Register Remote and Local Data
     //USER
@@ -167,5 +180,6 @@ void userInit() {
         () => MessageRemoteDataSourcesImpl(client: userLocator()))
     // NOTICES
     ..registerLazySingleton<NoticeRemoteDataSources>(
-        () => NoticeRemoteDataSourcesImpl());
+        () => NoticeRemoteDataSourcesImpl())
+    ..registerLazySingleton<ImageRemoteSource>(() => ImageRemoteSourceImpl());
 }

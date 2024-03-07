@@ -7,3 +7,5 @@ class ImageSenderState extends Equatable {
   @override
   List<Object?> get props => [responseMessage];
 }
+
+class ImageSenderFailed extends ImageSenderState {}
