@@ -17,12 +17,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc(GetUserUseCase getUserUseCase, UpdateUserUseCase updateUserUseCase)
       : _getUserUseCase = getUserUseCase,
         _updateUserUserUseCase = updateUserUseCase,
-        super(UserInitial()) {
+        super(const UserInitial()) {
     on<LoadUserEvent>(_loadUser);
     on<UpdateUserEvent>(_updateUser);
   }
 
   Future<void> _loadUser(LoadUserEvent event, Emitter<UserState> emit) async {
+    emit(const UserLoading());
     final result = await _getUserUseCase.execute(event.user);
 
     result.fold(
@@ -30,7 +31,10 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(LoadingFailed());
       },
       (user) => emit(
-        UserLoaded(user: user, params: event.user),
+        UserLoaded(
+          user: user,
+          params: event.user,
+        ),
       ),
     );
   }

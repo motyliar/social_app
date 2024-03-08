@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
+import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/user/business/cubit/image_sender/image_sender_cubit.dart';
 
 import 'package:climbapp/presentation/user/business/logic/user_logic.dart';
@@ -38,8 +38,12 @@ class UserDetails extends StatelessWidget {
     TextEditingController phoneController = TextEditingController(
         text: user.details?.phone.toString() ?? '+48-000-000-000');
 
-    return BlocProvider(
-        create: (context) => userLocator<ImageSenderCubit>(),
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => userLocator<ImageSenderCubit>(),
+          ),
+        ],
         child: Column(
           children: [
             Padding(
@@ -69,9 +73,21 @@ class UserDetails extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 60,
-                        backgroundImage: NetworkImage(user.profileAvatar!),
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (context, state) {
+                          if (state is UserLoading) {
+                            return const LoadingPage();
+                          }
+                          if (state is UserLoaded) {
+                            return CircleAvatar(
+                              radius: 60,
+                              backgroundImage:
+                                  NetworkImage(state.user.profileAvatar!),
+                            );
+                          } else {
+                            return const LoadingPage();
+                          }
+                        },
                       ),
                     ]),
                 BlocBuilder<ImageSenderCubit, ImageSenderState>(
@@ -90,36 +106,33 @@ class UserDetails extends StatelessWidget {
                                             Navigator.of(context).pop()),
                                   });
                         }),
-                        debugPrint(state.imageFile!.path.toString()),
                       },
                       buttonWidth: 100,
                       textLabel: l10n.change,
                     );
                   },
                 ),
-                BlocBuilder<UserBloc, UserState>(
-                  builder: (context, userBloc) {
-                    return BlocBuilder<ImageSenderCubit, ImageSenderState>(
-                      builder: (context, state) {
-                        return MidTextButton(
-                            textLabel: 'send',
-                            onTap: () async => {
-                                  context
-                                      .read<ImageSenderCubit>()
-                                      .sendRequest(ImageParams(
-                                        filePath: state.imageFile!.path,
-                                        userId: user.id,
-                                        url: AppUrl.uploadImageURL(
-                                          user.id,
-                                        ),
-                                      )),
-                                  BlocProvider.of<UserBloc>(context).add(
-                                    LoadUserEvent(
-                                      user: GetUserParams(
-                                          token: '00', userId: user.id),
-                                    ),
-                                  ),
-                                });
+                BlocBuilder<ImageSenderCubit, ImageSenderState>(
+                  builder: (context, state) {
+                    return MidTextButton(
+                      textLabel: 'send',
+                      onTap: () async => {
+                        await context
+                            .read<ImageSenderCubit>()
+                            .sendRequest(ImageParams(
+                              filePath: state.imageFile!.path,
+                              userId: user.id,
+                              url: AppUrl.uploadImageURL(
+                                user.id,
+                              ),
+                            )),
+                        // debugPrint(userBloc.user.profileAvatar),
+                        BlocProvider.of<UserBloc>(context).add(
+                          LoadUserEvent(
+                            user: GetUserParams(token: '00', userId: user.id),
+                          ),
+                        ),
+                        // debugPrint(userBloc.user.profileAvatar)
                       },
                     );
                   },
@@ -176,6 +189,3 @@ class UserDetails extends StatelessWidget {
         ));
   }
 }
-
-// String? _imageString = '';
-late File? imageFile;

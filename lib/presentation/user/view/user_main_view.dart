@@ -1,6 +1,7 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app.dart';
+import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
@@ -28,6 +29,9 @@ class UserMainView extends StatelessWidget {
       create: (context) => ViewSwitchCubit(),
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
+          if (state is UserLoading) {
+            return const LoadingPage();
+          }
           if (state is UserLoaded) {
             return SafeArea(
               child: Scaffold(

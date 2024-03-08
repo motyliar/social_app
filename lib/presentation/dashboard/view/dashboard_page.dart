@@ -3,6 +3,7 @@ import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
+import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
@@ -64,6 +65,9 @@ class DashboardPage extends StatelessWidget {
               builder: (context, state) {
                 return BlocBuilder<UserBloc, UserState>(
                     builder: (context, state) {
+                  if (state is UserLoading) {
+                    return const LoadingPage();
+                  }
                   if (state is UserLoaded) {
                     context.read<ThemeCubit>().changeThemeData(
                           mode: state.user.preferences?.mode ?? false,

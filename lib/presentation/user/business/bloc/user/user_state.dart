@@ -24,16 +24,28 @@ class UserLoading extends UserState {
 }
 
 class UserLoaded extends UserState {
-  const UserLoaded({required UserEntity user, this.params}) : super(user: user);
+  const UserLoaded({
+    required super.user,
+    this.params,
+  });
 
   final GetUserParams? params;
 
-  UserLoaded copyWith(UserEntity? user, GetUserParams? params) {
-    return UserLoaded(user: user ?? this.user, params: params ?? this.params);
+  UserLoaded copyWith(
+    UserEntity? user,
+    GetUserParams? params,
+  ) {
+    return UserLoaded(
+      user: user ?? this.user,
+      params: params ?? this.params,
+    );
   }
 
   @override
-  List<Object?> get props => [user, params];
+  List<Object?> get props => [
+        user,
+        params,
+      ];
 }
 
 class LoadingFailed extends UserState {}

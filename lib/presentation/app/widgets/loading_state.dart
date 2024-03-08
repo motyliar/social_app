@@ -14,24 +14,26 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.network(ImagesURL.appLogo),
-          const Gap(kGeneralPagesMargin),
-          Padding(
-            padding: const EdgeInsets.only(
-                left: kGeneralPagesMargin, right: kGeneralPagesMargin),
-            child: LinearProgressIndicator(
-              color: ColorPallete.mainDecorationColor,
-              backgroundColor: ColorPallete.pinkDecorationColor,
-              minHeight: 30,
-              borderRadius: BorderRadius.circular(midBorderRadius),
+    return Material(
+      child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.network(ImagesURL.appLogo),
+            const Gap(kGeneralPagesMargin),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: kGeneralPagesMargin, right: kGeneralPagesMargin),
+              child: LinearProgressIndicator(
+                color: ColorPallete.mainDecorationColor,
+                backgroundColor: ColorPallete.pinkDecorationColor,
+                minHeight: 30,
+                borderRadius: BorderRadius.circular(midBorderRadius),
+              ),
             ),
-          ),
-          const Gap(kGeneralPagesMargin),
-          HeadersSmallText(text: l10n.loading)
-        ]);
+            const Gap(kGeneralPagesMargin),
+            HeadersSmallText(text: l10n.loading)
+          ]),
+    );
   }
 }

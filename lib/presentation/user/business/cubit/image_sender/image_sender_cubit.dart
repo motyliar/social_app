@@ -22,8 +22,12 @@ class ImageSenderCubit extends Cubit<ImageSenderState> {
 
   Future<void> _handleResponse(ImageParams params) async {
     try {
-      return await _sendRequest(params).then((value) =>
-          {emit(ImageSenderState(responseMessage: value)), debugPrint(value)});
+      return await _sendRequest(params).then((value) => {
+            emit(state.copyWith(
+              responseMessage: value,
+            )),
+            debugPrint(value)
+          });
     } on ServerException catch (e) {
       debugPrint(e.message);
       emit(ImageSenderFailed());
@@ -31,7 +35,7 @@ class ImageSenderCubit extends Cubit<ImageSenderState> {
   }
 
   Future<void> pickFile(File file) async {
-    emit(ImageSenderState(imageFile: file));
+    emit(state.copyWith(imageFile: file));
   }
 
   Future<String> _sendRequest(ImageParams params) async {

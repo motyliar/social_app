@@ -196,7 +196,7 @@ class UserPage extends StatelessWidget {
                                                     BorderRadius.circular(50)),
                                             child:
                                                 state.friends.length < index + 1
-                                                    ? Text('')
+                                                    ? const Text('')
                                                     : GestureDetector(
                                                         onTap: () => Navigator
                                                             .popAndPushNamed(
@@ -270,7 +270,7 @@ class UserPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
+                            const Text(
                               "Active Notices",
                               style: AppTextStyle.headersSmall,
                             ),
@@ -280,7 +280,7 @@ class UserPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        Divider(),
+                        const Divider(),
                         BlocBuilder<FetchUserNoticeCubit, FetchUserNoticeState>(
                           builder: (context, state) {
                             return SizedBox(
@@ -330,10 +330,10 @@ class UserPage extends StatelessWidget {
                                                   style: AppTextStyle
                                                       .descriptionSmall,
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   width: kMinEmptySpace,
                                                 ),
-                                                Text('view: 100',
+                                                const Text('view: 100',
                                                     style: AppTextStyle
                                                         .descriptionSmall),
                                               ],
@@ -349,7 +349,7 @@ class UserPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  GradientDivider(
+                  const GradientDivider(
                     dividerHeight: 15,
                     bottomMargin: _generalPagePadding,
                   ),
@@ -357,7 +357,7 @@ class UserPage extends StatelessWidget {
               ),
             );
           } else {
-            return const Text('error');
+            return const Text('to tutaj');
           }
         },
       ),
