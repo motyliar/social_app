@@ -39,7 +39,29 @@ The app is based on sending sports notices to a global notice board and allows c
 
 ### Testing
 For testing app use
+
+
 | Login         | Password |
 | :--------     | :------- | 
 | test@test.com | !Aa12345 |
 <br>
+
+### Installation
+
+```bash
+git clone
+https://github.com/motyliar/social_app.git
+```
+
+build app
+
+```bash
+# Development
+$ flutter run --flavor development --target lib/main_development.dart
+
+# Staging
+$ flutter run --flavor staging --target lib/main_staging.dart
+
+# Production
+$ flutter run --flavor production --target lib/main_production.dart
+```
