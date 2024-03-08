@@ -1,15 +1,20 @@
 import 'dart:convert';
 
 import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/datahelpers/params/user/user_params.dart';
+import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/data/user/models/user_model.dart';
+import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 
 abstract class UserRemoteDataSources {
   Future<Either<Exception, UserModel>> getUser(GetUserParams user);
   EitherFunc<UserModel> updateUser<T>(UpdateUserParams<T> update);
+  Future<UserModel> updating(UpdatingUserParams params);
 }
 
 class UserRemoteDataSourcesImpl extends UserRemoteDataSources {
@@ -52,6 +57,19 @@ class UserRemoteDataSourcesImpl extends UserRemoteDataSources {
       return Left(ServerException.errorMessage(responseBody: response.body));
     } else {
       return Left(ServerException.error());
+    }
+  }
+
+  @override
+  Future<UserModel> updating(UpdatingUserParams params) async {
+    try {
+      final response =
+          await HttpPostDataHandler(params: params).returnData<UserModel>();
+      return response.fold(
+          (l) => throw ServerException('Response problem'), (r) => r);
+    } on ServerException catch (e) {
+      debugPrint(e.message);
+      throw ServerException.error();
     }
   }
 }

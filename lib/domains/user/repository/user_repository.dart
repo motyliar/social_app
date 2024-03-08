@@ -1,6 +1,6 @@
 // ignore: unused_import
-import 'package:climbapp/core/utils/helpers/params.dart';
-import 'package:climbapp/core/utils/utils.dart';
+import 'package:climbapp/core/datahelpers/params/user/user_params.dart';
+
 import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:dartz/dartz.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
@@ -8,6 +8,7 @@ import 'package:climbapp/core/utils/helpers/helpers.dart';
 abstract class UserRepository {
   Future<Either<Exception, UserEntity>> getUser(GetUserParams user);
   EitherFunc<UserEntity> updateUser<T>(UpdateUserParams<T> update);
+  EitherFunc<UserEntity> updating(UpdatingUserParams params);
 }
 
 /// [updateMap] class created to store const of Map used in updated user values

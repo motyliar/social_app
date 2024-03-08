@@ -31,8 +31,8 @@ class UserDetails extends StatelessWidget {
     final user = context.select((UserBloc bloc) => bloc.state.user);
     TextEditingController nameController =
         TextEditingController(text: user.userName);
-    TextEditingController ageController = TextEditingController(
-        text: user.details?.age.toString() ?? 'Not specified');
+    TextEditingController ageController =
+        TextEditingController(text: user.details?.age.toString() ?? '');
     TextEditingController cityController =
         TextEditingController(text: user.details?.gender ?? 'M');
     TextEditingController phoneController = TextEditingController(
@@ -70,7 +70,7 @@ class UserDetails extends StatelessWidget {
                 ),
                 const Divider(),
                 Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       BlocBuilder<UserBloc, UserState>(
@@ -89,102 +89,112 @@ class UserDetails extends StatelessWidget {
                           }
                         },
                       ),
-                    ]),
-                BlocBuilder<ImageSenderCubit, ImageSenderState>(
-                  builder: (context, state) {
-                    return MidTextButton(
-                      onTap: () async => {
-                        showImagePickerOption(context, () async {
-                          await UserLogic.pickFileFromMobile(
-                                  ImageSource.gallery,
-                                  context: context)
-                              .then((value) async => {
-                                    await context
-                                        .read<ImageSenderCubit>()
-                                        .pickFile(value)
-                                        .then((value) =>
-                                            Navigator.of(context).pop()),
-                                  });
-                        }),
-                      },
-                      buttonWidth: 100,
-                      textLabel: l10n.change,
-                    );
-                  },
-                ),
-                BlocBuilder<ImageSenderCubit, ImageSenderState>(
-                  builder: (context, state) {
-                    return MidTextButton(
-                      textLabel: 'send',
-                      onTap: () async => {
-                        await context
-                            .read<ImageSenderCubit>()
-                            .sendRequest(ImageParams(
-                              filePath: state.imageFile!.path,
-                              userId: user.id,
-                              url: AppUrl.uploadImageURL(
-                                user.id,
-                              ),
-                            )),
-                        // debugPrint(userBloc.user.profileAvatar),
-                        BlocProvider.of<UserBloc>(context).add(
-                          LoadUserEvent(
-                            user: GetUserParams(token: '00', userId: user.id),
+                      Column(
+                        children: [
+                          BlocBuilder<ImageSenderCubit, ImageSenderState>(
+                            builder: (context, state) {
+                              return MidTextButton(
+                                onTap: () async => {
+                                  showImagePickerOption(context, () async {
+                                    await UserLogic.pickFileFromMobile(
+                                            ImageSource.gallery,
+                                            context: context)
+                                        .then((value) async => {
+                                              await context
+                                                  .read<ImageSenderCubit>()
+                                                  .pickFile(value)
+                                                  .then((value) =>
+                                                      Navigator.of(context)
+                                                          .pop()),
+                                            });
+                                  }),
+                                },
+                                buttonWidth: 150,
+                                textLabel: l10n.change,
+                              );
+                            },
                           ),
-                        ),
-                        // debugPrint(userBloc.user.profileAvatar)
-                      },
-                    );
-                  },
-                ),
-                const GradientDivider(
-                  dividerHeight: 15.0,
-                ),
-                ContainerTemplate(
-                  borderRadius: kMinBorderRadius,
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.only(
-                      right: kGeneralPagesMargin, left: kGeneralPagesMargin),
-                  padding: const EdgeInsets.all(kGeneralPagesMargin),
-                  color: ColorPallete.whiteOpacity80,
-                  child: Form(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(l10n.detailsTitle,
-                            style: AppTextStyle.headersSmall),
-                        const Divider(),
-                        EditingTextField(
-                          nameController: nameController,
-                          fieldName: l10n.name,
-                        ),
-                        EditingTextField(
-                          nameController: ageController,
-                          fieldName: l10n.age,
-                          numberKeyboard: true,
-                        ),
-                        EditingTextField(
-                          nameController: cityController,
-                          fieldName: l10n.city,
-                        ),
-                        EditingTextField(
-                          nameController: phoneController,
-                          fieldName: l10n.phone,
-                          numberKeyboard: true,
-                        ),
-                        Align(
-                            alignment: Alignment.centerRight,
-                            child: MidTextButton(
-                                buttonWidth: 120, textLabel: l10n.confirm))
-                      ],
-                    ),
-                  ),
-                ),
-                const GradientDivider(
-                  dividerHeight: kMidDividerHeight,
-                ),
+                          BlocBuilder<ImageSenderCubit, ImageSenderState>(
+                            builder: (context, state) {
+                              return MidTextButton(
+                                buttonWidth: 150,
+                                textLabel: l10n.sendPageTop,
+                                onTap: () async => {
+                                  state.imageFile != null
+                                      ? null
+                                      : Future.delayed(
+                                          const Duration(milliseconds: 50),
+                                          () async => await context
+                                              .read<ImageSenderCubit>()
+                                              .sendRequest(
+                                                ImageParams(
+                                                  filePath:
+                                                      state.imageFile!.path,
+                                                  userId: user.id,
+                                                  url: AppUrl.uploadImageURL(
+                                                    user.id,
+                                                  ),
+                                                ),
+                                              ),
+                                        ),
+                                  BlocProvider.of<UserBloc>(context).add(
+                                    LoadUserEvent(
+                                      user: GetUserParams(
+                                          token: '00', userId: user.id),
+                                    ),
+                                  ),
+                                },
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ]),
               ],
-            )
+            ),
+            const GradientDivider(
+              dividerHeight: 15.0,
+            ),
+            ContainerTemplate(
+              borderRadius: kMinBorderRadius,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(
+                  right: kGeneralPagesMargin, left: kGeneralPagesMargin),
+              padding: const EdgeInsets.all(kGeneralPagesMargin),
+              color: ColorPallete.whiteOpacity80,
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(l10n.detailsTitle, style: AppTextStyle.headersSmall),
+                    const Divider(),
+                    EditingTextField(
+                      nameController: nameController,
+                      fieldName: l10n.name,
+                    ),
+                    EditingTextField(
+                      nameController: ageController,
+                      fieldName: l10n.age,
+                      numberKeyboard: true,
+                      hintText: 'Not specified',
+                    ),
+                    EditingTextField(
+                      nameController: cityController,
+                      fieldName: l10n.city,
+                    ),
+                    EditingTextField(
+                      nameController: phoneController,
+                      fieldName: l10n.phone,
+                      numberKeyboard: true,
+                    ),
+                    Align(
+                        alignment: Alignment.centerRight,
+                        child: MidTextButton(
+                            buttonWidth: 120, textLabel: l10n.confirm))
+                  ],
+                ),
+              ),
+            ),
           ],
         ));
   }

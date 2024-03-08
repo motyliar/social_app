@@ -7,12 +7,16 @@ class DetailsTextField extends StatelessWidget {
       this.rightPadding,
       this.leftPadding = 10,
       this.numberKeybord = false,
+      this.hintText,
+      this.hintStyle = AppTextStyle.descriptionMid,
       super.key});
 
   final TextEditingController controller;
   final double? leftPadding;
   final double? rightPadding;
   final bool numberKeybord;
+  final String? hintText;
+  final TextStyle hintStyle;
   @override
   Widget build(BuildContext context) => Padding(
         padding:
@@ -25,6 +29,8 @@ class DetailsTextField extends StatelessWidget {
             style: AppTextStyle.descriptionMid,
             controller: controller,
             decoration: InputDecoration(
+              hintText: hintText ?? '',
+              hintStyle: hintStyle,
               border: InputBorder.none,
             ),
           ),

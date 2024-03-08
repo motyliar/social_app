@@ -10,6 +10,7 @@ class EditingTextField extends StatelessWidget {
     this.textStyle = AppTextStyle.descriptionMid,
     this.icon = const Icon(Icons.done),
     this.numberKeyboard,
+    this.hintText,
   });
 
   final TextEditingController nameController;
@@ -17,6 +18,7 @@ class EditingTextField extends StatelessWidget {
   final TextStyle textStyle;
   final Icon icon;
   final bool? numberKeyboard;
+  final String? hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class EditingTextField extends StatelessWidget {
         DetailsTextField(
           numberKeybord: numberKeyboard ?? false,
           controller: nameController,
+          hintText: hintText,
         ),
         icon,
       ],
