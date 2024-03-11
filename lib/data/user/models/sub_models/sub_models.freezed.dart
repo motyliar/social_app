@@ -292,11 +292,12 @@ class __$$UserDetailsModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserDetailsModelImpl implements _UserDetailsModel {
+class _$UserDetailsModelImpl extends _UserDetailsModel {
   const _$UserDetailsModelImpl(
       {@HiveField(0) this.age,
       @HiveField(1) this.gender,
-      @HiveField(2) this.phone});
+      @HiveField(2) this.phone})
+      : super._();
 
   factory _$UserDetailsModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserDetailsModelImplFromJson(json);
@@ -345,11 +346,12 @@ class _$UserDetailsModelImpl implements _UserDetailsModel {
   }
 }
 
-abstract class _UserDetailsModel implements UserDetailsModel {
+abstract class _UserDetailsModel extends UserDetailsModel {
   const factory _UserDetailsModel(
       {@HiveField(0) final int? age,
       @HiveField(1) final String? gender,
       @HiveField(2) final String? phone}) = _$UserDetailsModelImpl;
+  const _UserDetailsModel._() : super._();
 
   factory _UserDetailsModel.fromJson(Map<String, dynamic> json) =
       _$UserDetailsModelImpl.fromJson;

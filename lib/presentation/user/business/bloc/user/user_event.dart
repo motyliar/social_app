@@ -24,3 +24,11 @@ class UpdateUserEvent extends UserEvent {
   @override
   List<Object?> get props => [stringUpdate, boolUpdate, intUpdate];
 }
+
+class UpdatingUser extends UserEvent {
+  const UpdatingUser({required this.params});
+  final UpdatingUserParams params;
+
+  @override
+  List<Object> get props => [params];
+}

@@ -29,7 +29,7 @@ abstract class HttpRepositoryHandler {
   EitherFunc<T> _handleResponse<T>(Response response,
       {String? dataGetter}) async {
     final handler = ResponseHandler();
-    return handler.checkStatusCodeAndReturnData(response,
+    return handler.checkStatusCodeAndReturnData<T>(response,
         dataGetter: dataGetter);
   }
 }

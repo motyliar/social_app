@@ -27,11 +27,11 @@ class UserUpdateData extends IUserUpdate {
   @override
   Map<String, dynamic> createBody() {
     return {
-      name != null ? 'userName' : name!: null,
+      'userName': name!,
       "details": {
-        age != null ? 'age' : age!: null,
-        city != null ? 'city' : city!: null,
-        phone != null ? 'phone' : phone!: null,
+        'age': age!,
+        'city': city!,
+        'phone': phone!,
       }
     };
   }

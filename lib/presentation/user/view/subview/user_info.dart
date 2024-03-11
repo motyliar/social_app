@@ -1,5 +1,6 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
+import 'package:climbapp/core/datahelpers/params/user/user_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
@@ -32,11 +33,11 @@ class UserDetails extends StatelessWidget {
     TextEditingController nameController =
         TextEditingController(text: user.userName);
     TextEditingController ageController =
-        TextEditingController(text: user.details?.age.toString() ?? '');
+        TextEditingController(text: user.details?.age.toString());
     TextEditingController cityController =
-        TextEditingController(text: user.details?.gender ?? 'M');
-    TextEditingController phoneController = TextEditingController(
-        text: user.details?.phone.toString() ?? '+48-000-000-000');
+        TextEditingController(text: user.details?.gender);
+    TextEditingController phoneController =
+        TextEditingController(text: user.details?.phone.toString());
 
     return MultiBlocProvider(
         providers: [
@@ -77,6 +78,11 @@ class UserDetails extends StatelessWidget {
                         builder: (context, state) {
                           if (state is UserLoading) {
                             return const LoadingPage();
+                          }
+                          if (state is LoadingFailed) {
+                            return const Center(
+                              child: Text('Error'),
+                            );
                           }
                           if (state is UserLoaded) {
                             return CircleAvatar(
@@ -190,7 +196,19 @@ class UserDetails extends StatelessWidget {
                     Align(
                         alignment: Alignment.centerRight,
                         child: MidTextButton(
-                            buttonWidth: 120, textLabel: l10n.confirm))
+                            onTap: () => BlocProvider.of<UserBloc>(context)
+                                    .add(UpdatingUser(
+                                  params: UpdatingUserParams(
+                                    url: AppUrl.updateUser(user.id),
+                                    update: UserUpdateData(
+                                        name: nameController.text,
+                                        age: int.parse(ageController.text),
+                                        city: cityController.text,
+                                        phone: phoneController.text),
+                                  ),
+                                )),
+                            buttonWidth: 120,
+                            textLabel: l10n.confirm))
                   ],
                 ),
               ),

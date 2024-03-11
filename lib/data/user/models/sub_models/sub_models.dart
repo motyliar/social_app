@@ -1,3 +1,4 @@
+import 'package:climbapp/domains/user/entities/sub_user_entity.dart';
 import 'package:flutter/rendering.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -18,6 +19,7 @@ class UserPreferencesModel with _$UserPreferencesModel {
 @freezed
 @HiveType(typeId: 3)
 class UserDetailsModel with _$UserDetailsModel {
+  const UserDetailsModel._();
   const factory UserDetailsModel({
     @HiveField(0) int? age,
     @HiveField(1) String? gender,
@@ -25,6 +27,9 @@ class UserDetailsModel with _$UserDetailsModel {
   }) = _UserDetailsModel;
   factory UserDetailsModel.fromJson(Map<String, dynamic> json) =>
       _$UserDetailsModelFromJson(json);
+
+  UserDetailsEntity toEntity() => UserDetailsEntity(
+      age: age ?? 0, gender: gender ?? 'M', phone: phone ?? '999 999 999');
 }
 
 @freezed

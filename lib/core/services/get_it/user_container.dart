@@ -35,6 +35,7 @@ import 'package:climbapp/domains/notice/usecases/updated_notice_usecase.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
+import 'package:climbapp/domains/user/usecases/updating_user_usecase.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fetch_single_notice_cubit.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
@@ -62,7 +63,8 @@ final userLocator = GetIt.instance;
 void userInit() {
   userLocator
     // User register factory with every user element
-    ..registerFactory(() => UserBloc(userLocator(), userLocator()))
+    ..registerFactory(
+        () => UserBloc(userLocator(), userLocator(), userLocator()))
     ..registerFactory(() => FriendsActionBloc(
           getFriendUseCase: userLocator(),
           deleteFriendUseCase: userLocator(),
@@ -108,6 +110,8 @@ void userInit() {
     ..registerLazySingleton(() => GetUserUseCase(userLocator()))
     ..registerLazySingleton(
         () => UpdateUserUseCase(userRepository: userLocator()))
+    ..registerLazySingleton(
+        () => UpdatingUserUseCase(repository: userLocator()))
 
     //MESSAGE
     ..registerLazySingleton(

@@ -27,7 +27,8 @@ class AppUrl {
 
   /// [userApi] endpoint for fetch user data after login
   static String userApi() => '$backendUrl$middleWare$userEndPoint';
-  static String updateUser() => '$backendUrl$middleWare$user';
+  static Uri updateUser(String userId) =>
+      Uri.parse('$backendUrl$middleWare$user$userId');
 
   /// [getFriends] getter to set getting friends Api.
   static String getFriends(String userId) =>

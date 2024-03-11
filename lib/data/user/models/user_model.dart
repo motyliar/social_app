@@ -48,15 +48,7 @@ class UserModel with _$UserModel {
       firendsRequest: friendsRequest?.toList() ?? [],
       messages: messages?.toList() ?? [],
       userChallengesIDs: userChallengesIDs?.toList() ?? [],
-      details: details?.age != null &&
-              details?.gender != null &&
-              details?.phone != null
-          ? UserDetailsEntity(
-              age: details!.age,
-              gender: details!.gender,
-              phone: details!.phone,
-            )
-          : null,
+      details: details!.toEntity(),
       active: UserActiveEntity(
         isActive: active.isActive,
         lastLoggedIn: active.lastLoggedIn,
