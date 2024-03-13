@@ -13,7 +13,7 @@ import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
-import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/business/enum.dart';
 
 import 'package:flutter/material.dart';

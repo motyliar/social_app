@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/domains/sports/entities/sport_entity.dart';
+import 'package:climbapp/domains/sports/entities/structure/sport_map.dart';
 import 'package:climbapp/domains/sports/usecases/get_user_sports.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,17 +12,18 @@ class LoadSportCubit extends Cubit<LoadSportState> {
   final GetUserFavouriteSportsUseCase _getSports;
   LoadSportCubit({required GetUserFavouriteSportsUseCase getSports})
       : _getSports = getSports,
-        super(LoadSportLoading());
+        super(LoadSportLoading(sports: SportMap()));
   Future<void> getUserSports(GetSportParams params) async {
     return await _handleResponse(params);
   }
 
   Future<void> _handleResponse(GetSportParams params) async {
     try {
-      await _getUserSports(params)
-          .then((sport) => emit(LoadSportState(sports: sport)));
+      await _getUserSports(params).then(
+        (sport) => emit(LoadSportState(sports: state.sports.fetchData(sport))),
+      );
     } on ServerException {
-      emit(LoadSportFailed());
+      emit(LoadSportFailed(sports: state.sports));
     }
   }
 

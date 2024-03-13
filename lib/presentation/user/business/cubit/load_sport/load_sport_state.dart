@@ -1,13 +1,17 @@
 part of 'load_sport_cubit.dart';
 
 class LoadSportState extends Equatable {
-  const LoadSportState({this.sports});
-  final SportEntity? sports;
+  const LoadSportState({required this.sports});
+  final SportMap sports;
 
   @override
   List<Object?> get props => [sports];
 }
 
-final class LoadSportLoading extends LoadSportState {}
+final class LoadSportLoading extends LoadSportState {
+  const LoadSportLoading({required super.sports});
+}
 
-class LoadSportFailed extends LoadSportState {}
+class LoadSportFailed extends LoadSportState {
+  const LoadSportFailed({required super.sports});
+}

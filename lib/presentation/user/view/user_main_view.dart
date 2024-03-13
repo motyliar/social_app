@@ -1,10 +1,13 @@
 import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
+import 'package:climbapp/core/services/get_it/sport_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
-import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/load_sport/load_sport_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
 
 import 'package:flutter/material.dart';
 
@@ -24,9 +27,18 @@ class UserMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserBloc bloc) => bloc.state.user.id);
     final scrollController = ScrollController();
-    return BlocProvider(
-      create: (context) => ViewSwitchCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ViewSwitchCubit(),
+        ),
+        BlocProvider(
+          create: (context) => sportLocator<LoadSportCubit>()
+            ..getUserSports(GetSportParams(url: AppUrl.getUserSportsURL(user))),
+        ),
+      ],
       child: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           if (state is UserLoading) {

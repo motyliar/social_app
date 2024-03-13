@@ -18,7 +18,7 @@ import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
-import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/business/enum.dart';
 
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
@@ -49,21 +49,15 @@ class UserDetails extends StatelessWidget {
           BlocProvider(
             create: (context) => userLocator<ImageSenderCubit>(),
           ),
-          BlocProvider(
-            create: (context) => sportLocator<LoadSportCubit>()
-              ..getUserSports(
-                GetSportParams(
-                  url: AppUrl.getUserSportsURL(user.id),
-                ),
-              ),
-          ),
         ],
         child: Column(
           children: [
             BlocBuilder<LoadSportCubit, LoadSportState>(
               builder: (context, state) {
-                print(state);
-                return Text(state.sports?.biking.toString() ?? '3');
+                if (state is LoadSportLoading) {
+                  return const LoadingPage();
+                }
+                return Text(state.sports.getValue(0).toString());
               },
             ),
             Padding(
