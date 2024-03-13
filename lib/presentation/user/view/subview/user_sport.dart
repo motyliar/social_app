@@ -1,4 +1,6 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
 import 'package:climbapp/core/theme/colors.dart';
 
 import 'package:climbapp/core/theme/fonts.dart';
@@ -14,6 +16,7 @@ import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/app/widgets/loading_state.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/load_sport/load_sport_cubit.dart';
 import 'package:climbapp/presentation/user/business/cubit/sport/sports_cubit.dart';
 import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
@@ -30,6 +33,7 @@ class UserSport extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.select((UserBloc bloc) => bloc.state.user.id);
     SportType? draggingSport;
     return BlocProvider(
         create: (context) => SportsCubit(),
@@ -133,10 +137,6 @@ class UserSport extends StatelessWidget {
                                                                   .name,
                                                               value:
                                                                   number + 1);
-
-                                                      //   context
-                                                      //       .read<SportsCubit>()
-                                                      //       .restartStatusToNeutral();
                                                     },
                                                     child: Icon(
                                                       Icons.fitness_center,
@@ -176,7 +176,12 @@ class UserSport extends StatelessWidget {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: MidTextButton(
-                              onTap: () {},
+                              onTap: () {
+                                context.read<LoadSportCubit>().updateSportData(
+                                    UpdateSportParams(
+                                        body: state.sports.toJson(),
+                                        url: AppUrl.updateSportsURL(user)));
+                              },
                               buttonWidth: 70,
                               textLabel: 'Save',
                               textStyle: AppTextStyle.headersSmall,

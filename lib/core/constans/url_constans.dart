@@ -107,4 +107,6 @@ class AppUrl {
 
   static Uri getUserSportsURL(String userId) =>
       Uri.parse('$backendUrl$sports$get$userId');
+  static Uri updateSportsURL(String userId) =>
+      Uri.parse('$backendUrl$sports$updateAction$userId');
 }

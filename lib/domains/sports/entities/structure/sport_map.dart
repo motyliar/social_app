@@ -41,14 +41,15 @@ class SportMap {
       ]);
 
   String getValue(int index) => _data[index].value.toString();
+
   List<SportType> greaterThen({int value = 0}) =>
       _data.where((e) => e.value > value).toList();
+
   List<SportType> equals({int value = 0}) =>
       _data.where((e) => e.value == value).toList();
-  Map<String, dynamic> toJson(String userId) {
-    Map<String, dynamic> toJson = {
-      'userId': userId,
-    };
+
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> toJson = {};
     for (var sport in _data) {
       toJson[sport.name] = sport.value;
     }
