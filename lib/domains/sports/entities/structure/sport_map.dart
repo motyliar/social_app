@@ -55,11 +55,14 @@ class SportMap {
     return toJson;
   }
 
-  void update(int value, String name) => _data.forEach((element) {
-        if (element.name == name) {
-          element.copyWith(value: value);
-        }
-      });
+  SportMap update(int value, String name) {
+    for (var element in _data) {
+      if (element.name.toLowerCase() == name.toLowerCase()) {
+        _data[_data.indexOf(element)] = element.copyWith(value: value);
+      }
+    }
+    return this;
+  }
 
   @override
   toString() => '$_data';

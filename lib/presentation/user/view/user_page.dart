@@ -398,38 +398,3 @@ class InformationRowWidget extends StatelessWidget {
     );
   }
 }
-
-
-
-// child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         ElevatedButton(
-//                             onPressed: () {
-//                               context
-//                                   .read<ViewSwitchCubit>()
-//                                   .changeStatus(ViewStatus.settings);
-//                             },
-//                             child: Text('ACCOUNT SETTINGS')),
-//                         ElevatedButton(
-//                             onPressed: () {
-//                               context
-//                                   .read<ViewSwitchCubit>()
-//                                   .changeStatus(ViewStatus.info);
-//                             },
-//                             child: Text('INFO')),
-//                         ElevatedButton(
-//                             onPressed: () {
-//                               context
-//                                   .read<ViewSwitchCubit>()
-//                                   .changeStatus(ViewStatus.sport);
-//                             },
-//                             child: Text('MY SPORTS')),
-//                         ElevatedButton(
-//                             onPressed: () {
-//                               context
-//                                   .read<ViewSwitchCubit>()
-//                                   .changeStatus(ViewStatus.notice);
-//                             },
-//                             child: Text('MY NOTICE')),

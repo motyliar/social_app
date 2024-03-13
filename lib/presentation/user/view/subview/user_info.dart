@@ -52,14 +52,6 @@ class UserDetails extends StatelessWidget {
         ],
         child: Column(
           children: [
-            BlocBuilder<LoadSportCubit, LoadSportState>(
-              builder: (context, state) {
-                if (state is LoadSportLoading) {
-                  return const LoadingPage();
-                }
-                return Text(state.sports.getValue(0).toString());
-              },
-            ),
             Padding(
               padding: const EdgeInsets.only(
                   left: kGeneralPagesMargin, top: kGeneralPagesMargin),
