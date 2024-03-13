@@ -4,6 +4,9 @@ class LoadSportState extends Equatable {
   const LoadSportState({required this.sports});
   final SportMap sports;
 
+  LoadSportState copyWith({SportMap? sports}) =>
+      LoadSportState(sports: sports ?? this.sports);
+
   @override
   List<Object?> get props => [sports];
 }

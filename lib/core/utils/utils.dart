@@ -145,7 +145,6 @@ class Utils {
 
   static double sizeCalculator(
       {required double totalDimension, required double multipler}) {
-    print(totalDimension * multipler);
     return totalDimension * multipler;
   }
 

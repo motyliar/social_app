@@ -5,6 +5,7 @@ import 'package:climbapp/domains/sports/entities/sport_entity.dart';
 import 'package:climbapp/domains/sports/entities/structure/sport_map.dart';
 import 'package:climbapp/domains/sports/usecases/get_user_sports.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 part 'load_sport_state.dart';
 
@@ -30,5 +31,11 @@ class LoadSportCubit extends Cubit<LoadSportState> {
   Future<SportEntity> _getUserSports(GetSportParams params) async {
     return await _getSports.execute(params).then((response) => response.fold(
         (l) => throw ServerException(l.toString()), (sport) => sport));
+  }
+
+  void changeSportValue(String name, {int value = 1}) {
+    emit(LoadSportLoading(sports: state.sports));
+    emit(state.copyWith(sports: state.sports.update(value, name)));
+    debugPrint(state.sports.toString());
   }
 }
