@@ -21,6 +21,8 @@ class AppUrl {
   static const String manyAction = 'many/';
   static const String comment = 'comment/';
   static const String getUserMessage = 'userMessages/';
+  static const String sports = 'sports/';
+  static const String get = 'getSingle/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   static Uri logoutURL() => Uri.parse('$backendUrl$logout');
@@ -102,4 +104,7 @@ class AppUrl {
 
   static Uri uploadImageURL(String userId) =>
       Uri.parse('http://65.21.202.169:20119/up/upload?file=$userId');
+
+  static Uri getUserSportsURL(String userId) =>
+      Uri.parse('$backendUrl$sports$get$userId');
 }

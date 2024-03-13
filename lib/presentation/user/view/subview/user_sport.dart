@@ -10,8 +10,9 @@ import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/user/business/cubit/cubit/sport/sports_cubit.dart';
-import 'package:climbapp/presentation/user/business/cubit/cubit/view_switch_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/sport/sports_cubit.dart';
+import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
+
 import 'package:climbapp/presentation/user/business/enum.dart';
 import 'package:climbapp/presentation/user/view/subview/sports.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
