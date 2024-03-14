@@ -62,6 +62,7 @@
     "noticeAddComment": "Dodaj komentarz",
     "noticeReply": "Odpowiedz",
     "noticeComments": "Komentarze :",
+    "floatingText" : "+",
 
 
     "@_FLUTTERTOAST_MESSAGES": {},

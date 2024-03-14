@@ -2,7 +2,11 @@ import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/theme/gradients.dart';
+import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
+import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
@@ -12,7 +16,10 @@ import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fet
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 import '../widgets/widgets.dart';
+
+const double _floatingButtonWidth = 170;
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -102,21 +109,32 @@ class DashboardPage extends StatelessWidget {
                           itemBuilder: (context, index) => const SingleNotice(),
                         ),
                       ),
+                      const Gap(20),
+                      const GradientDivider(
+                        dividerHeight: kMidDividerHeight,
+                      ),
+                      const Gap(20),
                     ],
                   ),
                 ),
-                RightOnScreenMenu(
-                  menus: List.generate(
-                      3,
-                      (index) => SlidableMenu(
-                          icon: Icons.settings,
-                          windowName: kSlidableNameList[index])),
-                ),
+                // Todo Right menu is hiding before will have implemented logic
+                // RightOnScreenMenu(
+                //   menus: List.generate(
+                //       3,
+                //       (index) => SlidableMenu(
+                //           icon: Icons.settings,
+                //           windowName: kSlidableNameList[index])),
+                // ),
               ],
             ),
           ),
-          bottomSheet: BottomBar(
-            controller: scrollController,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: const MidTextButton(
+            backgroundGradient: pinkToBlueRoundGradient,
+            textLabel: 'Add Notice',
+            textStyle: AppTextStyle.headersBigger,
+            buttonWidth: 170,
           ),
         ),
       ),

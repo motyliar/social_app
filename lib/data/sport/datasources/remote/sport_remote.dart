@@ -6,6 +6,8 @@ import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/data/sport/models/sport_model.dart';
 import 'package:flutter/material.dart';
 
+const String _dataEndpoint = 'message';
+
 abstract class ISportRemoteSource {
   Future<SportModel> getUserFavouriteSport(GetSportParams params);
   Future<String> updateUserSports(UpdateSportParams params);
@@ -30,7 +32,7 @@ class SportRemoteSourceImpl extends ISportRemoteSource {
     try {
       final response = await HttpPostDataHandler(params: params).returnData();
       return response.fold(
-          (l) => throw ServerException.error(), (r) => r['message']);
+          (l) => throw ServerException.error(), (r) => r[_dataEndpoint]);
     } on ServerException catch (e) {
       debugPrint(e.message);
       throw ServerException(e.message);
