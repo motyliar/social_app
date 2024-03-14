@@ -68,7 +68,7 @@ class ProfilePage extends StatelessWidget {
                     );
                   }
                   if (state is FetchUserProfileLoaded) {
-                    return UserViewCard(children: [
+                    return GeneralCard(children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +124,7 @@ class ProfilePage extends StatelessWidget {
               const GradientDivider(
                 dividerHeight: kMidDividerHeight,
               ),
-              UserViewCard(children: [
+              GeneralCard(children: [
                 BlocConsumer<AddToFriendCubit, AddToFriendState>(
                   listener: (context, state) {
                     if (state.status == FriendStatus.add) {
@@ -207,7 +207,7 @@ class ProfilePage extends StatelessWidget {
               const GradientDivider(
                 dividerHeight: kMidDividerHeight,
               ),
-              UserViewCard(
+              GeneralCard(
                 children: [
                   const Text(
                     'Sport rate',
@@ -302,7 +302,7 @@ class ProfilePage extends StatelessWidget {
               const GradientDivider(
                 dividerHeight: kMidDividerHeight,
               ),
-              const UserViewCard(children: [
+              const GeneralCard(children: [
                 HeadersSmallText(text: 'Activity'),
                 Divider(),
                 Row(

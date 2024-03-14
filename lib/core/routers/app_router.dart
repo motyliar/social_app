@@ -54,6 +54,8 @@ class AppRouter {
         return NoticeMainPage.route();
       case route.routeCommentPage:
         return CommentMainPage.route();
+      case route.routeCreateNotice:
+        return CreateNotice.route();
       default:
         return _errorScreen();
     }

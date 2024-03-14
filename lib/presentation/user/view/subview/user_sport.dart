@@ -55,7 +55,7 @@ class UserSport extends StatelessWidget {
               onAccept: (data) {
                 context.read<LoadSportCubit>().changeSportValue(data.name);
               },
-              builder: ((context, candidateData, rejectedData) => UserViewCard(
+              builder: ((context, candidateData, rejectedData) => GeneralCard(
                     children: [
                       Text(state.sports.greaterThen().isEmpty
                           ? 'Drag your favourite sport'
@@ -184,7 +184,7 @@ class UserSport extends StatelessWidget {
         const GradientDivider(
           dividerHeight: kMidDividerHeight,
         ),
-        UserViewCard(
+        GeneralCard(
           children: [
             const Text(
               'Choose 4 sports',

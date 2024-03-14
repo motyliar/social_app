@@ -28,7 +28,7 @@ class SingleUserPreview extends StatelessWidget {
           ? onTap!()
           : Navigator.pushNamed(context, routeProfilePage,
               arguments: singleUser),
-      child: UserViewCard(
+      child: GeneralCard(
           margin: const EdgeInsets.only(
               top: kMidEmptySpace,
               left: kGeneralPagesMargin,

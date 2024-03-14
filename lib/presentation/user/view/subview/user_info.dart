@@ -68,7 +68,7 @@ class UserDetails extends StatelessWidget {
               ),
             ),
             const EmptySpace(),
-            UserViewCard(
+            GeneralCard(
               children: [
                 Text(
                   l10n.changeAvatar,

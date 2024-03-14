@@ -87,7 +87,7 @@ class CreateNewMessage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(top: kGeneralPagesMargin),
                 child: Form(
-                  child: UserViewCard(children: [
+                  child: GeneralCard(children: [
                     BlocBuilder<RecipientCubit, RecipientState>(
                       builder: (context, state) {
                         return Row(

@@ -43,7 +43,7 @@ class MessagePreview extends StatelessWidget {
               CustomSliverAppBar(
                   direction: '', user: user, messages: [message]),
               SliverToBoxAdapter(
-                child: UserViewCard(
+                child: GeneralCard(
                   margin: const EdgeInsets.only(
                       top: kGeneralPagesMargin,
                       left: kGeneralPagesMargin,

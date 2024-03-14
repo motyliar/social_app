@@ -62,7 +62,7 @@ class FriendsPage extends StatelessWidget {
               const LitlleTopBar(),
               BlocBuilder<SearchVisibleCubit, bool>(
                 builder: (context, isVisible) {
-                  return UserViewCard(children: [
+                  return GeneralCard(children: [
                     GestureDetector(
                       onTap: () =>
                           context.read<SearchVisibleCubit>().changeVisible(),
@@ -197,7 +197,7 @@ class FriendsPage extends StatelessWidget {
                     child: blocstate.friend.isEmpty
                         ? SingleChildScrollView(
                             controller: _friendsController,
-                            child: const UserViewCard(
+                            child: const GeneralCard(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               margin: EdgeInsets.only(
                                   left: 100,
@@ -255,7 +255,7 @@ class FriendsPage extends StatelessWidget {
                             ? ListView(
                                 controller: _searchSqrController,
                                 children: const [
-                                  UserViewCard(
+                                  GeneralCard(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     margin: EdgeInsets.only(

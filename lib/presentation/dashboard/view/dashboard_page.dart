@@ -1,9 +1,11 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
+import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
@@ -34,6 +36,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ScrollController scrollController = ScrollController();
     ScrollController listViewController = ScrollController();
+    final l10n = context.l10n;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -130,11 +133,12 @@ class DashboardPage extends StatelessWidget {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: const MidTextButton(
+          floatingActionButton: MidTextButton(
             backgroundGradient: pinkToBlueRoundGradient,
-            textLabel: 'Add Notice',
+            textLabel: l10n.floatingText,
             textStyle: AppTextStyle.headersBigger,
-            buttonWidth: 170,
+            buttonWidth: _floatingButtonWidth,
+            onTap: () => Navigator.popAndPushNamed(context, routeCreateNotice),
           ),
         ),
       ),

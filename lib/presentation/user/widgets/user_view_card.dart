@@ -3,8 +3,8 @@ import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app/widgets/container_template.dart';
 import 'package:flutter/material.dart';
 
-class UserViewCard extends StatelessWidget {
-  const UserViewCard({
+class GeneralCard extends StatelessWidget {
+  const GeneralCard({
     required this.children,
     this.crossAxisAlignment = CrossAxisAlignment.start,
     this.margin,

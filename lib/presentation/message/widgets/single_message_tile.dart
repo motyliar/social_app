@@ -32,7 +32,7 @@ class SingleMessageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return UserViewCard(
+    return GeneralCard(
         padding:
             padding ?? const EdgeInsets.only(left: 15, top: 15, bottom: 10),
         color: isSelected
