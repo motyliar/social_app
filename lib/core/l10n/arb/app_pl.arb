@@ -64,6 +64,16 @@
     "noticeComments": "Komentarze :",
     "floatingText" : "+",
 
+    "@_CREATE_NOTICE": {},
+    "create_page_label" : "Stwórz swój post",
+    "typeFirst": "Kupię",
+    "typeSecond": "Sprzedam",
+    "typeThird": "Partner",
+    "subjectHint": "Napisz czego potrzebujesz",
+    "contentHint": "... więcej szczegółów",
+    "publishButton": "Opublikuj",
+    "categoryLabel": "Wybierz kategorie:",
+
 
     "@_FLUTTERTOAST_MESSAGES": {},
     "successMsg": "Sukces!",

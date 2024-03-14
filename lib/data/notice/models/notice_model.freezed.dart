@@ -37,6 +37,16 @@ mixin _$NoticeModel {
   String get createdAt => throw _privateConstructorUsedError;
   @HiveField(7)
   String get updatedAt => throw _privateConstructorUsedError;
+  @HiveField(8)
+  String get avatar => throw _privateConstructorUsedError;
+  @HiveField(9)
+  String get type => throw _privateConstructorUsedError;
+  @HiveField(10)
+  List<String>? get requests => throw _privateConstructorUsedError;
+  @HiveField(11)
+  List<String>? get interested => throw _privateConstructorUsedError;
+  @HiveField(12)
+  String? get image => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,7 +68,12 @@ abstract class $NoticeModelCopyWith<$Res> {
       @HiveField(4) ContentModel content,
       @HiveField(5) List<CommentsModel>? comments,
       @HiveField(6) String createdAt,
-      @HiveField(7) String updatedAt});
+      @HiveField(7) String updatedAt,
+      @HiveField(8) String avatar,
+      @HiveField(9) String type,
+      @HiveField(10) List<String>? requests,
+      @HiveField(11) List<String>? interested,
+      @HiveField(12) String? image});
 
   $ContentModelCopyWith<$Res> get content;
 }
@@ -84,6 +99,11 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
     Object? comments = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatar = null,
+    Object? type = null,
+    Object? requests = freezed,
+    Object? interested = freezed,
+    Object? image = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -118,6 +138,26 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      requests: freezed == requests
+          ? _value.requests
+          : requests // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      interested: freezed == interested
+          ? _value.interested
+          : interested // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -146,7 +186,12 @@ abstract class _$$NoticeModelImplCopyWith<$Res>
       @HiveField(4) ContentModel content,
       @HiveField(5) List<CommentsModel>? comments,
       @HiveField(6) String createdAt,
-      @HiveField(7) String updatedAt});
+      @HiveField(7) String updatedAt,
+      @HiveField(8) String avatar,
+      @HiveField(9) String type,
+      @HiveField(10) List<String>? requests,
+      @HiveField(11) List<String>? interested,
+      @HiveField(12) String? image});
 
   @override
   $ContentModelCopyWith<$Res> get content;
@@ -171,6 +216,11 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
     Object? comments = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatar = null,
+    Object? type = null,
+    Object? requests = freezed,
+    Object? interested = freezed,
+    Object? image = freezed,
   }) {
     return _then(_$NoticeModelImpl(
       id: null == id
@@ -205,6 +255,26 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      requests: freezed == requests
+          ? _value._requests
+          : requests // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      interested: freezed == interested
+          ? _value._interested
+          : interested // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      image: freezed == image
+          ? _value.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -220,8 +290,15 @@ class _$NoticeModelImpl extends _NoticeModel {
       @HiveField(4) required this.content,
       @HiveField(5) final List<CommentsModel>? comments,
       @HiveField(6) required this.createdAt,
-      @HiveField(7) required this.updatedAt})
+      @HiveField(7) required this.updatedAt,
+      @HiveField(8) required this.avatar,
+      @HiveField(9) required this.type,
+      @HiveField(10) final List<String>? requests,
+      @HiveField(11) final List<String>? interested,
+      @HiveField(12) this.image})
       : _comments = comments,
+        _requests = requests,
+        _interested = interested,
         super._();
 
   factory _$NoticeModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -260,10 +337,41 @@ class _$NoticeModelImpl extends _NoticeModel {
   @override
   @HiveField(7)
   final String updatedAt;
+  @override
+  @HiveField(8)
+  final String avatar;
+  @override
+  @HiveField(9)
+  final String type;
+  final List<String>? _requests;
+  @override
+  @HiveField(10)
+  List<String>? get requests {
+    final value = _requests;
+    if (value == null) return null;
+    if (_requests is EqualUnmodifiableListView) return _requests;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<String>? _interested;
+  @override
+  @HiveField(11)
+  List<String>? get interested {
+    final value = _interested;
+    if (value == null) return null;
+    if (_interested is EqualUnmodifiableListView) return _interested;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  @HiveField(12)
+  final String? image;
 
   @override
   String toString() {
-    return 'NoticeModel(id: $id, author: $author, authorId: $authorId, category: $category, content: $content, comments: $comments, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'NoticeModel(id: $id, author: $author, authorId: $authorId, category: $category, content: $content, comments: $comments, createdAt: $createdAt, updatedAt: $updatedAt, avatar: $avatar, type: $type, requests: $requests, interested: $interested, image: $image)';
   }
 
   @override
@@ -282,7 +390,13 @@ class _$NoticeModelImpl extends _NoticeModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
+            (identical(other.type, type) || other.type == type) &&
+            const DeepCollectionEquality().equals(other._requests, _requests) &&
+            const DeepCollectionEquality()
+                .equals(other._interested, _interested) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(ignore: true)
@@ -296,7 +410,12 @@ class _$NoticeModelImpl extends _NoticeModel {
       content,
       const DeepCollectionEquality().hash(_comments),
       createdAt,
-      updatedAt);
+      updatedAt,
+      avatar,
+      type,
+      const DeepCollectionEquality().hash(_requests),
+      const DeepCollectionEquality().hash(_interested),
+      image);
 
   @JsonKey(ignore: true)
   @override
@@ -321,7 +440,12 @@ abstract class _NoticeModel extends NoticeModel {
       @HiveField(4) required final ContentModel content,
       @HiveField(5) final List<CommentsModel>? comments,
       @HiveField(6) required final String createdAt,
-      @HiveField(7) required final String updatedAt}) = _$NoticeModelImpl;
+      @HiveField(7) required final String updatedAt,
+      @HiveField(8) required final String avatar,
+      @HiveField(9) required final String type,
+      @HiveField(10) final List<String>? requests,
+      @HiveField(11) final List<String>? interested,
+      @HiveField(12) final String? image}) = _$NoticeModelImpl;
   const _NoticeModel._() : super._();
 
   factory _NoticeModel.fromJson(Map<String, dynamic> json) =
@@ -352,6 +476,21 @@ abstract class _NoticeModel extends NoticeModel {
   @override
   @HiveField(7)
   String get updatedAt;
+  @override
+  @HiveField(8)
+  String get avatar;
+  @override
+  @HiveField(9)
+  String get type;
+  @override
+  @HiveField(10)
+  List<String>? get requests;
+  @override
+  @HiveField(11)
+  List<String>? get interested;
+  @override
+  @HiveField(12)
+  String? get image;
   @override
   @JsonKey(ignore: true)
   _$$NoticeModelImplCopyWith<_$NoticeModelImpl> get copyWith =>

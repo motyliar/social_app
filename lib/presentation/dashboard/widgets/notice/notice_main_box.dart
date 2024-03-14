@@ -2,6 +2,8 @@ import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
+import 'package:climbapp/domains/notice/entities/notice_enums/exports.dart';
+import 'package:climbapp/domains/notice/entities/notice_enums/sports_category.dart';
 import 'package:climbapp/domains/notice/entities/sub_entity/sub_entity.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -39,14 +41,16 @@ class SingleNotice extends StatelessWidget {
   }
 }
 
-NoticeEntity notice = NoticeEntity(
+NoticeEntity notice = const NoticeEntity(
     id: '111',
     author: 'Karol',
     authorId: '11111',
-    category: 'Climbing',
+    category: NoticeCategory.biking,
     content: ContentEntity(
         id: '11',
         title: 'what s up aaaaaaaaaaaaaaaaaaaaaaaaaa',
         content: loremIpsum),
     createdAt: '.10.01.2002',
-    updatedAt: '10.10.10');
+    updatedAt: '10.10.10',
+    avatar: '',
+    type: ActionType.buy);

@@ -1,3 +1,4 @@
+import 'package:climbapp/domains/notice/entities/notice_conventer.dart/notice_separator.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/entities/sub_entity/sub_entity.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,6 +20,11 @@ class NoticeModel with _$NoticeModel {
     @HiveField(5) List<CommentsModel>? comments,
     @HiveField(6) required String createdAt,
     @HiveField(7) required String updatedAt,
+    @HiveField(8) required String avatar,
+    @HiveField(9) required String type,
+    @HiveField(10) List<String>? requests,
+    @HiveField(11) List<String>? interested,
+    @HiveField(12) String? image,
   }) = _NoticeModel;
   factory NoticeModel.fromJson(Map<String, dynamic> json) =>
       _$NoticeModelFromJson(json);
@@ -27,7 +33,7 @@ class NoticeModel with _$NoticeModel {
       id: id,
       author: author,
       authorId: authorId,
-      category: category,
+      category: NoticeSeparator.convertToCategory(category),
       content: content.toEntity(),
       comments: comments!
           .map((e) => CommentsEntity(
@@ -40,5 +46,9 @@ class NoticeModel with _$NoticeModel {
               updatedAt: e.updatedAt))
           .toList(),
       createdAt: createdAt,
-      updatedAt: updatedAt);
+      updatedAt: updatedAt,
+      avatar: avatar,
+      type: NoticeSeparator.convertToType(type),
+      requests: requests?.toList() ?? [],
+      interested: interested?.toList() ?? []);
 }

@@ -77,7 +77,7 @@ class TopDescription extends StatelessWidget {
                           width: kMidEmptySpace,
                         ),
                         Text(
-                          notice.category.toUpperCase(),
+                          notice.category.name,
                           style: AppTextStyle.descriptionBigger,
                         ),
                       ],

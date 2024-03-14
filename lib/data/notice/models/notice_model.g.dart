@@ -25,13 +25,18 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       comments: (fields[5] as List?)?.cast<CommentsModel>(),
       createdAt: fields[6] as String,
       updatedAt: fields[7] as String,
+      avatar: fields[8] as String,
+      type: fields[9] as String,
+      requests: (fields[10] as List?)?.cast<String>(),
+      interested: (fields[11] as List?)?.cast<String>(),
+      image: fields[12] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoticeModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(13)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -47,7 +52,17 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       ..writeByte(6)
       ..write(obj.createdAt)
       ..writeByte(7)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(8)
+      ..write(obj.avatar)
+      ..writeByte(9)
+      ..write(obj.type)
+      ..writeByte(10)
+      ..write(obj.requests)
+      ..writeByte(11)
+      ..write(obj.interested)
+      ..writeByte(12)
+      ..write(obj.image);
   }
 
   @override
@@ -77,6 +92,15 @@ _$NoticeModelImpl _$$NoticeModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
+      avatar: json['avatar'] as String,
+      type: json['type'] as String,
+      requests: (json['requests'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      interested: (json['interested'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      image: json['image'] as String?,
     );
 
 Map<String, dynamic> _$$NoticeModelImplToJson(_$NoticeModelImpl instance) =>
@@ -89,4 +113,9 @@ Map<String, dynamic> _$$NoticeModelImplToJson(_$NoticeModelImpl instance) =>
       'comments': instance.comments,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'avatar': instance.avatar,
+      'type': instance.type,
+      'requests': instance.requests,
+      'interested': instance.interested,
+      'image': instance.image,
     };

@@ -69,6 +69,16 @@
     "noticeComments": "Comments :",
     "floatingText" : "Add Notice",
 
+    "@_CREATE_NOTICE": {},
+    "create_page_label" : "Create your own post",
+    "typeFirst": "Buy",
+    "typeSecond": "Sell",
+    "typeThird": "Partner",
+    "subjectHint": "Type what you looking for...",
+    "contentHint": "... more",
+    "publishButton": "Publish",
+    "categoryLabel": "Choose category:",
+
     
 
 

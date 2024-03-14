@@ -1,20 +1,49 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import './sub_entity/sub_entity.dart';
-part 'notice_entity.freezed.dart';
-part 'notice_entity.g.dart';
+import 'package:climbapp/domains/notice/entities/notice_enums/exports.dart';
 
-@freezed
-class NoticeEntity with _$NoticeEntity {
-  const factory NoticeEntity({
-    required String id,
-    required String author,
-    required String authorId,
-    required String category,
-    required ContentEntity content,
-    List<CommentsEntity>? comments,
-    required String createdAt,
-    required String updatedAt,
-  }) = _NoticeEntity;
-  factory NoticeEntity.fromJson(Map<String, dynamic> json) =>
-      _$NoticeEntityFromJson(json);
+import './sub_entity/sub_entity.dart';
+
+class NoticeEntity {
+  const NoticeEntity({
+    required this.id,
+    required this.author,
+    required this.authorId,
+    required this.category,
+    required this.content,
+    this.comments,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.avatar,
+    required this.type,
+    this.requests,
+    this.interested,
+    this.image,
+  });
+
+  final String id;
+  final String author;
+  final String authorId;
+  final NoticeCategory category;
+  final ContentEntity content;
+  final List<CommentsEntity>? comments;
+  final String createdAt;
+  final String updatedAt;
+  final String avatar;
+  final ActionType type;
+  final List<String>? requests;
+  final List<String>? interested;
+  final String? image;
+
+  Map<String, dynamic> toJson() => {
+        'author': author,
+        'authorId': authorId,
+        'category': category.name,
+        'content': content.toJson(),
+        'avatar': avatar,
+        'type': type.name,
+        'image': image,
+      };
+
+  @override
+  toString() =>
+      'NoticeEntity(id: $id, author: $author, authorId: $authorId, category: $category, content: $content,)';
 }

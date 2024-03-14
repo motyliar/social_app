@@ -1,9 +1,11 @@
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
+import 'package:climbapp/presentation/create_notice/widgets/widgets.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
@@ -19,6 +21,8 @@ import '../../../core/constans/export_constans.dart';
 // add photo function
 
 ScrollController _appBarController = ScrollController();
+TextEditingController _subjectController = TextEditingController();
+TextEditingController _contentController = TextEditingController();
 
 class CreateNotice extends StatelessWidget {
   const CreateNotice({super.key});
@@ -30,10 +34,12 @@ class CreateNotice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user);
+    final l10n = context.l10n;
     return SafeArea(
       child: Scaffold(
         appBar: DashboardAppBar(
           mainChild: DashBoardApp(
+            isSearchBar: false,
             controller: _appBarController,
             imageSrc: user.profileAvatar!,
             userName: user.userName,
@@ -42,11 +48,11 @@ class CreateNotice extends StatelessWidget {
           controller: _appBarController,
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Gap(kGeneralPagesMargin),
-              GeneralCard(children: [
-                const HeadersSmallText(text: 'Dive into sports community:'),
+          child: Column(children: [
+            const Gap(30),
+            GeneralCard(
+              children: [
+                HeadersSmallText(text: l10n.create_page_label),
                 const Divider(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +70,7 @@ class CreateNotice extends StatelessWidget {
                             borderRadius:
                                 BorderRadius.circular(kMinBorderRadius),
                             padding: const EdgeInsets.only(left: 5, right: 5),
-                            hint: const Text('Choose category'),
+                            hint: Text(l10n.categoryLabel),
                             style: AppTextStyle.descriptionMid,
                             dropdownColor: Colors.white.withOpacity(0.5),
                             elevation: 0,
@@ -91,56 +97,46 @@ class CreateNotice extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    MidTextButton(
-                      buttonHeight: 30,
-                      buttonWidth: 80,
-                      textLabel: 'Buy',
-                      textStyle: AppTextStyle.descriptionMid,
-                    ),
-                    MidTextButton(
-                      buttonHeight: 30,
-                      buttonWidth: 80,
-                      textLabel: 'Sell',
-                      textStyle: AppTextStyle.descriptionMid,
-                    ),
-                    MidTextButton(
-                      buttonHeight: 30,
-                      buttonWidth: 80,
-                      textLabel: 'Partner',
-                      textStyle: AppTextStyle.descriptionMid,
-                    ),
-                  ],
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TypeButton(text: l10n.typeFirst),
+                      TypeButton(text: l10n.typeSecond),
+                      TypeButton(text: l10n.typeThird)
+                    ]),
                 const Gap(5),
                 const GradientDivider(),
-                const TextField(
-                  decoration: InputDecoration(
-                      hintText: 'Type what you looking for',
-                      hintStyle: AppTextStyle.descriptionMid,
-                      border: InputBorder.none),
-                ),
-                const Divider(),
-                const TextField(
-                  minLines: 8,
-                  maxLines: 100,
-                  decoration: InputDecoration(
-                      hintText: '... more details',
-                      hintStyle: AppTextStyle.descriptionMid,
-                      border: InputBorder.none),
-                ),
-                const GradientDivider(),
-                const Row(
+                Form(
+                    child: Column(
                   children: [
-                    Icon(Icons.photo),
+                    TextFormField(
+                      controller: _subjectController,
+                      decoration: InputDecoration(
+                          hintText: l10n.subjectHint,
+                          hintStyle: AppTextStyle.descriptionMid,
+                          border: InputBorder.none),
+                    ),
+                    const Divider(),
+                    TextFormField(
+                        minLines: 8,
+                        maxLines: 100,
+                        controller: _contentController,
+                        decoration: InputDecoration(
+                            hintText: l10n.contentHint,
+                            hintStyle: AppTextStyle.descriptionMid,
+                            border: InputBorder.none)),
+                    const GradientDivider(),
+                    const Row(
+                      children: [
+                        Icon(Icons.photo),
+                      ],
+                    ),
+                    MidTextButton(textLabel: l10n.publishButton),
                   ],
-                ),
-                const MidTextButton(textLabel: 'Publish'),
-              ]),
-            ],
-          ),
+                )),
+              ],
+            ),
+          ]),
         ),
       ),
     );
