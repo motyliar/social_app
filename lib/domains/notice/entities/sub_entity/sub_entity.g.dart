@@ -11,6 +11,7 @@ _$ContentEntityImpl _$$ContentEntityImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
+      when: json['when'] as String?,
       price: json['price'] as int?,
     );
 
@@ -19,6 +20,7 @@ Map<String, dynamic> _$$ContentEntityImplToJson(_$ContentEntityImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'content': instance.content,
+      'when': instance.when,
       'price': instance.price,
     };
 

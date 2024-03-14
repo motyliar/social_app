@@ -25,6 +25,7 @@ class NoticeModel with _$NoticeModel {
     @HiveField(10) List<String>? requests,
     @HiveField(11) List<String>? interested,
     @HiveField(12) String? image,
+    @HiveField(13) required bool isActive,
   }) = _NoticeModel;
   factory NoticeModel.fromJson(Map<String, dynamic> json) =>
       _$NoticeModelFromJson(json);
@@ -50,5 +51,6 @@ class NoticeModel with _$NoticeModel {
       avatar: avatar,
       type: NoticeSeparator.convertToType(type),
       requests: requests?.toList() ?? [],
-      interested: interested?.toList() ?? []);
+      interested: interested?.toList() ?? [],
+      isActive: isActive);
 }

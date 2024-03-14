@@ -12,7 +12,8 @@ class ContentModel with _$ContentModel {
     @HiveField(0) @JsonKey(name: '_id') required String id,
     @HiveField(1) required String title,
     @HiveField(2) required String content,
-    int? price,
+    @HiveField(3) String? when,
+    @HiveField(4) int? price,
   }) = _ContentModel;
   factory ContentModel.fromJson(Map<String, dynamic> json) =>
       _$ContentModelFromJson(json);

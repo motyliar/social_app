@@ -27,6 +27,9 @@ mixin _$ContentModel {
   String get title => throw _privateConstructorUsedError;
   @HiveField(2)
   String get content => throw _privateConstructorUsedError;
+  @HiveField(3)
+  String? get when => throw _privateConstructorUsedError;
+  @HiveField(4)
   int? get price => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -45,7 +48,8 @@ abstract class $ContentModelCopyWith<$Res> {
       {@HiveField(0) @JsonKey(name: '_id') String id,
       @HiveField(1) String title,
       @HiveField(2) String content,
-      int? price});
+      @HiveField(3) String? when,
+      @HiveField(4) int? price});
 }
 
 /// @nodoc
@@ -64,6 +68,7 @@ class _$ContentModelCopyWithImpl<$Res, $Val extends ContentModel>
     Object? id = null,
     Object? title = null,
     Object? content = null,
+    Object? when = freezed,
     Object? price = freezed,
   }) {
     return _then(_value.copyWith(
@@ -79,6 +84,10 @@ class _$ContentModelCopyWithImpl<$Res, $Val extends ContentModel>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      when: freezed == when
+          ? _value.when
+          : when // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -99,7 +108,8 @@ abstract class _$$ContentModelImplCopyWith<$Res>
       {@HiveField(0) @JsonKey(name: '_id') String id,
       @HiveField(1) String title,
       @HiveField(2) String content,
-      int? price});
+      @HiveField(3) String? when,
+      @HiveField(4) int? price});
 }
 
 /// @nodoc
@@ -116,6 +126,7 @@ class __$$ContentModelImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? content = null,
+    Object? when = freezed,
     Object? price = freezed,
   }) {
     return _then(_$ContentModelImpl(
@@ -131,6 +142,10 @@ class __$$ContentModelImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      when: freezed == when
+          ? _value.when
+          : when // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -146,7 +161,8 @@ class _$ContentModelImpl extends _ContentModel {
       {@HiveField(0) @JsonKey(name: '_id') required this.id,
       @HiveField(1) required this.title,
       @HiveField(2) required this.content,
-      this.price})
+      @HiveField(3) this.when,
+      @HiveField(4) this.price})
       : super._();
 
   factory _$ContentModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -163,11 +179,15 @@ class _$ContentModelImpl extends _ContentModel {
   @HiveField(2)
   final String content;
   @override
+  @HiveField(3)
+  final String? when;
+  @override
+  @HiveField(4)
   final int? price;
 
   @override
   String toString() {
-    return 'ContentModel(id: $id, title: $title, content: $content, price: $price)';
+    return 'ContentModel(id: $id, title: $title, content: $content, when: $when, price: $price)';
   }
 
   @override
@@ -178,12 +198,13 @@ class _$ContentModelImpl extends _ContentModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
+            (identical(other.when, when) || other.when == when) &&
             (identical(other.price, price) || other.price == price));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content, price);
+  int get hashCode => Object.hash(runtimeType, id, title, content, when, price);
 
   @JsonKey(ignore: true)
   @override
@@ -204,7 +225,8 @@ abstract class _ContentModel extends ContentModel {
       {@HiveField(0) @JsonKey(name: '_id') required final String id,
       @HiveField(1) required final String title,
       @HiveField(2) required final String content,
-      final int? price}) = _$ContentModelImpl;
+      @HiveField(3) final String? when,
+      @HiveField(4) final int? price}) = _$ContentModelImpl;
   const _ContentModel._() : super._();
 
   factory _ContentModel.fromJson(Map<String, dynamic> json) =
@@ -221,6 +243,10 @@ abstract class _ContentModel extends ContentModel {
   @HiveField(2)
   String get content;
   @override
+  @HiveField(3)
+  String? get when;
+  @override
+  @HiveField(4)
   int? get price;
   @override
   @JsonKey(ignore: true)

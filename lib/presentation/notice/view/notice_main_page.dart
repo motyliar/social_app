@@ -43,8 +43,8 @@ class NoticeMainPage extends StatelessWidget {
           children: [
             ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('BACK')),
-            SizedBox(
+                child: const Text('BACK')),
+            const SizedBox(
               height: 20,
             ),
             BlocBuilder<CreateNoticeCubit, CreateNoticeState>(
@@ -53,28 +53,21 @@ class NoticeMainPage extends StatelessWidget {
                     onPressed: () => context
                         .read<CreateNoticeCubit>()
                         .sendNewNoticeToServer(CreateNoticeParams.send(
-                            AppUrl.createNoticeURL(),
-                            NoticeTemplate(
-                                author: 'nowy author',
-                                authorId: '1111111',
-                                category: 'kupie',
-                                content: 'content flutter',
-                                title: 'new flutter title',
-                                price: 23))),
-                    child: Text('create notice'));
+                            AppUrl.createNoticeURL(), <String, dynamic>{})),
+                    child: const Text('create notice'));
               },
             ),
             BlocBuilder<FetchUserNoticeCubit, FetchUserNoticeState>(
               builder: (context, state) {
                 if (state is FetchUserNoticeLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 }
                 if (state is FetchUserNoticeFailed) {
-                  return Center(
+                  return const Center(
                     child: Text('Fetch failed'),
                   );
                 }
-                return Container(
+                return SizedBox(
                   width: MediaQuery.of(context).size.width,
                   height: 100,
                   child: ListView.builder(
@@ -114,7 +107,7 @@ class NoticeMainPage extends StatelessWidget {
                                 update: 'Kardashian',
                                 url: AppUrl.updateSingleNoticeURL(
                                     "65789782866f56088bd20eac"))),
-                        child: Text('UPDATE'));
+                        child: const Text('UPDATE'));
                   },
                 );
               },
@@ -140,12 +133,12 @@ class NoticeMainPage extends StatelessWidget {
                         child: const Text('delete')));
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 50,
             ),
             ElevatedButton(
                 onPressed: () => Navigator.pushNamed(context, routeCommentPage),
-                child: Text('go to comment')),
+                child: const Text('go to comment')),
           ],
         ))),
       ),

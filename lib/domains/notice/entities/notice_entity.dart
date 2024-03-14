@@ -9,7 +9,7 @@ class NoticeEntity {
     required this.authorId,
     required this.category,
     required this.content,
-    this.comments,
+    required this.isActive,
     required this.createdAt,
     required this.updatedAt,
     required this.avatar,
@@ -17,6 +17,7 @@ class NoticeEntity {
     this.requests,
     this.interested,
     this.image,
+    this.comments,
   });
 
   final String id;
@@ -32,6 +33,7 @@ class NoticeEntity {
   final List<String>? requests;
   final List<String>? interested;
   final String? image;
+  final bool isActive;
 
   Map<String, dynamic> toJson() => {
         'author': author,

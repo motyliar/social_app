@@ -13,26 +13,20 @@ class GetNoticeParams extends RepositoryParams {
 }
 
 class CreateNoticeParams extends RepositoryParams {
-  CreateNoticeParams._({required Uri url, required NoticeTemplate notice})
-      : _notice = notice,
+  CreateNoticeParams._(
+      {required Uri url,
+     
+      required this.newNotice})
+      :
         super(url: url);
-  final NoticeTemplate _notice;
+  
+  final Map<String, dynamic> newNotice;
 
-  factory CreateNoticeParams.send(Uri url, NoticeTemplate notice) =>
-      CreateNoticeParams._(url: url, notice: notice);
+  factory CreateNoticeParams.send(
+          Uri url,  Map<String, dynamic> newNotice) =>
+      CreateNoticeParams._(url: url,  newNotice: newNotice);
   @override
-  Map<String, dynamic> requestMapBody() => {
-        "notice": {
-          "author": _notice.author,
-          "authorId": _notice.authorId,
-          "category": _notice.category,
-          "content": {
-            "title": _notice.title,
-            "content": _notice.content,
-            "price": _notice.price ?? 0
-          }
-        }
-      };
+  Map<String, dynamic> requestMapBody() => newNotice;
 }
 
 class CreateNoticeCommentsParams extends RepositoryParams {

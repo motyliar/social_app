@@ -20,19 +20,25 @@ class ContentModelAdapter extends TypeAdapter<ContentModel> {
       id: fields[0] as String,
       title: fields[1] as String,
       content: fields[2] as String,
+      when: fields[3] as String?,
+      price: fields[4] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, ContentModel obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.title)
       ..writeByte(2)
-      ..write(obj.content);
+      ..write(obj.content)
+      ..writeByte(3)
+      ..write(obj.when)
+      ..writeByte(4)
+      ..write(obj.price);
   }
 
   @override
@@ -107,6 +113,7 @@ _$ContentModelImpl _$$ContentModelImplFromJson(Map<String, dynamic> json) =>
       id: json['_id'] as String,
       title: json['title'] as String,
       content: json['content'] as String,
+      when: json['when'] as String?,
       price: json['price'] as int?,
     );
 
@@ -115,6 +122,7 @@ Map<String, dynamic> _$$ContentModelImplToJson(_$ContentModelImpl instance) =>
       '_id': instance.id,
       'title': instance.title,
       'content': instance.content,
+      'when': instance.when,
       'price': instance.price,
     };
 

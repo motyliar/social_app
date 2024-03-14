@@ -36,6 +36,7 @@ import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/updating_user_usecase.dart';
+import 'package:climbapp/presentation/create_notice/business/cubit/publish_notice/publish_notice_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fetch_single_notice_cubit.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
@@ -85,6 +86,7 @@ void userInit() {
     ..registerFactory(
         () => CreateNoticeCubit(createNewNoticeUseCase: userLocator()))
     ..registerFactory(() => UpdateNoticeCubit(updated: userLocator()))
+    ..registerFactory(() => PublishNoticeCubit(create: userLocator()))
     ..registerFactory(() => FetchUserNoticeCubit(fetch: userLocator()))
     ..registerFactory(() => DeleteNoticeCubit(delete: userLocator()))
     ..registerFactory(() => AddCommentCubit(comment: userLocator()))

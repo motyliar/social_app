@@ -23,6 +23,7 @@ mixin _$ContentEntity {
   String get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
+  String? get when => throw _privateConstructorUsedError;
   int? get price => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +38,8 @@ abstract class $ContentEntityCopyWith<$Res> {
           ContentEntity value, $Res Function(ContentEntity) then) =
       _$ContentEntityCopyWithImpl<$Res, ContentEntity>;
   @useResult
-  $Res call({String id, String title, String content, int? price});
+  $Res call(
+      {String id, String title, String content, String? when, int? price});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$ContentEntityCopyWithImpl<$Res, $Val extends ContentEntity>
     Object? id = null,
     Object? title = null,
     Object? content = null,
+    Object? when = freezed,
     Object? price = freezed,
   }) {
     return _then(_value.copyWith(
@@ -71,6 +74,10 @@ class _$ContentEntityCopyWithImpl<$Res, $Val extends ContentEntity>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      when: freezed == when
+          ? _value.when
+          : when // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -87,7 +94,8 @@ abstract class _$$ContentEntityImplCopyWith<$Res>
       __$$ContentEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String title, String content, int? price});
+  $Res call(
+      {String id, String title, String content, String? when, int? price});
 }
 
 /// @nodoc
@@ -104,6 +112,7 @@ class __$$ContentEntityImplCopyWithImpl<$Res>
     Object? id = null,
     Object? title = null,
     Object? content = null,
+    Object? when = freezed,
     Object? price = freezed,
   }) {
     return _then(_$ContentEntityImpl(
@@ -119,6 +128,10 @@ class __$$ContentEntityImplCopyWithImpl<$Res>
           ? _value.content
           : content // ignore: cast_nullable_to_non_nullable
               as String,
+      when: freezed == when
+          ? _value.when
+          : when // ignore: cast_nullable_to_non_nullable
+              as String?,
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
@@ -134,6 +147,7 @@ class _$ContentEntityImpl implements _ContentEntity {
       {required this.id,
       required this.title,
       required this.content,
+      this.when,
       this.price});
 
   factory _$ContentEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -146,11 +160,13 @@ class _$ContentEntityImpl implements _ContentEntity {
   @override
   final String content;
   @override
+  final String? when;
+  @override
   final int? price;
 
   @override
   String toString() {
-    return 'ContentEntity(id: $id, title: $title, content: $content, price: $price)';
+    return 'ContentEntity(id: $id, title: $title, content: $content, when: $when, price: $price)';
   }
 
   @override
@@ -161,12 +177,13 @@ class _$ContentEntityImpl implements _ContentEntity {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.content, content) || other.content == content) &&
+            (identical(other.when, when) || other.when == when) &&
             (identical(other.price, price) || other.price == price));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, content, price);
+  int get hashCode => Object.hash(runtimeType, id, title, content, when, price);
 
   @JsonKey(ignore: true)
   @override
@@ -187,6 +204,7 @@ abstract class _ContentEntity implements ContentEntity {
       {required final String id,
       required final String title,
       required final String content,
+      final String? when,
       final int? price}) = _$ContentEntityImpl;
 
   factory _ContentEntity.fromJson(Map<String, dynamic> json) =
@@ -198,6 +216,8 @@ abstract class _ContentEntity implements ContentEntity {
   String get title;
   @override
   String get content;
+  @override
+  String? get when;
   @override
   int? get price;
   @override

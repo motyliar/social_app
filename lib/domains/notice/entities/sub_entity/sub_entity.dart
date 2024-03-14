@@ -8,6 +8,7 @@ class ContentEntity with _$ContentEntity {
     required String id,
     required String title,
     required String content,
+    String? when,
     int? price,
   }) = _ContentEntity;
   factory ContentEntity.fromJson(Map<String, dynamic> json) =>

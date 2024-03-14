@@ -42,15 +42,17 @@ class SingleNotice extends StatelessWidget {
 }
 
 NoticeEntity notice = const NoticeEntity(
-    id: '111',
-    author: 'Karol',
-    authorId: '11111',
-    category: NoticeCategory.biking,
-    content: ContentEntity(
-        id: '11',
-        title: 'what s up aaaaaaaaaaaaaaaaaaaaaaaaaa',
-        content: loremIpsum),
-    createdAt: '.10.01.2002',
-    updatedAt: '10.10.10',
-    avatar: '',
-    type: ActionType.buy);
+  id: '111',
+  author: 'Karol',
+  authorId: '11111',
+  category: NoticeCategory.biking,
+  content: ContentEntity(
+      id: '11',
+      title: 'what s up aaaaaaaaaaaaaaaaaaaaaaaaaa',
+      content: loremIpsum),
+  createdAt: '.10.01.2002',
+  updatedAt: '10.10.10',
+  avatar: '',
+  type: ActionType.buy,
+  isActive: true,
+);
