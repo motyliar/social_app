@@ -23,5 +23,7 @@ enum NoticeCategory {
   @JsonValue('biking')
   biking,
   @JsonValue('general')
-  general
+  general;
+
+  List<NoticeCategory> toList() => NoticeCategory.values;
 }

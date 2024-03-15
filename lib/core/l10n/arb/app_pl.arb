@@ -73,6 +73,8 @@
     "contentHint": "... więcej szczegółów",
     "publishButton": "Opublikuj",
     "categoryLabel": "Wybierz kategorie:",
+    "questionWhen": "Kiedy?",
+    "questionWhere": "Gdzie?",
 
 
     "@_FLUTTERTOAST_MESSAGES": {},

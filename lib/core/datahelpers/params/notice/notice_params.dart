@@ -13,18 +13,13 @@ class GetNoticeParams extends RepositoryParams {
 }
 
 class CreateNoticeParams extends RepositoryParams {
-  CreateNoticeParams._(
-      {required Uri url,
-     
-      required this.newNotice})
-      :
-        super(url: url);
-  
+  CreateNoticeParams._({required Uri url, required this.newNotice})
+      : super(url: url);
+
   final Map<String, dynamic> newNotice;
 
-  factory CreateNoticeParams.send(
-          Uri url,  Map<String, dynamic> newNotice) =>
-      CreateNoticeParams._(url: url,  newNotice: newNotice);
+  factory CreateNoticeParams.send(Uri url, Map<String, dynamic> newNotice) =>
+      CreateNoticeParams._(url: url, newNotice: newNotice);
   @override
   Map<String, dynamic> requestMapBody() => newNotice;
 }
