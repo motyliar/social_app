@@ -5,6 +5,7 @@ import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
+import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/business/cubit/theme/theme_cubit.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
@@ -15,6 +16,7 @@ import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_c
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/slidable_menu_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/single_notice/fetch_single_notice_cubit.dart';
+import 'package:climbapp/presentation/message/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,10 +28,8 @@ const double _floatingButtonWidth = 170;
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
   static Route<dynamic> route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeDashboardPage),
-      builder: (_) => const DashboardPage(),
-    );
+    return Utils.animatedRoute(
+        direction: const DashboardPage(), route: routeDashboardPage);
   }
 
   @override
@@ -37,6 +37,7 @@ class DashboardPage extends StatelessWidget {
     ScrollController scrollController = ScrollController();
     ScrollController listViewController = ScrollController();
     final l10n = context.l10n;
+    final user = context.select((UserBloc bloc) => bloc.state.user);
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -62,54 +63,31 @@ class DashboardPage extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: ColorPallete.scaffoldBackground,
-          appBar: DashboardAppBar(
-            controller: scrollController,
-            mainChild: BlocConsumer<UserBloc, UserState>(
-              listener: (context, state) {
-                if (state is UserLoaded) {
-                  context.read<ThemeCubit>().changeThemeData(
-                        mode: state.user.preferences?.mode ?? false,
-                      );
-                }
-              },
-              builder: (context, state) {
-                return BlocBuilder<UserBloc, UserState>(
-                    builder: (context, state) {
-                  if (state is UserLoading) {
-                    return const LoadingPage();
-                  }
-                  if (state is UserLoaded) {
-                    context.read<ThemeCubit>().changeThemeData(
-                          mode: state.user.preferences?.mode ?? false,
-                        );
-                    return DashBoardApp(
-                        controller: scrollController,
-                        imageSrc: state.user.profileAvatar!,
-                        userName: state.user.userName);
-                  }
-                  return const Text('failed');
-                });
-              },
-            ),
-          ),
           body: SafeArea(
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                SingleChildScrollView(
-                  controller: scrollController,
+            child: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: ColorPallete.scaffoldBackground,
+                  automaticallyImplyLeading: false,
+                  floating: true,
+                  expandedHeight: 180,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: DashBoardApp(
+                        controller: ScrollController(),
+                        imageSrc: user.profileAvatar!,
+                        userName: user.userName),
+                  ),
+                ),
+                const SliverToBoxAdapter(
+                  child: SlidableNavigator(),
+                ),
+                SliverToBoxAdapter(
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const SlidableNavigator(),
-                      Flexible(
-                        fit: FlexFit.loose,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          controller: listViewController,
-                          itemCount: 3,
-                          itemBuilder: (context, index) => const SingleNotice(),
+                      Column(
+                        children: List.generate(
+                          4,
+                          (index) => const SingleNotice(),
                         ),
                       ),
                       const Gap(20),
@@ -119,15 +97,7 @@ class DashboardPage extends StatelessWidget {
                       const Gap(20),
                     ],
                   ),
-                ),
-                // Todo Right menu is hiding before will have implemented logic
-                // RightOnScreenMenu(
-                //   menus: List.generate(
-                //       3,
-                //       (index) => SlidableMenu(
-                //           icon: Icons.settings,
-                //           windowName: kSlidableNameList[index])),
-                // ),
+                )
               ],
             ),
           ),

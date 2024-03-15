@@ -18,6 +18,7 @@ class NoticeEntity {
     this.interested,
     this.image,
     this.comments,
+    this.localization,
   });
 
   final String id;
@@ -34,6 +35,7 @@ class NoticeEntity {
   final List<String>? interested;
   final String? image;
   final bool isActive;
+  final String? localization;
 
   Map<String, dynamic> toJson() => {
         'author': author,

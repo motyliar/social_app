@@ -18,24 +18,27 @@ class CSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: ContainerTemplate(
-        width: width,
-        height: height,
-        color: ColorPallete.mainDecorationColor.withOpacity(1),
-        gradient: blueGreen,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const AutoCompleteTextField(
-              hintText: 'Search for sport notice',
-              leftIcon: AppIcons.dashboardSearch,
-              wordsLists: <String>[],
-            ),
-            IconButton(onPressed: () {}, icon: AppIcons.searchPink),
-          ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: ContainerTemplate(
+          width: width,
+          height: height,
+          color: ColorPallete.mainDecorationColor.withOpacity(1),
+          gradient: blueGreen,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const AutoCompleteTextField(
+                hintText: 'Search for sport notice',
+                leftIcon: AppIcons.dashboardSearch,
+                wordsLists: <String>[],
+              ),
+              IconButton(onPressed: () {}, icon: AppIcons.searchPink),
+            ],
+          ),
         ),
       ),
     );

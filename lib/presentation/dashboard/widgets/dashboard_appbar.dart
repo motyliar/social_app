@@ -122,11 +122,21 @@ class DashBoardApp extends StatelessWidget {
           ),
         ),
         isSearchBar
-            ? CSearchBar(
-                width: MediaQuery.of(context).size.width * 0.8,
+            ? Positioned(
+                left: centerSearchBar(MediaQuery.of(context).size.width,
+                    MediaQuery.of(context).size.width * 0.8),
+                bottom: 20,
+                child: CSearchBar(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                ),
               )
             : const SizedBox(),
       ]),
     );
   }
+}
+
+double centerSearchBar(double totalWidth, double searchBarWidth,
+    {double multipler = 0.5}) {
+  return (totalWidth - searchBarWidth) * multipler;
 }

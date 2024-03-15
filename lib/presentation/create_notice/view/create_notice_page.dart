@@ -184,7 +184,8 @@ Map<String, dynamic> sendNotice(
     required String avatar,
     required ActionType type,
     required ContentEntity content,
-    String? image}) {
+    String? image,
+    String? localization}) {
   return {
     'notice': {
       'author': author,
@@ -198,6 +199,7 @@ Map<String, dynamic> sendNotice(
       'avatar': avatar,
       'type': type.name,
       'image': image,
+      'localization': localization ?? '',
     }
   };
 }

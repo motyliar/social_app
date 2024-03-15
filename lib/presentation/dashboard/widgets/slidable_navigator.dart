@@ -7,7 +7,7 @@ import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 const double _height = 100;
-const double _topMargin = 20;
+const double _topMargin = 10;
 
 class SlidableNavigator extends StatelessWidget {
   const SlidableNavigator({

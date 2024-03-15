@@ -31,13 +31,14 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       interested: (fields[11] as List?)?.cast<String>(),
       image: fields[12] as String?,
       isActive: fields[13] as bool,
+      loacalization: fields[14] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, NoticeModel obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -65,7 +66,9 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       ..writeByte(12)
       ..write(obj.image)
       ..writeByte(13)
-      ..write(obj.isActive);
+      ..write(obj.isActive)
+      ..writeByte(14)
+      ..write(obj.loacalization);
   }
 
   @override
@@ -105,6 +108,7 @@ _$NoticeModelImpl _$$NoticeModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       image: json['image'] as String?,
       isActive: json['isActive'] as bool,
+      loacalization: json['loacalization'] as String?,
     );
 
 Map<String, dynamic> _$$NoticeModelImplToJson(_$NoticeModelImpl instance) =>
@@ -123,4 +127,5 @@ Map<String, dynamic> _$$NoticeModelImplToJson(_$NoticeModelImpl instance) =>
       'interested': instance.interested,
       'image': instance.image,
       'isActive': instance.isActive,
+      'loacalization': instance.loacalization,
     };
