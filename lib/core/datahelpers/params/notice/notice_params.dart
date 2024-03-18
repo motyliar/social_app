@@ -86,3 +86,22 @@ class CommentTemplate {
   final String userId;
   final String content;
 }
+
+class UpdateRequestJoinParams extends RepositoryParams {
+  const UpdateRequestJoinParams(
+      {required this.userId,
+      required this.noticeId,
+      required this.direction,
+      super.url});
+
+  final String userId;
+  final String noticeId;
+  final String direction;
+
+  @override
+  Map<String, dynamic> requestMapBody() => {
+        "userId": userId,
+        "id": noticeId,
+        "where": direction,
+      };
+}
