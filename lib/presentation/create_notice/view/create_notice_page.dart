@@ -141,7 +141,8 @@ class CreateNotice extends StatelessWidget {
                                   const Duration(milliseconds: 200),
                                   () => context
                                       .read<UserNoticeDataCubit>()
-                                      .changeData(date.toString()));
+                                      .changeData(
+                                          date.toString().isTooLong(10)));
                             },
                             child: Text(
                               state.date.isTooLong(10),
@@ -192,6 +193,7 @@ class CreateNotice extends StatelessWidget {
                         builder: (context, state) {
                           final noticeData = context.select(
                               (UserNoticeDataCubit cubit) => cubit.state);
+                          print(noticeData);
                           return MidTextButton(
                               onTap: () => context
                                   .read<PublishNoticeCubit>()
@@ -208,7 +210,8 @@ class CreateNotice extends StatelessWidget {
                                             id: '',
                                             title: _subjectController.text,
                                             content: _contentController.text,
-                                            when: noticeData.date),
+                                            when:
+                                                noticeData.date.isTooLong(10)),
                                         localization:
                                             _localizationController.text,
                                       ),

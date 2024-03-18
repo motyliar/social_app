@@ -19,7 +19,7 @@ Map<String, dynamic> sendNotice(
       'content': {
         'title': content.title,
         'content': content.content,
-        'when': '23.04.2024',
+        'when': content.when,
       },
       'avatar': avatar,
       'type': type.name,
