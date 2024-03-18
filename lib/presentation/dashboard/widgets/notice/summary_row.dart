@@ -24,18 +24,15 @@ class SummaryRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
+        const Row(
           children: [
-            const SizedBox(
+            SizedBox(
               width: kMidEmptySpace,
             ),
-            LikeActionButton(
-              onTap: () => Utils.giveLike(context, visible),
-            ),
-            const SizedBox(
+            SizedBox(
               width: kMidEmptySpace,
             ),
-            const Text('20'),
+            Text('20'),
           ],
         ),
         TextButton(

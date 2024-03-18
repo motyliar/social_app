@@ -5,6 +5,7 @@ import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/logic/notice_logic.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/like_action_button.dart';
+import 'package:climbapp/presentation/dashboard/widgets/notice/smile_animation.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -23,6 +24,8 @@ class NoticeCard extends StatelessWidget {
     required this.onTap,
     required this.logoOnTap,
     required this.logoOnTapBack,
+    required this.smileOnTap,
+    required this.smileOnTapBack,
     required this.userId,
     this.style = AppTextStyle.descriptionMid,
     this.localizationStyle = AppTextStyle.descriptionMid,
@@ -36,6 +39,8 @@ class NoticeCard extends StatelessWidget {
   final VoidCallback onTap;
   final VoidCallback logoOnTap;
   final VoidCallback logoOnTapBack;
+  final VoidCallback smileOnTap;
+  final VoidCallback smileOnTapBack;
   final String userId;
 
   @override
@@ -124,21 +129,16 @@ class NoticeCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    // BlocBuilder<LikeIconCubit, bool>(
-                    //   builder: (context, state) {
-                    //     return LikeActionButton(
-                    //       onTap: () => Utils.giveLike(
-                    //         context,
-                    //         state,
-                    //       ),
-                    //     );
-                    //   },
-                    // ),
-                    Icon(Icons.mood,
-                        size: 30,
-                        color: NoticeLogic.didIClick(notice.interested!, userId)
-                            ? ColorPallete.greyShadowColorOpacityMax
-                            : ColorPallete.mainDecorationColor),
+                    LikeActionButton(
+                        isLike:
+                            NoticeLogic.didIClick(notice.interested!, userId),
+                        onTap: NoticeLogic.didIClick(notice.interested!, userId)
+                            ? () => smileOnTapBack()
+                            : () {
+                                smileOnTap();
+                                Utils.showSuccessDialog(
+                                    context, const SmileAnimation());
+                              }),
                     const Gap(kMinEmptySpace),
                     const Icon(
                       Icons.maps_ugc,

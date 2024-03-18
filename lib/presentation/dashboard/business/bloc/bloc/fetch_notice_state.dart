@@ -17,4 +17,10 @@ class FetchNoticeLoading extends FetchNoticeState {
   List<Object> get props => [notices];
 }
 
+class FetchNoticeReloading extends FetchNoticeState {
+  const FetchNoticeReloading({super.notices});
+  @override
+  List<Object> get props => [notices];
+}
+
 class FetchNoticeFailed extends FetchNoticeState {}

@@ -44,7 +44,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
 
   Future<void> _addUpdateArrays(
       UpdateNoticeJoinArrays event, Emitter<FetchNoticeState> emit) async {
-    emit(FetchNoticeLoading(notices: state.notices));
+    emit(FetchNoticeReloading(notices: state.notices));
     try {
       await _getResponseFromUpdate(event.params).then((value) {
         final notices = state.notices;
@@ -64,7 +64,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
 
   Future<void> _deleteID(
       DeleteNoticeJoinID event, Emitter<FetchNoticeState> emit) async {
-    emit(FetchNoticeLoading(notices: state.notices));
+    emit(FetchNoticeReloading(notices: state.notices));
     try {
       await _getResponseFromUpdate(event.params).then((value) {
         final notices = state.notices;

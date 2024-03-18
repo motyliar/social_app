@@ -58,7 +58,6 @@ class Utils {
   }
 
   static void giveLike(BuildContext context, bool didIClick) {
-    print(didIClick);
     BlocProvider.of<LikeIconCubit>(context).changeVisible();
     didIClick ? Utils.showSuccessDialog(context, const SmileAnimation()) : null;
   }

@@ -91,6 +91,7 @@ class DashboardPage extends StatelessWidget {
                       if (state is FetchNoticeLoading) {
                         return const NoticeLoader();
                       }
+
                       return Column(
                         children: [
                           Column(
@@ -120,6 +121,25 @@ class DashboardPage extends StatelessWidget {
                                                 .deleteIdToJoinArrayURL()),
                                         index: index)),
                                 userId: user.id,
+                                smileOnTap: () => context
+                                    .read<FetchNoticeBloc>()
+                                    .add(UpdateNoticeJoinArrays(
+                                        params: UpdateRequestJoinParams(
+                                            userId: user.id,
+                                            noticeId: state.notices[index].id,
+                                            direction: Direction.interested,
+                                            url: AppUrl.addIdToJoinArrayURL()),
+                                        index: index)),
+                                smileOnTapBack: () => context
+                                    .read<FetchNoticeBloc>()
+                                    .add(DeleteNoticeJoinID(
+                                        params: UpdateRequestJoinParams(
+                                            userId: user.id,
+                                            noticeId: state.notices[index].id,
+                                            direction: Direction.interested,
+                                            url: AppUrl
+                                                .deleteIdToJoinArrayURL()),
+                                        index: index)),
                               ),
                             ),
                           ),
