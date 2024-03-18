@@ -22,6 +22,7 @@ class NoticeCard extends StatelessWidget {
     required this.notice,
     required this.onTap,
     required this.logoOnTap,
+    required this.logoOnTapBack,
     required this.userId,
     this.style = AppTextStyle.descriptionMid,
     this.localizationStyle = AppTextStyle.descriptionMid,
@@ -34,6 +35,7 @@ class NoticeCard extends StatelessWidget {
   final TextStyle dataStyle;
   final VoidCallback onTap;
   final VoidCallback logoOnTap;
+  final VoidCallback logoOnTapBack;
   final String userId;
 
   @override
@@ -148,7 +150,9 @@ class NoticeCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: AppLogoButton(
-                    onTap: () => logoOnTap(),
+                    onTap: () => NoticeLogic.didIClick(notice.requests!, userId)
+                        ? logoOnTapBack()
+                        : logoOnTap(),
                     isJoin: NoticeLogic.didIClick(notice.requests!, userId),
                   ),
                 ),

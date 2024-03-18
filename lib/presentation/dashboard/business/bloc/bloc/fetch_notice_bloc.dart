@@ -49,11 +49,11 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
       await _getResponseFromUpdate(event.params).then((value) {
         final notices = state.notices;
         if (event.params.direction == Direction.request) {
-          notices[event.index].requests!.remove(event.params.userId);
+          notices[event.index].requests!.add(event.params.userId);
 
           emit(state.copyWith(notices: List.from(notices)));
         } else {
-          notices[event.index].interested!.remove(event.params.userId);
+          notices[event.index].interested!.add(event.params.userId);
           emit(state.copyWith(notices: List.from(notices)));
         }
       });
@@ -69,11 +69,11 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
       await _getResponseFromUpdate(event.params).then((value) {
         final notices = state.notices;
         if (event.params.direction == Direction.request) {
-          notices[event.index].requests!.add(event.params.userId);
+          notices[event.index].requests!.remove(event.params.userId);
 
           emit(state.copyWith(notices: List.from(notices)));
         } else {
-          notices[event.index].interested!.add(event.params.userId);
+          notices[event.index].interested!.remove(event.params.userId);
           emit(state.copyWith(notices: List.from(notices)));
         }
       });

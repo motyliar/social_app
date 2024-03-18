@@ -107,8 +107,17 @@ class DashboardPage extends StatelessWidget {
                                             userId: user.id,
                                             noticeId: state.notices[index].id,
                                             direction: Direction.request,
-                                            url: AppUrl.addIdToJoinArrayURL(
-                                                user.id)),
+                                            url: AppUrl.addIdToJoinArrayURL()),
+                                        index: index)),
+                                logoOnTapBack: () => context
+                                    .read<FetchNoticeBloc>()
+                                    .add(DeleteNoticeJoinID(
+                                        params: UpdateRequestJoinParams(
+                                            userId: user.id,
+                                            noticeId: state.notices[index].id,
+                                            direction: Direction.request,
+                                            url: AppUrl
+                                                .deleteIdToJoinArrayURL()),
                                         index: index)),
                                 userId: user.id,
                               ),
