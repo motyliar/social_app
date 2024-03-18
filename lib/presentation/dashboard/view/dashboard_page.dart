@@ -1,3 +1,4 @@
+import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
@@ -99,6 +100,16 @@ class DashboardPage extends StatelessWidget {
                                 notice: state.notices[index],
                                 onTap: () => Navigator.popAndPushNamed(
                                     context, routeCreateNotice),
+                                logoOnTap: () => context
+                                    .read<FetchNoticeBloc>()
+                                    .add(UpdateNoticeJoinArrays(
+                                        params: UpdateRequestJoinParams(
+                                            userId: user.id,
+                                            noticeId: state.notices[index].id,
+                                            direction: Direction.request,
+                                            url: AppUrl.addIdToJoinArrayURL(
+                                                user.id)),
+                                        index: index)),
                                 userId: user.id,
                               ),
                             ),

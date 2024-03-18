@@ -23,8 +23,8 @@ class AppUrl {
   static const String getUserMessage = 'userMessages/';
   static const String sports = 'sports/';
   static const String get = 'getSingle/';
-  static const String join = '/join';
-  static const String unjoin = '/unjoin';
+  static const String join = 'join';
+  static const String unjoin = 'unjoin';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   static Uri logoutURL() => Uri.parse('$backendUrl$logout');
@@ -93,9 +93,9 @@ class AppUrl {
   static Uri updateCommentURL(String noticeId) =>
       Uri.parse('$backendUrl$notice$comment$updateAction$noticeId');
   static Uri addIdToJoinArrayURL(String userId) =>
-      Uri.parse('$backendUrl$notice$join$userId');
+      Uri.parse('$backendUrl$notice$join');
   static Uri deleteIdToJoinArrayURL(String userId) =>
-      Uri.parse('$backendUrl$notice$unjoin$userId');
+      Uri.parse('$backendUrl$notice$unjoin');
 
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {

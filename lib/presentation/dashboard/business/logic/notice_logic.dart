@@ -1,5 +1,5 @@
 class NoticeLogic {
-  static bool didIClick(List<String> idsList, String userId) {
+  static bool didIClick(Set<String> idsList, String userId) {
     for (var likes in idsList) {
       if (likes == userId) {
         return true;

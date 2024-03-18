@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
+import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
 
 class GetNoticeParams extends RepositoryParams {
   const GetNoticeParams({
@@ -96,12 +97,12 @@ class UpdateRequestJoinParams extends RepositoryParams {
 
   final String userId;
   final String noticeId;
-  final String direction;
+  final Direction direction;
 
   @override
   Map<String, dynamic> requestMapBody() => {
         "userId": userId,
         "id": noticeId,
-        "where": direction,
+        "where": direction.name,
       };
 }

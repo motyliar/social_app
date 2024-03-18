@@ -13,3 +13,19 @@ class FetchNoticesFromDB extends FetchNoticeEvent {
   @override
   List<Object> get props => [params];
 }
+
+class UpdateNoticeJoinArrays extends FetchNoticeEvent {
+  const UpdateNoticeJoinArrays({required this.params, required this.index});
+  final UpdateRequestJoinParams params;
+  final int index;
+  @override
+  List<Object> get props => [params];
+}
+
+class DeleteNoticeJoinID extends FetchNoticeEvent {
+  const DeleteNoticeJoinID({required this.params, required this.index});
+  final UpdateRequestJoinParams params;
+  final int index;
+  @override
+  List<Object> get props => [params];
+}

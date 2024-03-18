@@ -151,11 +151,12 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
 
   @override
   Future<void> updateJoinArray(UpdateRequestJoinParams params) async {
-    try {} on ServerException catch (e) {
+    try {
+      await HttpPostDataHandler(params: params).returnData();
+    } on ServerException catch (e) {
       debugPrint(e.message);
       throw ServerException.error();
-    }
-    cacth(e) {
+    } catch (e) {
       throw ServerException(e.toString());
     }
   }

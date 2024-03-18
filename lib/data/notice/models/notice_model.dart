@@ -51,8 +51,8 @@ class NoticeModel with _$NoticeModel {
       updatedAt: updatedAt,
       avatar: avatar,
       type: NoticeSeparator.convertToType(type),
-      requests: requests?.toList() ?? [],
-      interested: interested?.toList() ?? [],
+      requests: Set.from(requests!),
+      interested: Set.from(interested!),
       isActive: isActive,
       localization: localization ?? '');
 }

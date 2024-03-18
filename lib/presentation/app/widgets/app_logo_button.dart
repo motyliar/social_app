@@ -7,6 +7,7 @@ const double _backgroundWidth = 70;
 
 class AppLogoButton extends StatelessWidget {
   const AppLogoButton({
+    required this.onTap,
     this.backgroundHeight = _backgroundHeight,
     this.backgroundWidth = _backgroundWidth,
     this.logoURL = ImagesURL.appLogoSmallM,
@@ -20,20 +21,24 @@ class AppLogoButton extends StatelessWidget {
   final String logoURL;
   final EdgeInsetsGeometry? backgroundMargin;
   final bool isJoin;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: isJoin ? 0.2 : 1,
-      child: Stack(
-        children: [
-          MidTextButton(
-              margin: backgroundMargin ?? const EdgeInsets.all(0),
-              buttonHeight: backgroundHeight,
-              buttonWidth: backgroundWidth,
-              textLabel: ''),
-          Image.network(logoURL)
-        ],
+    return GestureDetector(
+      onTap: onTap,
+      child: Opacity(
+        opacity: isJoin ? 0.2 : 1,
+        child: Stack(
+          children: [
+            MidTextButton(
+                margin: backgroundMargin ?? const EdgeInsets.all(0),
+                buttonHeight: backgroundHeight,
+                buttonWidth: backgroundWidth,
+                textLabel: ''),
+            Image.network(logoURL)
+          ],
+        ),
       ),
     );
   }
