@@ -92,10 +92,8 @@ class AppUrl {
 
   static Uri updateCommentURL(String noticeId) =>
       Uri.parse('$backendUrl$notice$comment$updateAction$noticeId');
-  static Uri addIdToJoinArrayURL(String userId) =>
-      Uri.parse('$backendUrl$notice$join');
-  static Uri deleteIdToJoinArrayURL(String userId) =>
-      Uri.parse('$backendUrl$notice$unjoin');
+  static Uri addIdToJoinArrayURL() => Uri.parse('$backendUrl$notice$join');
+  static Uri deleteIdToJoinArrayURL() => Uri.parse('$backendUrl$notice$unjoin');
 
   /// [tokenHeaders] store general headers and return token to headers
   static Map<String, String> tokenHeaders(String token) => {
