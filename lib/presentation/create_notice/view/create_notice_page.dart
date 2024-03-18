@@ -166,6 +166,7 @@ class CreateNotice extends StatelessWidget {
                       child: Column(
                     children: [
                       TextFormField(
+                        maxLength: 40,
                         controller: _subjectController,
                         style: AppTextStyle.descriptionBigger,
                         decoration: InputDecoration(
@@ -193,7 +194,7 @@ class CreateNotice extends StatelessWidget {
                         builder: (context, state) {
                           final noticeData = context.select(
                               (UserNoticeDataCubit cubit) => cubit.state);
-                          print(noticeData);
+
                           return MidTextButton(
                               onTap: () => context
                                   .read<PublishNoticeCubit>()

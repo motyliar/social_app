@@ -26,8 +26,7 @@ class SummaryRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            AppLogoButton(),
-            SizedBox(
+            const SizedBox(
               width: kMidEmptySpace,
             ),
             LikeActionButton(

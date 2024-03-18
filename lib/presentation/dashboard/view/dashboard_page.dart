@@ -95,8 +95,12 @@ class DashboardPage extends StatelessWidget {
                           Column(
                             children: List.generate(
                               state.notices.length,
-                              (index) =>
-                                  NoticeCard(notice: state.notices[index]),
+                              (index) => NoticeCard(
+                                notice: state.notices[index],
+                                onTap: () => Navigator.popAndPushNamed(
+                                    context, routeCreateNotice),
+                                userId: user.id,
+                              ),
                             ),
                           ),
                           const Gap(20),
