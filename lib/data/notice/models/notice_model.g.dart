@@ -31,7 +31,7 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       interested: (fields[11] as List?)?.cast<String>(),
       image: fields[12] as String?,
       isActive: fields[13] as bool,
-      loacalization: fields[14] as String?,
+      localization: fields[14] as String?,
     );
   }
 
@@ -68,7 +68,7 @@ class NoticeModelAdapter extends TypeAdapter<NoticeModel> {
       ..writeByte(13)
       ..write(obj.isActive)
       ..writeByte(14)
-      ..write(obj.loacalization);
+      ..write(obj.localization);
   }
 
   @override
@@ -108,7 +108,7 @@ _$NoticeModelImpl _$$NoticeModelImplFromJson(Map<String, dynamic> json) =>
           .toList(),
       image: json['image'] as String?,
       isActive: json['isActive'] as bool,
-      loacalization: json['loacalization'] as String?,
+      localization: json['localization'] as String?,
     );
 
 Map<String, dynamic> _$$NoticeModelImplToJson(_$NoticeModelImpl instance) =>
@@ -127,5 +127,5 @@ Map<String, dynamic> _$$NoticeModelImplToJson(_$NoticeModelImpl instance) =>
       'interested': instance.interested,
       'image': instance.image,
       'isActive': instance.isActive,
-      'loacalization': instance.loacalization,
+      'localization': instance.localization,
     };

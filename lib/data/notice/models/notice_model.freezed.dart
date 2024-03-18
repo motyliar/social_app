@@ -50,7 +50,7 @@ mixin _$NoticeModel {
   @HiveField(13)
   bool get isActive => throw _privateConstructorUsedError;
   @HiveField(14)
-  String? get loacalization => throw _privateConstructorUsedError;
+  String? get localization => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -79,7 +79,7 @@ abstract class $NoticeModelCopyWith<$Res> {
       @HiveField(11) List<String>? interested,
       @HiveField(12) String? image,
       @HiveField(13) bool isActive,
-      @HiveField(14) String? loacalization});
+      @HiveField(14) String? localization});
 
   $ContentModelCopyWith<$Res> get content;
 }
@@ -111,7 +111,7 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
     Object? interested = freezed,
     Object? image = freezed,
     Object? isActive = null,
-    Object? loacalization = freezed,
+    Object? localization = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -170,9 +170,9 @@ class _$NoticeModelCopyWithImpl<$Res, $Val extends NoticeModel>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
-      loacalization: freezed == loacalization
-          ? _value.loacalization
-          : loacalization // ignore: cast_nullable_to_non_nullable
+      localization: freezed == localization
+          ? _value.localization
+          : localization // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -209,7 +209,7 @@ abstract class _$$NoticeModelImplCopyWith<$Res>
       @HiveField(11) List<String>? interested,
       @HiveField(12) String? image,
       @HiveField(13) bool isActive,
-      @HiveField(14) String? loacalization});
+      @HiveField(14) String? localization});
 
   @override
   $ContentModelCopyWith<$Res> get content;
@@ -240,7 +240,7 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
     Object? interested = freezed,
     Object? image = freezed,
     Object? isActive = null,
-    Object? loacalization = freezed,
+    Object? localization = freezed,
   }) {
     return _then(_$NoticeModelImpl(
       id: null == id
@@ -299,9 +299,9 @@ class __$$NoticeModelImplCopyWithImpl<$Res>
           ? _value.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
-      loacalization: freezed == loacalization
-          ? _value.loacalization
-          : loacalization // ignore: cast_nullable_to_non_nullable
+      localization: freezed == localization
+          ? _value.localization
+          : localization // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -325,7 +325,7 @@ class _$NoticeModelImpl extends _NoticeModel {
       @HiveField(11) final List<String>? interested,
       @HiveField(12) this.image,
       @HiveField(13) required this.isActive,
-      @HiveField(14) this.loacalization})
+      @HiveField(14) this.localization})
       : _comments = comments,
         _requests = requests,
         _interested = interested,
@@ -403,11 +403,11 @@ class _$NoticeModelImpl extends _NoticeModel {
   final bool isActive;
   @override
   @HiveField(14)
-  final String? loacalization;
+  final String? localization;
 
   @override
   String toString() {
-    return 'NoticeModel(id: $id, author: $author, authorId: $authorId, category: $category, content: $content, comments: $comments, createdAt: $createdAt, updatedAt: $updatedAt, avatar: $avatar, type: $type, requests: $requests, interested: $interested, image: $image, isActive: $isActive, loacalization: $loacalization)';
+    return 'NoticeModel(id: $id, author: $author, authorId: $authorId, category: $category, content: $content, comments: $comments, createdAt: $createdAt, updatedAt: $updatedAt, avatar: $avatar, type: $type, requests: $requests, interested: $interested, image: $image, isActive: $isActive, localization: $localization)';
   }
 
   @override
@@ -435,8 +435,8 @@ class _$NoticeModelImpl extends _NoticeModel {
             (identical(other.image, image) || other.image == image) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
-            (identical(other.loacalization, loacalization) ||
-                other.loacalization == loacalization));
+            (identical(other.localization, localization) ||
+                other.localization == localization));
   }
 
   @JsonKey(ignore: true)
@@ -457,7 +457,7 @@ class _$NoticeModelImpl extends _NoticeModel {
       const DeepCollectionEquality().hash(_interested),
       image,
       isActive,
-      loacalization);
+      localization);
 
   @JsonKey(ignore: true)
   @override
@@ -489,7 +489,7 @@ abstract class _NoticeModel extends NoticeModel {
       @HiveField(11) final List<String>? interested,
       @HiveField(12) final String? image,
       @HiveField(13) required final bool isActive,
-      @HiveField(14) final String? loacalization}) = _$NoticeModelImpl;
+      @HiveField(14) final String? localization}) = _$NoticeModelImpl;
   const _NoticeModel._() : super._();
 
   factory _NoticeModel.fromJson(Map<String, dynamic> json) =
@@ -540,7 +540,7 @@ abstract class _NoticeModel extends NoticeModel {
   bool get isActive;
   @override
   @HiveField(14)
-  String? get loacalization;
+  String? get localization;
   @override
   @JsonKey(ignore: true)
   _$$NoticeModelImplCopyWith<_$NoticeModelImpl> get copyWith =>
