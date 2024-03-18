@@ -11,6 +11,7 @@ import 'package:climbapp/data/notice/helpers/response_converter.dart';
 import 'package:climbapp/data/notice/helpers/status_verifier.dart';
 import 'package:climbapp/data/notice/models/notice_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 const String _dataGetter = 'message';
 const String _statusGetter = 'status';
@@ -26,6 +27,7 @@ abstract class NoticeRemoteDataSources {
   Future<ResponseStatus> addCommentToNotice(CreateNoticeCommentsParams params);
   Future<ResponseStatus> deleteSingleComment(GetNoticeParams params);
   Future<ResponseStatus> updateSingleComment(UpdateCommentParams params);
+  Future<void> updateJoinArray(UpdateRequestJoinParams params);
 }
 
 class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
@@ -144,6 +146,17 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
       return response;
     } on ServerException catch (e) {
       throw ServerException(e.message);
+    }
+  }
+
+  @override
+  Future<void> updateJoinArray(UpdateRequestJoinParams params) async {
+    try {} on ServerException catch (e) {
+      debugPrint(e.message);
+      throw ServerException.error();
+    }
+    cacth(e) {
+      throw ServerException(e.toString());
     }
   }
 }

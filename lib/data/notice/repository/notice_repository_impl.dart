@@ -8,6 +8,7 @@ import 'package:climbapp/data/notice/models/notice_model.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/repository/notice_repository.dart';
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 class NoticeRepositoryImpl extends NoticeRepository {
   NoticeRepositoryImpl(
@@ -125,6 +126,21 @@ class NoticeRepositoryImpl extends NoticeRepository {
               .then((response) => Right(response)));
     } on ServerException catch (e) {
       return Left(ServerException(e.message));
+    }
+  }
+
+  @override
+  EitherFunc<void> updateUserIdToJoin(UpdateRequestJoinParams params) async {
+    try {
+      return await Utils().performNetworkOperation(() async =>
+          await _noticeRemoteDataSources
+              .updateJoinArray(params)
+              .then((value) => Right(value)));
+    } on ServerException catch (e) {
+      return Left(ServerException.message(e.message));
+    } catch (e) {
+      debugPrint(e.toString());
+      return Left(ServerException.message(e.toString()));
     }
   }
 }
