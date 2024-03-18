@@ -15,4 +15,5 @@ abstract class NoticeRepository {
       CreateNoticeCommentsParams params);
   EitherFunc<ResponseStatus> deleteSingleComment(GetNoticeParams params);
   EitherFunc<ResponseStatus> updateSingleComment(UpdateCommentParams params);
+  EitherFunc<void> updateUserIdToJoin(UpdateRequestJoinParams params);
 }
