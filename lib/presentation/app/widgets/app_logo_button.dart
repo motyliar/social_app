@@ -11,6 +11,7 @@ class AppLogoButton extends StatelessWidget {
     this.backgroundWidth = _backgroundWidth,
     this.logoURL = ImagesURL.appLogoSmallM,
     this.backgroundMargin,
+    this.isJoin = false,
     super.key,
   });
 
@@ -18,18 +19,22 @@ class AppLogoButton extends StatelessWidget {
   final double backgroundWidth;
   final String logoURL;
   final EdgeInsetsGeometry? backgroundMargin;
+  final bool isJoin;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        MidTextButton(
-            margin: backgroundMargin ?? const EdgeInsets.all(0),
-            buttonHeight: backgroundHeight,
-            buttonWidth: backgroundWidth,
-            textLabel: ''),
-        Image.network(logoURL)
-      ],
+    return Opacity(
+      opacity: isJoin ? 0.2 : 1,
+      child: Stack(
+        children: [
+          MidTextButton(
+              margin: backgroundMargin ?? const EdgeInsets.all(0),
+              buttonHeight: backgroundHeight,
+              buttonWidth: backgroundWidth,
+              textLabel: ''),
+          Image.network(logoURL)
+        ],
+      ),
     );
   }
 }
