@@ -1,3 +1,4 @@
+import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,9 @@ class LikeActionButton extends StatelessWidget {
     required this.onTap,
     super.key,
     this.likeIcon = Icons.mood,
-    this.activeColor = Colors.yellow,
+    this.activeColor = ColorPallete.mainDecorationColor,
     this.inActiveColor = Colors.grey,
-    this.iconSize = 20,
+    this.iconSize = 30,
   });
 
   final VoidCallback onTap;

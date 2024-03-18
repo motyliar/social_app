@@ -14,3 +14,4 @@ export 'notice/like_action_button.dart';
 export 'right_on_screen_menu.dart';
 export 'slidable_navigator.dart';
 export 'horizontal_navigator_button.dart';
+export 'notice/notice_card.dart';
