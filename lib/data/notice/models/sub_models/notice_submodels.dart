@@ -22,6 +22,8 @@ class ContentModel with _$ContentModel {
         id: id,
         title: title,
         content: content,
+        when: when ?? '',
+        price: price,
       );
 }
 
