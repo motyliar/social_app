@@ -95,50 +95,8 @@ class DashboardPage extends StatelessWidget {
                           Column(
                             children: List.generate(
                               state.notices.length,
-                              (index) => GeneralCard(children: [
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                        radius: 30,
-                                        backgroundImage: NetworkImage(
-                                            state.notices[index].avatar)),
-                                    Column(
-                                      children: [
-                                        Text(
-                                            state.notices[index].content.title),
-                                        Text(
-                                            state.notices[index].localization!),
-                                        Text(
-                                            state.notices[index].content.when ??
-                                                ''),
-                                      ],
-                                    ),
-                                    CircleAvatar(
-                                      radius: 5,
-                                      backgroundColor:
-                                          state.notices[index].isActive
-                                              ? ColorPallete.greenActiveColor
-                                              : ColorPallete
-                                                  .greyShadowColorOpacityMax,
-                                    ),
-                                  ],
-                                ),
-                                const Divider(),
-                                Text(state.notices[index].content.content),
-                                const GradientDivider(),
-                                Row(
-                                  children: [
-                                    const AppLogoButton(),
-                                    LikeActionButton(
-                                      onTap: () => Utils.giveLike(
-                                        context,
-                                        context.select((LikeIconCubit cubit) =>
-                                            cubit.state),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ]),
+                              (index) =>
+                                  NoticeCard(notice: state.notices[index]),
                             ),
                           ),
                           const Gap(20),
