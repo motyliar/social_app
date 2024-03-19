@@ -1,15 +1,15 @@
-import 'package:climbapp/core/constans/app_sizing_const.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
+import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
-import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:climbapp/presentation/dashboard/business/logic/notice_logic.dart';
+import 'package:climbapp/presentation/dashboard/widgets/notice/animated_comments.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/like_action_button.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/smile_animation.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../../core/theme/themes_export.dart';
 import '../../../../core/utils/helpers/helpers.dart';
@@ -91,9 +91,19 @@ class NoticeCard extends StatelessWidget {
                           Radius.circular(50),
                         ),
                       ),
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(notice.avatar),
+                      child: GestureDetector(
+                        onTap: () => Navigator.popAndPushNamed(
+                            context, routeProfilePage,
+                            arguments: FriendsEntity(
+                                id: notice.authorId,
+                                userName: '',
+                                profileAvatar: '',
+                                isActive: false,
+                                lastLoggedIn: '')),
+                        child: CircleAvatar(
+                          radius: 30,
+                          backgroundImage: NetworkImage(notice.avatar),
+                        ),
                       ),
                     ),
                     const Gap(kMinEmptySpace),
@@ -140,10 +150,36 @@ class NoticeCard extends StatelessWidget {
                                     context, const SmileAnimation());
                               }),
                     const Gap(kMinEmptySpace),
-                    const Icon(
-                      Icons.maps_ugc,
-                      color: ColorPallete.mainDecorationColor,
-                      size: 30,
+                    GestureDetector(
+                      onTap: () => showModalBottomSheet(
+                        context: context,
+                        builder: (context) => Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 250,
+                          decoration: const BoxDecoration(
+                            color: ColorPallete.whiteOpacity60,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(kMinBorderRadius),
+                              topRight: Radius.circular(kMinBorderRadius),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              const Text('Add comment'),
+                              const Divider(),
+                              const Text('Here is your space for comment'),
+                              TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('back'))
+                            ],
+                          ),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.maps_ugc,
+                        color: ColorPallete.mainDecorationColor,
+                        size: 30,
+                      ),
                     ),
                   ],
                 ),
@@ -162,9 +198,13 @@ class NoticeCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                TextButton(
-                    onPressed: () {},
-                    child: const Text(
+                AnimatedComment(
+                    open: Container(
+                      width: MediaQuery.of(context).size.width * 0.75,
+                      color: Colors.red,
+                      child: const Text(loremIpsum),
+                    ),
+                    close: const Text(
                       'Comments: 20',
                       style: AppTextStyle.descriptionMid,
                     )),
