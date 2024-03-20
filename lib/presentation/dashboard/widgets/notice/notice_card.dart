@@ -177,21 +177,17 @@ class NoticeCard extends StatelessWidget {
               ],
             ),
             const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                AnimatedComment(
-                    open: Container(
-                      width: MediaQuery.of(context).size.width * 0.75,
-                      color: Colors.red,
-                      child: const Text(loremIpsum),
-                    ),
-                    close: const Text(
-                      'Comments: 20',
-                      style: AppTextStyle.descriptionMid,
-                    )),
-              ],
-            ),
+            AnimatedComment(
+                comments: notice.comments ?? [],
+                open: Container(
+                  width: MediaQuery.of(context).size.width * 0.75,
+                  color: Colors.red,
+                  child: const Text(loremIpsum),
+                ),
+                close: Text(
+                  'Comments: ${notice.comments?.length ?? 0}',
+                  style: AppTextStyle.descriptionMid,
+                )),
           ]),
     );
   }
