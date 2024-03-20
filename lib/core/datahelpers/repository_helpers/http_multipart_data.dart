@@ -1,5 +1,4 @@
 import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
-import 'package:climbapp/core/datahelpers/params/repository_params.dart';
 import 'package:http/http.dart' as http;
 
 abstract class HttpMultiPartData {

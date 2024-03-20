@@ -1,5 +1,4 @@
 import 'package:climbapp/core/datahelpers/params/repository_params.dart';
-import 'package:climbapp/domains/user/entities/user_entity.dart';
 
 class UpdatingUserParams extends RepositoryParams {
   const UpdatingUserParams({required this.update, super.url});

@@ -1,7 +1,7 @@
 import 'package:climbapp/core/constans/router_constans.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/routers/app_router.dart';
-import 'package:climbapp/core/services/get_it/pre_app_container.dart';
+
 import 'package:climbapp/core/services/get_it/sign_in_container.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/presentation/app/business/bloc/network/network_bloc.dart';

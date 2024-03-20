@@ -26,9 +26,8 @@ const double _floatingButtonWidth = 170;
 // zaimplementować paginację
 // filtrowanie
 // osobne ogłoszenie
-// dodawanie join/requestów
-// dodawanie komentarzy
-// dodawanie lików do ogłoszenia
+
+// dodawanie komentarzy : otwieranie okna z komentarzami oraz dodawanie nowych
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

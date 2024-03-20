@@ -75,7 +75,7 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           StatusUserAvatar(
                             isActive: state.user.active.isActive,
-                            avatar: user.profileAvatar,
+                            avatar: state.user.profileAvatar!,
                           ),
                           Column(
                             children: [

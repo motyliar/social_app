@@ -151,30 +151,7 @@ class NoticeCard extends StatelessWidget {
                               }),
                     const Gap(kMinEmptySpace),
                     GestureDetector(
-                      onTap: () => showModalBottomSheet(
-                        context: context,
-                        builder: (context) => Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 250,
-                          decoration: const BoxDecoration(
-                            color: ColorPallete.whiteOpacity60,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(kMinBorderRadius),
-                              topRight: Radius.circular(kMinBorderRadius),
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              const Text('Add comment'),
-                              const Divider(),
-                              const Text('Here is your space for comment'),
-                              TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text('back'))
-                            ],
-                          ),
-                        ),
-                      ),
+                      onTap: () => NoticeLogic.addCommentSheet(context),
                       child: const Icon(
                         Icons.maps_ugc,
                         color: ColorPallete.mainDecorationColor,

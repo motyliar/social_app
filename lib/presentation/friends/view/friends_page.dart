@@ -11,7 +11,6 @@ import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.
 import 'package:climbapp/presentation/friends/business/cubit/cubit/search_option_cubit.dart';
 import 'package:climbapp/presentation/friends/business/cubit/search_visible/search_visible_cubit.dart';
 import 'package:climbapp/presentation/friends/widgets/widgets.dart';
-import 'package:climbapp/presentation/profile/view/profile_page.dart';
 
 import 'package:climbapp/presentation/profile/widgets/widgets.dart';
 import 'package:climbapp/presentation/sign_in/widgets/text_form_field.dart';

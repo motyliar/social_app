@@ -7,7 +7,7 @@ import 'package:climbapp/presentation/message/business/bloc/message/message_acti
 import 'package:climbapp/presentation/message/business/cubit/checkbox/message_checkbox_cubit.dart';
 import 'package:climbapp/presentation/message/business/cubit/delete/message_delete_cubit.dart';
 import 'package:climbapp/presentation/message/business/logic/message_logic.dart';
-import 'package:climbapp/presentation/message/widgets/navigation_state.dart';
+
 import 'package:flutter/material.dart';
 
 class DeleteActionButtons extends StatelessWidget {

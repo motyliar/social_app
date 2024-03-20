@@ -14,11 +14,6 @@ abstract class MyCustomPainter extends CustomPainter {
 class CirclePainter extends MyCustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    List<Offset> positions = [
-      Offset(size.width / 2, 50),
-      Offset(size.width * 0.25, 30),
-      Offset(size.width * 0.75, 15)
-    ];
     final generate = getOffsets();
     for (var position in generate) {
       canvas.drawCircle(
