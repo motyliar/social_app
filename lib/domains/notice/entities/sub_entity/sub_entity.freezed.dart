@@ -237,6 +237,7 @@ mixin _$CommentsEntity {
   String get userId => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   int get likes => throw _privateConstructorUsedError;
+  String get avatar => throw _privateConstructorUsedError;
   String get createdAt => throw _privateConstructorUsedError;
   String get updatedAt => throw _privateConstructorUsedError;
 
@@ -258,6 +259,7 @@ abstract class $CommentsEntityCopyWith<$Res> {
       String userId,
       String content,
       int likes,
+      String avatar,
       String createdAt,
       String updatedAt});
 }
@@ -280,6 +282,7 @@ class _$CommentsEntityCopyWithImpl<$Res, $Val extends CommentsEntity>
     Object? userId = null,
     Object? content = null,
     Object? likes = null,
+    Object? avatar = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -304,6 +307,10 @@ class _$CommentsEntityCopyWithImpl<$Res, $Val extends CommentsEntity>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -330,6 +337,7 @@ abstract class _$$CommentsEntityImplCopyWith<$Res>
       String userId,
       String content,
       int likes,
+      String avatar,
       String createdAt,
       String updatedAt});
 }
@@ -350,6 +358,7 @@ class __$$CommentsEntityImplCopyWithImpl<$Res>
     Object? userId = null,
     Object? content = null,
     Object? likes = null,
+    Object? avatar = null,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -374,6 +383,10 @@ class __$$CommentsEntityImplCopyWithImpl<$Res>
           ? _value.likes
           : likes // ignore: cast_nullable_to_non_nullable
               as int,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -395,6 +408,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
       required this.userId,
       required this.content,
       required this.likes,
+      required this.avatar,
       required this.createdAt,
       required this.updatedAt});
 
@@ -412,13 +426,15 @@ class _$CommentsEntityImpl implements _CommentsEntity {
   @override
   final int likes;
   @override
+  final String avatar;
+  @override
   final String createdAt;
   @override
   final String updatedAt;
 
   @override
   String toString() {
-    return 'CommentsEntity(id: $id, user: $user, userId: $userId, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'CommentsEntity(id: $id, user: $user, userId: $userId, content: $content, likes: $likes, avatar: $avatar, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -431,6 +447,7 @@ class _$CommentsEntityImpl implements _CommentsEntity {
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.likes, likes) || other.likes == likes) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -439,8 +456,8 @@ class _$CommentsEntityImpl implements _CommentsEntity {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, user, userId, content, likes, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, user, userId, content, likes,
+      avatar, createdAt, updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -464,6 +481,7 @@ abstract class _CommentsEntity implements CommentsEntity {
       required final String userId,
       required final String content,
       required final int likes,
+      required final String avatar,
       required final String createdAt,
       required final String updatedAt}) = _$CommentsEntityImpl;
 
@@ -480,6 +498,8 @@ abstract class _CommentsEntity implements CommentsEntity {
   String get content;
   @override
   int get likes;
+  @override
+  String get avatar;
   @override
   String get createdAt;
   @override

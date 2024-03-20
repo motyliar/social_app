@@ -23,6 +23,7 @@ class CommentsEntity with _$CommentsEntity {
     required String userId,
     required String content,
     required int likes,
+    required String avatar,
     required String createdAt,
     required String updatedAt,
   }) = _CommentsEntity;

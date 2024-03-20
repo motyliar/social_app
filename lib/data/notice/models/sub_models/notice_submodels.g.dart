@@ -70,13 +70,14 @@ class CommentsModelAdapter extends TypeAdapter<CommentsModel> {
       likes: fields[4] as int,
       createdAt: fields[5] as String,
       updatedAt: fields[6] as String,
+      avatar: fields[7] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, CommentsModel obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -90,7 +91,9 @@ class CommentsModelAdapter extends TypeAdapter<CommentsModel> {
       ..writeByte(5)
       ..write(obj.createdAt)
       ..writeByte(6)
-      ..write(obj.updatedAt);
+      ..write(obj.updatedAt)
+      ..writeByte(7)
+      ..write(obj.avatar);
   }
 
   @override
@@ -135,6 +138,7 @@ _$CommentsModelImpl _$$CommentsModelImplFromJson(Map<String, dynamic> json) =>
       likes: json['likes'] as int,
       createdAt: json['createdAt'] as String,
       updatedAt: json['updatedAt'] as String,
+      avatar: json['avatar'] as String,
     );
 
 Map<String, dynamic> _$$CommentsModelImplToJson(_$CommentsModelImpl instance) =>
@@ -146,4 +150,5 @@ Map<String, dynamic> _$$CommentsModelImplToJson(_$CommentsModelImpl instance) =>
       'likes': instance.likes,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
+      'avatar': instance.avatar,
     };

@@ -275,6 +275,8 @@ mixin _$CommentsModel {
   String get createdAt => throw _privateConstructorUsedError;
   @HiveField(6)
   String get updatedAt => throw _privateConstructorUsedError;
+  @HiveField(7)
+  String get avatar => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -295,7 +297,8 @@ abstract class $CommentsModelCopyWith<$Res> {
       @HiveField(3) String content,
       @HiveField(4) int likes,
       @HiveField(5) String createdAt,
-      @HiveField(6) String updatedAt});
+      @HiveField(6) String updatedAt,
+      @HiveField(7) String avatar});
 }
 
 /// @nodoc
@@ -318,6 +321,7 @@ class _$CommentsModelCopyWithImpl<$Res, $Val extends CommentsModel>
     Object? likes = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatar = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -348,6 +352,10 @@ class _$CommentsModelCopyWithImpl<$Res, $Val extends CommentsModel>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -367,7 +375,8 @@ abstract class _$$CommentsModelImplCopyWith<$Res>
       @HiveField(3) String content,
       @HiveField(4) int likes,
       @HiveField(5) String createdAt,
-      @HiveField(6) String updatedAt});
+      @HiveField(6) String updatedAt,
+      @HiveField(7) String avatar});
 }
 
 /// @nodoc
@@ -388,6 +397,7 @@ class __$$CommentsModelImplCopyWithImpl<$Res>
     Object? likes = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? avatar = null,
   }) {
     return _then(_$CommentsModelImpl(
       id: null == id
@@ -418,6 +428,10 @@ class __$$CommentsModelImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as String,
+      avatar: null == avatar
+          ? _value.avatar
+          : avatar // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -432,7 +446,8 @@ class _$CommentsModelImpl extends _CommentsModel {
       @HiveField(3) required this.content,
       @HiveField(4) required this.likes,
       @HiveField(5) required this.createdAt,
-      @HiveField(6) required this.updatedAt})
+      @HiveField(6) required this.updatedAt,
+      @HiveField(7) required this.avatar})
       : super._();
 
   factory _$CommentsModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -460,10 +475,13 @@ class _$CommentsModelImpl extends _CommentsModel {
   @override
   @HiveField(6)
   final String updatedAt;
+  @override
+  @HiveField(7)
+  final String avatar;
 
   @override
   String toString() {
-    return 'CommentsModel(id: $id, user: $user, userId: $userId, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'CommentsModel(id: $id, user: $user, userId: $userId, content: $content, likes: $likes, createdAt: $createdAt, updatedAt: $updatedAt, avatar: $avatar)';
   }
 
   @override
@@ -479,13 +497,14 @@ class _$CommentsModelImpl extends _CommentsModel {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.avatar, avatar) || other.avatar == avatar));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, user, userId, content, likes, createdAt, updatedAt);
+  int get hashCode => Object.hash(runtimeType, id, user, userId, content, likes,
+      createdAt, updatedAt, avatar);
 
   @JsonKey(ignore: true)
   @override
@@ -509,7 +528,8 @@ abstract class _CommentsModel extends CommentsModel {
       @HiveField(3) required final String content,
       @HiveField(4) required final int likes,
       @HiveField(5) required final String createdAt,
-      @HiveField(6) required final String updatedAt}) = _$CommentsModelImpl;
+      @HiveField(6) required final String updatedAt,
+      @HiveField(7) required final String avatar}) = _$CommentsModelImpl;
   const _CommentsModel._() : super._();
 
   factory _CommentsModel.fromJson(Map<String, dynamic> json) =
@@ -537,6 +557,9 @@ abstract class _CommentsModel extends CommentsModel {
   @override
   @HiveField(6)
   String get updatedAt;
+  @override
+  @HiveField(7)
+  String get avatar;
   @override
   @JsonKey(ignore: true)
   _$$CommentsModelImplCopyWith<_$CommentsModelImpl> get copyWith =>

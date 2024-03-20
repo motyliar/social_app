@@ -39,6 +39,7 @@ class CommentsModel with _$CommentsModel {
     @HiveField(4) required int likes,
     @HiveField(5) required String createdAt,
     @HiveField(6) required String updatedAt,
+    @HiveField(7) required String avatar,
   }) = _CommentsModel;
   factory CommentsModel.fromJson(Map<String, dynamic> json) =>
       _$CommentsModelFromJson(json);
@@ -49,6 +50,7 @@ class CommentsModel with _$CommentsModel {
         userId: userId,
         content: content,
         likes: likes,
+        avatar: avatar,
         createdAt: createdAt,
         updatedAt: updatedAt,
       );
