@@ -5,7 +5,7 @@ import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/update_user_id_join_arrays_usecase.dart';
-import 'package:dartz/dartz.dart';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
