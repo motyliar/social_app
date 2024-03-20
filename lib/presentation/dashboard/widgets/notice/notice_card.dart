@@ -33,6 +33,7 @@ class NoticeCard extends StatelessWidget {
     required this.smileOnTap,
     required this.smileOnTapBack,
     required this.userId,
+    required this.noticeIndex,
     this.style = AppTextStyle.descriptionMid,
     this.localizationStyle = AppTextStyle.descriptionMid,
     this.dataStyle = AppTextStyle.descriptionMid,
@@ -48,6 +49,7 @@ class NoticeCard extends StatelessWidget {
   final VoidCallback smileOnTap;
   final VoidCallback smileOnTapBack;
   final String userId;
+  final int noticeIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -197,6 +199,8 @@ class NoticeCard extends StatelessWidget {
             ),
             const Divider(),
             AnimatedComment(
+                noticeIndex: noticeIndex,
+                noticeId: notice.id,
                 userId: userId,
                 comments: notice.comments ?? [],
                 open: Container(

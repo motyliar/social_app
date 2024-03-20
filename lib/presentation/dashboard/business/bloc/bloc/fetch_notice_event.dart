@@ -29,3 +29,12 @@ class DeleteNoticeJoinID extends FetchNoticeEvent {
   @override
   List<Object> get props => [params];
 }
+
+class DeleteComment extends FetchNoticeEvent {
+  const DeleteComment({required this.index, required this.commentIndex});
+  final int index;
+  final int commentIndex;
+
+  @override
+  List<Object> get props => [index];
+}

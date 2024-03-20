@@ -97,6 +97,7 @@ class DashboardPage extends StatelessWidget {
                             children: List.generate(
                               state.notices.length,
                               (index) => NoticeCard(
+                                noticeIndex: index,
                                 notice: state.notices[index],
                                 onTap: () => Navigator.popAndPushNamed(
                                     context, routeCreateNotice),

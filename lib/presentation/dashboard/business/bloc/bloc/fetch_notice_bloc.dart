@@ -5,7 +5,9 @@ import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/update_user_id_join_arrays_usecase.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 
 part 'fetch_notice_event.dart';
 part 'fetch_notice_state.dart';
@@ -22,6 +24,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
     on<FetchNoticesFromDB>(_fetchNotice);
     on<UpdateNoticeJoinArrays>(_addUpdateArrays);
     on<DeleteNoticeJoinID>(_deleteID);
+    on<DeleteComment>(_deleteComment);
   }
 
   Future<void> _fetchNotice(
@@ -86,5 +89,20 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
     return await _updateArrays
         .execute(params)
         .then((response) => response.fold((l) => l, (r) => r));
+  }
+
+  void _deleteComment(DeleteComment event, Emitter<FetchNoticeState> emit) {
+    emit(FetchNoticeReloading(notices: state.notices));
+    try {
+      final notices = state.notices;
+      notices[event.index].comments!.removeAt(event.commentIndex);
+      emit(
+        state.copyWith(
+          notices: List.from(notices),
+        ),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
