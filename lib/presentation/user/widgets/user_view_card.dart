@@ -10,6 +10,7 @@ class GeneralCard extends StatelessWidget {
     this.margin,
     this.padding,
     this.color,
+    this.width,
     super.key,
   });
   final List<Widget> children;
@@ -17,11 +18,12 @@ class GeneralCard extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsetsGeometry? padding;
   final Color? color;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return ContainerTemplate(
-      width: MediaQuery.of(context).size.width,
+      width: width ?? MediaQuery.of(context).size.width,
       color: color ?? ColorPallete.whiteOpacity80,
       borderRadius: kMinBorderRadius,
       margin: margin ??
