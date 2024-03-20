@@ -17,6 +17,7 @@ class NoticeLogic {
     BuildContext context,
     TextEditingController controller,
     NoticeEntity notice,
+    VoidCallback reLoad,
   ) {
     final l10n = context.l10n;
     return showModalBottomSheet(
@@ -27,6 +28,10 @@ class NoticeLogic {
         controller: controller,
         notice: notice,
       ),
-    ).whenComplete(() => controller.clear());
+    ).whenComplete(() => {controller.clear(), reLoad()});
+  }
+
+  static bool checkIsUserComment(String commentId, String userId) {
+    return commentId == userId;
   }
 }

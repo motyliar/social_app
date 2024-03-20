@@ -1,14 +1,17 @@
 import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
+import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/business/logic/notice_logic.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/animated_comments.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/like_action_button.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/smile_animation.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/theme/themes_export.dart';
@@ -154,14 +157,30 @@ class NoticeCard extends StatelessWidget {
                                     context, const SmileAnimation());
                               }),
                     const Gap(kMinEmptySpace),
-                    GestureDetector(
-                      onTap: () => NoticeLogic.addCommentSheet(
-                          context, _commentsController, notice),
-                      child: const Icon(
-                        Icons.maps_ugc,
-                        color: ColorPallete.mainDecorationColor,
-                        size: 30,
-                      ),
+                    BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
+                      builder: (context, state) {
+                        return GestureDetector(
+                          onTap: () async => {
+                            NoticeLogic.addCommentSheet(
+                              context,
+                              _commentsController,
+                              notice,
+                              () => context.read<FetchNoticeBloc>().add(
+                                    FetchNoticesFromDB(
+                                      params: GetNoticeParams(
+                                        url: AppUrl.noticePaginationURL(1, 12),
+                                      ),
+                                    ),
+                                  ),
+                            ),
+                          },
+                          child: const Icon(
+                            Icons.maps_ugc,
+                            color: ColorPallete.mainDecorationColor,
+                            size: 30,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -178,6 +197,7 @@ class NoticeCard extends StatelessWidget {
             ),
             const Divider(),
             AnimatedComment(
+                userId: userId,
                 comments: notice.comments ?? [],
                 open: Container(
                   width: MediaQuery.of(context).size.width * 0.75,
