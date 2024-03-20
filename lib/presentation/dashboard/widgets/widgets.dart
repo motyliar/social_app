@@ -13,3 +13,4 @@ export 'slidable_navigator.dart';
 export 'horizontal_navigator_button.dart';
 export 'notice/notice_card.dart';
 export 'notice/add_comment.dart';
+export 'notice/single_comment.dart';

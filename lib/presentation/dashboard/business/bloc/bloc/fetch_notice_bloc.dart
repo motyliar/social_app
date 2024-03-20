@@ -30,8 +30,9 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
   Future<void> _fetchNotice(
       FetchNoticesFromDB event, Emitter<FetchNoticeState> emit) async {
     try {
-      await _getNoticeData(event.params)
-          .then((data) => emit(state.copyWith(notices: List.from(data))));
+      await _getNoticeData(event.params).then((data) => emit(state.copyWith(
+            notices: List.from(data),
+          )));
     } catch (e) {
       emit(FetchNoticeFailed());
     }

@@ -23,11 +23,16 @@ import '../widgets/widgets.dart';
 const double _floatingButtonWidth = 170;
 
 // todo teraz należy po pobraniu ładnie wyświetlić nasze ogłoszenia
-// zaimplementować paginację
+// Better look of notice Loading
+// Create Single Notice Page with comments
+// User Profile, check fetch and check notice - delete/edit
 // filtrowanie
 // osobne ogłoszenie
 
 // dodawanie komentarzy : otwieranie okna z komentarzami oraz dodawanie nowych
+
+const double _appBarExpandedHeight = 180;
+ScrollController _noticeController = ScrollController();
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -38,8 +43,6 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController scrollController = ScrollController();
-
     final l10n = context.l10n;
     final user = context.select((UserBloc bloc) => bloc.state.user);
     return MultiBlocProvider(
@@ -49,7 +52,7 @@ class DashboardPage extends StatelessWidget {
             ..add(
               FetchNoticesFromDB(
                 params: GetNoticeParams(
-                  url: AppUrl.noticePaginationURL(1, 12),
+                  url: AppUrl.noticePaginationURL(1, 2),
                 ),
               ),
             ),
@@ -60,7 +63,7 @@ class DashboardPage extends StatelessWidget {
                 url: AppUrl.singleNoticeURL("65789782866f56088bd20eac"))),
         ),
         BlocProvider(
-            create: (context) => ScrollVisibleControlCubit(scrollController)),
+            create: (context) => ScrollVisibleControlCubit(_noticeController)),
         BlocProvider(create: (context) => LikeIconCubit()),
       ],
       child: SafeArea(
@@ -68,12 +71,13 @@ class DashboardPage extends StatelessWidget {
           backgroundColor: ColorPallete.scaffoldBackground,
           body: SafeArea(
             child: CustomScrollView(
+              controller: _noticeController,
               slivers: [
                 SliverAppBar(
                   backgroundColor: ColorPallete.scaffoldBackground,
                   automaticallyImplyLeading: false,
                   floating: true,
-                  expandedHeight: 180,
+                  expandedHeight: _appBarExpandedHeight,
                   flexibleSpace: FlexibleSpaceBar(
                     background: DashBoardApp(
                         controller: ScrollController(),
@@ -85,70 +89,90 @@ class DashboardPage extends StatelessWidget {
                   child: SlidableNavigator(),
                 ),
                 SliverToBoxAdapter(
-                  child: BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
-                    builder: (context, state) {
-                      if (state is FetchNoticeLoading) {
-                        return const NoticeLoader();
+                  child: BlocConsumer<ScrollVisibleControlCubit, bool>(
+                    listener: (context, state) {
+                      if (state == true) {
+                        BlocProvider.of<FetchNoticeBloc>(context)
+                            .add(FetchNoticesFromDB(
+                          params: GetNoticeParams(
+                            url: AppUrl.noticePaginationURL(1, 2),
+                          ),
+                        ));
                       }
+                    },
+                    builder: (context, state) {
+                      return BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
+                        builder: (context, state) {
+                          if (state is FetchNoticeLoading) {
+                            return const NoticeLoader();
+                          }
 
-                      return Column(
-                        children: [
-                          Column(
-                            children: List.generate(
-                              state.notices.length,
-                              (index) => NoticeCard(
-                                noticeIndex: index,
-                                notice: state.notices[index],
-                                onTap: () => Navigator.popAndPushNamed(
-                                    context, routeCreateNotice),
-                                logoOnTap: () => context
-                                    .read<FetchNoticeBloc>()
-                                    .add(UpdateNoticeJoinArrays(
-                                        params: UpdateRequestJoinParams(
-                                            userId: user.id,
-                                            noticeId: state.notices[index].id,
-                                            direction: Direction.request,
-                                            url: AppUrl.addIdToJoinArrayURL()),
-                                        index: index)),
-                                logoOnTapBack: () => context
-                                    .read<FetchNoticeBloc>()
-                                    .add(DeleteNoticeJoinID(
-                                        params: UpdateRequestJoinParams(
-                                            userId: user.id,
-                                            noticeId: state.notices[index].id,
-                                            direction: Direction.request,
-                                            url: AppUrl
-                                                .deleteIdToJoinArrayURL()),
-                                        index: index)),
-                                userId: user.id,
-                                smileOnTap: () => context
-                                    .read<FetchNoticeBloc>()
-                                    .add(UpdateNoticeJoinArrays(
-                                        params: UpdateRequestJoinParams(
-                                            userId: user.id,
-                                            noticeId: state.notices[index].id,
-                                            direction: Direction.interested,
-                                            url: AppUrl.addIdToJoinArrayURL()),
-                                        index: index)),
-                                smileOnTapBack: () => context
-                                    .read<FetchNoticeBloc>()
-                                    .add(DeleteNoticeJoinID(
-                                        params: UpdateRequestJoinParams(
-                                            userId: user.id,
-                                            noticeId: state.notices[index].id,
-                                            direction: Direction.interested,
-                                            url: AppUrl
-                                                .deleteIdToJoinArrayURL()),
-                                        index: index)),
+                          return Column(
+                            children: [
+                              Column(
+                                children: List.generate(
+                                  state.notices.length,
+                                  (index) => NoticeCard(
+                                    noticeIndex: index,
+                                    notice: state.notices[index],
+                                    onTap: () => Navigator.popAndPushNamed(
+                                        context, routeCreateNotice),
+                                    logoOnTap: () => context
+                                        .read<FetchNoticeBloc>()
+                                        .add(UpdateNoticeJoinArrays(
+                                            params: UpdateRequestJoinParams(
+                                                userId: user.id,
+                                                noticeId:
+                                                    state.notices[index].id,
+                                                direction: Direction.request,
+                                                url: AppUrl
+                                                    .addIdToJoinArrayURL()),
+                                            index: index)),
+                                    logoOnTapBack: () => context
+                                        .read<FetchNoticeBloc>()
+                                        .add(DeleteNoticeJoinID(
+                                            params: UpdateRequestJoinParams(
+                                                userId: user.id,
+                                                noticeId:
+                                                    state.notices[index].id,
+                                                direction: Direction.request,
+                                                url: AppUrl
+                                                    .deleteIdToJoinArrayURL()),
+                                            index: index)),
+                                    userId: user.id,
+                                    smileOnTap: () => context
+                                        .read<FetchNoticeBloc>()
+                                        .add(UpdateNoticeJoinArrays(
+                                            params: UpdateRequestJoinParams(
+                                                userId: user.id,
+                                                noticeId:
+                                                    state.notices[index].id,
+                                                direction: Direction.interested,
+                                                url: AppUrl
+                                                    .addIdToJoinArrayURL()),
+                                            index: index)),
+                                    smileOnTapBack: () => context
+                                        .read<FetchNoticeBloc>()
+                                        .add(DeleteNoticeJoinID(
+                                            params: UpdateRequestJoinParams(
+                                                userId: user.id,
+                                                noticeId:
+                                                    state.notices[index].id,
+                                                direction: Direction.interested,
+                                                url: AppUrl
+                                                    .deleteIdToJoinArrayURL()),
+                                            index: index)),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          const Gap(20),
-                          const GradientDivider(
-                            dividerHeight: kMidDividerHeight,
-                          ),
-                          const Gap(20),
-                        ],
+                              const Gap(20),
+                              const GradientDivider(
+                                dividerHeight: kMidDividerHeight,
+                              ),
+                              const Gap(20),
+                            ],
+                          );
+                        },
                       );
                     },
                   ),

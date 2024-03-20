@@ -4,15 +4,15 @@ import 'package:flutter/widgets.dart';
 
 class ScrollVisibleControlCubit extends Cubit<bool> {
   final ScrollController controller;
-  ScrollVisibleControlCubit(this.controller) : super(true) {
+  ScrollVisibleControlCubit(this.controller) : super(false) {
     controller.addListener(_scrollListener);
   }
 
   void _scrollListener() {
-    if (controller.position.userScrollDirection == ScrollDirection.reverse) {
-      emit(false);
-    } else {
+    if (controller.position.pixels == controller.position.maxScrollExtent) {
       emit(true);
+    } else {
+      emit(false);
     }
   }
 
