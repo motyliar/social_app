@@ -16,7 +16,10 @@ import '../../../../core/utils/helpers/helpers.dart';
 import '../../../app/widgets/app_widgets.dart';
 
 /// todo
-/// zaimplementować na serwerze i w karcie dodawanie like i join
+
+/// zrobienie funkcji która po dacie będzie rozpoznwać czy jest to data dzisiejsza
+
+TextEditingController _commentsController = TextEditingController();
 
 class NoticeCard extends StatelessWidget {
   const NoticeCard({
@@ -119,6 +122,7 @@ class NoticeCard extends StatelessWidget {
                           style: localizationStyle,
                         ),
                         Text(
+                          //todo create today function
                           notice.content.when ?? '',
                           style: dataStyle,
                         ),
@@ -151,7 +155,8 @@ class NoticeCard extends StatelessWidget {
                               }),
                     const Gap(kMinEmptySpace),
                     GestureDetector(
-                      onTap: () => NoticeLogic.addCommentSheet(context),
+                      onTap: () => NoticeLogic.addCommentSheet(
+                          context, _commentsController, notice),
                       child: const Icon(
                         Icons.maps_ugc,
                         color: ColorPallete.mainDecorationColor,

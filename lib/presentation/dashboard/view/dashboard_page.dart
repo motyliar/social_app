@@ -160,7 +160,7 @@ class DashboardPage extends StatelessWidget {
           floatingActionButton: MidTextButton(
             backgroundGradient: pinkToBlueRoundGradient,
             textLabel: l10n.floatingText,
-            textStyle: AppTextStyle.headersBigger,
+            textStyle: AppTextStyle.headersBig,
             buttonWidth: _floatingButtonWidth,
             onTap: () => Navigator.popAndPushNamed(context, routeCreateNotice),
           ),

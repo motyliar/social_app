@@ -12,7 +12,7 @@ List<DropdownMenuItem> generateMenu() {
       value: category,
       child: Text(
         category.name.capitalize(),
-        style: AppTextStyle.descriptionBigger,
+        style: AppTextStyle.descriptionBig,
       ),
     ));
   }

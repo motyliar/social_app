@@ -20,7 +20,7 @@ class TopLabels extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(bigLabelText, style: AppTextStyle.headersBig),
+            Text(bigLabelText, style: AppTextStyle.headersBigLabel),
             Text(descriptionLabelText, style: AppTextStyle.descriptionBig),
           ],
         ));

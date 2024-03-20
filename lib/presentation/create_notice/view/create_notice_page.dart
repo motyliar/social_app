@@ -124,7 +124,7 @@ class CreateNotice extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.4,
                         child: TextFormField(
                           controller: _localizationController,
-                          style: AppTextStyle.descriptionBigger,
+                          style: AppTextStyle.descriptionBig,
                           decoration: InputDecoration(
                               hintText: l10n.questionWhere,
                               hintStyle: AppTextStyle.descriptionMid,
@@ -167,7 +167,7 @@ class CreateNotice extends StatelessWidget {
                       TextFormField(
                         maxLength: 40,
                         controller: _subjectController,
-                        style: AppTextStyle.descriptionBigger,
+                        style: AppTextStyle.descriptionBig,
                         decoration: InputDecoration(
                             hintText: l10n.subjectHint,
                             hintStyle: AppTextStyle.descriptionMid,
@@ -177,7 +177,7 @@ class CreateNotice extends StatelessWidget {
                       TextFormField(
                           minLines: 6,
                           maxLines: 100,
-                          style: AppTextStyle.descriptionBigger,
+                          style: AppTextStyle.descriptionBig,
                           controller: _contentController,
                           decoration: InputDecoration(
                               hintText: l10n.contentHint,

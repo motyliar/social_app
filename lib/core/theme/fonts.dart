@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTextStyle {
-  static final headersBig = GoogleFonts.raleway(
+  static final headersBigLabel = GoogleFonts.raleway(
       textStyle: const TextStyle(
           fontSize: 30, letterSpacing: 1.5, fontWeight: FontWeight.bold));
   static final descriptionBig = GoogleFonts.raleway(
@@ -31,7 +31,7 @@ class AppTextStyle {
       textStyle: const TextStyle(
           fontSize: 18, color: ColorPallete.mainTextColor, letterSpacing: 0.5));
 
-  static const headersBigger = TextStyle(
+  static const headersBig = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 18,
       color: Colors.black,
@@ -46,7 +46,7 @@ class AppTextStyle {
       fontSize: 14,
       color: Colors.black,
       letterSpacing: 0.5);
-  static const descriptionBigger = TextStyle(
+  static const descriptionBigL = TextStyle(
       fontFamily: 'Raleway',
       fontSize: 14,
       color: Colors.black,

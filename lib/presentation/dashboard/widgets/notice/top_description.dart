@@ -78,7 +78,7 @@ class TopDescription extends StatelessWidget {
                         ),
                         Text(
                           notice.category.name,
-                          style: AppTextStyle.descriptionBigger,
+                          style: AppTextStyle.descriptionBig,
                         ),
                       ],
                     ),

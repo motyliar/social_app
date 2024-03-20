@@ -299,8 +299,7 @@ class UserPage extends StatelessWidget {
                                               state.userNotices[index].content
                                                   .title
                                                   .capitalize(),
-                                              style: AppTextStyle
-                                                  .descriptionBigger
+                                              style: AppTextStyle.descriptionBig
                                                   .copyWith(
                                                       fontWeight:
                                                           FontWeight.bold),

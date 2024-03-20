@@ -24,12 +24,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-// todo refactoring do zrobienia dwie strony nowa wiadomosc i odpopowiedz na wiadomosci
-// jak to skonczymy zostały detale w innych działach i można przesyłac
-// todo po wysłaniu wiadomości przejście do home i wyczyszczenie wszystkich contextów
 TextEditingController userController = TextEditingController();
 
-@immutable
+// ignore: must_be_immutable
 class CreateNewMessage extends StatelessWidget {
   CreateNewMessage({super.key, this.message, this.friend});
   static Route route({required FriendsEntity friend}) => MaterialPageRoute(
