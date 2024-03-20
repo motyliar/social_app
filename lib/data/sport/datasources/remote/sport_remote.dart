@@ -1,7 +1,6 @@
 import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_get_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
-import 'package:climbapp/core/datahelpers/repository_helpers/http_put_data_hanlder.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/data/sport/models/sport_model.dart';
 import 'package:flutter/material.dart';

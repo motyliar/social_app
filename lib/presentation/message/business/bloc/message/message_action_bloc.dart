@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
+
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
 import 'package:climbapp/domains/messages/usecases/get_user_messages_usecase.dart';
@@ -55,8 +55,8 @@ class MessageActionBloc extends Bloc<MessageActionEvent, MessageActionState> {
 
   Future<void> _updateMessage(
       UpdateMessageEvent event, Emitter<MessageActionState> emit) async {
-    final result = await _updateMessageUseCase.execute(event.params).then(
-        (response) => response.fold((failure) => emit(MessageActionFailed()),
+    return await _updateMessageUseCase.execute(event.params).then((response) =>
+        response.fold((failure) => emit(MessageActionFailed()),
             (data) => emit(MessageActionSuccess())));
   }
 }

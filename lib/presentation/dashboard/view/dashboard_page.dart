@@ -1,5 +1,5 @@
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
-import 'package:climbapp/presentation/user/widgets/widgets.dart';
+
 import 'package:flutter/material.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
@@ -26,9 +26,8 @@ const double _floatingButtonWidth = 170;
 // zaimplementować paginację
 // filtrowanie
 // osobne ogłoszenie
-// dodawanie join/requestów
-// dodawanie komentarzy
-// dodawanie lików do ogłoszenia
+
+// dodawanie komentarzy : otwieranie okna z komentarzami oraz dodawanie nowych
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});

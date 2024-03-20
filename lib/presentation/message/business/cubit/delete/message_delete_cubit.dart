@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
+
 import 'package:climbapp/domains/messages/usecases/delete_message_usecase.dart';
 import 'package:equatable/equatable.dart';
 

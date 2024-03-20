@@ -27,6 +27,7 @@ class UserSport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user.id);
+    // ignore: unused_local_variable
     SportType? draggingSport;
     return Column(
       children: [

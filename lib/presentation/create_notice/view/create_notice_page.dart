@@ -21,7 +21,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constans/export_constans.dart';
-import '../../../domains/notice/entities/notice_enums/exports.dart';
 
 // todo create animation beetween pages!
 // need to made single function to handle all animations

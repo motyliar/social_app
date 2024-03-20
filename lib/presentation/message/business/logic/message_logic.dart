@@ -1,7 +1,6 @@
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
-import 'package:climbapp/presentation/app.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 const String _nameValue = "name";
 const String _check = "isCheck";

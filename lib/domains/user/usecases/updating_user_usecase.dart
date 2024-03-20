@@ -1,5 +1,4 @@
 import 'package:climbapp/core/datahelpers/params/user/user_params.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/domains/notice/usecases/i_usecase.dart';
 import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';

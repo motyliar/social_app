@@ -5,7 +5,7 @@ import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/message/business/cubit/view/message_view_cubit.dart';
 import 'package:climbapp/presentation/message/view/message_main.dart';
 import 'package:climbapp/presentation/message/view/subview/create_new_message.dart';
-import 'package:climbapp/presentation/message/view/subview/message_reply.dart';
+
 import 'package:flutter/material.dart';
 
 const String _directionReceived = kReceivedMessageDirection;

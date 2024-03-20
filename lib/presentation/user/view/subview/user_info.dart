@@ -1,14 +1,13 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/image/image_params.dart';
-import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
+
 import 'package:climbapp/core/datahelpers/params/user/user_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
-import 'package:climbapp/core/services/get_it/sport_container.dart';
+
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 import 'package:climbapp/presentation/user/business/cubit/image_sender/image_sender_cubit.dart';
-import 'package:climbapp/presentation/user/business/cubit/load_sport/load_sport_cubit.dart';
 
 import 'package:climbapp/presentation/user/business/logic/user_logic.dart';
 

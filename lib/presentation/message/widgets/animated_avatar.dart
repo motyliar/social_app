@@ -1,5 +1,5 @@
 import 'package:climbapp/core/constans/network_images.dart';
-import 'package:climbapp/domains/messages/entities/message_entity.dart';
+
 import 'package:flutter/material.dart';
 
 const double _avatarRadius = 20;

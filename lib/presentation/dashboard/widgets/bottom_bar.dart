@@ -1,8 +1,7 @@
 import 'package:climbapp/core/constans/app_sizing_const.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
-import 'package:climbapp/core/theme/colors.dart';
-import 'package:climbapp/core/theme/fonts.dart';
+
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';

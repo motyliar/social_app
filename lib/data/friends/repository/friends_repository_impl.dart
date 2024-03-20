@@ -6,7 +6,7 @@ import 'package:climbapp/data/friends/datasources/locale/friends_locale_data_sou
 import 'package:climbapp/data/friends/datasources/remote/friends_remote_data_sources.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/friends/repository/friends_repository.dart';
-import 'package:climbapp/presentation/app/business/bloc/network/network_bloc.dart';
+
 import 'package:dartz/dartz.dart';
 
 class FriendsRepositoryImpl extends FriendsRepository {
