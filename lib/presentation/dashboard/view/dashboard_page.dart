@@ -116,7 +116,8 @@ class DashboardPage extends StatelessWidget {
                                     noticeIndex: index,
                                     notice: state.notices[index],
                                     onTap: () => Navigator.popAndPushNamed(
-                                        context, routeCreateNotice),
+                                        context, routeNoticePage,
+                                        arguments: state.notices[index].id),
                                     logoOnTap: () => context
                                         .read<FetchNoticeBloc>()
                                         .add(UpdateNoticeJoinArrays(
