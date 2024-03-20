@@ -75,6 +75,8 @@
     "categoryLabel": "Wybierz kategorie:",
     "questionWhen": "Kiedy?",
     "questionWhere": "Gdzie?",
+    "addComment": "Dodaj komentarz",
+    "commentHint": "Napisz co myślisz",
 
 
     "@_FLUTTERTOAST_MESSAGES": {},
