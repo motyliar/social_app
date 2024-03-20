@@ -12,3 +12,4 @@ export 'right_on_screen_menu.dart';
 export 'slidable_navigator.dart';
 export 'horizontal_navigator_button.dart';
 export 'notice/notice_card.dart';
+export 'notice/add_comment.dart';
