@@ -44,6 +44,7 @@ class NoticeModel with _$NoticeModel {
               userId: e.userId,
               content: e.content,
               likes: e.likes,
+              avatar: e.avatar,
               createdAt: e.createdAt,
               updatedAt: e.updatedAt))
           .toList(),

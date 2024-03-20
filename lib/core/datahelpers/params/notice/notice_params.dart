@@ -35,7 +35,8 @@ class CreateNoticeCommentsParams extends RepositoryParams {
         "comment": {
           "user": _comment.user,
           "userId": _comment.userId,
-          "content": _comment.content
+          "content": _comment.content,
+          "avatar": _comment.avatar
         }
       };
 }
@@ -82,10 +83,14 @@ class NoticeTemplate {
 
 class CommentTemplate {
   const CommentTemplate(
-      {required this.user, required this.userId, required this.content});
+      {required this.user,
+      required this.userId,
+      required this.content,
+      required this.avatar});
   final String user;
   final String userId;
   final String content;
+  final String avatar;
 }
 
 class UpdateRequestJoinParams extends RepositoryParams {
