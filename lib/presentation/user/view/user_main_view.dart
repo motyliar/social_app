@@ -27,65 +27,54 @@ class UserMainView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = context.select((UserBloc bloc) => bloc.state.user.id);
+    final user = context.select((UserBloc bloc) => bloc.state.user);
     final scrollController = ScrollController();
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ViewSwitchCubit(),
-        ),
-        BlocProvider(
-          create: (context) => sportLocator<LoadSportCubit>()
-            ..getUserSports(GetSportParams(url: AppUrl.getUserSportsURL(user))),
-        ),
-      ],
-      child: BlocBuilder<UserBloc, UserState>(
-        builder: (context, state) {
-          if (state is UserLoading) {
-            return const LoadingPage();
-          }
-          if (state is UserLoaded) {
-            return SafeArea(
-              child: Scaffold(
-                backgroundColor: ColorPallete.scaffoldBackground,
-                appBar: DashboardAppBar(
-                  height: _appBarHeight,
-                  controller: scrollController,
-                  mainChild: DashBoardApp(
-                    isAnimateImage: true,
-                    controller: scrollController,
-                    imageSrc: state.user.profileAvatar!,
-                    userName: state.user.userName,
-                    isSearchBar: false,
-                    isProfile: true,
-                    profileImageFunction: () => debugPrint('test'),
-                  ),
-                ),
-                body: SingleChildScrollView(
-                  child: BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
-                    builder: (context, state) {
-                      if (state is ViewSwitchInitial) {
-                        return const UserPage();
-                      }
-                      if (state is ViewSwitchSport) {
-                        return const UserSport();
-                      }
-
-                      if (state is ViewSwitchInfo) {
-                        return const UserDetails();
-                      } else {
-                        return const UserPage();
-                      }
-                    },
-                  ),
-                ),
+        providers: [
+          BlocProvider(
+            create: (context) => ViewSwitchCubit(),
+          ),
+          BlocProvider(
+            create: (context) => sportLocator<LoadSportCubit>()
+              ..getUserSports(
+                  GetSportParams(url: AppUrl.getUserSportsURL(user.id))),
+          ),
+        ],
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: ColorPallete.scaffoldBackground,
+            appBar: DashboardAppBar(
+              height: _appBarHeight,
+              controller: scrollController,
+              mainChild: DashBoardApp(
+                isAnimateImage: true,
+                controller: scrollController,
+                imageSrc: user.profileAvatar!,
+                userName: user.userName,
+                isSearchBar: false,
+                isProfile: true,
+                profileImageFunction: () => debugPrint('test'),
               ),
-            );
-          } else {
-            return const UserPage();
-          }
-        },
-      ),
-    );
+            ),
+            body: SingleChildScrollView(
+              child: BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
+                builder: (context, state) {
+                  if (state is ViewSwitchInitial) {
+                    return const UserPage();
+                  }
+                  if (state is ViewSwitchSport) {
+                    return const UserSport();
+                  }
+
+                  if (state is ViewSwitchInfo) {
+                    return const UserDetails();
+                  } else {
+                    return const UserPage();
+                  }
+                },
+              ),
+            ),
+          ),
+        ));
   }
 }

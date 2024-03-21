@@ -8,8 +8,9 @@ sealed class FetchNoticeEvent extends Equatable {
 }
 
 class FetchNoticesFromDB extends FetchNoticeEvent {
-  const FetchNoticesFromDB({required this.params});
+  const FetchNoticesFromDB({required this.params,});
   final GetNoticeParams params;
+
   @override
   List<Object> get props => [params];
 }

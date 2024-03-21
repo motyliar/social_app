@@ -1,4 +1,5 @@
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
+import 'package:climbapp/presentation/notice/view/notice_main_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
@@ -32,7 +33,6 @@ const double _floatingButtonWidth = 170;
 // dodawanie komentarzy : otwieranie okna z komentarzami oraz dodawanie nowych
 
 const double _appBarExpandedHeight = 180;
-ScrollController _noticeController = ScrollController();
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -43,6 +43,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ScrollController noticeController = ScrollController();
     final l10n = context.l10n;
     final user = context.select((UserBloc bloc) => bloc.state.user);
     return MultiBlocProvider(
@@ -63,7 +64,7 @@ class DashboardPage extends StatelessWidget {
                 url: AppUrl.singleNoticeURL("65789782866f56088bd20eac"))),
         ),
         BlocProvider(
-            create: (context) => ScrollVisibleControlCubit(_noticeController)),
+            create: (context) => ScrollVisibleControlCubit(noticeController)),
         BlocProvider(create: (context) => LikeIconCubit()),
       ],
       child: SafeArea(
@@ -71,7 +72,7 @@ class DashboardPage extends StatelessWidget {
           backgroundColor: ColorPallete.scaffoldBackground,
           body: SafeArea(
             child: CustomScrollView(
-              controller: _noticeController,
+              controller: noticeController,
               slivers: [
                 SliverAppBar(
                   backgroundColor: ColorPallete.scaffoldBackground,
@@ -95,7 +96,7 @@ class DashboardPage extends StatelessWidget {
                         BlocProvider.of<FetchNoticeBloc>(context)
                             .add(FetchNoticesFromDB(
                           params: GetNoticeParams(
-                            url: AppUrl.noticePaginationURL(1, 2),
+                            url: AppUrl.noticePaginationURL(1, 4),
                           ),
                         ));
                       }
@@ -115,9 +116,12 @@ class DashboardPage extends StatelessWidget {
                                   (index) => NoticeCard(
                                     noticeIndex: index,
                                     notice: state.notices[index],
-                                    onTap: () => Navigator.popAndPushNamed(
+                                    onTap: () => Navigator.pushNamed(
                                         context, routeNoticePage,
-                                        arguments: state.notices[index].id),
+                                        arguments: PageParams(
+                                            notice: state.notices[index],
+                                            context: context,
+                                            index: index)),
                                     logoOnTap: () => context
                                         .read<FetchNoticeBloc>()
                                         .add(UpdateNoticeJoinArrays(

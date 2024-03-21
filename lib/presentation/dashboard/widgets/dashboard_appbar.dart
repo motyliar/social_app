@@ -28,20 +28,7 @@ class DashboardAppBar extends StatelessWidget implements PreferredSize {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => ScrollVisibleControlCubit(controller),
-        child: BlocBuilder<ScrollVisibleControlCubit, bool>(
-          builder: (context, isVisible) {
-            return Visibility(
-              visible: isVisible,
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: durationInMilisecond),
-                height: isVisible ? height : 0,
-                child: mainChild,
-              ),
-            );
-          },
-        ));
+    return mainChild;
   }
 
   @override

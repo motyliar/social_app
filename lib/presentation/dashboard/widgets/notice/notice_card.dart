@@ -27,7 +27,7 @@ TextEditingController _commentsController = TextEditingController();
 class NoticeCard extends StatelessWidget {
   const NoticeCard({
     required this.notice,
-    required this.onTap,
+    this.onTap,
     required this.logoOnTap,
     required this.logoOnTapBack,
     required this.smileOnTap,
@@ -43,7 +43,7 @@ class NoticeCard extends StatelessWidget {
   final TextStyle style;
   final TextStyle localizationStyle;
   final TextStyle dataStyle;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final VoidCallback logoOnTap;
   final VoidCallback logoOnTapBack;
   final VoidCallback smileOnTap;
@@ -54,7 +54,7 @@ class NoticeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onTap(),
+      onTap: () => onTap == null ? null : onTap!(),
       child: GeneralCard(
           margin: const EdgeInsets.only(
               bottom: kMidEmptySpace,

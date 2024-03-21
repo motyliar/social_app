@@ -62,6 +62,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
         }
       });
     } catch (e) {
+      debugPrint(e.toString());
       emit(FetchNoticeFailed());
     }
   }
@@ -82,6 +83,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
         }
       });
     } catch (e) {
+      debugPrint(e.toString());
       emit(FetchNoticeFailed());
     }
   }
