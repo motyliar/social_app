@@ -1,7 +1,6 @@
 export 'dashboard_appbar.dart';
 export 'icons_row.dart';
 export 'profile_image.dart';
-export 'bottom_bar.dart';
 export 'notice_divider.dart';
 export 'slidable_menu.dart';
 export 'notice/top_description.dart';
