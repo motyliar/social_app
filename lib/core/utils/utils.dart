@@ -47,13 +47,13 @@ class Utils {
   }
 
   static bool _checkIsToday(String today, String userDate) {
-    return today.toLowerCase() == userDate.toLowerCase().isTooLong(10);
+    return today.toLowerCase() == userDate.toLowerCase().cutTo(10);
   }
 
   static String currentData(String today, String userDate) {
     print(userDate);
     return !_checkIsToday(today, userDate)
-        ? userDate.isTooLong(10)
+        ? userDate.cutTo(10)
         : userDate.substring(10, 16);
   }
 

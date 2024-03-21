@@ -4,7 +4,6 @@ import 'package:climbapp/core/error/error_screen.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
-import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/dashboard/view/dashboard_page.dart';
 import 'package:climbapp/presentation/message/view/message_dist.dart';

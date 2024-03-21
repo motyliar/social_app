@@ -32,7 +32,7 @@ class MessagePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc u) => u.state.user);
-    final data = DateTime.now().toString().isTooLong(10);
+    final data = DateTime.now().toString().cutTo(10);
     return BlocProvider(
       create: (context) => userLocator<MessageDeleteCubit>(),
       child: Scaffold(

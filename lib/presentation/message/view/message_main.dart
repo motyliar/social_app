@@ -25,7 +25,7 @@ class MessageMain extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final user = context.select((UserBloc userBloc) => userBloc.state.user);
-    String today = DateTime.now().toString().isTooLong(10);
+    String today = DateTime.now().toString().cutTo(10);
     return MultiBlocProvider(
       providers: [
         BlocProvider(

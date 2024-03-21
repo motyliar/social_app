@@ -65,7 +65,7 @@ class SingleComment extends StatelessWidget {
                 ],
               ),
               Text(
-                comment.createdAt.isTooLong(16),
+                comment.createdAt.cutTo(16),
                 style: AppTextStyle.descriptionMid,
               ),
             ],

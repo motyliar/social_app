@@ -140,11 +140,10 @@ class CreateNotice extends StatelessWidget {
                                   const Duration(milliseconds: 200),
                                   () => context
                                       .read<UserNoticeDataCubit>()
-                                      .changeData(
-                                          date.toString().isTooLong(10)));
+                                      .changeData(date.toString().cutTo(10)));
                             },
                             child: Text(
-                              state.date.isTooLong(10),
+                              state.date.cutTo(10),
                               style: AppTextStyle.headersSmall,
                             ),
                           );
@@ -210,8 +209,7 @@ class CreateNotice extends StatelessWidget {
                                             id: '',
                                             title: _subjectController.text,
                                             content: _contentController.text,
-                                            when:
-                                                noticeData.date.isTooLong(10)),
+                                            when: noticeData.date.cutTo(10)),
                                         localization:
                                             _localizationController.text,
                                       ),

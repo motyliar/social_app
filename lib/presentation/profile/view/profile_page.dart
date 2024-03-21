@@ -41,7 +41,7 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String today = DateTime.now().toString().isTooLong(10);
+    String today = DateTime.now().toString().cutTo(10);
     final appUser = context.select((UserBloc bloc) => bloc.state);
 
     return MultiBlocProvider(
@@ -283,7 +283,7 @@ class ProfilePage extends StatelessWidget {
                       const GradientDivider(
                         width: 100,
                       ),
-                      Text(loremIpsumMid.isTooLong(150)),
+                      Text(loremIpsumMid.cutTo(150)),
                       const Divider(),
                       const Align(
                         alignment: Alignment.centerRight,
