@@ -81,6 +81,7 @@
     "questionWhen": "When?",
     "questionWhere": "Where?",
     "addComment": "Add comment",
+    "noComment": "No comment yet",
     "commentHint": "Tell us what you think",
     "commentText": "Comments",
 

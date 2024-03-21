@@ -18,6 +18,7 @@ class AnimatedComment extends StatelessWidget {
       required this.userId,
       required this.noticeId,
       required this.noticeIndex,
+      this.shouldOpenComment = false,
       super.key});
 
   final Widget open;
@@ -26,12 +27,14 @@ class AnimatedComment extends StatelessWidget {
   final String userId;
   final String noticeId;
   final int noticeIndex;
+  final bool? shouldOpenComment;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return BlocProvider(
-        create: (context) => OpenCloseCubit()..changeVisible(change: false),
+        create: (context) =>
+            OpenCloseCubit()..changeVisible(change: shouldOpenComment),
         child: BlocBuilder<OpenCloseCubit, bool>(
           builder: (context, state) {
             return state
@@ -41,7 +44,10 @@ class AnimatedComment extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            HeadersSmallText(text: l10n.commentText),
+                            HeadersSmallText(
+                                text: comments.isEmpty
+                                    ? l10n.noComment
+                                    : l10n.commentText),
                             TextButton(
                                 onPressed: () => context
                                     .read<OpenCloseCubit>()
