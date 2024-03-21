@@ -90,13 +90,14 @@ class DashboardPage extends StatelessWidget {
                   child: SlidableNavigator(),
                 ),
                 SliverToBoxAdapter(
-                  child: BlocConsumer<ScrollVisibleControlCubit, bool>(
+                  child: BlocConsumer<ScrollVisibleControlCubit,
+                      ScrollVisibleControlState>(
                     listener: (context, state) {
-                      if (state == true) {
+                      if (state.visible == true) {
                         BlocProvider.of<FetchNoticeBloc>(context)
                             .add(FetchNoticesFromDB(
                           params: GetNoticeParams(
-                            url: AppUrl.noticePaginationURL(1, 4),
+                            url: AppUrl.noticePaginationURL(1, state.value),
                           ),
                         ));
                       }
