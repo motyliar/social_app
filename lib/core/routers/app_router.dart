@@ -49,7 +49,7 @@ class AppRouter {
         return MessagePreview.route(
             message: settings.arguments as MessageEntity);
       case route.routeNoticePage:
-        return NoticeMainPage.route(settings.arguments as PageParams);
+        return NoticeMainPage.route(settings.arguments as NoticePageParams);
       case route.routeCommentPage:
         return CommentMainPage.route();
       case route.routeCreateNotice:

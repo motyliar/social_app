@@ -8,7 +8,9 @@ sealed class FetchNoticeEvent extends Equatable {
 }
 
 class FetchNoticesFromDB extends FetchNoticeEvent {
-  const FetchNoticesFromDB({required this.params,});
+  const FetchNoticesFromDB({
+    required this.params,
+  });
   final GetNoticeParams params;
 
   @override
@@ -39,3 +41,5 @@ class DeleteComment extends FetchNoticeEvent {
   @override
   List<Object> get props => [index];
 }
+
+class InitEvent extends FetchNoticeEvent {}

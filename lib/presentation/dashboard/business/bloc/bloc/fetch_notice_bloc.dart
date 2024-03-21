@@ -25,6 +25,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
     on<UpdateNoticeJoinArrays>(_addUpdateArrays);
     on<DeleteNoticeJoinID>(_deleteID);
     on<DeleteComment>(_deleteComment);
+    on<InitEvent>(_init);
   }
 
   Future<void> _fetchNotice(
@@ -73,6 +74,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
     try {
       await _getResponseFromUpdate(event.params).then((value) {
         final notices = state.notices;
+        print(state.notices[event.index].interested);
         if (event.params.direction == Direction.request) {
           notices[event.index].requests!.remove(event.params.userId);
 
@@ -97,6 +99,7 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
   void _deleteComment(DeleteComment event, Emitter<FetchNoticeState> emit) {
     emit(FetchNoticeReloading(notices: state.notices));
     try {
+      print(state.notices[event.index]);
       final notices = state.notices;
       notices[event.index].comments!.removeAt(event.commentIndex);
       emit(
@@ -107,5 +110,9 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  void _init(InitEvent event, Emitter<FetchNoticeState> emit) {
+    emit(state.copyWith(notices: state.notices));
   }
 }
