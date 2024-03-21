@@ -1,6 +1,7 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
@@ -15,11 +16,12 @@ import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fe
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/business/enum.dart';
+import 'package:climbapp/presentation/user/widgets/widgets.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-const double _generalPagePadding = 20;
+const double _generalPagePadding = kGeneralPagesMargin;
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -33,6 +35,7 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = context.select((UserBloc bloc) => bloc.state.user);
+    final l10n = context.l10n;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -57,99 +60,30 @@ class UserPage extends StatelessWidget {
                   ),
                   BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
                     builder: (context, state) {
-                      return ContainerTemplate(
-                        margin: const EdgeInsets.only(
-                            left: _generalPagePadding,
-                            right: _generalPagePadding),
-                        padding: const EdgeInsets.only(
-                          bottom: _generalPagePadding,
-                        ),
-                        borderRadius: kMinBorderRadius,
-                        color: ColorPallete.whiteOpacity80,
-                        width: MediaQuery.of(context).size.width,
-                        child: Column(
-                          children: [
-                            MidTextButton(
-                                onTap: () => context
-                                    .read<ViewSwitchCubit>()
-                                    .changeStatus(ViewStatus.info),
-                                buttonWidth: 300,
-                                textLabel: 'Edit Profile'),
-                          ],
-                        ),
+                      return BigButtonCard(
+                        text: l10n.editLabel,
+                        l10n: l10n,
+                        onTap: () => context
+                            .read<ViewSwitchCubit>()
+                            .changeStatus(ViewStatus.info),
                       );
                     },
                   ),
                   const GradientDivider(
-                    dividerHeight: 15,
+                    dividerHeight: kMidDividerHeight,
                   ),
-                  ContainerTemplate(
-                    margin: const EdgeInsets.only(
-                        left: _generalPagePadding, right: _generalPagePadding),
-                    padding: const EdgeInsets.all(_generalPagePadding),
-                    borderRadius: kMinBorderRadius,
-                    width: MediaQuery.of(context).size.width,
-                    color: ColorPallete.whiteOpacity80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          'General Information',
-                          style: AppTextStyle.headersSmall,
-                        ),
-                        const Divider(),
-                        InformationRowWidget(
-                          icon: Icons.person,
-                          title: 'Name: ',
-                          details: state.user.userName,
-                        ),
-                        InformationRowWidget(
-                            icon: Icons.email,
-                            title: 'Email: ',
-                            details: state.user.userEmail),
-                        InformationRowWidget(
-                            icon: Icons.calendar_month,
-                            title: 'Age: ',
-                            details: state.user.details?.age == null
-                                ? ' not specified'
-                                : state.user.details!.age.toString()),
-                        const InformationRowWidget(
-                            icon: Icons.location_city,
-                            title: 'From: ',
-                            details: 'Poznan'),
-                        const InformationRowWidget(
-                            icon: Icons.military_tech,
-                            iconColor: ColorPallete.gold,
-                            title: 'Rank : ',
-                            details: '4.8')
-                      ],
-                    ),
+                  generateInformationCard(context, l10n, state),
+                  const GradientDivider(
+                    dividerHeight: kMidDividerHeight,
+                  ),
+                  BigButtonCard(
+                    text: l10n.favouriteSports,
+                    l10n: l10n,
+                    onTap: () => BlocProvider.of<ViewSwitchCubit>(context)
+                        .changeStatus(ViewStatus.sport),
                   ),
                   const GradientDivider(
-                    dividerHeight: 15,
-                  ),
-                  ContainerTemplate(
-                    margin: const EdgeInsets.only(
-                        left: _generalPagePadding, right: _generalPagePadding),
-                    padding: const EdgeInsets.only(
-                      bottom: _generalPagePadding,
-                    ),
-                    borderRadius: kMinBorderRadius,
-                    color: ColorPallete.whiteOpacity80,
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      children: [
-                        MidTextButton(
-                            onTap: () =>
-                                BlocProvider.of<ViewSwitchCubit>(context)
-                                    .changeStatus(ViewStatus.sport),
-                            buttonWidth: 300,
-                            textLabel: 'Favourite sports'),
-                      ],
-                    ),
-                  ),
-                  const GradientDivider(
-                    dividerHeight: 15,
+                    dividerHeight: kMidDividerHeight,
                   ),
                   ContainerTemplate(
                     margin: const EdgeInsets.only(
@@ -162,14 +96,14 @@ class UserPage extends StatelessWidget {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Friends',
+                          Text(
+                            l10n.friends,
                             style: AppTextStyle.headersSmall,
                           ),
                           Row(
                             children: [
                               Text(
-                                'You have ${context.select((FriendsActionBloc bloc) => bloc.state.friends.length)} friends',
+                                '${l10n.friendsInfo} ${context.select((FriendsActionBloc bloc) => bloc.state.friends.length)} ${l10n.friends.toLowerCase()}',
                                 style: AppTextStyle.descriptionSmall,
                               ),
                             ],
@@ -242,10 +176,10 @@ class UserPage extends StatelessWidget {
                             },
                           ),
                           const Divider(),
-                          const Align(
+                          Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              'check more...',
+                              l10n.checkMore,
                               style: AppTextStyle.descriptionMid,
                             ),
                           ),
@@ -270,12 +204,12 @@ class UserPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
-                              "Active Notices",
+                            Text(
+                              l10n.activeNotices,
                               style: AppTextStyle.headersSmall,
                             ),
                             Text(
-                              'Total notices: ${context.select((FetchUserNoticeCubit cubit) => cubit.state.userNotices.length)}',
+                              '${l10n.totalNotices} ${context.select((FetchUserNoticeCubit cubit) => cubit.state.userNotices.length)}',
                               style: AppTextStyle.descriptionSmall,
                             )
                           ],
@@ -359,40 +293,6 @@ class UserPage extends StatelessWidget {
             return const Text('to tutaj');
           }
         },
-      ),
-    );
-  }
-}
-
-class InformationRowWidget extends StatelessWidget {
-  const InformationRowWidget({
-    required this.icon,
-    required this.title,
-    required this.details,
-    this.iconColor = ColorPallete.mainDecorationColor,
-    super.key,
-  });
-  final IconData icon;
-  final String title;
-  final String details;
-  final Color iconColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 5.0),
-      child: Row(
-        children: [
-          Icon(
-            icon,
-            color: iconColor,
-          ),
-          Text(title),
-          Text(
-            details,
-            style: AppTextStyle.descriptionMid,
-          ),
-        ],
       ),
     );
   }

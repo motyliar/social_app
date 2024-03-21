@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:climbapp/core/constans/app_sizing_const.dart';
-import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -17,13 +16,18 @@ class NoticeLoader extends StatelessWidget {
       child: Column(
         children: List.generate(
           numberOFContainer,
-          (index) => GeneralCard(
+          (index) => Container(
+              padding: const EdgeInsets.all(kMidEmptySpace),
               margin: const EdgeInsets.only(
                   right: kMidEmptySpace,
                   left: kMidEmptySpace,
-                  bottom: kMidEmptySpace),
-              color: Colors.white.withOpacity(0.3),
-              children: [
+                  bottom: kGeneralPagesMargin),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color:
+                    const Color.fromARGB(255, 252, 242, 242).withOpacity(0.6),
+              ),
+              child: Column(children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -32,7 +36,7 @@ class NoticeLoader extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 8,
-                          backgroundColor: Colors.grey.withOpacity(0.3),
+                          backgroundColor: Colors.grey.withOpacity(0.1),
                         ),
                         const Gap(5),
                         const _ProgressBox(
@@ -72,7 +76,7 @@ class NoticeLoader extends StatelessWidget {
                   ],
                 ),
                 Divider(
-                  color: Colors.grey.withOpacity(0.3),
+                  color: Colors.grey.withOpacity(0.1),
                 ),
                 Wrap(
                   spacing: 2,
@@ -85,7 +89,7 @@ class NoticeLoader extends StatelessWidget {
                             width: Random().nextInt(30) + 70.toDouble(),
                             height: 15,
                             decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.3),
+                                color: Colors.grey.withOpacity(0.15),
                                 borderRadius: BorderRadius.circular(20)),
                           )),
                 ),
@@ -99,12 +103,12 @@ class NoticeLoader extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 20,
-                          backgroundColor: Colors.grey.withOpacity(0.3),
+                          backgroundColor: Colors.grey.withOpacity(0.2),
                         ),
                         const Gap(5),
                         CircleAvatar(
                           radius: 20,
-                          backgroundColor: Colors.grey.withOpacity(0.3),
+                          backgroundColor: Colors.grey.withOpacity(0.2),
                         ),
                       ],
                     ),
@@ -114,7 +118,7 @@ class NoticeLoader extends StatelessWidget {
                     )
                   ],
                 )
-              ]),
+              ])),
         ),
       ),
     );
@@ -138,8 +142,8 @@ class _ProgressBox extends StatelessWidget {
       width: width,
       height: height,
       child: LinearProgressIndicator(
-        color: Colors.grey.withOpacity(0.3),
-        backgroundColor: Colors.grey.withOpacity(0.2),
+        color: Colors.grey.withOpacity(0.1),
+        backgroundColor: Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(borderRadius),
       ),
     );
