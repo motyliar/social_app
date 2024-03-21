@@ -42,4 +42,11 @@ class DeleteComment extends FetchNoticeEvent {
   List<Object> get props => [index];
 }
 
+class FilterNotices extends FetchNoticeEvent {
+  const FilterNotices({required this.params});
+  final GetNoticeParams params;
+  @override
+  List<Object> get props => [params];
+}
+
 class InitEvent extends FetchNoticeEvent {}

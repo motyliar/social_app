@@ -3,6 +3,7 @@ import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
+import 'package:climbapp/domains/notice/usecases/get_filter_notices_by_field.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/update_user_id_join_arrays_usecase.dart';
 
@@ -15,16 +16,20 @@ part 'fetch_notice_state.dart';
 class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
   final GetNoticePaginationUseCase _getNoticePaginationUseCase;
   final UpdateUserIdJoinArraysUseCase _updateArrays;
+  final GetFilterNoticesByFieldUseCase _filterNotices;
   FetchNoticeBloc(
       {required GetNoticePaginationUseCase getNoticePaginationUseCase,
-      required UpdateUserIdJoinArraysUseCase updateArrays})
+      required UpdateUserIdJoinArraysUseCase updateArrays,
+      required GetFilterNoticesByFieldUseCase filterNotices})
       : _getNoticePaginationUseCase = getNoticePaginationUseCase,
         _updateArrays = updateArrays,
+        _filterNotices = filterNotices,
         super(const FetchNoticeLoading()) {
     on<FetchNoticesFromDB>(_fetchNotice);
     on<UpdateNoticeJoinArrays>(_addUpdateArrays);
     on<DeleteNoticeJoinID>(_deleteID);
     on<DeleteComment>(_deleteComment);
+    on<FilterNotices>(_getFilteredNotices);
     on<InitEvent>(_init);
   }
 
@@ -114,5 +119,24 @@ class FetchNoticeBloc extends Bloc<FetchNoticeEvent, FetchNoticeState> {
 
   void _init(InitEvent event, Emitter<FetchNoticeState> emit) {
     emit(state.copyWith(notices: state.notices));
+  }
+
+  Future<void> _getFilteredNotices(
+      FilterNotices event, Emitter<FetchNoticeState> emit) async {
+    emit(const FetchNoticeLoading());
+    try {
+      final response = await _getFilteredResponse(event.params);
+      emit(state.copyWith(notices: response));
+    } catch (e) {
+      debugPrint(e.toString());
+      emit(FetchNoticeFailed());
+    }
+  }
+
+  Future<List<NoticeEntity>> _getFilteredResponse(
+      GetNoticeParams params) async {
+    return await _filterNotices
+        .execute(params)
+        .then((response) => response.fold((l) => throw l, (r) => r));
   }
 }
