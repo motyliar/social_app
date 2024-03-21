@@ -1,9 +1,5 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 
-import 'package:climbapp/presentation/app.dart';
-
-import 'package:climbapp/presentation/dashboard/business/cubit/cubit/scroll_visible_control_cubit.dart';
-
 import 'package:climbapp/presentation/dashboard/widgets/search_bar.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 

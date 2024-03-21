@@ -1,11 +1,12 @@
-import 'package:climbapp/core/constans/router_constans.dart';
-import 'package:climbapp/core/constans/url_constans.dart';
+import 'package:climbapp/core/constans/export_constans.dart';
+
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
-import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/notice_card.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/notice_loader.dart';
@@ -14,6 +15,7 @@ import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete
 
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
+import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,18 +54,47 @@ class NoticeMainPage extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              TextButton(
-                onPressed: () =>
-                    Navigator.popAndPushNamed(context, routeDashboardPage),
-                child: const Text('back'),
-              ),
+              GeneralCard(
+                  gradient: blueGreen,
+                  padding: const EdgeInsets.only(
+                      left: kGeneralPagesMargin, right: 40),
+                  margin: const EdgeInsets.only(
+                      left: kMidEmptySpace,
+                      right: kMidEmptySpace,
+                      top: kMidEmptySpace,
+                      bottom: kMidEmptySpace),
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RoundBackButton(
+                          onTap: () => Navigator.popAndPushNamed(
+                            context,
+                            routeDashboardPage,
+                          ),
+                        ),
+                        Transform.rotate(
+                          angle: 13,
+                          child: Image.network(
+                            ImagesURL.appLogo,
+                            width: 120,
+                            height: 120,
+                          ),
+                        ),
+                      ],
+                    )
+                  ]),
               BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
                 builder: (context, state) {
                   if (state is FetchNoticeLoading) {
-                    return const NoticeLoader();
+                    return const NoticeLoader(
+                      numberOFContainer: 1,
+                    );
                   }
 
                   return NoticeCard(
+                    shouldOpenComment: true,
+                    isDashboard: false,
                     noticeIndex: index,
                     notice: state.notices[index],
                     logoOnTap: () => contex.read<FetchNoticeBloc>().add(

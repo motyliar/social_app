@@ -106,7 +106,9 @@ class DashboardPage extends StatelessWidget {
                       return BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
                         builder: (context, state) {
                           if (state is FetchNoticeLoading) {
-                            return const NoticeLoader();
+                            return const NoticeLoader(
+                              numberOFContainer: 6,
+                            );
                           }
 
                           return Column(
