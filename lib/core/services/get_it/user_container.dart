@@ -28,6 +28,7 @@ import 'package:climbapp/domains/notice/usecases/create_notice_comment_usecase.d
 import 'package:climbapp/domains/notice/usecases/delete_single_comment_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/delete_user_single_notice_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/find_notices_created_by_user.dart';
+import 'package:climbapp/domains/notice/usecases/get_filter_notices_by_field.dart';
 import 'package:climbapp/domains/notice/usecases/get_notice_pagination_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/get_single_notice_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/update_comment_usecase.dart';
@@ -82,8 +83,13 @@ void userInit() {
         updateMessageUseCase: userLocator()))
     ..registerFactory(
         () => MessageDeleteCubit(deleteMessageUseCase: userLocator()))
-    ..registerFactory(() => FetchNoticeBloc(
-        getNoticePaginationUseCase: userLocator(), updateArrays: userLocator()))
+    ..registerFactory(
+      () => FetchNoticeBloc(
+        getNoticePaginationUseCase: userLocator(),
+        updateArrays: userLocator(),
+        filterNotices: userLocator(),
+      ),
+    )
     ..registerFactory(
         () => FetchSingleNoticeCubit(getSingleNoticeUseCase: userLocator()))
     ..registerFactory(
@@ -130,6 +136,8 @@ void userInit() {
     // NOTICE
     ..registerLazySingleton(
         () => GetNoticePaginationUseCase(noticeRepository: userLocator()))
+    ..registerLazySingleton(
+        () => GetFilterNoticesByFieldUseCase(repository: userLocator()))
     ..registerLazySingleton(
         () => GetSingleNoticeUseCase(noticeRepository: userLocator()))
     ..registerLazySingleton(
