@@ -30,7 +30,7 @@ ContainerTemplate generateInformationCard(
         ),
         _InformationRowWidget(
             icon: Icons.email,
-            title: l10n.emial,
+            title: l10n.email,
             details: state.user.userEmail),
         _InformationRowWidget(
             icon: Icons.calendar_month,
