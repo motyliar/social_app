@@ -23,8 +23,8 @@ extension CapitalizeOneLetter on String {
   }
 }
 
-extension TooLongText on String {
-  String isTooLong(int index) {
+extension CutToDesiredText on String {
+  String cutTo(int index) {
     if (length > index) {
       return substring(0, index);
     } else {
@@ -34,9 +34,9 @@ extension TooLongText on String {
 }
 
 extension MoreThen300Letters on String {
-  String get cut {
-    if (length > 300) {
-      return '''${substring(0, 300)}...''';
+  String cut(int index) {
+    if (length > index) {
+      return '''${substring(0, index)}...''';
     } else {
       return this;
     }
