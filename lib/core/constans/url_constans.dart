@@ -25,6 +25,9 @@ class AppUrl {
   static const String get = 'getSingle/';
   static const String join = 'join';
   static const String unjoin = 'unjoin';
+  static const String filterQuery = 'filter?word=';
+  static const String category = '&category=category';
+  static const String filterAll = 'filterAll?word=';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   static Uri logoutURL() => Uri.parse('$backendUrl$logout');
@@ -69,6 +72,12 @@ class AppUrl {
 
   static Uri noticePaginationURL(int page, int pageSize) => Uri.parse(
       '$backendUrl$notice$pagination$notice?page=$page&pageSize=$pageSize');
+
+  static Uri getFilteredNoticesURL(String characters, String category) =>
+      Uri.parse('$backendUrl$notice$filterQuery$characters$category');
+
+  static Uri getAllFilteredNoticesURL(String characters) =>
+      Uri.parse('$backendUrl$notice$filterAll$characters');
 
   static Uri singleNoticeURL(String userId) =>
       Uri.parse('$backendUrl$notice$singleAction$userId');
