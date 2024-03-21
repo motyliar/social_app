@@ -28,7 +28,7 @@ class CTextFormField extends StatelessWidget {
   final double textInputWidth;
   final Icon? icon;
   final TextEditingController controller;
-  final VoidCallback? onChanged;
+  final Function(String)? onChanged;
   final Function(String?)? validator;
   final bool obscureText;
   final bool isNextFocus;
@@ -53,7 +53,7 @@ class CTextFormField extends StatelessWidget {
               }
             : null,
         selectionHeightStyle: BoxHeightStyle.includeLineSpacingMiddle,
-        onChanged: (value) {},
+        onChanged: (value) => onChanged == null ? null : onChanged!(value),
         validator: (value) {
           return validator != null ? validator!(value) : null;
         },
