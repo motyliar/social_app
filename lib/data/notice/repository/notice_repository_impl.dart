@@ -27,6 +27,22 @@ class NoticeRepositoryImpl extends NoticeRepository {
   }
 
   @override
+  EitherFunc<List<NoticeEntity>> getFilterNoticesByField(
+      GetNoticeParams params) async {
+    try {
+      return await Utils().performNetworkOperation(() async =>
+          await _noticeRemoteDataSources
+              .getFilterNoticeByField(params)
+              .then((value) => Right(ModelConvert(value).toEntityList())));
+    } on ServerException catch (e) {
+      debugPrint(e.message);
+      return Left(ServerException.error());
+    } catch (e) {
+      throw ServerException.message(e.toString());
+    }
+  }
+
+  @override
   EitherFunc<NoticeEntity> getSingleNotice(GetNoticeParams params) async {
     try {
       return await Utils()

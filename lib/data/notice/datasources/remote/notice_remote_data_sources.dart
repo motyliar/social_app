@@ -1,5 +1,6 @@
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http.delete_data_handler.dart';
+import 'package:climbapp/core/datahelpers/repository_helpers/http_get_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
 import 'package:climbapp/core/datahelpers/repository_helpers/http_put_data_hanlder.dart';
 import 'package:climbapp/core/datahelpers/status_service/response_status.dart';
@@ -18,6 +19,7 @@ const String _statusGetter = 'status';
 
 abstract class NoticeRemoteDataSources {
   EitherFunc<List<NoticeModel>> getNoticePagination(GetNoticeParams params);
+  Future<List<NoticeModel>> getFilterNoticeByField(GetNoticeParams params);
   EitherFunc<NoticeModel> getSingleNotice(GetNoticeParams params);
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params);
   EitherFunc<List<NoticeModel>> findNoticesCreatedByUser(
@@ -43,6 +45,19 @@ class NoticeRemoteDataSourcesImpl extends NoticeRemoteDataSources {
       return Right(convertResponse);
     } catch (e) {
       return Left(ServerException.failed());
+    }
+  }
+
+  @override
+  Future<List<NoticeModel>> getFilterNoticeByField(
+      GetNoticeParams params) async {
+    try {
+      final responseMap = await HttpGetDataHandler(params: params).returnData();
+      return responseMap.fold((l) => throw ServerException.error(),
+          (r) => ToNoticeConverter(r).mapResponseToNoticeList());
+    } on ServerException catch (e) {
+      Utils.debugError(error: e);
+      throw ServerException(e.message);
     }
   }
 

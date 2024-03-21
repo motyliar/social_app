@@ -5,6 +5,7 @@ import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 
 abstract class NoticeRepository {
   EitherFunc<List<NoticeEntity>> getNoticePagination(GetNoticeParams params);
+  EitherFunc<List<NoticeEntity>> getFilterNoticesByField(GetNoticeParams params);
   EitherFunc<NoticeEntity> getSingleNotice(GetNoticeParams params);
   EitherFunc<ResponseStatus> createNewNotice(CreateNoticeParams params);
   EitherFunc<List<NoticeEntity>> findNoticesCreatedByUser(
@@ -16,4 +17,5 @@ abstract class NoticeRepository {
   EitherFunc<ResponseStatus> deleteSingleComment(GetNoticeParams params);
   EitherFunc<ResponseStatus> updateSingleComment(UpdateCommentParams params);
   EitherFunc<void> updateUserIdToJoin(UpdateRequestJoinParams params);
+ 
 }
