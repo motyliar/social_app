@@ -11,6 +11,7 @@ class GeneralCard extends StatelessWidget {
     this.padding,
     this.color,
     this.width,
+    this.gradient,
     super.key,
   });
   final List<Widget> children;
@@ -19,10 +20,12 @@ class GeneralCard extends StatelessWidget {
   final EdgeInsetsGeometry? padding;
   final Color? color;
   final double? width;
+  final Gradient? gradient;
 
   @override
   Widget build(BuildContext context) {
     return ContainerTemplate(
+      gradient: gradient,
       width: width ?? MediaQuery.of(context).size.width,
       color: color ?? ColorPallete.whiteOpacity80,
       borderRadius: kMinBorderRadius,
