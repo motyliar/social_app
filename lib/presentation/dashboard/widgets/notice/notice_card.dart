@@ -37,6 +37,8 @@ class NoticeCard extends StatelessWidget {
     this.style = AppTextStyle.descriptionMid,
     this.localizationStyle = AppTextStyle.descriptionMid,
     this.dataStyle = AppTextStyle.descriptionMid,
+    this.isDashboard = true,
+    this.shouldOpenComment,
     super.key,
   });
   final NoticeEntity notice;
@@ -50,6 +52,8 @@ class NoticeCard extends StatelessWidget {
   final VoidCallback smileOnTapBack;
   final String userId;
   final int noticeIndex;
+  final bool isDashboard;
+  final bool? shouldOpenComment;
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +70,29 @@ class NoticeCard extends StatelessWidget {
               right: kGeneralPagesMargin),
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CircleAvatar(
-                  radius: 5,
-                  backgroundColor: notice.isActive
-                      ? ColorPallete.greenActiveColor
-                      : ColorPallete.greyShadowColorOpacityMax,
+                Text(
+                  notice.author,
+                  style: AppTextStyle.descriptionBig,
                 ),
-                const Gap(kMidEmptySpace),
-                HeadersSmallText(
-                  text: notice.category.name.toUpperCase(),
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 5,
+                      backgroundColor: notice.isActive
+                          ? ColorPallete.greenActiveColor
+                          : ColorPallete.greyShadowColorOpacityMax,
+                    ),
+                    const Gap(kMidEmptySpace),
+                    HeadersSmallText(
+                      text: notice.category.name.toUpperCase(),
+                    ),
+                  ],
                 ),
               ],
             ),
+            const Gap(3),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +132,7 @@ class NoticeCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          notice.content.title,
+                          notice.content.title.cut(40),
                           style: style.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -139,7 +152,9 @@ class NoticeCard extends StatelessWidget {
             ),
             const Divider(),
             Text(
-              notice.content.content,
+              isDashboard
+                  ? notice.content.content.cut(140)
+                  : notice.content.content,
               style: style,
             ),
             const GradientDivider(),
@@ -199,6 +214,7 @@ class NoticeCard extends StatelessWidget {
             ),
             const Divider(),
             AnimatedComment(
+                shouldOpenComment: shouldOpenComment,
                 noticeIndex: noticeIndex,
                 noticeId: notice.id,
                 userId: userId,
