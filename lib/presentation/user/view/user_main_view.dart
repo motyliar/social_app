@@ -1,7 +1,9 @@
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
+import 'package:climbapp/core/routers/animation_route.dart';
 import 'package:climbapp/core/services/get_it/sport_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/app.dart';
 
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
@@ -19,9 +21,9 @@ class UserMainView extends StatelessWidget {
   const UserMainView({super.key});
 
   static Route<dynamic> route() {
-    return MaterialPageRoute(
-      settings: const RouteSettings(name: routeUserMain),
-      builder: (_) => const UserMainView(),
+    return AnimationRoute.slideDownRoute(
+      direction: const UserMainView(),
+      route: routeUserMain,
     );
   }
 

@@ -11,6 +11,7 @@ import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/view/single_user_notice.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/view_switch/view_switch_cubit.dart';
 import 'package:climbapp/presentation/user/business/enum.dart';
@@ -120,6 +121,13 @@ class UserPage extends StatelessWidget {
                                 children: List.generate(
                               state.userNotices.length,
                               (index) => SingleNoticeInformationPreview(
+                                onTap: () => Navigator.pushNamed(
+                                  context,
+                                  routeSingleUserNotice,
+                                  arguments: SingleNoticeParams(
+                                    notice: state.userNotices[index],
+                                  ),
+                                ),
                                 onDelete: () => context
                                     .read<FetchUserNoticeCubit>()
                                     .deleteNotice(

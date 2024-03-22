@@ -17,78 +17,83 @@ class SingleNoticeInformationPreview extends StatelessWidget {
     required this.l10n,
     required this.onDelete,
     required this.onEdit,
+    required this.onTap,
   });
 
   final NoticeEntity notice;
   final AppLocalizations l10n;
   final VoidCallback onDelete;
   final VoidCallback onEdit;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      startActionPane: ActionPane(motion: const ScrollMotion(), children: [
-        SlidePane(
-          onTap: () => onDelete(),
-          l10n: l10n,
-          icon: AppIcons.deleteBig,
-          text: HeadersSmallText(text: l10n.deleteButton.toUpperCase()),
-        ),
-      ]),
-      endActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        children: [
+    return GestureDetector(
+      onTap: () => onTap(),
+      child: Slidable(
+        startActionPane: ActionPane(motion: const ScrollMotion(), children: [
           SlidePane(
-            onTap: () => onEdit(),
+            onTap: () => onDelete(),
             l10n: l10n,
-            icon: AppIcons.editBig,
-            text: HeadersSmallText(
-              text: l10n.editText.toUpperCase(),
+            icon: AppIcons.deleteBig,
+            text: HeadersSmallText(text: l10n.deleteButton.toUpperCase()),
+          ),
+        ]),
+        endActionPane: ActionPane(
+          motion: const ScrollMotion(),
+          children: [
+            SlidePane(
+              onTap: () => onEdit(),
+              l10n: l10n,
+              icon: AppIcons.editBig,
+              text: HeadersSmallText(
+                text: l10n.editText.toUpperCase(),
+              ),
+              backgroundColor: ColorPallete.mainDecorationColor,
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(kSmallButtonBorderRadius),
+                bottomRight: Radius.circular(
+                  kSmallButtonBorderRadius,
+                ),
+              ),
             ),
-            backgroundColor: ColorPallete.mainDecorationColor,
-            borderRadius: const BorderRadius.only(
-              topRight: Radius.circular(kSmallButtonBorderRadius),
-              bottomRight: Radius.circular(
-                kSmallButtonBorderRadius,
-              ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  notice.content.title.capitalize(),
+                  style: AppTextStyle.descriptionBig
+                      .copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                notice.content.title.capitalize(),
-                style: AppTextStyle.descriptionBig
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const Gap(kMinEmptySpace),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                notice.category.name.toUpperCase(),
-                style: AppTextStyle.descriptionSmall,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '${l10n.commentText} ${notice.comments?.length}',
-                    style: AppTextStyle.descriptionSmall,
-                  ),
-                  const SizedBox(
-                    width: kMinEmptySpace,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Gap(kMinEmptySpace),
-        ],
+            const Gap(kMinEmptySpace),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  notice.category.name.toUpperCase(),
+                  style: AppTextStyle.descriptionSmall,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      '${l10n.commentText} ${notice.comments?.length}',
+                      style: AppTextStyle.descriptionSmall,
+                    ),
+                    const SizedBox(
+                      width: kMinEmptySpace,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Gap(kMinEmptySpace),
+          ],
+        ),
       ),
     );
   }

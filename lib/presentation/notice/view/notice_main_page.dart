@@ -14,6 +14,7 @@ import 'package:climbapp/presentation/notice/business/cubit/create_notice/create
 import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete_notice_cubit.dart';
 
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/widgets/back_card.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 
@@ -54,36 +55,7 @@ class NoticeMainPage extends StatelessWidget {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              GeneralCard(
-                  gradient: blueGreen,
-                  padding: const EdgeInsets.only(
-                      left: kGeneralPagesMargin, right: 40),
-                  margin: const EdgeInsets.only(
-                      left: kMidEmptySpace,
-                      right: kMidEmptySpace,
-                      top: kMidEmptySpace,
-                      bottom: kMidEmptySpace),
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RoundBackButton(
-                          onTap: () => Navigator.popAndPushNamed(
-                            context,
-                            routeDashboardPage,
-                          ),
-                        ),
-                        Transform.rotate(
-                          angle: 13,
-                          child: Image.network(
-                            ImagesURL.appLogo,
-                            width: 120,
-                            height: 120,
-                          ),
-                        ),
-                      ],
-                    )
-                  ]),
+              const BackCard(),
               BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
                 builder: (context, state) {
                   if (state is FetchNoticeLoading) {
