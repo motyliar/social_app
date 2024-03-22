@@ -31,7 +31,7 @@ class SingleNoticeInformationPreview extends StatelessWidget {
           onTap: () => onDelete(),
           l10n: l10n,
           icon: AppIcons.deleteBig,
-          text: HeadersSmallText(text: l10n.editText.toUpperCase()),
+          text: HeadersSmallText(text: l10n.deleteButton.toUpperCase()),
         ),
       ]),
       endActionPane: ActionPane(
@@ -42,9 +42,9 @@ class SingleNoticeInformationPreview extends StatelessWidget {
             l10n: l10n,
             icon: AppIcons.editBig,
             text: HeadersSmallText(
-              text: l10n.deleteButton.toUpperCase(),
+              text: l10n.editText.toUpperCase(),
             ),
-            backgroundColor: ColorPallete.mainTextColor,
+            backgroundColor: ColorPallete.mainDecorationColor,
             borderRadius: const BorderRadius.only(
               topRight: Radius.circular(kSmallButtonBorderRadius),
               bottomRight: Radius.circular(

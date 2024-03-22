@@ -96,7 +96,12 @@ void userInit() {
         () => CreateNoticeCubit(createNewNoticeUseCase: userLocator()))
     ..registerFactory(() => UpdateNoticeCubit(updated: userLocator()))
     ..registerFactory(() => PublishNoticeCubit(create: userLocator()))
-    ..registerFactory(() => FetchUserNoticeCubit(fetch: userLocator()))
+    ..registerFactory(
+      () => FetchUserNoticeCubit(
+        fetch: userLocator(),
+        delete: userLocator(),
+      ),
+    )
     ..registerFactory(() => DeleteNoticeCubit(delete: userLocator()))
     ..registerFactory(() => AddCommentCubit(comment: userLocator()))
     ..registerFactory(() => DeleteCommentCubit(deleteComment: userLocator()))

@@ -3,7 +3,7 @@ import 'package:climbapp/core/datahelpers/params/sports/get_sports_params.dart';
 import 'package:climbapp/core/services/get_it/sport_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/presentation/app.dart';
-import 'package:climbapp/presentation/app/widgets/loading_state.dart';
+
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/business/cubit/load_sport/load_sport_cubit.dart';

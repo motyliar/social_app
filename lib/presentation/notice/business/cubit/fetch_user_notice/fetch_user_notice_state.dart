@@ -13,6 +13,12 @@ class FetchUserNoticeState extends Equatable {
 
 final class FetchUserNoticeLoading extends FetchUserNoticeState {}
 
+class FetchReloading extends FetchUserNoticeState {
+  const FetchReloading({required super.userNotices});
+  @override
+  List<Object> get props => [userNotices];
+}
+
 final class FetchUserNoticeFailed extends FetchUserNoticeState {
   const FetchUserNoticeFailed({required this.error});
   final String error;

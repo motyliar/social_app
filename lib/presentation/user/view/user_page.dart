@@ -1,15 +1,10 @@
-import 'dart:math';
-
 import 'package:climbapp/core/constans/export_constans.dart';
-
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/fonts.dart';
-import 'package:climbapp/core/theme/icons/icons.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
-import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
@@ -23,11 +18,8 @@ import 'package:climbapp/presentation/user/widgets/widgets.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:gap/gap.dart';
 
 const double _generalPagePadding = kGeneralPagesMargin;
-const double _oneNoticeHeight = 38.0;
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -128,6 +120,14 @@ class UserPage extends StatelessWidget {
                                 children: List.generate(
                               state.userNotices.length,
                               (index) => SingleNoticeInformationPreview(
+                                onDelete: () => context
+                                    .read<FetchUserNoticeCubit>()
+                                    .deleteNotice(
+                                        GetNoticeParams(
+                                            url: AppUrl.deleteSingleNoticeURL(
+                                                state.userNotices[index].id)),
+                                        index),
+                                onEdit: () {},
                                 notice: state.userNotices[index],
                                 l10n: l10n,
                               ),
@@ -145,136 +145,9 @@ class UserPage extends StatelessWidget {
               ),
             );
           } else {
-            return const Text('to tutaj');
+            return WrongPage(l10n: l10n);
           }
         },
-      ),
-    );
-  }
-}
-
-class SingleNoticeInformationPreview extends StatelessWidget {
-  const SingleNoticeInformationPreview({
-    super.key,
-    required this.notice,
-    required this.l10n,
-    required this.onDelete,
-    required this.onEdit,
-  });
-
-  final NoticeEntity notice;
-  final AppLocalizations l10n;
-  final VoidCallback onDelete;
-  final VoidCallback onEdit;
-  @override
-  Widget build(BuildContext context) {
-    return Slidable(
-      startActionPane: ActionPane(motion: const ScrollMotion(), children: [
-        Container(
-          width: 120,
-          height: 50,
-          decoration: const BoxDecoration(
-            color: ColorPallete.pinkDecorationColor,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(kSmallButtonBorderRadius),
-              bottomRight: Radius.circular(
-                kSmallButtonBorderRadius,
-              ),
-            ),
-          ),
-          child: Row(
-            children: [
-              const Gap(kMinEmptySpace),
-              AppIcons.deleteBig,
-              const Gap(kMinEmptySpace),
-              HeadersSmallText(text: l10n.deleteButton.toUpperCase()),
-            ],
-          ),
-        ),
-      ]),
-      endActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        children: [
-          Container(
-            width: 120,
-            height: 50,
-            decoration: const BoxDecoration(
-              color: ColorPallete.mainDecorationColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(kSmallButtonBorderRadius),
-                bottomLeft: Radius.circular(
-                  kSmallButtonBorderRadius,
-                ),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                HeadersSmallText(text: l10n.editText.toUpperCase()),
-                const Gap(kMinEmptySpace),
-                AppIcons.editBig,
-                const Gap(kMinEmptySpace),
-              ],
-            ),
-          ),
-          Container(
-            width: 120,
-            height: 50,
-            decoration: const BoxDecoration(
-              color: ColorPallete.pinkDecorationColor,
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(kSmallButtonBorderRadius),
-                bottomRight: Radius.circular(
-                  kSmallButtonBorderRadius,
-                ),
-              ),
-            ),
-            child: Row(
-              children: [
-                const Gap(kMinEmptySpace),
-                AppIcons.deleteBig,
-                const Gap(kMinEmptySpace),
-                HeadersSmallText(text: l10n.deleteButton.toUpperCase()),
-              ],
-            ),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                notice.content.title.capitalize(),
-                style: AppTextStyle.descriptionBig
-                    .copyWith(fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          const Gap(kMinEmptySpace),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                notice.category.name.toUpperCase(),
-                style: AppTextStyle.descriptionSmall,
-              ),
-              Row(
-                children: [
-                  Text(
-                    '${l10n.commentText} ${notice.comments?.length}',
-                    style: AppTextStyle.descriptionSmall,
-                  ),
-                  const SizedBox(
-                    width: kMinEmptySpace,
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const Gap(kMinEmptySpace),
-        ],
       ),
     );
   }
