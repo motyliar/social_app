@@ -42,6 +42,11 @@ class AppIcons {
     color: ColorPallete.pinkDecorationColor,
     size: 16,
   );
+  static const deleteBig = CustomIcon(
+    Icons.delete,
+    color: Colors.black,
+    size: 35,
+  );
   static const forward = CustomIcon(
     Icons.forward,
     size: 16,
@@ -49,6 +54,11 @@ class AppIcons {
   static const edit = CustomIcon(
     Icons.edit,
     size: 16,
+  );
+  static const editBig = CustomIcon(
+    Icons.edit,
+    color: Colors.black,
+    size: 35,
   );
   static const gallery = CustomIcon(Icons.collections_bookmark, size: 50);
   static const camera = CustomIcon(Icons.photo_camera, size: 50);
