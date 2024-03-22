@@ -67,4 +67,20 @@ class AppIcons {
     color: ColorPallete.rateStarYellow,
   );
   static const notifications = CustomIcon(Icons.notifications);
+
+  static const smile = CustomIcon(
+    Icons.mood,
+    size: 40,
+    color: ColorPallete.pinkDecorationColor,
+  );
+
+  static const thumbDown = CustomIcon(
+    Icons.thumb_down,
+    size: 35,
+    color: ColorPallete.pinkDecorationColor,
+  );
+  static const thumbUp = CustomIcon(
+    Icons.thumb_up,
+    size: 35,
+  );
 }
