@@ -10,6 +10,7 @@ import 'package:climbapp/presentation/message/view/message_dist.dart';
 import 'package:climbapp/presentation/message/view/subview/message_subview.dart';
 
 import 'package:climbapp/presentation/notice/view/notice_main_page.dart';
+import 'package:climbapp/presentation/notice/view/single_user_notice.dart';
 import 'package:climbapp/presentation/profile/view/profile_page.dart';
 import 'package:climbapp/presentation/user/view/user_main_view.dart';
 
@@ -49,6 +50,9 @@ class AppRouter {
             message: settings.arguments as MessageEntity);
       case route.routeNoticePage:
         return NoticeMainPage.route(settings.arguments as NoticePageParams);
+      case route.routeSingleUserNotice:
+        return SingleUserNotice.route(
+            params: settings.arguments as SingleNoticeParams);
 
       case route.routeCreateNotice:
         return CreateNotice.route();
