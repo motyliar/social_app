@@ -7,3 +7,5 @@ export 'app_logo_button.dart';
 export 'text_variations.dart';
 export 'empty_space.dart';
 export 'wrong_page.dart';
+export 'active_dot.dart';
+export 'page_end.dart';
