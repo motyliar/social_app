@@ -1,3 +1,5 @@
+// ignore_for_file: unused_element
+
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/presentation/app/widgets/container_template.dart';
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
@@ -7,13 +9,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constans/export_constans.dart';
 import '../../../core/theme/themes_export.dart';
 
+const double _friendsBoxHeight = 120;
+const double _singleFriendWidth = 70;
+const String _showNothing = '';
+const double _avatarRadius = 35;
+
 class UserFriendsCard extends StatelessWidget {
   const UserFriendsCard({
     super.key,
     required this.l10n,
+    this.friendOnTap,
+    this.avatarRadius = _avatarRadius,
   });
 
   final AppLocalizations l10n;
+  final VoidCallback? friendOnTap;
+  final double avatarRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -42,43 +53,42 @@ class UserFriendsCard extends StatelessWidget {
           builder: (context, state) {
             return SizedBox(
               width: MediaQuery.of(context).size.width,
-              height: 120,
+              height: _friendsBoxHeight,
               child: GridView.count(
                   crossAxisCount: 3,
                   childAspectRatio: 0.8,
                   children: List.generate(
                       3,
                       (index) => Container(
-                          width: 70,
-                          height: 120,
-                          margin: const EdgeInsets.all(5),
-                          padding: const EdgeInsets.all(5),
+                          width: _singleFriendWidth,
+                          height: _friendsBoxHeight,
+                          margin: const EdgeInsets.all(kMinEmptySpace),
+                          padding: const EdgeInsets.all(kMinEmptySpace),
                           decoration: BoxDecoration(
                               color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(50)),
+                              borderRadius:
+                                  BorderRadius.circular(maxBorderRadius)),
                           child: state.friends.length < index + 1
-                              ? const Text('')
+                              ? const Text(_showNothing)
                               : GestureDetector(
-                                  onTap: () => Navigator.popAndPushNamed(
-                                      context, routeProfilePage,
-                                      arguments: state.friends[index]),
+                                  onTap: () =>
+                                      friendOnTap ??
+                                      Navigator.popAndPushNamed(
+                                          context, routeProfilePage,
+                                          arguments: state.friends[index]),
                                   child: Column(children: [
                                     Stack(children: [
                                       CircleAvatar(
-                                        radius: 35,
+                                        radius: avatarRadius,
                                         backgroundImage: NetworkImage(
                                             state.friends[index].profileAvatar),
                                       ),
                                       Positioned(
                                         bottom: 0,
                                         right: 0,
-                                        child: CircleAvatar(
-                                          radius: 8,
-                                          backgroundColor: state
-                                                  .friends[index].isActive
-                                              ? ColorPallete.greenActiveColor
-                                              : ColorPallete
-                                                  .greyShadowColorOpacityMax,
+                                        child: _ActiveDot(
+                                          isActive:
+                                              state.friends[index].isActive,
                                         ),
                                       ),
                                     ]),
@@ -98,5 +108,25 @@ class UserFriendsCard extends StatelessWidget {
         ),
       ]),
     );
+  }
+}
+
+class _ActiveDot extends StatelessWidget {
+  final bool isActive;
+  final Color activeColor;
+  final Color inActiveColor;
+  final double radius;
+  const _ActiveDot(
+      {required this.isActive,
+      this.activeColor = ColorPallete.greenActiveColor,
+      this.inActiveColor = ColorPallete.greyShadowColorOpacityMax,
+      this.radius = 8,
+      super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+        radius: radius,
+        backgroundColor: isActive ? activeColor : inActiveColor);
   }
 }
