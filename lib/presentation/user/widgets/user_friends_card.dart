@@ -1,7 +1,6 @@
-// ignore_for_file: unused_element
-
 import 'package:climbapp/core/l10n/l10n.dart';
-import 'package:climbapp/presentation/app/widgets/container_template.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
+
 import 'package:climbapp/presentation/friends/business/bloc/friends_action_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +85,7 @@ class UserFriendsCard extends StatelessWidget {
                                       Positioned(
                                         bottom: 0,
                                         right: 0,
-                                        child: _ActiveDot(
+                                        child: ActiveDot(
                                           isActive:
                                               state.friends[index].isActive,
                                         ),
@@ -108,25 +107,5 @@ class UserFriendsCard extends StatelessWidget {
         ),
       ]),
     );
-  }
-}
-
-class _ActiveDot extends StatelessWidget {
-  final bool isActive;
-  final Color activeColor;
-  final Color inActiveColor;
-  final double radius;
-  const _ActiveDot(
-      {required this.isActive,
-      this.activeColor = ColorPallete.greenActiveColor,
-      this.inActiveColor = ColorPallete.greyShadowColorOpacityMax,
-      this.radius = 8,
-      super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return CircleAvatar(
-        radius: radius,
-        backgroundColor: isActive ? activeColor : inActiveColor);
   }
 }
