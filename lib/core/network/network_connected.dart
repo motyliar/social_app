@@ -6,15 +6,15 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 /// [NetworkBloc]
 class NetworkConnectedImpl {
   static void connectionObserver() async {
-    final List<ConnectivityResult> connectivityResult =
-        await Connectivity().checkConnectivity();
-    // Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-    if (connectivityResult.contains(ConnectivityResult.none)) {
-      NetworkBloc().add(const NetworkConnectedNotify());
-    } else {
-      NetworkBloc().add(const NetworkConnectedNotify(isConnected: true));
-    }
-    // });
+    // final List<ConnectivityResult> connectivityResult =
+    //     await Connectivity().checkConnectivity();
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      if (result == ConnectivityResult.none) {
+        NetworkBloc().add(const NetworkConnectedNotify());
+      } else {
+        NetworkBloc().add(const NetworkConnectedNotify(isConnected: true));
+      }
+    });
   }
 
   /// [checkConnection] pre function to check internet connection in mobile
