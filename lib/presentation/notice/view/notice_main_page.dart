@@ -1,22 +1,17 @@
 import 'package:climbapp/core/constans/export_constans.dart';
-
 import 'package:climbapp/core/datahelpers/params/notice/notice_params.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
-import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/domains/notice/entities/notice_enums/directions.dart';
-import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/notice_card.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/notice_loader.dart';
 import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete_notice_cubit.dart';
-
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/widgets/back_card.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
-import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
