@@ -7,6 +7,8 @@ import 'package:climbapp/data/message/datasources/remote/message_remote_datasour
 import 'package:climbapp/data/message/repository/message_repository_impl.dart';
 import 'package:climbapp/data/notice/datasources/remote/notice_remote_data_sources.dart';
 import 'package:climbapp/data/notice/repository/notice_repository_impl.dart';
+import 'package:climbapp/data/requests/datasources/remote/request_remote_source.dart';
+import 'package:climbapp/data/requests/repository/request_repository_impl.dart';
 import 'package:climbapp/data/user/datasources/local/user_local_data_sources.dart';
 import 'package:climbapp/data/user/datasources/remote/user_remote_data_sources.dart';
 import 'package:climbapp/data/user/repository/user_repository_impl.dart';
@@ -34,6 +36,8 @@ import 'package:climbapp/domains/notice/usecases/get_single_notice_usecase.dart'
 import 'package:climbapp/domains/notice/usecases/update_comment_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/update_user_id_join_arrays_usecase.dart';
 import 'package:climbapp/domains/notice/usecases/updated_notice_usecase.dart';
+import 'package:climbapp/domains/requests/repository/request_repository.dart';
+import 'package:climbapp/domains/requests/usecases/get_requested_users.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:climbapp/domains/user/usecases/get_user_usecase.dart';
 import 'package:climbapp/domains/user/usecases/update_user_usecase.dart';
@@ -50,6 +54,7 @@ import 'package:climbapp/presentation/message/business/cubit/delete/message_dele
 import 'package:climbapp/presentation/notice/business/cubit/create_notice/create_notice_cubit.dart';
 
 import 'package:climbapp/presentation/notice/business/cubit/delete_notice/delete_notice_cubit.dart';
+import 'package:climbapp/presentation/notice/business/cubit/fetch_requested_users/fetch_requested_users_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fetch_user_notice_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_comment/update_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
@@ -111,6 +116,7 @@ void userInit() {
     ..registerFactory(() => AddToFriendCubit(
         addFriendUseCase: userLocator(), deleteFriendUseCase: userLocator()))
     ..registerFactory(() => ImageSenderCubit(uploadImageUseCase: userLocator()))
+    ..registerFactory(() => FetchRequestedUsersCubit(getUsers: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -162,6 +168,10 @@ void userInit() {
     ..registerLazySingleton(
         () => UpdateUserIdJoinArraysUseCase(repository: userLocator()))
 
+    //REQUESTS
+    ..registerLazySingleton(
+        () => GetRequestedUseresUseCase(repository: userLocator()))
+
     //IMAGE
     ..registerLazySingleton(
         () => UploadImageUseCase(imageRepository: userLocator()))
@@ -186,7 +196,9 @@ void userInit() {
     // IMAGE
     ..registerLazySingleton<ImageRepository>(
         () => ImageRepositoryImpl(imageRemoteSource: userLocator()))
-
+    //REQUESTS
+    ..registerLazySingleton<RequestsRepository>(
+        () => RequestRepositoryImpl(remote: userLocator()))
     // Register Remote and Local Data
     //USER
     ..registerLazySingleton<UserRemoteDataSources>(
@@ -206,5 +218,6 @@ void userInit() {
     // NOTICES
     ..registerLazySingleton<NoticeRemoteDataSources>(
         () => NoticeRemoteDataSourcesImpl())
-    ..registerLazySingleton<ImageRemoteSource>(() => ImageRemoteSourceImpl());
+    ..registerLazySingleton<ImageRemoteSource>(() => ImageRemoteSourceImpl())
+    ..registerLazySingleton<IRequestDataSource>(() => RequestsDataSourceImpl());
 }
