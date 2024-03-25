@@ -1,11 +1,16 @@
 import 'package:climbapp/core/constans/export_constans.dart';
+import 'package:climbapp/core/datahelpers/params/requests/requests_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
+import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
+import 'package:climbapp/domains/requests/entities/requests_entity.dart';
+import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
+import 'package:climbapp/presentation/notice/business/cubit/fetch_requested_users/fetch_requested_users_cubit.dart';
 
 import 'package:climbapp/presentation/notice/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
@@ -38,113 +43,125 @@ class SingleUserNotice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Column(
-            children: [
-              BackCard(
-                onBack: () {
-                  Navigator.pop(context);
-                },
-              ),
-              GeneralCard(children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Row(
+    return BlocProvider(
+      create: (context) => userLocator<FetchRequestedUsersCubit>()
+        ..fetchUsers(RequestsParams(
+            userList: notice.requests != null ? notice.requests!.toList() : [],
+            url: AppUrl.getRequestedURL)),
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              children: [
+                BackCard(
+                  onBack: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                GeneralCard(children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            AppIcons.smile,
+                            const Gap(kMidEmptySpace),
+                            HeadersSmallText(
+                                text:
+                                    notice.interested?.length.toString() ?? '0')
+                          ],
+                        ),
+                        ActiveCategory(notice: notice),
+                      ],
+                    ),
+                  ),
+                  const Gap(kMidEmptySpace),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          AppIcons.smile,
-                          const Gap(kMidEmptySpace),
-                          HeadersSmallText(
-                              text: notice.interested?.length.toString() ?? '0')
-                        ],
+                      HeadersSmallText(text: notice.content.title),
+                      EditButton(
+                        text: l10n.editText,
+                        onTap: () {},
                       ),
-                      ActiveCategory(notice: notice),
                     ],
                   ),
-                ),
-                const Gap(kMidEmptySpace),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeadersSmallText(text: notice.content.title),
-                    EditButton(
-                      text: l10n.editText,
-                      onTap: () {},
-                    ),
-                  ],
-                ),
-                const Divider(),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: EditButton(text: l10n.editText, onTap: () {}),
-                ),
-                Text(
-                  notice.content.content,
-                  style: textStyle,
-                ),
-                const GradientDivider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeadersSmallText(
-                      text: notice.content.when ?? 'data',
-                    ),
-                    EditButton(text: l10n.editText, onTap: () {}),
-                  ],
-                ),
-                const Gap(kMidEmptySpace),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeadersSmallText(
-                        text: notice.localization == ''
-                            ? 'localization'
-                            : notice.localization!),
-                    EditButton(text: l10n.editText, onTap: () {}),
-                  ],
-                ),
-                const Gap(kMidEmptySpace),
-                const Divider(),
-                HeadersSmallText(text: l10n.commentText),
-                const Divider(
-                  endIndent: 200,
-                ),
-                const Gap(kMidEmptySpace),
-                Column(
-                  children: List.generate(
-                    notice.comments == null ? 0 : notice.comments!.length,
-                    (index) => SingleCommentUserNotice(
-                      notice: notice,
-                      index: index,
+                  const Divider(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: EditButton(text: l10n.editText, onTap: () {}),
+                  ),
+                  Text(
+                    notice.content.content,
+                    style: textStyle,
+                  ),
+                  const GradientDivider(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      HeadersSmallText(
+                        text: notice.content.when ?? 'data',
+                      ),
+                      EditButton(text: l10n.editText, onTap: () {}),
+                    ],
+                  ),
+                  const Gap(kMidEmptySpace),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      HeadersSmallText(
+                          text: notice.localization == ''
+                              ? 'localization'
+                              : notice.localization!),
+                      EditButton(text: l10n.editText, onTap: () {}),
+                    ],
+                  ),
+                  const Gap(kMidEmptySpace),
+                  const Divider(),
+                  HeadersSmallText(text: l10n.commentText),
+                  const Divider(
+                    endIndent: 200,
+                  ),
+                  const Gap(kMidEmptySpace),
+                  Column(
+                    children: List.generate(
+                      notice.comments == null ? 0 : notice.comments!.length,
+                      (index) => SingleCommentUserNotice(
+                        notice: notice,
+                        index: index,
+                      ),
                     ),
                   ),
-                ),
-                const Divider(),
-              ]),
-              const Gap(kGeneralPagesMargin),
-              GeneralCard(children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeadersSmallText(text: l10n.requests),
-                    HeadersSmallText(
-                        text: notice.requests?.length.toString() ?? '0'),
-                  ],
-                ),
-                const GradientDivider(),
-                const Gap(kMidEmptySpace),
-                Column(
-                    children: List.generate(
-                  notice.requests?.length ?? 0,
-                  (index) => RequestCard(notice: notice),
-                ))
-              ]),
-              const PageEnd(),
-            ],
+                  const Divider(),
+                ]),
+                const Gap(kGeneralPagesMargin),
+                GeneralCard(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      HeadersSmallText(text: l10n.requests),
+                      HeadersSmallText(
+                          text: notice.requests?.length.toString() ?? '0'),
+                    ],
+                  ),
+                  const GradientDivider(),
+                  const Gap(kMidEmptySpace),
+                  BlocBuilder<FetchRequestedUsersCubit,
+                      FetchRequestedUsersState>(
+                    builder: (context, state) {
+                      return Column(
+                          children: List.generate(
+                        state.users.length,
+                        (index) => RequestCard(user: state.users[index]),
+                      ));
+                    },
+                  )
+                ]),
+                const PageEnd(),
+              ],
+            ),
           ),
         ),
       ),
@@ -154,11 +171,11 @@ class SingleUserNotice extends StatelessWidget {
 
 class RequestCard extends StatelessWidget {
   const RequestCard({
+    required this.user,
     super.key,
-    required this.notice,
   });
 
-  final NoticeEntity notice;
+  final RequestsEntity user;
 
   @override
   Widget build(BuildContext context) {
@@ -168,11 +185,11 @@ class RequestCard extends StatelessWidget {
         Row(
           children: [
             ProfileAvatar(
-              url: notice.avatar,
+              url: user.avatar,
               radius: 25,
             ),
             const Gap(kGeneralPagesMargin),
-            HeadersSmallText(text: notice.author),
+            HeadersSmallText(text: user.userName),
           ],
         ),
         Thumbs(
