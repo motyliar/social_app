@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   awesome_snackbar_content: ^0.1.3
-  bloc: ^8.1.2
+  bloc: ^8.1.4
 
   cloud_firestore: ^4.15.9
   connectivity_plus: ^6.0.1
