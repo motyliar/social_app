@@ -130,7 +130,7 @@ class SingleUserNotice extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const HeadersSmallText(text: 'Requests'),
+                    HeadersSmallText(text: l10n.requests),
                     HeadersSmallText(
                         text: notice.requests?.length.toString() ?? '0'),
                   ],
@@ -138,34 +138,48 @@ class SingleUserNotice extends StatelessWidget {
                 const GradientDivider(),
                 const Gap(kMidEmptySpace),
                 Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            ProfileAvatar(
-                              url: notice.comments![0].avatar,
-                              radius: 25,
-                            ),
-                            const Gap(kGeneralPagesMargin),
-                            HeadersSmallText(text: notice.comments![0].user),
-                          ],
-                        ),
-                        Thumbs(
-                          thumbUp: () {},
-                          thumbDown: () {},
-                        ),
-                      ],
-                    ),
-                  ],
-                )
+                    children: List.generate(
+                  notice.requests?.length ?? 0,
+                  (index) => RequestCard(notice: notice),
+                ))
               ]),
               const PageEnd(),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class RequestCard extends StatelessWidget {
+  const RequestCard({
+    super.key,
+    required this.notice,
+  });
+
+  final NoticeEntity notice;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            ProfileAvatar(
+              url: notice.avatar,
+              radius: 25,
+            ),
+            const Gap(kGeneralPagesMargin),
+            HeadersSmallText(text: notice.author),
+          ],
+        ),
+        Thumbs(
+          thumbUp: () {},
+          thumbDown: () {},
+        ),
+      ],
     );
   }
 }
