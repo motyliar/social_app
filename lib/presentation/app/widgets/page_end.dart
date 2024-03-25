@@ -4,8 +4,8 @@ import 'package:gap/gap.dart';
 
 import '../../../core/constans/export_constans.dart';
 
-class EndOfPage extends StatelessWidget {
-  const EndOfPage({
+class PageEnd extends StatelessWidget {
+  const PageEnd({
     super.key,
   });
 

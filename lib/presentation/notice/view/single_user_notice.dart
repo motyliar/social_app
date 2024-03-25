@@ -6,11 +6,16 @@ import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
-import 'package:climbapp/presentation/notice/widgets/back_card.dart';
+
 import 'package:climbapp/presentation/notice/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+
+// todo
+// zaimplementować import użytkowników którzy klikneli request i zrobić obsługę zdarzenia , tak lub nie
+// dodać implementację notification i wtedy mamy już praktycznie wszystko,
+//edycja własnej notatki
 
 class SingleUserNotice extends StatelessWidget {
   const SingleUserNotice(
@@ -127,7 +132,7 @@ class SingleUserNotice extends StatelessWidget {
                   children: [
                     const HeadersSmallText(text: 'Requests'),
                     HeadersSmallText(
-                        text: notice.interested?.length.toString() ?? '0'),
+                        text: notice.requests?.length.toString() ?? '0'),
                   ],
                 ),
                 const GradientDivider(),
