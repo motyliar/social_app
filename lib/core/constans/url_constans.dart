@@ -28,6 +28,7 @@ class AppUrl {
   static const String filterQuery = 'filter?word=';
   static const String category = '&category=category';
   static const String filterAll = 'filterAll?word=';
+  static const String getRequested = 'findRequested';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   static Uri logoutURL() => Uri.parse('$backendUrl$logout');
@@ -122,4 +123,7 @@ class AppUrl {
       Uri.parse('$backendUrl$sports$get$userId');
   static Uri updateSportsURL(String userId) =>
       Uri.parse('$backendUrl$sports$updateAction$userId');
+
+  static Uri get getRequestedURL =>
+      Uri.parse('$backendUrl$middleWare$user$getRequested');
 }
