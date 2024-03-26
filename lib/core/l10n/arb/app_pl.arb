@@ -12,6 +12,8 @@
       "signUpLabel": "Zarejestruj",
       "loading": "Wczytuje...",
 
+
+
     
     "@_SIGN_PAGE": {},
     "topbigLabelText" : "JoinMee",
@@ -48,7 +50,12 @@
     "totalNotices": "Wszystkie ogłoszenia ",
     "editText": "Edytuj",
     "requests": "Prośby",
-
+    "@_NOTIFY_MESSAGES": {},
+    "newRequest": "Masz nową prośbę od ",
+    "requestAccept": " zaakceptował Twoją prośbę.",
+    "requestReject":  " odrzucił Twoją prośbę.",
+    "newMessage": "Masz nową wiadomość od ",
+    "receivedMessage": "Odpowiedz na wiadomość od ",
 
      "@_BUTTONS": {},
     "skip": "pomiń",
