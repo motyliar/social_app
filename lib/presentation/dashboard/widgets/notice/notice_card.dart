@@ -164,21 +164,22 @@ class NoticeCard extends StatelessWidget {
                 Row(
                   children: [
                     LikeActionButton(
-                        isLike:
-                            NoticeLogic.didIClick(notice.interested!, userId),
-                        onTap: NoticeLogic.didIClick(notice.interested!, userId)
-                            ? () => smileOnTapBack()
-                            : () {
-                                smileOnTap();
-                                Utils.showSuccessDialog(
-                                    context, const SmileAnimation());
-                              }),
+                        isLike: DashboardLogic.didIClick(
+                            notice.interested!, userId),
+                        onTap:
+                            DashboardLogic.didIClick(notice.interested!, userId)
+                                ? () => smileOnTapBack()
+                                : () {
+                                    smileOnTap();
+                                    Utils.showSuccessDialog(
+                                        context, const SmileAnimation());
+                                  }),
                     const Gap(kMinEmptySpace),
                     BlocBuilder<FetchNoticeBloc, FetchNoticeState>(
                       builder: (context, state) {
                         return GestureDetector(
                           onTap: () async => {
-                            NoticeLogic.addCommentSheet(
+                            DashboardLogic.addCommentSheet(
                               context,
                               _commentsController,
                               notice,
@@ -204,10 +205,11 @@ class NoticeCard extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0),
                   child: AppLogoButton(
-                    onTap: () => NoticeLogic.didIClick(notice.requests!, userId)
-                        ? logoOnTapBack()
-                        : logoOnTap(),
-                    isJoin: NoticeLogic.didIClick(notice.requests!, userId),
+                    onTap: () =>
+                        DashboardLogic.didIClick(notice.requests!, userId)
+                            ? logoOnTapBack()
+                            : logoOnTap(),
+                    isJoin: DashboardLogic.didIClick(notice.requests!, userId),
                   ),
                 ),
               ],

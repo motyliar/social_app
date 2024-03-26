@@ -3,7 +3,7 @@ import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/presentation/dashboard/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-class NoticeLogic {
+class DashboardLogic {
   static bool didIClick(Set<String> idsList, String userId) {
     for (var likes in idsList) {
       if (likes == userId) {
@@ -28,7 +28,10 @@ class NoticeLogic {
         controller: controller,
         notice: notice,
       ),
-    ).whenComplete(() => {controller.clear(), reLoad()});
+    ).whenComplete(() {
+      controller.clear();
+      reLoad();
+    });
   }
 
   static bool checkIsUserComment(String commentId, String userId) {
