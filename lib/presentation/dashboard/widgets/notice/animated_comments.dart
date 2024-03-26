@@ -68,7 +68,7 @@ class AnimatedComment extends StatelessWidget {
                                     noticeIndex: noticeIndex,
                                     comment: comments[index],
                                     isUserComment:
-                                        NoticeLogic.checkIsUserComment(
+                                        DashboardLogic.checkIsUserComment(
                                             comments[index].userId, userId),
                                     noticeId: noticeId,
                                   ),

@@ -1,26 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
 import 'package:climbapp/core/datahelpers/params/requests/requests_params.dart';
 import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
-import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
-import 'package:climbapp/domains/requests/entities/requests_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/notice/business/cubit/fetch_requested_users/fetch_requested_users_cubit.dart';
-
 import 'package:climbapp/presentation/notice/widgets/widgets.dart';
+import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 
 // todo
-// zaimplementować import użytkowników którzy klikneli request i zrobić obsługę zdarzenia , tak lub nie
 // dodać implementację notification i wtedy mamy już praktycznie wszystko,
-//edycja własnej notatki
+// do Notice należy dodać Bool - resolve? żeby można było sprawdzić
+// czy problem został rozwiązany
+// edycja własnej notatki
 
 class SingleUserNotice extends StatelessWidget {
   const SingleUserNotice(
@@ -43,6 +43,7 @@ class SingleUserNotice extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final user = context.select((UserBloc bloc) => bloc.state.user);
     return BlocProvider(
       create: (context) => userLocator<FetchRequestedUsersCubit>()
         ..fetchUsers(RequestsParams(
@@ -154,7 +155,15 @@ class SingleUserNotice extends StatelessWidget {
                       return Column(
                           children: List.generate(
                         state.users.length,
-                        (index) => RequestCard(user: state.users[index]),
+                        (index) => RequestCard(
+                          user: state.users[index],
+                          params: ThumbsActionParams(
+                            userName: user.userName,
+                            userAvatar: user.profileAvatar!,
+                            noticeId: notice.id,
+                            userId: user.id,
+                          ),
+                        ),
                       ));
                     },
                   )
@@ -169,140 +178,18 @@ class SingleUserNotice extends StatelessWidget {
   }
 }
 
-class RequestCard extends StatelessWidget {
-  const RequestCard({
-    required this.user,
-    super.key,
+/// [ThumbsActionParams] are using for handling params to send Resolve to Notice
+class ThumbsActionParams {
+  final String userName;
+  final String userAvatar;
+  final String noticeId;
+  final String userId;
+  ThumbsActionParams({
+    required this.userName,
+    required this.userAvatar,
+    required this.noticeId,
+    required this.userId,
   });
-
-  final RequestsEntity user;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            ProfileAvatar(
-              url: user.avatar,
-              radius: 25,
-            ),
-            const Gap(kGeneralPagesMargin),
-            HeadersSmallText(text: user.userName),
-          ],
-        ),
-        Thumbs(
-          thumbUp: () {},
-          thumbDown: () {},
-        ),
-      ],
-    );
-  }
-}
-
-class SingleCommentUserNotice extends StatelessWidget {
-  const SingleCommentUserNotice({
-    super.key,
-    required this.notice,
-    required this.index,
-  });
-
-  final NoticeEntity notice;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            ProfileAvatar(
-              url: notice.comments![index].avatar,
-            ),
-            Row(
-              children: [
-                Text(
-                  notice.comments![index].user,
-                  style: AppTextStyle.descriptionBig
-                      .copyWith(fontWeight: FontWeight.bold, letterSpacing: 2),
-                ),
-                const Gap(kMidEmptySpace),
-                Text(
-                  notice.comments![index].createdAt.cutTo(10),
-                  style: AppTextStyle.descriptionMid,
-                ),
-              ],
-            ),
-          ],
-        ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            width: 280,
-            padding: const EdgeInsets.all(10),
-            decoration: const BoxDecoration(
-              color: ColorPallete.mainDecorationColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            child: Text(
-              notice.comments![index].content.capitalize(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class ProfileAvatar extends StatelessWidget {
-  const ProfileAvatar({
-    super.key,
-    required this.url,
-    this.radius = 18,
-    this.onTap,
-  });
-
-  final String url;
-  final double radius;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: CircleAvatar(
-        radius: 18,
-        backgroundImage: NetworkImage(url),
-      ),
-    );
-  }
-}
-
-class EditButton extends StatelessWidget {
-  const EditButton({
-    super.key,
-    required this.text,
-    required this.onTap,
-  });
-
-  final String text;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => onTap(),
-      child: Text(
-        text,
-        style: AppTextStyle.descriptionMid,
-      ),
-    );
-  }
 }
 
 class SingleNoticeParams {
