@@ -23,11 +23,11 @@ class Thumbs extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () => thumbUp(),
           child: up,
         ),
         const Gap(kGeneralPagesMargin),
-        GestureDetector(onTap: () {}, child: down),
+        GestureDetector(onTap: () => thumbDown(), child: down),
       ],
     );
   }

@@ -29,6 +29,7 @@ class AppUrl {
   static const String category = '&category=category';
   static const String filterAll = 'filterAll?word=';
   static const String getRequested = 'findRequested';
+  static const String notify = 'notify/';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   static Uri logoutURL() => Uri.parse('$backendUrl$logout');
@@ -126,4 +127,6 @@ class AppUrl {
 
   static Uri get getRequestedURL =>
       Uri.parse('$backendUrl$middleWare$user$getRequested');
+
+  static Uri get resolveRequestURL => Uri.parse('$backendUrl$notify$addAction');
 }
