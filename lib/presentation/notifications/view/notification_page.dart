@@ -4,7 +4,10 @@ import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/routers/animation_route.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
+import 'package:climbapp/core/theme/icons/icons.dart';
+import 'package:climbapp/domains/notification/entities/notification_entity.dart';
 import 'package:climbapp/presentation/app.dart';
+import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 
@@ -44,12 +47,20 @@ class NotificationPage extends StatelessWidget {
                 Column(
                   children: List.generate(
                     state.notifications.length,
-                    (index) => SingleNotify(
-                      type: state.notifications[index].category,
-                      avatar: state.notifications[index].authorAvatar,
+                    (index) => Dismissible(
+                      key: ValueKey<NotificationEntity>(
+                          state.notifications[index]),
+                      background: Container(
+                        color: ColorPallete.pinkDecorationColor,
+                        child: AppIcons.deleteBig.copyWith(color: Colors.black),
+                      ),
+                      child: SingleNotify(
+                        notification: state.notifications[index],
+                      ),
                     ),
                   ),
-                )
+                ),
+                const PageEnd()
               ]),
             ));
           },
