@@ -40,6 +40,7 @@ import 'package:climbapp/domains/notice/usecases/update_user_id_join_arrays_usec
 import 'package:climbapp/domains/notice/usecases/updated_notice_usecase.dart';
 import 'package:climbapp/domains/notification/repository/notify_repository.dart';
 import 'package:climbapp/domains/notification/usecases/add_new_notify_usecase.dart';
+import 'package:climbapp/domains/notification/usecases/fetch_user_notify_usecase.dart';
 import 'package:climbapp/domains/requests/repository/request_repository.dart';
 import 'package:climbapp/domains/requests/usecases/get_requested_users.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
@@ -63,6 +64,7 @@ import 'package:climbapp/presentation/notice/business/cubit/fetch_user_notice/fe
 import 'package:climbapp/presentation/notice/business/cubit/request_resolve/request_resolve_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_comment/update_comment_cubit.dart';
 import 'package:climbapp/presentation/notice/business/cubit/update_notice/update_notice_cubit.dart';
+import 'package:climbapp/presentation/notifications/business/cubit/fetch_notify_cubit.dart';
 import 'package:climbapp/presentation/profile/business/cubit/add_to_friend/add_to_friend_cubit.dart';
 import 'package:climbapp/presentation/profile/business/cubit/fetch_user/fetch_user_profile_cubit.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
@@ -123,6 +125,7 @@ void userInit() {
     ..registerFactory(() => ImageSenderCubit(uploadImageUseCase: userLocator()))
     ..registerFactory(() => FetchRequestedUsersCubit(getUsers: userLocator()))
     ..registerFactory(() => RequestResolveCubit(addNotify: userLocator()))
+    ..registerFactory(() => FetchNotifyCubit(fetchNotify: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -185,6 +188,8 @@ void userInit() {
     // NOTIFICATION
     ..registerLazySingleton(
         () => AddNewNotifyUseCase(repository: userLocator()))
+    ..registerLazySingleton(
+        () => FetchUserNotifyUseCase(repository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(
