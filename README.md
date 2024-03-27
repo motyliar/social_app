@@ -30,7 +30,7 @@ The app is based on sending sports notices to a global notice board and allows c
 </p>
 
 ### Used Libraries
-- **BLoC** - used for state managment
+- **BLoC** - used for state management
 - **Hive** - to storage local data
 - **GetIt** - dependency app inject
 - **Firebase** - user authorization
