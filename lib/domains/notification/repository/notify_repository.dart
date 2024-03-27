@@ -7,4 +7,5 @@ abstract class NotifyRepository {
   EitherFunc<void> sendNotify(NotificationParams params);
   EitherFunc<List<NotificationEntity>> fetchUserNotify(
       NotificationParams params);
+  EitherFunc<void> deleteNotify(NotificationParams params);
 }
