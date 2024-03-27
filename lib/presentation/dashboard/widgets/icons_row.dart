@@ -38,7 +38,7 @@ class IconsRow extends StatelessWidget {
             onTap: () {
               isProfile
                   ? Navigator.pushNamed(context, routeDashboardPage)
-                  : Navigator.popAndPushNamed(context, routeUserMain);
+                  : Navigator.pushNamed(context, routeNotification);
             },
             icon: isProfile ? AppIcons.home : AppIcons.notifications),
         BlocBuilder<SignInBloc, SignInState>(

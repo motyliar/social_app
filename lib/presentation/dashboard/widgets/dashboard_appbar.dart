@@ -65,21 +65,22 @@ class DashBoardApp extends StatelessWidget {
       child: Stack(children: [
         Container(
           decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(maxBorderRadius),
-                  bottomRight: Radius.circular(maxBorderRadius)),
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  ImagesURL.signInBottomBackground,
-                ),
-              )),
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(maxBorderRadius),
+                bottomRight: Radius.circular(maxBorderRadius)),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                ImagesURL.signInBottomBackground,
+              ),
+            ),
+          ),
           width: MediaQuery.of(context).size.width,
           height: _imageHeight,
           child: Column(
             children: [
               const SizedBox(
-                height: 20,
+                height: kGeneralPagesMargin,
               ),
               Padding(
                 padding: EdgeInsets.only(left: marginLeft, right: marginRight),
@@ -106,11 +107,14 @@ class DashBoardApp extends StatelessWidget {
         ),
         isSearchBar
             ? Positioned(
-                left: centerSearchBar(MediaQuery.of(context).size.width,
-                    MediaQuery.of(context).size.width * 0.8),
+                left: centerSearchBar(
+                    MediaQuery.of(context).size.width,
+                    MediaQuery.of(context).size.width *
+                        _searchBarWidthMultipler),
                 bottom: 20,
                 child: CSearchBar(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: MediaQuery.of(context).size.width *
+                      _searchBarWidthMultipler,
                 ),
               )
             : const SizedBox(),
@@ -123,3 +127,5 @@ double centerSearchBar(double totalWidth, double searchBarWidth,
     {double multipler = 0.5}) {
   return (totalWidth - searchBarWidth) * multipler;
 }
+
+const double _searchBarWidthMultipler = 0.8;
