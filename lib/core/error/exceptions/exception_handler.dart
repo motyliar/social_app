@@ -5,7 +5,7 @@ class ExceptionHandler {
   const ExceptionHandler(this.error);
   final dynamic error;
 
-  void execute() {
+  Exception execute() {
     if (error is ServerException) {
       debugPrint(error.message);
       throw ServerException.error();

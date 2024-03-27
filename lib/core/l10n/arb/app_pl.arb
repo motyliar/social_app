@@ -56,6 +56,7 @@
     "requestReject":  " odrzucił Twoją prośbę.",
     "newMessage": "Masz nową wiadomość od ",
     "receivedMessage": "Odpowiedz na wiadomość od ",
+    "notification": "Powiadomienia",
 
      "@_BUTTONS": {},
     "skip": "pomiń",

@@ -23,6 +23,7 @@ class AppUrl {
   static const String getUserMessage = 'userMessages/';
   static const String sports = 'sports/';
   static const String get = 'getSingle/';
+  static const String getNotify = 'get/';
   static const String join = 'join';
   static const String unjoin = 'unjoin';
   static const String filterQuery = 'filter?word=';
@@ -129,4 +130,7 @@ class AppUrl {
       Uri.parse('$backendUrl$middleWare$user$getRequested');
 
   static Uri get resolveRequestURL => Uri.parse('$backendUrl$notify$addAction');
+
+  static Uri getUserNotificationsURL(String userId) =>
+      Uri.parse('$backendUrl$notify$getNotify$userId');
 }

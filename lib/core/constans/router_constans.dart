@@ -18,6 +18,7 @@ const String routeProfilePage = 'profile';
 const String routeCreateMessage = 'createMessage';
 const String routeCreateNotice = 'createNotice';
 const String routeSingleUserNotice = 'singleUserNotice';
+const String routeNotification = 'notification';
 
 /// [routeMessagePage] route name navigate to Message Page
 const String routeMessagePage = 'messagePage';
