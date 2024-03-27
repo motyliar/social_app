@@ -156,6 +156,7 @@ class SingleUserNotice extends StatelessWidget {
                           children: List.generate(
                         state.users.length,
                         (index) => RequestCard(
+                          resolutions: notice.resolutions,
                           user: state.users[index],
                           params: ThumbsActionParams(
                             userName: user.userName,

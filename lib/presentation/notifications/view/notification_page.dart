@@ -10,6 +10,7 @@ import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
+import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 
 import 'package:climbapp/presentation/notifications/business/cubit/fetch_notify_cubit.dart';
 import 'package:climbapp/presentation/notifications/widgets/exports.dart';
@@ -38,6 +39,9 @@ class NotificationPage extends StatelessWidget {
         backgroundColor: ColorPallete.scaffoldBackground,
         body: BlocBuilder<FetchNotifyCubit, FetchNotifyState>(
           builder: (context, state) {
+            if (state is FetchNotifyLoading) {
+              return const LoadingPage();
+            }
             return SafeArea(
                 child: SingleChildScrollView(
               child: Column(children: [
@@ -50,17 +54,17 @@ class NotificationPage extends StatelessWidget {
                     (index) => Dismissible(
                       key: ValueKey<NotificationEntity>(
                           state.notifications[index]),
-                      onDismissed: (DismissDirection direction) => () => {
-                            debugPrint('switch'),
-                            context.read<FetchNotifyCubit>().deleteUserNotify(
-                                NotificationParams(
-                                    url: AppUrl.deleteNotifyURL,
-                                    newNotify: {
-                                      "notify": state.notifications[index].id,
-                                      "user": user.id
-                                    }),
-                                index),
-                          },
+                      onDismissed: (DismissDirection direction) => {
+                        debugPrint('switch'),
+                        context.read<FetchNotifyCubit>().deleteUserNotify(
+                            NotificationParams(
+                                url: AppUrl.deleteNotifyURL,
+                                newNotify: {
+                                  "notify": state.notifications[index].id,
+                                  "user": user.id
+                                }),
+                            index),
+                      },
                       background: Container(
                         color: ColorPallete.pinkDecorationColor,
                         child: AppIcons.deleteBig.copyWith(color: Colors.black),

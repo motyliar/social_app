@@ -17,11 +17,13 @@ class RequestCard extends StatelessWidget {
   const RequestCard({
     required this.user,
     required this.params,
+    required this.resolutions,
     super.key,
   });
 
   final RequestsEntity user;
   final ThumbsActionParams params;
+  final Set<String> resolutions;
 
   @override
   Widget build(BuildContext context) {
@@ -42,42 +44,49 @@ class RequestCard extends StatelessWidget {
           ),
           BlocBuilder<RequestResolveCubit, RequestResolveState>(
             builder: (context, state) {
-              return Thumbs(
-                thumbUp: () =>
-                    context.read<RequestResolveCubit>().resolveRequest(
-                          NotificationParams(
-                            url: AppUrl.resolveRequestURL,
-                            newNotify: NoticeLogic.createResolveMap(
-                              isPositive: true,
-                              userId: user.id,
-                              event: params.noticeId,
-                              author: params.userId,
-                              avatar: params.userAvatar,
-                              category: NotifyTypeCons.resolve,
-                              authorName: params.userName,
-                            ),
-                          ),
-                        ),
-                thumbDown: () =>
-                    context.read<RequestResolveCubit>().resolveRequest(
-                          NotificationParams(
-                            url: AppUrl.resolveRequestURL,
-                            newNotify: NoticeLogic.createResolveMap(
-                              isPositive: false,
-                              userId: params.userId,
-                              event: params.noticeId,
-                              author: params.userId,
-                              avatar: params.userAvatar,
-                              category: NotifyTypeCons.resolve,
-                              authorName: params.userName,
-                            ),
-                          ),
-                        ),
-              );
+              return isResolve(resolutions, user.id)
+                  ? const Text('Already resolve')
+                  : Thumbs(
+                      thumbUp: () =>
+                          context.read<RequestResolveCubit>().resolveRequest(
+                                NotificationParams(
+                                  url: AppUrl.resolveRequestURL,
+                                  newNotify: NoticeLogic.createResolveMap(
+                                    isPositive: true,
+                                    userId: user.id,
+                                    event: params.noticeId,
+                                    author: params.userId,
+                                    avatar: params.userAvatar,
+                                    category: NotifyTypeCons.resolve,
+                                    authorName: params.userName,
+                                  ),
+                                ),
+                              ),
+                      thumbDown: () =>
+                          context.read<RequestResolveCubit>().resolveRequest(
+                                NotificationParams(
+                                  url: AppUrl.resolveRequestURL,
+                                  newNotify: NoticeLogic.createResolveMap(
+                                    isPositive: false,
+                                    userId: user.id,
+                                    event: params.noticeId,
+                                    author: params.userId,
+                                    avatar: params.userAvatar,
+                                    category: NotifyTypeCons.resolve,
+                                    authorName: params.userName,
+                                  ),
+                                ),
+                              ),
+                    );
             },
           ),
         ],
       ),
     );
   }
+}
+
+bool isResolve(Set<String> resolutions, String user) {
+  print(resolutions);
+  return resolutions.contains(user);
 }

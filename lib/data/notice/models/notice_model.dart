@@ -27,6 +27,7 @@ class NoticeModel with _$NoticeModel {
     @HiveField(12) String? image,
     @HiveField(13) required bool isActive,
     @HiveField(14) String? localization,
+    @HiveField(15) required List<String> resolutions,
   }) = _NoticeModel;
   factory NoticeModel.fromJson(Map<String, dynamic> json) =>
       _$NoticeModelFromJson(json);
@@ -55,5 +56,6 @@ class NoticeModel with _$NoticeModel {
       requests: Set.from(requests!),
       interested: Set.from(interested!),
       isActive: isActive,
-      localization: localization ?? '');
+      localization: localization ?? '',
+      resolutions: Set.from(resolutions));
 }

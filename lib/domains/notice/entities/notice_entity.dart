@@ -15,6 +15,7 @@ class NoticeEntity {
     required this.updatedAt,
     required this.avatar,
     required this.type,
+    this.resolutions = const <String>{},
     this.requests,
     this.interested,
     this.image,
@@ -34,6 +35,7 @@ class NoticeEntity {
   final ActionType type;
   final Set<String>? requests;
   final Set<String>? interested;
+  final Set<String> resolutions;
   final String? image;
   final bool isActive;
   final String? localization;
