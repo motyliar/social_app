@@ -44,4 +44,19 @@ class NotifyRepositoryImpl extends NotifyRepository {
       return Left(ExceptionHandler(e).execute());
     }
   }
+
+  @override
+  EitherFunc<void> deleteNotify(NotificationParams params) async {
+    try {
+      return await Utils().performNetworkOperation(
+        () async => await _remote.deleteNotify(params).then(
+              (value) => Right(
+                value,
+              ),
+            ),
+      );
+    } catch (e) {
+      return Left(ExceptionHandler(e).execute());
+    }
+  }
 }
