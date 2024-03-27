@@ -30,7 +30,11 @@ class NewRequests extends NotifyType {
   @override
   String notifyText(BuildContext context) {
     final l10n = context.l10n;
-    return l10n.newRequest + _author;
+    if (_kind) {
+      return l10n.newRequest + _author;
+    } else {
+      return _author + l10n.deleteRequest;
+    }
   }
 }
 

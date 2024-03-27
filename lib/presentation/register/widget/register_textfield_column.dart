@@ -52,7 +52,6 @@ class RegisterTextFieldStack extends StatelessWidget {
           height: kMinEmptySpace,
         ),
         CTextFormField(
-          
             toolTip: l10n.tipPassword,
             isToolTip: true,
             obscureText: false,
@@ -68,7 +67,6 @@ class RegisterTextFieldStack extends StatelessWidget {
           height: kMinEmptySpace,
         ),
         CTextFormField(
-          isMultineLine: true,
             isToolTip: true,
             toolTip: l10n.tipRePassword,
             validator: (value) => FormValidation().passwordValidation(

@@ -57,6 +57,7 @@
     "newMessage": "Masz nową wiadomość od ",
     "receivedMessage": "Odpowiedz na wiadomość od ",
     "notification": "Powiadomienia",
+    "deleteRequest": " usunął prośbę",
 
      "@_BUTTONS": {},
     "skip": "pomiń",

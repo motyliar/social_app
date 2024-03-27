@@ -5,7 +5,7 @@ class TypeDistributor {
   static NotifyType getType(String type, bool isPositive, String author) {
     switch (type) {
       case NotifyTypeCons.newReq:
-        return NewRequests(author: author);
+        return NewRequests(author: author, kind: isPositive);
       case NotifyTypeCons.resolve:
         return RequestResolve(kind: isPositive, author: author);
       default:
