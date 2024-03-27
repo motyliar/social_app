@@ -133,4 +133,7 @@ class AppUrl {
 
   static Uri getUserNotificationsURL(String userId) =>
       Uri.parse('$backendUrl$notify$getNotify$userId');
+
+  static Uri get deleteNotifyURL =>
+      Uri.parse('$backendUrl$notify$deleteAction');
 }

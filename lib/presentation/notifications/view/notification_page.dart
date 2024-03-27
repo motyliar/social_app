@@ -50,6 +50,17 @@ class NotificationPage extends StatelessWidget {
                     (index) => Dismissible(
                       key: ValueKey<NotificationEntity>(
                           state.notifications[index]),
+                      onDismissed: (DismissDirection direction) => () => {
+                            debugPrint('switch'),
+                            context.read<FetchNotifyCubit>().deleteUserNotify(
+                                NotificationParams(
+                                    url: AppUrl.deleteNotifyURL,
+                                    newNotify: {
+                                      "notify": state.notifications[index].id,
+                                      "user": user.id
+                                    }),
+                                index),
+                          },
                       background: Container(
                         color: ColorPallete.pinkDecorationColor,
                         child: AppIcons.deleteBig.copyWith(color: Colors.black),

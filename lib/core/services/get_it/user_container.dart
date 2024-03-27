@@ -40,6 +40,7 @@ import 'package:climbapp/domains/notice/usecases/update_user_id_join_arrays_usec
 import 'package:climbapp/domains/notice/usecases/updated_notice_usecase.dart';
 import 'package:climbapp/domains/notification/repository/notify_repository.dart';
 import 'package:climbapp/domains/notification/usecases/add_new_notify_usecase.dart';
+import 'package:climbapp/domains/notification/usecases/delete_notify_usecase.dart';
 import 'package:climbapp/domains/notification/usecases/fetch_user_notify_usecase.dart';
 import 'package:climbapp/domains/requests/repository/request_repository.dart';
 import 'package:climbapp/domains/requests/usecases/get_requested_users.dart';
@@ -125,7 +126,8 @@ void userInit() {
     ..registerFactory(() => ImageSenderCubit(uploadImageUseCase: userLocator()))
     ..registerFactory(() => FetchRequestedUsersCubit(getUsers: userLocator()))
     ..registerFactory(() => RequestResolveCubit(addNotify: userLocator()))
-    ..registerFactory(() => FetchNotifyCubit(fetchNotify: userLocator()))
+    ..registerFactory(() => FetchNotifyCubit(
+        fetchNotify: userLocator(), deleteNotify: userLocator()))
     // Register every UseCase
     // FRIENDS
     ..registerLazySingleton(
@@ -190,6 +192,8 @@ void userInit() {
         () => AddNewNotifyUseCase(repository: userLocator()))
     ..registerLazySingleton(
         () => FetchUserNotifyUseCase(repository: userLocator()))
+    ..registerLazySingleton(
+        () => DeleteNotifyUseCase(repository: userLocator()))
     // Register repositories
     // USER
     ..registerLazySingleton<UserRepository>(

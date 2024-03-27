@@ -1,6 +1,5 @@
 import 'package:climbapp/core/utils/helpers/extension.dart';
 import 'package:climbapp/domains/notification/entities/notification_entity.dart';
-import 'package:climbapp/domains/notification/entities/sub_entity/notify_type.dart';
 import 'package:climbapp/presentation/notice/widgets/profile_avatar.dart';
 import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';

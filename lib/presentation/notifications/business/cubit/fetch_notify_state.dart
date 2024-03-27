@@ -8,7 +8,10 @@ class FetchNotifyState extends Equatable {
   List<Object> get props => [notifications];
 }
 
-final class FetchNotifyLoading extends FetchNotifyState {}
+final class FetchNotifyLoading extends FetchNotifyState {
+  const FetchNotifyLoading(List<NotificationEntity> notification)
+      : super(notifications: notification);
+}
 
 final class FetchNotifySuccess extends FetchNotifyState {}
 
