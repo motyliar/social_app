@@ -1,6 +1,7 @@
 import 'package:climbapp/core/constans/notify_type_con.dart';
 import 'package:climbapp/core/datahelpers/params/notification/notification.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
+import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/domains/requests/entities/requests_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
@@ -9,6 +10,7 @@ import 'package:climbapp/presentation/notice/business/logic/notice_logic.dart';
 import 'package:climbapp/presentation/notice/view/single_user_notice.dart';
 import 'package:climbapp/presentation/notice/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constans/export_constans.dart';
@@ -45,7 +47,7 @@ class RequestCard extends StatelessWidget {
           BlocBuilder<RequestResolveCubit, RequestResolveState>(
             builder: (context, state) {
               return isResolve(resolutions, user.id)
-                  ? const Text('Already resolve')
+                  ? const ResolvedThumbs()
                   : Thumbs(
                       thumbUp: () =>
                           context.read<RequestResolveCubit>().resolveRequest(
