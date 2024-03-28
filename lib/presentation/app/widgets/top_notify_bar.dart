@@ -7,9 +7,9 @@ import '../../../core/constans/export_constans.dart';
 
 class TopNotifyBar extends StatelessWidget {
   const TopNotifyBar(
-      {super.key, required this.l10n, this.onBack, this.height = 100});
+      {super.key, required this.text, this.onBack, this.height = 100});
 
-  final AppLocalizations l10n;
+  final String text;
   final VoidCallback? onBack;
   final double height;
 
@@ -45,7 +45,7 @@ class TopNotifyBar extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(right: kGeneralPagesMargin),
-            child: Text(l10n.notification,
+            child: Text(text,
                 style: AppTextStyle.headersBig
                     .copyWith(fontWeight: FontWeight.bold)),
           ),

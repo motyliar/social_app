@@ -45,7 +45,7 @@ class NotificationPage extends StatelessWidget {
             return SafeArea(
                 child: SingleChildScrollView(
               child: Column(children: [
-                TopNotifyBar(l10n: l10n),
+                TopNotifyBar(text: l10n.notification),
                 const Gap(kMinEmptySpace),
                 const GradientDivider(),
                 Column(

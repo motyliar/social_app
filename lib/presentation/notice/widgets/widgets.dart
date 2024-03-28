@@ -5,3 +5,4 @@ export 'single_comments_user_notice.dart';
 export 'profile_avatar.dart';
 export 'edit_button.dart';
 export 'request_card.dart';
+export 'resolved_thumbs.dart';

@@ -9,3 +9,4 @@ export 'empty_space.dart';
 export 'wrong_page.dart';
 export 'active_dot.dart';
 export 'page_end.dart';
+export 'top_notify_bar.dart';
