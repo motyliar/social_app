@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:climbapp/presentation/app/widgets/top_notify_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
@@ -54,11 +55,8 @@ class SingleUserNotice extends StatelessWidget {
           child: SafeArea(
             child: Column(
               children: [
-                BackCard(
-                  onBack: () {
-                    Navigator.pop(context);
-                  },
-                ),
+                TopNotifyBar(text: l10n.notice),
+                const Gap(kMidEmptySpace),
                 GeneralCard(children: [
                   Align(
                     alignment: Alignment.centerRight,
