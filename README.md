@@ -17,16 +17,19 @@ App still in develop stage. <br><br>
 ### About
 The project is a social media app designed for the sports community. Its main functionality is to help users find people to do sports together.
 The app is based on sending sports notices to a global notice board and allows communication between users via an in-app messenger.
-<br>Readme update from: 6.03.24
+<br>Readme update from: 26.03.24
 
 ### Screenshots
 <p align="center" >
   <span style="margin-right: 10px;">
-<img src="http://motyliar.webd.pro/social/screens/screen_one.jpg" alt="Logo" width="130" height="250" > 
-<img src="http://motyliar.webd.pro/social/screens/screen_three.jpg" alt="Logo" width="130" height="250"> 
-<img src="http://motyliar.webd.pro/social/screens/screen_four.jpg" alt="Logo" width="130" height="250">
-<img src="http://motyliar.webd.pro/social/screens/screen_five.jpg" alt="Logo" width="130" height="250">
-<img src="http://motyliar.webd.pro/social/screens/screen_seven.jpg" alt="Logo" width="130" height="250">
+    <img src="http://65.21.202.169:20119/folio/01.jpg" alt="Logo" width="90" height="170" >
+    <img src="http://65.21.202.169:20119/folio/02.jpg" alt="Logo" width="90" height="170" >     
+    <img src="http://65.21.202.169:20119/folio/03.jpg" alt="Logo" width="90" height="170" > 
+    <img src="http://65.21.202.169:20119/folio/04.jpg" alt="Logo" width="90" height="170" > 
+    <img src="http://65.21.202.169:20119/folio/05.jpg" alt="Logo" width="90" height="170" > 
+    <img src="http://65.21.202.169:20119/folio/06.jpg" alt="Logo" width="90" height="170" > 
+    <img src="http://65.21.202.169:20119/folio/07.jpg" alt="Logo" width="90" height="170" > 
+    <img src="http://65.21.202.169:20119/folio/08.jpg" alt="Logo" width="90" height="170" > 
 </p>
 
 ### Used Libraries
