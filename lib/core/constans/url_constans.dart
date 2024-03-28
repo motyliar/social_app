@@ -31,6 +31,7 @@ class AppUrl {
   static const String filterAll = 'filterAll?word=';
   static const String getRequested = 'findRequested';
   static const String notify = 'notify/';
+  static const String uploadFile = 'up/upload?file=';
   static String authApi(String authDirection) => '$backendUrl$authDirection';
 
   static Uri logoutURL() => Uri.parse('$backendUrl$logout');
@@ -119,7 +120,7 @@ class AppUrl {
       {'userEmail': userEmail, 'userAuthID': userID};
 
   static Uri uploadImageURL(String userId) =>
-      Uri.parse('http://65.21.202.169:20119/up/upload?file=$userId');
+      Uri.parse('$backendUrl$uploadFile$userId');
 
   static Uri getUserSportsURL(String userId) =>
       Uri.parse('$backendUrl$sports$get$userId');
