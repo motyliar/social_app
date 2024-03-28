@@ -39,7 +39,7 @@
     "confirm": "Confirm",
     "change": "Change",
     "editLabel": "Edit Profile",
-    "favouriteSports": "Facourite sports",
+    "favouriteSports": "Favourite sports",
     "informationLabel": "General Information",
     "notSpecified": "not specified",
     "from": "From",
@@ -51,6 +51,7 @@
     "totalNotices": "Total notices:",
     "editText": "Edit",
     "requests": "Requests",
+    "notice": "Notice",
 
     "@_NOTIFY_MESSAGES": {},
     "newRequest": "You've new request from ",
