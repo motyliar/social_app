@@ -52,6 +52,7 @@
     "editText": "Edit",
     "requests": "Requests",
     "notice": "Notice",
+    "resolved": "Resolved",
 
     "@_NOTIFY_MESSAGES": {},
     "newRequest": "You've new request from ",
