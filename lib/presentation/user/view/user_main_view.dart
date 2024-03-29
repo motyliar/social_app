@@ -55,7 +55,8 @@ class UserMainView extends StatelessWidget {
                 userName: user.userName,
                 isSearchBar: false,
                 isProfile: true,
-                profileImageFunction: () => debugPrint('test'),
+                profileImageFunction: () =>
+                    debugPrint('profile image function test'),
               ),
             ),
             body: SingleChildScrollView(
