@@ -44,6 +44,7 @@ class UserMainView extends StatelessWidget {
           ),
         ],
         child: SafeArea(
+
           child: BlocBuilder<UserBloc, UserState>(
             builder: (context, state) {
               if (state is UserLoading) {
@@ -74,6 +75,7 @@ class UserMainView extends StatelessWidget {
                       if (state is ViewSwitchSport) {
                         return const UserSport();
                       }
+
 
                       if (state is ViewSwitchInfo) {
                         return const UserDetails();

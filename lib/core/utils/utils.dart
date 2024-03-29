@@ -51,7 +51,6 @@ class Utils {
   }
 
   static String currentData(String today, String userDate) {
-    print(userDate);
     return !_checkIsToday(today, userDate)
         ? userDate.cutTo(10)
         : userDate.substring(10, 16);
@@ -62,10 +61,6 @@ class Utils {
     didIClick ? Utils.showSuccessDialog(context, const SmileAnimation()) : null;
   }
 
-  /// Function [toastExceptionFirebaseMessage] using for showing exception
-  /// message cought from FireBaseAuthException. switch-case is needed for
-  /// sending properly l10n [exceptionMessage]
-  /// The [FirebaseError] store every constant string with an error message
   String toastExceptionFirebaseMessage({
     required String exceptionMessage,
     required BuildContext context,
@@ -98,9 +93,6 @@ class Utils {
     }
   }
 
-  /// [checkServerAvailable] tests connection to the server before sending
-  /// a request to check if is server live
-  /// [durationInSeconds] are used to set server TimeOut.
   Future<Either<Exception, bool>> checkServerAvailable({
     required http.Client client,
     int durationInSeconds = 10,
@@ -121,7 +113,7 @@ class Utils {
   }
 
   static void debugError({required Exception error}) {
-    print(
+    debugPrint(
         '\x1B[31m[log] { RUNTIME TYPE: ${error.runtimeType} MESSAGE: $error }\x1B[0m');
   }
 

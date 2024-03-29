@@ -42,6 +42,11 @@ class AppIcons {
     color: ColorPallete.pinkDecorationColor,
     size: 16,
   );
+  static const deletePinkMid = CustomIcon(
+    Icons.delete,
+    color: ColorPallete.pinkDecorationColor,
+    size: 25,
+  );
   static const deleteBig = CustomIcon(
     Icons.delete,
     color: Colors.black,

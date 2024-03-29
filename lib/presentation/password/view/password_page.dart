@@ -52,7 +52,7 @@ class PasswordPage extends StatelessWidget {
               width: mobileWidth,
               height: mobileHeight,
               child: Stack(children: [
-                BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
+                backgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
                 const TopBackgroundImage(),
                 Positioned(
                   top: mobileWidth * _marginFromTop,
@@ -64,7 +64,7 @@ class PasswordPage extends StatelessWidget {
                 Positioned(
                   top: kMarginToStartMiddleForm,
                   child: SizedBox(
-                    height: mobileHeight * 0.50,
+                    height: mobileHeight * _passwordCardHeightMultipler,
                     child: PasswordMiddleCard(
                         mobileWidth: mobileWidth, mobileHeight: mobileHeight),
                   ),
@@ -79,3 +79,5 @@ class PasswordPage extends StatelessWidget {
     );
   }
 }
+
+const double _passwordCardHeightMultipler = 0.5;

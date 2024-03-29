@@ -4,6 +4,9 @@ import 'package:climbapp/presentation/user/widgets/user_view_card.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
+const EdgeInsetsGeometry _defaultPadding =
+    EdgeInsets.only(left: 15, top: 15, bottom: 10);
+
 class SingleMessageTile extends StatelessWidget {
   const SingleMessageTile({
     super.key,
@@ -33,8 +36,7 @@ class SingleMessageTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GeneralCard(
-        padding:
-            padding ?? const EdgeInsets.only(left: 15, top: 15, bottom: 10),
+        padding: padding ?? _defaultPadding,
         color: isSelected
             ? selectedColor
             : isRead

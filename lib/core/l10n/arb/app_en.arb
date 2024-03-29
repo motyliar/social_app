@@ -110,6 +110,9 @@
     "commentHint": "Tell us what you think",
     "commentText": "Comments",
 
+    "@_FRIENDSPAGE": {},
+    "sureQuestion": "Are you sure?",
+
     
 
 
@@ -139,6 +142,8 @@
     "rePassword": "Confirm your password",
     "mailEnter": "Enter your mail",
     "mailConfirm": "Confirm your mail",
-    "hintUsername": "Enter your username"
+    "hintUsername": "Enter your username",
+
+    "searchingNoticeHint": "Search for sport notice"
     
 }

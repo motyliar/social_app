@@ -1,3 +1,4 @@
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/fonts.dart';
 import 'package:climbapp/core/utils/helpers/enums.dart';
 import 'package:climbapp/core/utils/helpers/extension.dart';
@@ -8,6 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constans/export_constans.dart';
+
+const String _receivedDirection = 'received';
+const String _sendDirection = 'send';
+const double _activeButtonOpacity = 1;
+const double _inActivButtonOpacity = 0.6;
 
 class NavigationState extends StatelessWidget {
   const NavigationState({
@@ -29,6 +35,7 @@ class NavigationState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<MessageViewCubit, MessageViewState>(
       builder: (context, state) {
         return SizedBox(
@@ -37,13 +44,15 @@ class NavigationState extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Opacity(
-                opacity: direction.toLowerCase() == 'received' ? 1 : 0.6,
+                opacity: direction.toLowerCase() == _receivedDirection
+                    ? _activeButtonOpacity
+                    : _inActivButtonOpacity,
                 child: MidTextButton(
                   margin: const EdgeInsets.all(0),
-                  textStyle: direction.toLowerCase() == 'received'
+                  textStyle: direction.toLowerCase() == _receivedDirection
                       ? activeButtonStyle
                       : inActiveButtonStyle,
-                  textLabel: 'Received',
+                  textLabel: l10n.receivedPageTop,
                   borderRadius: kSmallButtonBorderRadius,
                   onTap: () => context
                       .read<MessageViewCubit>()
@@ -52,13 +61,15 @@ class NavigationState extends StatelessWidget {
               ),
               const Gap(kGeneralPagesMargin),
               Opacity(
-                opacity: direction.toLowerCase() == 'send' ? 1 : 0.6,
+                opacity: direction.toLowerCase() == _sendDirection
+                    ? _activeButtonOpacity
+                    : _inActivButtonOpacity,
                 child: MidTextButton(
                   margin: const EdgeInsets.all(0),
-                  textStyle: direction.toLowerCase() == 'send'
+                  textStyle: direction.toLowerCase() == _sendDirection
                       ? activeButtonStyle
                       : inActiveButtonStyle,
-                  textLabel: 'Send',
+                  textLabel: l10n.sendPageTop,
                   borderRadius: kSmallButtonBorderRadius,
                   onTap: () => context
                       .read<MessageViewCubit>()
@@ -67,7 +78,7 @@ class NavigationState extends StatelessWidget {
               ),
               const Gap(kGeneralPagesMargin),
               Opacity(
-                opacity: isThird ? 1 : 0.6,
+                opacity: isThird ? _activeButtonOpacity : _inActivButtonOpacity,
                 child: MidTextButton(
                   margin: const EdgeInsets.all(0),
                   textStyle: isThird ? activeButtonStyle : inActiveButtonStyle,

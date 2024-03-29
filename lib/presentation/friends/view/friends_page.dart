@@ -19,7 +19,7 @@ import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-//todo zrobić last search list w temp
+//todo need to be refactoring to be reusable
 
 TextEditingController _searchController = TextEditingController();
 ScrollController _pageScrollController = ScrollController();
@@ -185,7 +185,7 @@ class FriendsPage extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (blocstate is FriendsSearchingSuccess) {
-                  print(blocstate.friend.length);
+                  debugPrint(blocstate.friend.length.toString());
                   return RefreshIndicator(
                     onRefresh: () async => context.read<FriendsActionBloc>()
                       ..add(FetchFriendsListEvent(
@@ -235,7 +235,6 @@ class FriendsPage extends StatelessWidget {
                   );
                 }
                 if (blocstate is FriendsLoaded) {
-                  print(blocstate);
                   return RefreshIndicator(
                     onRefresh: () async => context.read<FriendsActionBloc>()
                       ..add(FetchFriendsListEvent(

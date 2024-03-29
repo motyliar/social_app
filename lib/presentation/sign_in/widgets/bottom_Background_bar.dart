@@ -16,7 +16,7 @@ class BottomBackgroundBar extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(borderRadius),
-                topRight: Radius.circular(50))),
+                topRight: const Radius.circular(maxBorderRadius))),
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Image.network(ImagesURL.signInBottomBackground),
       ),

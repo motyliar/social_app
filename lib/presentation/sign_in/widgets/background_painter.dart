@@ -4,7 +4,7 @@ class BackgroundPainter extends CustomPainter {
   const BackgroundPainter();
   @override
   void paint(Canvas canvas, Size size) {
-    final gradient = LinearGradient(colors: [
+    const gradient = LinearGradient(colors: [
       Color(0xFF59D7C8),
       Color(0xFFA3F264),
       Color(0xFFF539A8),
@@ -18,7 +18,7 @@ class BackgroundPainter extends CustomPainter {
       ..lineTo(size.width, 0)
       ..close();
     final paint = Paint()
-      ..color = Color(0xFFffc14d)
+      ..color = const Color(0xFFffc14d)
       ..shader =
           gradient.createShader(Rect.fromLTWH(0, 0, size.width, size.height));
     canvas.drawPath(orangeArc, paint);

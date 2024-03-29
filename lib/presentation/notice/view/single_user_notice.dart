@@ -17,12 +17,6 @@ import 'package:climbapp/presentation/notice/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
 
-// todo
-// dodać implementację notification i wtedy mamy już praktycznie wszystko,
-// do Notice należy dodać Bool - resolve? żeby można było sprawdzić
-// czy problem został rozwiązany
-// edycja własnej notatki
-
 class SingleUserNotice extends StatelessWidget {
   const SingleUserNotice(
       {required this.notice,

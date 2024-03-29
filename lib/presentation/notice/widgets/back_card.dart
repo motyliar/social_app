@@ -47,7 +47,7 @@ class BackCard extends StatelessWidget {
                     : onBack!(),
               ),
               Transform.rotate(
-                angle: 13,
+                angle: logoTransition,
                 child: Image.network(
                   ImagesURL.appLogo,
                   width: _logoSize,

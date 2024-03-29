@@ -106,6 +106,9 @@
     "commentHint": "Napisz co myślisz",
     "commentText": "Komentarze",
 
+    "@_FRIENDSPAGE": {},
+    "sureQuestion": "Are you sure?",
+
 
     "@_FLUTTERTOAST_MESSAGES": {},
     "successMsg": "Sukces!",
@@ -133,6 +136,7 @@
     "rePassword": "Potwierdz hasło",
     "mailEnter": "Wpisz swój mail",
     "mailConfirm": "Potwierdz swój mail",
-    "hintUsername": "Nazwa użytkownika"
+    "hintUsername": "Nazwa użytkownika",
+    "searchingNoticeHint": "Szukaj ogłoszeń"
     
 }

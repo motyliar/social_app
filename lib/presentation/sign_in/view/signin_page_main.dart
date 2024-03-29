@@ -16,6 +16,9 @@ class SignInPageMain extends StatelessWidget {
     required this.l10n,
     required this.loginController,
     required this.passwordController,
+    this.logoWidth = 200,
+    this.logoHeight = 150,
+    this.logoAngleRotation = 6,
   });
 
   final double mobileWidth;
@@ -23,6 +26,9 @@ class SignInPageMain extends StatelessWidget {
   final AppLocalizations l10n;
   final TextEditingController passwordController;
   final TextEditingController loginController;
+  final double logoWidth;
+  final double logoHeight;
+  final double logoAngleRotation;
 
   @override
   Widget build(BuildContext context) {
@@ -38,11 +44,11 @@ class SignInPageMain extends StatelessWidget {
               top: 30,
               left: 80,
               child: Transform.rotate(
-                angle: 6,
+                angle: logoAngleRotation,
                 child: Image.network(
                   ImagesURL.appLogo,
-                  width: 200,
-                  height: 150,
+                  width: logoHeight,
+                  height: logoWidth,
                 ),
               ),
             ),
@@ -68,16 +74,17 @@ class SignInPageMain extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: MediaQuery.of(context).size.height * 0.3,
-              left: 10,
+              bottom: MediaQuery.of(context).size.height *
+                  _logoBottomPositionedMultipler,
+              left: _logoLeftPositioned,
               child: Transform.rotate(
-                angle: 7,
+                angle: _logoAngleRotate,
                 child: Opacity(
-                  opacity: 0.5,
+                  opacity: _logoOpacity,
                   child: Image.network(
                     ImagesURL.appLogo,
-                    width: 100,
-                    height: 70,
+                    width: _logoWidth,
+                    height: _logoHeight,
                   ),
                 ),
               ),
@@ -88,3 +95,10 @@ class SignInPageMain extends StatelessWidget {
     );
   }
 }
+
+const double _logoBottomPositionedMultipler = 0.3;
+const double _logoOpacity = 0.5;
+const double _logoLeftPositioned = 10;
+const double _logoAngleRotate = 7;
+const double _logoHeight = 70;
+const double _logoWidth = 100;
