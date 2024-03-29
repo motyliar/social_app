@@ -1,7 +1,6 @@
 import 'package:climbapp/core/constans/notify_type_con.dart';
 import 'package:climbapp/core/datahelpers/params/notification/notification.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
-import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/domains/requests/entities/requests_entity.dart';
 import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
@@ -89,6 +88,5 @@ class RequestCard extends StatelessWidget {
 }
 
 bool isResolve(Set<String> resolutions, String user) {
-  print(resolutions);
   return resolutions.contains(user);
 }

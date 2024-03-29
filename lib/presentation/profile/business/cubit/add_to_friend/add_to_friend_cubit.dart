@@ -16,7 +16,7 @@ class AddToFriendCubit extends Cubit<AddToFriendState> {
       required DeleteFriendUseCase deleteFriendUseCase})
       : _addFriendUseCase = addFriendUseCase,
         _deleteFriendUseCase = deleteFriendUseCase,
-        super(AddToFriendState());
+        super(const AddToFriendState());
 
   Future<void> addToFriend(GetFriendsParams params) async {
     await _getResponse(params);

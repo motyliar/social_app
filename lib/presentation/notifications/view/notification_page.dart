@@ -57,12 +57,8 @@ class NotificationPage extends StatelessWidget {
                       onDismissed: (DismissDirection direction) => {
                         debugPrint('switch'),
                         context.read<FetchNotifyCubit>().deleteUserNotify(
-                            NotificationParams(
-                                url: AppUrl.deleteNotifyURL,
-                                newNotify: {
-                                  "notify": state.notifications[index].id,
-                                  "user": user.id
-                                }),
+                            _createParams(AppUrl.deleteNotifyURL,
+                                state.notifications[index].id, user.id),
                             index),
                       },
                       background: Container(
@@ -82,5 +78,13 @@ class NotificationPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  NotificationParams _createParams(
+      Uri url, String notificationId, String userId) {
+    return NotificationParams(url: url, newNotify: {
+      "notify": notificationId,
+      "user": userId,
+    });
   }
 }

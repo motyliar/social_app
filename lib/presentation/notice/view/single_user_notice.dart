@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:climbapp/presentation/app/widgets/top_notify_bar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:climbapp/core/constans/export_constans.dart';
@@ -16,12 +16,6 @@ import 'package:climbapp/presentation/notice/business/cubit/fetch_requested_user
 import 'package:climbapp/presentation/notice/widgets/widgets.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
-
-// todo
-// dodać implementację notification i wtedy mamy już praktycznie wszystko,
-// do Notice należy dodać Bool - resolve? żeby można było sprawdzić
-// czy problem został rozwiązany
-// edycja własnej notatki
 
 class SingleUserNotice extends StatelessWidget {
   const SingleUserNotice(
