@@ -1,5 +1,4 @@
 import 'package:climbapp/domains/user/entities/sub_user_entity.dart';
-import 'package:flutter/rendering.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 part 'sub_models.freezed.dart';

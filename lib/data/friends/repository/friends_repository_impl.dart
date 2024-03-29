@@ -1,3 +1,4 @@
+import 'package:climbapp/core/error/exceptions/exception_handler.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/network/network_connected.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
@@ -27,7 +28,7 @@ class FriendsRepositoryImpl extends FriendsRepository {
                   Right(data.map((friends) => friends.toEntity()).toList())));
     } else {
       final serverConnection = await Utils().getServerConnection();
-      print(serverConnection);
+
       if (serverConnection.isRight()) {
         try {
           return await _friendsRemoteDataSources.getFriends(friends).then(
@@ -44,7 +45,7 @@ class FriendsRepositoryImpl extends FriendsRepository {
                 ),
               );
         } catch (error) {
-          return Left(ServerException.error());
+          return Left(ExceptionHandler(error).execute());
         }
       }
       return Left(ServerException.error());
