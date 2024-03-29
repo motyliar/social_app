@@ -1,6 +1,4 @@
 class AppUrl {
-  /// [backendUrl] general address for MongoDB server
-  /// [userEndPoint] store endpoint of user DB
   static const String backendUrl = 'http://65.21.202.169:20119/';
   static const String middleWare = '1983_12@45bv/';
   static const String logout = 'logout';
