@@ -51,6 +51,7 @@
     "editText": "Edytuj",
     "requests": "Prośby",
     "notice": "Ogłoszenie",
+    "resolved": "Zrobione",
 
     "@_NOTIFY_MESSAGES": {},
     "newRequest": "Masz nową prośbę od ",

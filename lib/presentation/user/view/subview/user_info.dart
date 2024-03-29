@@ -91,8 +91,9 @@ class UserDetails extends StatelessWidget {
                           if (state is UserLoaded) {
                             return CircleAvatar(
                               radius: 60,
-                              backgroundImage:
-                                  NetworkImage(state.user.profileAvatar!),
+                              backgroundImage: NetworkImage(
+                                  state.user.profileAvatar ??
+                                      ImagesURL.defaultAvatar),
                             );
                           } else {
                             return const LoadingPage();
@@ -117,6 +118,7 @@ class UserDetails extends StatelessWidget {
                                                       Navigator.of(context)
                                                           .pop()),
                                             });
+                                    print(state.imageFile);
                                   }),
                                 },
                                 buttonWidth: 150,
@@ -130,9 +132,10 @@ class UserDetails extends StatelessWidget {
                                 buttonWidth: 150,
                                 textLabel: l10n.sendPageTop,
                                 onTap: () async => {
-                                  state.imageFile != null
+                                  print('to jest state ${state.imageFile}'),
+                                  state.imageFile == null
                                       ? null
-                                      : Future.delayed(
+                                      : await Future.delayed(
                                           const Duration(milliseconds: 50),
                                           () async => await context
                                               .read<ImageSenderCubit>()
@@ -147,12 +150,15 @@ class UserDetails extends StatelessWidget {
                                                 ),
                                               ),
                                         ),
-                                  BlocProvider.of<UserBloc>(context).add(
-                                    LoadUserEvent(
-                                      user: GetUserParams(
-                                          token: '00', userId: user.id),
-                                    ),
-                                  ),
+                                  await Future.delayed(
+                                      const Duration(milliseconds: 20),
+                                      () => BlocProvider.of<UserBloc>(context)
+                                              .add(
+                                            LoadUserEvent(
+                                              user: GetUserParams(
+                                                  token: '00', userId: user.id),
+                                            ),
+                                          )),
                                 },
                               );
                             },

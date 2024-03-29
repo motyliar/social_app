@@ -24,4 +24,6 @@ class ImagesURL {
       'http://65.21.202.169:20119/app_images/friendslogo.png';
   static const waveIcon = 'http://65.21.202.169:20119/app_images/wave.png';
   static const approve = 'http://65.21.202.169:20119/app_images/approve.png';
+  static const defaultAvatar =
+      'https://cdn2.iconfinder.com/data/icons/people-flat-design/64/Sport-Athlete-Sportsman-Player-Exercise-Fitness-Avatar-512.png';
 }
