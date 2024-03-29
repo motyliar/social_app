@@ -1,3 +1,4 @@
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/theme/gradients.dart';
 import 'package:climbapp/core/theme/icons/icons.dart';
@@ -11,15 +12,18 @@ class CSearchBar extends StatelessWidget {
   const CSearchBar({
     required this.width,
     this.height = _height,
+    this.generalPadding = const EdgeInsets.only(bottom: 10.0),
     super.key,
   });
   final double width;
   final double height;
+  final EdgeInsetsGeometry generalPadding;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10.0),
+      padding: generalPadding,
       child: Align(
         alignment: Alignment.bottomCenter,
         child: ContainerTemplate(
@@ -31,10 +35,10 @@ class CSearchBar extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const AutoCompleteTextField(
-                hintText: 'Search for sport notice',
+              AutoCompleteTextField(
+                hintText: l10n.searchingNoticeHint,
                 leftIcon: AppIcons.dashboardSearch,
-                wordsLists: <String>[],
+                wordsLists: const <String>[],
               ),
               IconButton(onPressed: () {}, icon: AppIcons.searchPink),
             ],

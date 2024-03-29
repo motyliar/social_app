@@ -79,12 +79,12 @@ class MessagePreview extends StatelessWidget {
                       style: AppTextStyle.descriptionMid,
                     ),
                     const Divider(),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         AppIcons.reply,
-                        const Gap(kMidEmptySpace),
-                        AppIcons.delete.copyWith(size: 25),
+                        Gap(kMidEmptySpace),
+                        AppIcons.deletePinkMid,
                       ],
                     )
                   ],
@@ -94,7 +94,8 @@ class MessagePreview extends StatelessWidget {
           ),
         ),
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 60.0),
+          padding:
+              const EdgeInsets.only(bottom: _floatingButtonPaddingFromBottom),
           child: FloatingActionButton(
             onPressed: () {},
             child: const Icon(Icons.reply),
@@ -104,3 +105,5 @@ class MessagePreview extends StatelessWidget {
     );
   }
 }
+
+const double _floatingButtonPaddingFromBottom = 60;

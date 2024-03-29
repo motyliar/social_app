@@ -1,3 +1,4 @@
+import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,10 +12,11 @@ class SureAlert extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocProvider(
       create: (context) => userLocator<FriendsActionBloc>(),
       child: AlertDialog(
-        title: const Text('Are you sure'),
+        title: Text(l10n.sureQuestion),
         content: Row(
           children: [
             IconButton(
@@ -26,13 +28,14 @@ class SureAlert extends StatelessWidget {
               builder: (context, state) {
                 return IconButton(
                     onPressed: () async {
-                      await Future.delayed(Duration(seconds: 1), () async {
+                      await Future.delayed(const Duration(seconds: 1),
+                          () async {
                         context.read<FriendsActionBloc>().add(
                             DeleteFriendFromListEvent(
                                 params: GetFriendsParams(
                                     userId: user, friendId: friend)));
-                        await Future.delayed(
-                            Duration(seconds: 1), () => Navigator.pop(context));
+                        await Future.delayed(const Duration(seconds: 1),
+                            () => Navigator.pop(context));
                       });
                     },
                     icon: const Icon(Icons.done));

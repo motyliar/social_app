@@ -138,7 +138,8 @@ class MessageMain extends StatelessWidget {
           },
         ),
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom: 60.0),
+          padding:
+              const EdgeInsets.only(bottom: _floatingButtonPaddingFromBottom),
           child: FloatingActionButton(
             onPressed: () {
               BlocProvider.of<MessageViewCubit>(context)
@@ -161,3 +162,5 @@ class MessageMain extends StatelessWidget {
         messageId: idToUpdate,
       );
 }
+
+const double _floatingButtonPaddingFromBottom = 60;
