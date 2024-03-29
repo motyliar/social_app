@@ -22,7 +22,7 @@ import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
 import 'package:climbapp/presentation/user/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
-// wejśc teraz w profile page i ustawić innego użytkownika który nie jest zalogowany
+// todo refactoring profil page to reusable condition
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({required this.user, super.key});

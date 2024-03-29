@@ -1,7 +1,6 @@
 import 'package:climbapp/core/datahelpers/params/message/message_params.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/network/network_connected.dart';
-import 'package:climbapp/core/utils/helpers/params.dart';
 import 'package:climbapp/core/utils/utils.dart';
 import 'package:climbapp/data/message/datasources/remote/message_remote_datasources.dart';
 import 'package:climbapp/data/message/models/message_model.dart';
@@ -9,6 +8,7 @@ import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/domains/messages/repository/message_repository.dart';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 
 class MessageRepositoryImpl extends MessagesRepository {
   MessageRepositoryImpl(
@@ -26,7 +26,7 @@ class MessageRepositoryImpl extends MessagesRepository {
         try {
           return await _messageRemoteDataSources.sendMessage(message).then(
               (response) => response.fold((failure) => Left(failure), (data) {
-                    print(data);
+                    debugPrint(data);
                     return Right(data);
                   }));
         } catch (error) {

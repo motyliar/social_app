@@ -22,13 +22,7 @@ import 'package:gap/gap.dart';
 
 import '../../../core/constans/export_constans.dart';
 
-// todo create animation beetween pages!
-// need to made single function to handle all animations
-// todo create function to change value on dropdownbutton
-// create textfields to subject and to content
-// add photo function
-
-// todo need to add notice params to send
+// todo need to be refactoring
 
 ScrollController _appBarController = ScrollController();
 TextEditingController _subjectController = TextEditingController();

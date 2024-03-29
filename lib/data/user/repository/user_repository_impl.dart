@@ -7,7 +7,7 @@ import 'package:climbapp/core/utils/helpers/helpers.dart';
 
 import 'package:climbapp/data/user/datasources/local/user_local_data_sources.dart';
 import 'package:climbapp/data/user/datasources/remote/user_remote_data_sources.dart';
-import 'package:climbapp/data/user/models/user_model.dart';
+
 import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
 import 'package:dartz/dartz.dart';
@@ -89,8 +89,3 @@ class UserRepositoryImpl extends UserRepository {
     }
   }
 }
-
-
-
-/// Zaimplementowane działania po stronie serwera oraz wszystkie potrzebne params
-/// następnie trzeba zrobić funckcje w bloc i użyć nowych danych UI

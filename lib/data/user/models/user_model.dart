@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:climbapp/data/user/models/sub_models/sub_models.dart';
 import 'package:climbapp/domains/user/entities/sub_user_entity.dart';
 import 'package:climbapp/domains/user/entities/user_entity.dart';

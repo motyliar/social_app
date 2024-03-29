@@ -38,7 +38,7 @@ class SignInPageMain extends StatelessWidget {
         height: mobileHeight,
         child: Stack(
           children: [
-            BackgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
+            backgroundPainterWidget(size: Size(mobileWidth, mobileHeight)),
             const TopBackgroundImage(),
             Positioned(
               top: 30,

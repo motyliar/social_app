@@ -78,8 +78,8 @@ class SingleComment extends StatelessWidget {
                   const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
+                      topLeft: Radius.circular(midBorderRadius),
+                      bottomRight: Radius.circular(midBorderRadius)),
                   color: ColorPallete.mainDecorationColor.withOpacity(0.3)),
               child: Text(
                 comment.content.capitalize(),
@@ -109,7 +109,7 @@ class SingleComment extends StatelessWidget {
                           child: AppIcons.delete);
                     },
                   ),
-                  const Gap(5),
+                  const Gap(kMinEmptySpace),
                   AppIcons.edit,
                 ],
               )),

@@ -81,7 +81,7 @@ class RegisterPage extends StatelessWidget {
                   key: _registerKey,
                   child: Stack(
                     children: [
-                      BackgroundPainterWidget(
+                      backgroundPainterWidget(
                           size: Size(mobileWidth, mobileHeight)),
                       const TopBackgroundImage(),
                       Positioned(

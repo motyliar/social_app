@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:climbapp/core/constans/url_constans.dart';
 import 'package:climbapp/core/datahelpers/params/user/user_params.dart';
-import 'package:climbapp/core/datahelpers/repository_helpers/http_post_data_handler.dart';
+
 import 'package:climbapp/core/datahelpers/repository_helpers/http_put_data_hanlder.dart';
 import 'package:climbapp/core/error/exceptions/exceptions.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/data/user/models/user_model.dart';
-import 'package:climbapp/domains/user/entities/user_entity.dart';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;

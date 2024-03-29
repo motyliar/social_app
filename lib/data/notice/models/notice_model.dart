@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:climbapp/domains/notice/entities/notice_conventer.dart/notice_separator.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
 import 'package:climbapp/domains/notice/entities/sub_entity/sub_entity.dart';

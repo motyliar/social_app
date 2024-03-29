@@ -5,7 +5,6 @@ import 'package:climbapp/core/services/get_it/sport_container.dart';
 import 'package:climbapp/core/theme/colors.dart';
 import 'package:climbapp/core/utils/helpers/helpers.dart';
 import 'package:climbapp/presentation/app.dart';
-import 'package:climbapp/presentation/app/widgets/loading_state.dart';
 
 import 'package:climbapp/presentation/dashboard/widgets/dashboard_appbar.dart';
 import 'package:climbapp/presentation/user/business/bloc/user/user_bloc.dart';
@@ -44,49 +43,39 @@ class UserMainView extends StatelessWidget {
           ),
         ],
         child: SafeArea(
+          child: Scaffold(
+            backgroundColor: ColorPallete.scaffoldBackground,
+            appBar: DashboardAppBar(
+              height: _appBarHeight,
+              controller: scrollController,
+              mainChild: DashBoardApp(
+                isAnimateImage: true,
+                controller: scrollController,
+                imageSrc: user.profileAvatar!,
+                userName: user.userName,
+                isSearchBar: false,
+                isProfile: true,
+                profileImageFunction: () => debugPrint('test'),
+              ),
+            ),
+            body: SingleChildScrollView(
+              child: BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
+                builder: (context, state) {
+                  if (state is ViewSwitchInitial) {
+                    return const UserPage();
+                  }
+                  if (state is ViewSwitchSport) {
+                    return const UserSport();
+                  }
 
-          child: BlocBuilder<UserBloc, UserState>(
-            builder: (context, state) {
-              if (state is UserLoading) {
-                return const LoadingPage();
-              }
-              return Scaffold(
-                backgroundColor: ColorPallete.scaffoldBackground,
-                appBar: DashboardAppBar(
-                  height: _appBarHeight,
-                  controller: scrollController,
-                  mainChild: DashBoardApp(
-                    isAnimateImage: true,
-                    controller: scrollController,
-                    imageSrc:
-                        state.user.profileAvatar ?? ImagesURL.defaultAvatar,
-                    userName: user.userName,
-                    isSearchBar: false,
-                    isProfile: true,
-                    profileImageFunction: () => debugPrint('test'),
-                  ),
-                ),
-                body: SingleChildScrollView(
-                  child: BlocBuilder<ViewSwitchCubit, ViewSwitchState>(
-                    builder: (context, state) {
-                      if (state is ViewSwitchInitial) {
-                        return const UserPage();
-                      }
-                      if (state is ViewSwitchSport) {
-                        return const UserSport();
-                      }
-
-
-                      if (state is ViewSwitchInfo) {
-                        return const UserDetails();
-                      } else {
-                        return const UserPage();
-                      }
-                    },
-                  ),
-                ),
-              );
-            },
+                  if (state is ViewSwitchInfo) {
+                    return const UserDetails();
+                  } else {
+                    return const UserPage();
+                  }
+                },
+              ),
+            ),
           ),
         ));
   }

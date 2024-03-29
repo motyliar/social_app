@@ -6,7 +6,7 @@ import 'package:climbapp/core/services/get_it/user_container.dart';
 import 'package:climbapp/core/utils/helpers/lorem_ipsum.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/notice/entities/notice_entity.dart';
-import 'package:climbapp/domains/notification/entities/sub_entity/notify_type.dart';
+
 import 'package:climbapp/presentation/app/widgets/gradient_divider.dart';
 import 'package:climbapp/presentation/dashboard/business/bloc/bloc/fetch_notice_bloc.dart';
 import 'package:climbapp/presentation/dashboard/business/logic/notice_logic.dart';

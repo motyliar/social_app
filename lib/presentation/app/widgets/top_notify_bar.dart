@@ -1,4 +1,3 @@
-import 'package:climbapp/core/l10n/l10n.dart';
 import 'package:climbapp/core/theme/themes_export.dart';
 import 'package:climbapp/presentation/app/widgets/app_widgets.dart';
 import 'package:flutter/material.dart';
