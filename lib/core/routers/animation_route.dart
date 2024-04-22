@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class AnimationRoute {
+class AnimationRoute<T> {
   static Route slideUpRoute(
-      {required Widget direction, required String route}) {
+      {required Widget direction, required String route, arguments}) {
     return PageRouteBuilder(
-      settings: RouteSettings(name: route),
+      settings: RouteSettings(name: route, arguments: arguments),
       pageBuilder: ((context, animation, secondaryAnimation) => direction),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = const Offset(0.0, 1.0);

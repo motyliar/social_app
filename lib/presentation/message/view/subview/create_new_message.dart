@@ -29,8 +29,9 @@ TextEditingController userController = TextEditingController();
 // ignore: must_be_immutable
 class CreateNewMessage extends StatelessWidget {
   CreateNewMessage({super.key, this.message, this.friend});
-  static Route route({required FriendsEntity friend}) => MaterialPageRoute(
-        settings: const RouteSettings(name: routeCreateMessage),
+  static Route route({required FriendsEntity friend, arguments}) =>
+      MaterialPageRoute(
+        settings: RouteSettings(name: routeCreateMessage, arguments: friend),
         builder: (_) => CreateNewMessage(
           friend: friend,
         ),
