@@ -6,6 +6,7 @@ import 'package:climbapp/data/sign_in/datasources/sign_in_remote_data.dart';
 import 'package:climbapp/data/sign_in/models/sign_in_model.dart';
 import 'package:climbapp/domains/sign_in/entities/sign_in_entity.dart';
 import 'package:climbapp/domains/sign_in/repository/sign_in_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
@@ -16,7 +17,7 @@ class SignInRepositoryImpl extends SignInRepository {
 
   @override
   Future<Either<Exception, String>> loginAction(SignInEntity user) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       final serverConnection =
@@ -49,7 +50,7 @@ class SignInRepositoryImpl extends SignInRepository {
   Future<Either<Exception, SignInEntity>> catchUserToken(
     SignInEntity user,
   ) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       try {

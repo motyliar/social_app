@@ -4,6 +4,7 @@ import 'package:climbapp/data/password/datasources/password_remote_data_sources.
 import 'package:climbapp/data/password/models/password_model.dart';
 import 'package:climbapp/domains/password/entities/password_entity.dart';
 import 'package:climbapp/domains/password/repository/password_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -15,7 +16,7 @@ class PasswordRepositoryImpl extends PasswordRepository {
   Future<Either<Exception, String>> forgotPassword(
     String detailsPassword,
   ) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       try {
@@ -32,7 +33,7 @@ class PasswordRepositoryImpl extends PasswordRepository {
   Future<Either<Exception, String>> changePassword(
     PasswordEntity detailPassword,
   ) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       try {

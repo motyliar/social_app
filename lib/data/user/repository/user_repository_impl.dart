@@ -10,6 +10,7 @@ import 'package:climbapp/data/user/datasources/remote/user_remote_data_sources.d
 
 import 'package:climbapp/domains/user/entities/user_entity.dart';
 import 'package:climbapp/domains/user/repository/user_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 
 class UserRepositoryImpl extends UserRepository {
@@ -23,7 +24,7 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   EitherFunc<UserEntity> getUser(GetUserParams user) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return _userLocalDataSources.getUserFromHive().then(
             (response) => response.fold(
               (failure) => Left(HiveExceptions.emptyData()),
@@ -52,7 +53,7 @@ class UserRepositoryImpl extends UserRepository {
 
   @override
   EitherFunc<UserEntity> updateUser<T>(UpdateUserParams<T> update) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return _userLocalDataSources.getUserFromHive().then(
             (response) => response.fold(
               (failure) => Left(HiveExceptions.emptyData()),

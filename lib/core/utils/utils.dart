@@ -9,6 +9,7 @@ import 'package:climbapp/presentation/app.dart';
 import 'package:climbapp/presentation/app/widgets/snackbars/snackbars.dart';
 import 'package:climbapp/presentation/dashboard/business/cubit/cubit/like_icon_cubit.dart';
 import 'package:climbapp/presentation/dashboard/widgets/notice/smile_animation.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -144,7 +145,7 @@ class Utils {
   EitherFunc<T> performNetworkOperation<T>(
     EitherFunc<T> Function() operation,
   ) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       final serverConnectionTest = await getServerConnection();

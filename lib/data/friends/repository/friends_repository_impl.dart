@@ -7,6 +7,7 @@ import 'package:climbapp/data/friends/datasources/locale/friends_locale_data_sou
 import 'package:climbapp/data/friends/datasources/remote/friends_remote_data_sources.dart';
 import 'package:climbapp/domains/friends/entities/friends_entity.dart';
 import 'package:climbapp/domains/friends/repository/friends_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:dartz/dartz.dart';
 
@@ -20,7 +21,7 @@ class FriendsRepositoryImpl extends FriendsRepository {
   final FriendsLocaleDataSource _friendsLocalDataSource;
   @override
   EitherFunc<List<FriendsEntity>> getFriends(GetFriendsParams friends) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return await _friendsLocalDataSource.getFriendsFromHive().then(
           (response) => response.fold(
               (failure) => Left(failure),
@@ -54,7 +55,7 @@ class FriendsRepositoryImpl extends FriendsRepository {
 
   @override
   EitherFunc<String> deleteFriend(GetFriendsParams friend) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       final serverConnection = await Utils().getServerConnection();
@@ -78,7 +79,7 @@ class FriendsRepositoryImpl extends FriendsRepository {
 
   @override
   EitherFunc<String> addFriend(GetFriendsParams friend) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       final serverConnection = await Utils().getServerConnection();
@@ -98,7 +99,7 @@ class FriendsRepositoryImpl extends FriendsRepository {
 
   @override
   EitherFunc<List<FriendsEntity>> searchUsers(String userByName) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       final serverConnection = await Utils().getServerConnection();

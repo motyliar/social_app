@@ -5,9 +5,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 /// notify do i connection in mobile, after change, send true or false to
 /// [NetworkBloc]
 class NetworkConnectedImpl {
+  final Connectivity connectivity;
+  NetworkConnectedImpl({required this.connectivity});
   static void connectionObserver() async {
-    // final List<ConnectivityResult> connectivityResult =
-    //     await Connectivity().checkConnectivity();
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       if (result == ConnectivityResult.none) {
         NetworkBloc().add(const NetworkConnectedNotify());
@@ -19,7 +19,7 @@ class NetworkConnectedImpl {
 
   /// [checkConnection] pre function to check internet connection in mobile
   Future<bool> checkConnection() async {
-    final connection = await Connectivity().checkConnectivity();
+    final connection = await connectivity.checkConnectivity();
     if (connection == ConnectivityResult.none) {
       return true;
     } else {

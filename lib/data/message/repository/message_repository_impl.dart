@@ -6,6 +6,7 @@ import 'package:climbapp/data/message/datasources/remote/message_remote_datasour
 import 'package:climbapp/data/message/models/message_model.dart';
 import 'package:climbapp/domains/messages/entities/message_entity.dart';
 import 'package:climbapp/domains/messages/repository/message_repository.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class MessageRepositoryImpl extends MessagesRepository {
 
   @override
   EitherFunc<String> sendMessage(MessageRequestParams message) async {
-    if (await NetworkConnectedImpl().noConnection) {
+    if (await NetworkConnectedImpl(connectivity: Connectivity()).noConnection) {
       return Left(NetworkException.disconnection());
     } else {
       final serverConnectionTest = await Utils().getServerConnection();
