@@ -11,7 +11,7 @@ dependencies:
   bloc: ^8.1.4
 
   cloud_firestore: ^4.15.9
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.3
  
 
   dartz: ^0.10.1
